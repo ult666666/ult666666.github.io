@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="Know the downstream impact before a schema change ships.">
+  <meta property="og:type" content="article"><meta property="og:title" content="LineageGuard — Charles Dai">
+  <meta property="og:description" content="Know the downstream impact before a schema change ships.">
+  <link rel="canonical" href="https://ult666666.github.io/projects/lineageguard.html">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">
+  <script defer src="/script.js"></script><title>LineageGuard — Engineering Case Study | Charles Dai</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header" id="top"><div class="container header-inner">
+  <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+    <a href="/#work">Work</a><a href="/#approach">Approach</a><a href="/#about">About</a>
+    <a href="/#contact" class="nav-contact">Let's connect ↗</a>
+  </nav>
+</div></header>
+<main id="main">
+<section class="case-hero container">
+  <a class="case-back" href="/#work">← ALL PROJECTS</a>
+  <p class="eyebrow">01 / AI SYSTEMS / DEVELOPER TOOLS</p>
+  <h1>LineageGuard<span class="punctuation">.</span></h1>
+  <p class="case-lead">Know the downstream impact before a schema change ships.</p>
+  <div class="case-metadata"><span>JavaScript</span><span>DataHub MCP</span><span>Metadata</span><span>Developer tooling</span></div>
+  <div class="hero-actions"><a class="button button-primary" href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer">Explore live demo ↗</a><a class="button button-quiet" href="https://github.com/ult666666/lineageguard-datahub-agent" target="_blank" rel="noopener noreferrer">Explore source ↗</a></div>
+  <figure class="case-hero-media"><img src="/assets/lineageguard.jpg" alt="LineageGuard schema change analysis interface" loading="eager"><figcaption>Visual from the public project repository.</figcaption></figure>
+</section>
+<div class="case-main container">
+  <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">CASE STUDY CONTENTS</span><a href="#section-1">The problem</a><a href="#section-2">The engineering approach</a><a href="#section-3">Implementation and verification</a><a href="#section-4">Tradeoffs and boundaries</a></nav>
+  <article class="case-article"><section id="section-1"><h2>The problem<span class="punctuation">.</span></h2><p>A schema edit may look local but change the behavior of downstream dashboards, datasets, pipelines or ML models. Reviewers need more than the SQL diff: they need the dependency context.</p><p>The goal was to make an invisible blast radius understandable before the change is applied.</p></section><section id="section-2"><h2>The engineering approach<span class="punctuation">.</span></h2><p>LineageGuard brings lineage, ownership, usage and quality signals from DataHub into a structured schema-change review. It generates an impact assessment, staged migration guidance and review notes.</p><p>The workflow returns a block, conditional or proceed decision, with supporting context rather than an unexamined AI assertion.</p></section><section id="section-3"><h2>Implementation and verification<span class="punctuation">.</span></h2><p>The public repository contains a DataHub MCP integration, a portable Codex skill, example review artifacts and a runnable demo. Its documented local checks include npm test, npm run mcp:smoke and npm run demo.</p><p>The system emphasizes explainable review artifacts and approval-gated write-back instead of immediately changing the metadata store.</p></section><section id="section-4"><h2>Tradeoffs and boundaries<span class="punctuation">.</span></h2><p>Metadata quality affects any automated impact analysis. A generated migration still needs its owning team to validate correctness and deployment sequencing.</p><p>The hosted demo demonstrates the interface and workflow; it is not a guarantee of compatibility with every organization&#x27;s live DataHub environment.</p></section>
+    <div class="case-callout"><strong>Source first.</strong><p>This page describes engineering choices documented in the public project repository. Follow the source link for code, runnable instructions, and scope limitations.</p></div>
+    <a class="button button-primary" href="/#work">Back to all projects ↗</a>
+  </article>
+</div>
+</main>
+<footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="CD logo">
+  <rect width="80" height="80" rx="18" fill="#0b1012"/>
+  <path d="M24 25c-9 0-15 6-15 15s6 15 15 15c5 0 9-2 12-6" fill="none" stroke="#f0f4ef" stroke-width="7" stroke-linecap="square"/>
+  <path d="M42 25v30h8c10 0 16-6 16-15s-6-15-16-15h-8z" fill="none" stroke="#f0f4ef" stroke-width="7"/>
+  <circle cx="69" cy="63" r="7" fill="#c9ff7a"/>
+</svg>

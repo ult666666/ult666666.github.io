@@ -1,0 +1,17 @@
+{
+  "name": "charles-dai-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tested static portfolio and public engineering case studies",
+  "scripts": {
+    "test": "python3 -B -m unittest discover -s tests -v",
+    "test:browser": "node tests/browser_smoke.cjs",
+    "build": "python3 -B scripts/build_cases.py --check && python3 -B scripts/build_site.py"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
