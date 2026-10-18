@@ -40,7 +40,7 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(names, {'index.html', '404.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll'})
             self.assertFalse((destination / '.git').exists())
             self.assertFalse((destination / 'tests').exists())
-            self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 3)
+            self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 4)
             with self.assertRaises(FileExistsError):
                 module.build(destination)
 

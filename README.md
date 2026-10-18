@@ -5,7 +5,7 @@
 **Portfolio:** https://ult666666.github.io/
 **GitHub:** https://github.com/ult666666
 
-A responsive portfolio connecting seven real public projects to source code, live demonstrations where available, and three engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
+A responsive portfolio connecting eight real public projects to source code, live demonstrations where available, and four engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
 ## Selected projects
 
@@ -18,6 +18,7 @@ A responsive portfolio connecting seven real public projects to source code, liv
 | Blast Radius Daily | Deterministic Devvit community puzzle | [Source](https://github.com/ult666666/blast-radius-daily) |
 | Teen Budgeting | Coursework demo; fictional data and no persistent authentication | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
 | JUST-QR | Focused browser utility | [Source](https://github.com/ult666666/JUST-QR) |
+| Frontier AI Valuation Lab | AI-assisted independent fintech project; reviewed economic FCFF model and shared browser/Node.js API | [Source](https://github.com/ult666666/frontier-ai-valuation-lab) · [Demo](https://frontier-ai-valuation-lab.vercel.app/) · [Case study](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html) |
 
 ## Local development
 
@@ -47,5 +48,7 @@ The build refuses to overwrite an existing `_site` directory. Start with a fresh
 ## Evidence and scope
 
 The portfolio links to documented work, not fabricated employers, client engagements, contribution history or inflated usage statistics. Live websites, coursework, prototypes and research are labeled separately. The trading research project is not a deployed automated trading service or evidence of investment returns.
+
+The Fintech filter highlights Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Its case study covers economic model review, a shared browser/Node.js calculation engine, dated sources, Excel/PDF evidence and meaningful model/API checks. Scenario enterprise values and hypothetical equity bridges are distinct from security-specific price targets or trading results.
 
 Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.

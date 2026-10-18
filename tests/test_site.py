@@ -11,8 +11,8 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = [ROOT / "index.html", *(ROOT / "projects").glob("*.html")]
-CASE_NAMES = {"lineageguard.html", "motionx.html", "trading-research.html"}
-CATEGORIES = {"ai", "web", "experimental"}
+CASE_NAMES = {"lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html"}
+CATEGORIES = {"ai", "web", "experimental", "fintech"}
 
 
 class Reader(HTMLParser):
@@ -101,10 +101,10 @@ class PortfolioTests(unittest.TestCase):
 
     def test_project_inventory_and_filters(self):
         doc = parse(ROOT / "index.html")
-        self.assertEqual(len(doc.project_categories), 7)
+        self.assertEqual(len(doc.project_categories), 8)
         self.assertTrue(set(doc.project_categories) <= CATEGORIES)
         buttons = {a.get("data-filter"): a for a in doc.controls if "data-filter" in a}
-        self.assertEqual(set(buttons), {"all", "ai", "web", "experimental"})
+        self.assertEqual(set(buttons), {"all", "fintech", "ai", "web", "experimental"})
         self.assertEqual(buttons["all"]["aria-pressed"], "true")
         self.assertIn("primary-nav", doc.ids)
         self.assertIn("project-count", doc.ids)

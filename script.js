@@ -7,7 +7,7 @@ const countElement = document.getElementById("project-count");
 const compactGrid = document.querySelector(".project-small-grid");
 
 function setFilter(filter) {
-  if (!["all", "ai", "web", "experimental"].includes(filter)) return;
+  if (!["all", "fintech", "ai", "web", "experimental"].includes(filter)) return;
 
   let shown = 0;
   projects.forEach((project) => {

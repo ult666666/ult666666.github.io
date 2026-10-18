@@ -126,6 +126,18 @@ img{max-width:100%;height:auto}
 .systems-connector{height:26px;border-left:1px dashed var(--accent);margin-left:31px}
 .systems-footer{margin-top:20px}
 .systems-footer span{color:var(--accent)}
+.valuation-media{padding:36px 35px 30px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(ellipse at 95% 0%,rgba(187,222,128,.12),transparent 60%),#10201e}
+.valuation-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font:500 9px/1.7 var(--mono);letter-spacing:.07em;color:var(--muted)}
+.valuation-header span:last-child{color:var(--accent)}
+.valuation-formula{margin:32px 0 28px;padding-left:19px;border-left:2px solid var(--accent)}
+.valuation-formula>span{font:500 10px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.valuation-formula p{font-size:clamp(23px,2.5vw,32px);line-height:1.42;letter-spacing:-.035em;margin:11px 0 0;color:var(--ink)}
+.valuation-formula p span{color:var(--accent)}
+.valuation-components{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.valuation-components>div{padding:15px 13px;background:rgba(28,48,42,.75);border:1px solid #375043;border-radius:8px}
+.valuation-components span{display:block;font:500 9px/1.6 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.valuation-components strong{display:block;margin-top:7px;font-size:12px;line-height:1.6;font-weight:580;color:var(--ink-soft)}
+.valuation-footer{font:500 10px/1.7 var(--mono);color:var(--muted);margin:19px 0 0}
 .project-small-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .project-compact{position:relative;min-height:332px;padding:32px;display:flex;align-items:flex-start;flex-direction:column}
 .project-compact h3{font-size:29px;line-height:1.16;letter-spacing:-.043em;margin:31px 0 14px}
@@ -182,7 +194,7 @@ img{max-width:100%;height:auto}
 /* Individual case study pages: same foundation, editorial reading width. */
 .case-hero{padding-top:108px;padding-bottom:80px;border-bottom:1px solid var(--line)}
 .case-back{font:600 12px var(--mono);color:var(--accent);letter-spacing:.04em}
-.case-hero .eyebrow{margin:50px 0 14px}
+.case-hero .eyebrow{display:flex;margin:50px 0 14px}
 .case-hero h1{font-size:clamp(55px,8vw,104px);letter-spacing:-.068em;line-height:1.01;margin:0 0 28px}
 .case-lead{font-size:20px;line-height:1.62;color:var(--ink-soft);max-width:820px}
 .case-metadata{display:flex;flex-wrap:wrap;gap:14px;margin:35px 0}
@@ -272,6 +284,7 @@ img{max-width:100%;height:auto}
   .screenshot img{max-height:275px}
   .media-footnote{left:17px;right:17px}
   .systems-media{padding:27px 19px}
+  .valuation-media{padding:27px 22px}
   .systems-header{font-size:9px}
   .systems-node{gap:9px;padding:14px 10px}
   .systems-node strong{font-size:12px}

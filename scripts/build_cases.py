@@ -76,6 +76,29 @@ CASES = [
                  "The public repository is a curated research and architecture snapshot, not an automatically trading product. Production Morning delivery and deployment gates remain separate from the public portfolio.",
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
+    dict(slug="frontier-ai-valuation-lab", number="08", kind="FINTECH / FULL-STACK ENGINEERING",
+         title="Frontier AI Valuation Lab", hero="Make a valuation's assumptions as reviewable as its code.",
+         tags=["Financial modeling", "JavaScript", "Node.js API", "Source provenance", "Excel / PDF"],
+         repo="https://github.com/ult666666/frontier-ai-valuation-lab",
+         live="https://frontier-ai-valuation-lab.vercel.app/", live_label="Explore interactive demo",
+         image=None, alt=None,
+         sections=[
+             ("The problem", [
+                 "A private AI company's headline valuation can combine a dated funding round, an annualized revenue figure and a forecast built on very different assumptions. A calculator can perform the arithmetic correctly while leaving those differences hidden.",
+                 "I wanted an interactive research tool that makes the chain from evidence to assumptions to enterprise value visible. Anthropic and OpenAI provide a demanding case: rapid revenue growth, substantial investment needs and incomplete public financial disclosures."
+             ]),
+             ("Reviewing the economics", [
+                 "The AI-assisted review examined remaining-year cash flow, discount dates, tax policy, working capital, terminal reinvestment and the enterprise-to-equity bridge. The resulting economic FCFF model funds perpetual growth through an explicit growth-to-ROIC relationship and keeps unknown balance-sheet items unavailable.",
+                 "A useful discovery was that higher early growth does not always produce a higher valuation: it can require more investment before operating profits arrive. The reverse-DCF solver now checks derivative turning points to find multiple admissible growth rates and targets that touch the value curve without crossing it."
+             ]),
+             ("Building a reviewable application", [
+                 "The browser and Node.js API share the same deterministic JavaScript calculation engine. Input validation, explicit failure states, scenario analysis and sensitivity calculations are exercised through model and API tests, including multiple-root, tangent-root and invalid-input cases.",
+                 "Dated source records distinguish reported observations from analyst assumptions. The interactive model is accompanied by a formula-based Excel workbook and a PDF report, so the investment policy and calculations can be inspected outside the interface. Structured exports preserve the scenario being reviewed."
+             ]),
+             ("My role and the project boundaries", [
+                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. The work combines financial-model review, full-stack implementation, source organization and reproducible verification. The repository makes that process inspectable.",
+                 "This is a financial modeling and software engineering demo. Its outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. A hypothetical equity bridge is labeled separately; the project does not establish a security-specific price target or a trading performance record."
+             ])]),
 ]
 
 

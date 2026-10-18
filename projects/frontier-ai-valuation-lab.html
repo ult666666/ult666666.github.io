@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="Make a valuation&#x27;s assumptions as reviewable as its code.">
+  <meta property="og:type" content="article"><meta property="og:title" content="Frontier AI Valuation Lab — Charles Dai">
+  <meta property="og:description" content="Make a valuation&#x27;s assumptions as reviewable as its code.">
+  <link rel="canonical" href="https://ult666666.github.io/projects/frontier-ai-valuation-lab.html">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">
+  <script defer src="/script.js"></script><title>Frontier AI Valuation Lab — Engineering Case Study | Charles Dai</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header" id="top"><div class="container header-inner">
+  <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+    <a href="/#work">Work</a><a href="/#approach">Approach</a><a href="/#about">About</a>
+    <a href="/#contact" class="nav-contact">Let's connect ↗</a>
+  </nav>
+</div></header>
+<main id="main">
+<section class="case-hero container">
+  <a class="case-back" href="/#work">← ALL PROJECTS</a>
+  <p class="eyebrow">08 / FINTECH / FULL-STACK ENGINEERING</p>
+  <h1>Frontier AI Valuation Lab<span class="punctuation">.</span></h1>
+  <p class="case-lead">Make a valuation&#x27;s assumptions as reviewable as its code.</p>
+  <div class="case-metadata"><span>Financial modeling</span><span>JavaScript</span><span>Node.js API</span><span>Source provenance</span><span>Excel / PDF</span></div>
+  <div class="hero-actions"><a class="button button-primary" href="https://frontier-ai-valuation-lab.vercel.app/" target="_blank" rel="noopener noreferrer">Explore interactive demo ↗</a><a class="button button-quiet" href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer">Explore source ↗</a></div>
+
+</section>
+<div class="case-main container">
+  <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">CASE STUDY CONTENTS</span><a href="#section-1">The problem</a><a href="#section-2">Reviewing the economics</a><a href="#section-3">Building a reviewable application</a><a href="#section-4">My role and the project boundaries</a></nav>
+  <article class="case-article"><section id="section-1"><h2>The problem<span class="punctuation">.</span></h2><p>A private AI company&#x27;s headline valuation can combine a dated funding round, an annualized revenue figure and a forecast built on very different assumptions. A calculator can perform the arithmetic correctly while leaving those differences hidden.</p><p>I wanted an interactive research tool that makes the chain from evidence to assumptions to enterprise value visible. Anthropic and OpenAI provide a demanding case: rapid revenue growth, substantial investment needs and incomplete public financial disclosures.</p></section><section id="section-2"><h2>Reviewing the economics<span class="punctuation">.</span></h2><p>The AI-assisted review examined remaining-year cash flow, discount dates, tax policy, working capital, terminal reinvestment and the enterprise-to-equity bridge. The resulting economic FCFF model funds perpetual growth through an explicit growth-to-ROIC relationship and keeps unknown balance-sheet items unavailable.</p><p>A useful discovery was that higher early growth does not always produce a higher valuation: it can require more investment before operating profits arrive. The reverse-DCF solver now checks derivative turning points to find multiple admissible growth rates and targets that touch the value curve without crossing it.</p></section><section id="section-3"><h2>Building a reviewable application<span class="punctuation">.</span></h2><p>The browser and Node.js API share the same deterministic JavaScript calculation engine. Input validation, explicit failure states, scenario analysis and sensitivity calculations are exercised through model and API tests, including multiple-root, tangent-root and invalid-input cases.</p><p>Dated source records distinguish reported observations from analyst assumptions. The interactive model is accompanied by a formula-based Excel workbook and a PDF report, so the investment policy and calculations can be inspected outside the interface. Structured exports preserve the scenario being reviewed.</p></section><section id="section-4"><h2>My role and the project boundaries<span class="punctuation">.</span></h2><p>I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. The work combines financial-model review, full-stack implementation, source organization and reproducible verification. The repository makes that process inspectable.</p><p>This is a financial modeling and software engineering demo. Its outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. A hypothetical equity bridge is labeled separately; the project does not establish a security-specific price target or a trading performance record.</p></section>
+    <div class="case-callout"><strong>Source first.</strong><p>This page describes engineering choices documented in the public project repository. Follow the source link for code, runnable instructions, and scope limitations.</p></div>
+    <a class="button button-primary" href="/#work">Back to all projects ↗</a>
+  </article>
+</div>
+</main>
+<footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>
+</body>
+</html>
