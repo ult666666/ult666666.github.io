@@ -77,28 +77,30 @@ CASES = [
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="08", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="An interactive financial story, with every assumption open to challenge.",
-         tags=["Financial modeling", "Interactive visualization", "JavaScript", "Node.js API", "Shareable scenarios"],
+         title="Frontier AI Valuation Lab", hero="Explain a change in enterprise value, then test the assumptions a target would require.",
+         tags=["Thesis Lab", "Exact grouped attribution", "Sensitivity landscape", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
-         live="https://frontier-ai-valuation-lab.vercel.app/", live_label="Explore interactive demo",
-         image="/assets/frontier-ai-experience-3-1.png", alt="Frontier AI Valuation Lab comparison story with Anthropic and OpenAI forecast charts",
+         live="https://frontier-ai-valuation-lab.vercel.app/thesis.html", live_label="Explore Thesis Lab",
+         image="/assets/frontier-ai-thesis-3-2.png", alt="Frontier AI Thesis Lab comparing Anthropic Base and Bull cases with signed valuation attribution",
          sections=[
-             ("The financial question", [
-                 "A private AI company's headline valuation can combine a dated funding round, an annualized revenue figure and a forecast built on very different assumptions. A calculator can perform the arithmetic correctly while leaving those differences hidden.",
-                 "I built a research tool that makes the chain from evidence to assumptions to enterprise value visible. The experience introduces the financial story first, then gives viewers the controls and underlying model to challenge it."
+             ("From a headline to a testable thesis", [
+                 "A private AI company's headline valuation says little about which growth, margin or capital assumptions support it. A scenario calculator can return a precise number while leaving those dependencies hard to inspect.",
+                 "I built Thesis Lab to make that reasoning visible. It opens with Anthropic's Base and Bull cases, then lets viewers compare any two preset or edited cases for the same company. OpenAI is also available. The product connects an explanation of the valuation gap to a concrete test of what a chosen target would require."
              ]),
-             ("Compare, then challenge", [
-                 "The opening story follows Anthropic and OpenAI through revenue, annual free cash flow and value beyond 2036. Paired Bear, Base and Bull cases and a shared year control make the forecast paths directly comparable. Each chapter explains what the chart means, including how much modeled value depends on the distant future.",
-                 "The stress workspace changes early growth, terminal margin, the discount rate and capital efficiency for both companies. Results show the change against the selected baseline cases, and a stressed company can be opened in the full model. These are deterministic sensitivities to selected assumptions; the interface does not assign probabilities to the scenarios."
+             ("Explain the gap, then test a target", [
+                 "A signed waterfall allocates the change in modeled enterprise value across six assumption groups. Exact grouped Shapley attribution evaluates all 64 combinations of reference and alternative groups, equivalent to averaging their marginal contributions over all 720 orders. This includes interactions without making the result depend on which slider was changed first.",
+                 "The target landscape varies the cost of capital and the 2036 operating margin while holding the alternative case's other eleven inputs fixed. At each discount rate, it solves the margin needed to support a selected enterprise value within the displayed range, or explains why no supported solution is available. These are conditional model results; the map assigns no scenario probabilities.",
+                 "A comparison link preserves the numeric precision of both complete cases, their optional hypothetical equity bridges, and the selected landscape and target. A standalone printable HTML brief carries the assumptions, attribution, forecasts and source context. Presenter view keeps the analysis clear during a walkthrough, and either case can be opened in the full model."
              ]),
-             ("A result others can review", [
-                 "The browser and Node.js API share a deterministic JavaScript financial engine. Comparison, paired stress calculations and individual driver sensitivities are also available through the API. Model and API tests exercise input validation, explicit failure states and reverse-DCF cases where several growth rates can support the same enterprise value.",
-                 "A scenario link preserves the selected company, assumptions and optional hypothetical equity bridge. A downloadable, standalone HTML brief carries the current scenario's forecast, valuation reconciliation and source references, and can be saved as a PDF from the browser. Viewers can take the reasoning with them as well as the headline result.",
-                 "Application release 3.1.0 extends the experience while retaining financial engine 3.0.0 and the 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF report remain the version 3.0 model and review snapshot; the custom HTML brief reflects the selected scenario."
+             ("Shared calculations, independent checks", [
+                 "The browser and stateless Node.js API share deterministic financial and thesis modules, including attribution and landscape operations. Bounded inputs and explicit invalid states give the interface and API the same calculation contract.",
+                 "Reproducible verification uses a separate Python financial model and a different attribution algorithm: it enumerates all 720 orders to check JavaScript's weighted coalition calculation. Independent piecewise-linear margin solutions check the target frontier's bisection solver. The committed verification report covers 28 case comparisons, 390 grid cells and 80 frontier points, with numerical tolerances and hashes binding the evidence to the source files.",
+                 "The original workbench remains accessible alongside the paired Anthropic and OpenAI story through revenue, annual free cash flow and value beyond 2036. Bear, Base and Bull comparisons, paired stress controls and the complete thirteen-input model remain available for exploring the financial mechanics."
              ]),
              ("My role and the project boundaries", [
-                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interactive visualization, full-stack implementation and reproducible verification. The economic model makes reinvestment, discount dates, terminal returns on capital and the equity bridge explicit.",
-                 "This is a financial modeling and software engineering demo. Its outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. A hypothetical equity bridge is labeled separately; the project does not establish a security-specific price target or a trading performance record."
+                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full-stack implementation and reproducible verification. The economic model makes reinvestment, discount dates, terminal returns on capital and the equity bridge explicit.",
+                 "Application 3.2.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF report remain the version 3.0 model and review snapshot; the comparison brief reflects the two selected cases.",
+                 "The outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. Attribution depends on the selected reference and the fixed group definitions; it describes the model's arithmetic and cannot establish business causality. Negative enterprise value is preserved, and invalid calculations are identified. Hypothetical equity bridges are labeled separately. The project makes no claim of a security-specific price target, a financing valuation or investment returns."
              ])]),
 ]
 
