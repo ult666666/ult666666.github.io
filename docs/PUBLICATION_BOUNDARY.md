@@ -43,6 +43,8 @@ Report sensitive findings privately using the route in [SECURITY.md](../SECURITY
 
 ## Limits
 
+The Pages payload and the public Git repository are separate surfaces. Repository ignore rules reduce accidental staging of local secrets, keys and logs, but do not remove already tracked files or erase Git history. Anything deliberately committed to this public repository is still public, even when it is excluded from Pages.
+
 An allowlist prevents accidental inclusion, not malicious content inside an approved file. Secret scanning, content review, dependency maintenance and account security remain separate requirements. SHA-256 inventory agreement detects byte differences; it is not an independent signature and does not protect against an attacker who can change both the files and their manifest. This is a cooperative build boundary, not a claim of race-proof isolation from hostile processes with the same operating-system permissions.
 
 The website collects no application accounts, portfolio balances or trading credentials. Linked live demos have their own implementations and boundaries. The financial examples are illustrative; the trading project remains a curated public research snapshot. Neither the website nor this release check establishes investment performance or production-trading readiness.

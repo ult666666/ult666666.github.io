@@ -137,6 +137,20 @@ class PublicationGuardTests(unittest.TestCase):
             handle.truncate(self.build.MAX_FILE_BYTES + 1)
         self.assert_refused_before_output()
 
+    def test_git_hygiene_ignores_local_secrets_without_hiding_public_source(self):
+        import subprocess
+        private = ['.env', 'assets/.env.local', 'client.key', 'client.pem',
+                   'session.p12', 'projects/debug.log', 'runtime/session.json']
+        command = ['git', '-c', 'core.excludesFile=/dev/null', 'check-ignore', '--no-index', '--stdin']
+        result = subprocess.run(command, cwd=ROOT, input='\n'.join(private)+'\n',
+                                capture_output=True, text=True, timeout=5)
+        self.assertEqual(set(result.stdout.splitlines()), set(private))
+        public = ['README.md', 'public-files.json', 'package-lock.json', 'scripts/build_site.py']
+        result = subprocess.run(command, cwd=ROOT, input='\n'.join(public)+'\n',
+                                capture_output=True, text=True, timeout=5)
+        self.assertEqual(result.stdout, '')
+        self.assertEqual(result.returncode, 1)
+
     def test_existing_output_is_preserved(self):
         self.output.mkdir(); marker = self.output / 'do-not-overwrite.txt'; marker.write_text('preserve\n')
         with self.assertRaises(FileExistsError): self.build.build(self.output)
