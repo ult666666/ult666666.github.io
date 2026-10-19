@@ -7,6 +7,12 @@
 
 A responsive portfolio connecting eight real public projects to source code, live demonstrations where available, and four engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
+## Start the review
+
+The homepage features **Frontier AI Valuation Lab** first. Its [engineering review guide](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html#review-guide) connects a short demo journey to the public source and checks for calculation consistency, exact navigation handoffs, save failures and evidence provenance. The evidence table becomes stacked cards on small screens and remains readable without JavaScript.
+
+The project uses illustrative forecasts and a dated research snapshot. Its shared browser/API engine establishes consistency; the separate Python reference supplies the independent arithmetic check. Linked verification records identify the scope and date of their results.
+
 ## Selected projects
 
 | Project | Scope | Evidence |
@@ -37,10 +43,10 @@ The build refuses to overwrite an existing `_site` directory. Start with a fresh
 
 ## Architecture
 
-- `index.html`: accessible, server-rendered project content; all projects remain available without JavaScript.
+- `index.html`: accessible static project content; all projects remain available without JavaScript.
 - `styles.css`: responsive layout, visible keyboard focus, reduced-motion support.
 - `script.js`: progressively enhanced project filters and mobile navigation.
-- `scripts/build_cases.py`: deterministic case-study source; `--check` catches stale generated pages.
+- `scripts/build_cases.py`: deterministic case-study source and optional escaped reviewer guide; `--check` catches stale generated pages.
 - `scripts/build_site.py`: allowlisted static staging; Git metadata, local reports, tests and dependencies are never deployed.
 - `tests/`: structural/metadata/deployment checks plus real Chromium interaction checks.
 - `.github/workflows/portfolio.yml`: tests on pull requests and pushes; deploys only tested main-branch artifacts.

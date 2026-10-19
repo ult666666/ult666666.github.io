@@ -73,10 +73,10 @@ CASES = [
                  "This pattern also applies outside finance: AI can help generate options, while clear policy and traceable evidence decide what is actually allowed."
              ]),
              ("Status and limitations", [
-                 "The public repository is a curated research and architecture snapshot, not an automatically trading product. Production Morning delivery and deployment gates remain separate from the public portfolio.",
+                 "The public repository is a curated research and architecture snapshot for code review. It does not include the complete runnable system, market data, configuration or operational records.",
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
-    dict(slug="frontier-ai-valuation-lab", number="08", kind="FINTECH / FULL-STACK ENGINEERING",
+    dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
          title="Frontier AI Valuation Lab", hero="Compare, explain and inspect a valuation thesis, then keep the exact case with its reasoning.",
          tags=["Research Workspace 3.3", "Research Casebook", "Contextual evidence", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
@@ -88,6 +88,31 @@ CASES = [
          ],
          image="/assets/frontier-ai-research-3-3.png", alt="Research Casebook showing illustrative saved analyses and an Anthropic target-value comparison",
          caption="Research Workspace 3.3: Research Casebook with an illustrative worked example.",
+         review=dict(
+             intro="Start with one research question, then follow the implementation and the checks. The published 3.3 workflow connects an interactive model to reproducible code; its forecasts remain illustrative assumptions.",
+             steps=[
+                 ("Try a scenario", "Apply a stress in the Overview, then choose Explain this change to inspect the exact comparison.", "Open the workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
+                 ("Trace the result", "Follow the source and verification links below to see how arithmetic, navigation and failure states are checked.", "Inspect code and checks", "#engineering-evidence"),
+                 ("Keep the reasoning", "Save a case from the Model or Thesis Lab, add a rationale and review trigger, then export the Casebook JSON.", "Open the Casebook", "https://frontier-ai-valuation-lab.vercel.app/casebook.html")
+             ],
+             evidence=[
+                 ("Consistent calculations", "The browser and Node API import the same pure financial engine.",
+                  [("FCFF engine", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/model.js"), ("JSON handler", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/lib/http.js")],
+                  "A separate Python implementation checks annual and terminal outputs. HTTP tests exercise real requests, invalid inputs and size limits.",
+                  [("Python parity", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/reference_parity.py"), ("HTTP tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/api.test.js")]),
+                 ("Exact workflow handoffs", "Model inspection carries the complete comparison, including separate bridges, the target and landscape axes.",
+                  [("Journey module", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/journey.js")],
+                  "Unit and browser checks follow edits into either case and back, preserving the other case and full numerical precision.",
+                  [("Journey tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/journey.test.js"), ("Browser journey", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/journey-browser.mjs")]),
+                 ("Honest save failures", "Local persistence separates financial snapshots from editable notes and preserves earlier saved data when a write fails.",
+                  [("Storage adapter", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/casebook-store.js")],
+                  "Checks cover corrupt JSON, blocked storage, quota failures and edits made while an earlier save is pending.",
+                  [("Storage tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/casebook-store.test.js"), ("Pending-save browser test", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/save-race-browser.mjs")]),
+                 ("Evidence with boundaries", "Dated records provide context for each model input. Editing a forecast never changes its status as an assumption.",
+                  [("Evidence module", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/evidence.js")],
+                  "Checks cover company/input mappings and known source references; the method documents what each relationship can establish.",
+                  [("Evidence tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/evidence.test.js"), ("Evidence method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/EVIDENCE_CONTEXT.md")])
+             ]),
          sections=[
              ("Compare, explain and inspect", [
                  "A private AI company's headline valuation says little about which growth, margin or capital assumptions support it. I built the Research Workspace to keep that reasoning connected as a reader moves from comparison to explanation, inspection and a saved research record.",
@@ -100,8 +125,8 @@ CASES = [
                  "Notes and selected source references stay in the current browser and profile. Casebook JSON carries the complete research record to another browser or device, while a script-free HTML brief keeps the calculation, reasoning and dated evidence readable offline or in print. Calculation links preserve the numerical analysis without carrying the notes. The published worked examples are explicitly illustrative and are imported only when the reader chooses."
              ]),
              ("Connect evidence and calculations", [
-                 "Contextual evidence is available beside all thirteen inputs for both companies. The panel shows the exact current value or both comparison values, then connects them to a catalog of 21 recorded facts and 19 sources. Observation periods, publication labels, reporting status and source limitations remain distinct. The relationships explain context, reported arithmetic components, methodology and evidence boundaries; they do not certify a forecast or assign confidence scores.",
-                 "The browser and stateless Node.js API share deterministic financial and thesis modules across eight financial actions. Bounded inputs and explicit invalid states keep their calculation contract aligned. Casebook verification submits financial inputs to the API and compares the complete returned calculations with the browser results. Notes and source selections are not sent to that API.",
+                 "Contextual evidence is available beside all thirteen inputs for both companies. The panel shows the exact current value or both comparison values beside the dated source register. Observation periods, publication labels, reporting status and source limitations remain distinct. These relationships explain context and methodology; they do not certify a forecast or assign confidence scores.",
+                 "The browser and stateless Node.js API share deterministic financial and thesis modules. Their agreement checks deployment consistency; it is not an independent arithmetic check. Casebook verification compares the complete returned financial calculation with the browser result. Notes and source selections are not sent to that API.",
                  "Independent Python calculations check the financial model, grouped attribution and target-margin solutions. Exact grouped Shapley attribution evaluates all 64 combinations of the six assumption groups; a separate verification algorithm enumerates all 720 orders. Browser checks address the connected workflow, exact handoffs, keyboard operation and responsive layouts. The repository documents the verification methods and their limits."
              ]),
              ("My role and the project boundaries", [
@@ -112,6 +137,36 @@ CASES = [
 ]
 
 
+def render_review(review: dict | None) -> str:
+    if not review:
+        return ""
+
+    def link(label: str, url: str) -> str:
+        external = ' target="_blank" rel="noopener noreferrer"' if url.startswith("https://") else ""
+        return f'<a href="{e(url, quote=True)}"{external}>{e(label)} <span aria-hidden="true">↗</span></a>'
+
+    steps = "".join(
+        f'<li><span class="review-step-index" aria-hidden="true">{i:02d}</span><h3>{e(title)}</h3><p>{e(body)}</p>{link(label, url)}</li>'
+        for i, (title, body, label, url) in enumerate(review["steps"], 1)
+    )
+    rows = "".join(
+        f'<tr><th scope="row">{e(question)}</th><td data-label="Implementation"><p>{e(decision)}</p><div class="evidence-links">'
+        + "".join(link(label, url) for label, url in source)
+        + f'</div></td><td data-label="Verification"><p>{e(verification)}</p><div class="evidence-links">'
+        + "".join(link(label, url) for label, url in checks) + "</div></td></tr>"
+        for question, decision, source, verification, checks in review["evidence"]
+    )
+    return (
+        '<aside class="case-review" id="review-guide" aria-labelledby="review-heading">'
+        '<p class="section-index">A GUIDE FOR REVIEWERS</p><h2 id="review-heading">Review the engineering<span class="punctuation">.</span></h2>'
+        f'<p>{e(review["intro"])}</p><ol class="review-steps">{steps}</ol>'
+        '<table class="evidence-table" id="engineering-evidence"><caption>Implementation and verification map</caption>'
+        '<thead><tr><th scope="col">Engineering concern</th><th scope="col">Implementation</th><th scope="col">Verification</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table>'
+        '<p class="review-scope">The <a href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">verification record</a> separates local release checks, historical results and their limits. Numerical agreement does not establish forecast accuracy or investment returns.</p></aside>'
+    )
+
+
 def render(case: dict) -> str:
     title, intro = e(case["title"]), e(case["hero"])
     tags = "".join(f"<span>{e(x)}</span>" for x in case["tags"])
@@ -120,7 +175,8 @@ def render(case: dict) -> str:
         links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + ' ↗</a>' + links
     links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' ↗</a>' for label, url in case.get("secondary_links", []))
     media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '" loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
-    sections, toc = [], []
+    review = render_review(case.get("review"))
+    sections, toc = [], ['<a href="#review-guide">Review the engineering</a>'] if review else []
     for i, (heading, paragraphs) in enumerate(case["sections"], 1):
         ident = "section-" + str(i)
         toc.append(f'<a href="#{ident}">{e(heading)}</a>')
@@ -160,7 +216,7 @@ def render(case: dict) -> str:
 </section>
 <div class="case-main container">
   <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">CASE STUDY CONTENTS</span>{''.join(toc)}</nav>
-  <article class="case-article">{''.join(sections)}
+  <article class="case-article">{review}{''.join(sections)}
     <div class="case-callout"><strong>Source first.</strong><p>This page describes engineering choices documented in the public project repository. Follow the source link for code, runnable instructions, and scope limitations.</p></div>
     <a class="button button-primary" href="/#work">Back to all projects ↗</a>
   </article>
