@@ -78,16 +78,40 @@ CASES = [
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
          title="Frontier AI Valuation Lab", hero="Make the distant cash flows visible, then follow the assumptions into the valuation.",
-         tags=["Value Horizon 3.4", "Financial modeling", "Node.js API", "Python verification", "Research Casebook"],
+         tags=["Financing Lens 3.5", "Value Horizon", "Financial modeling", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
          live="https://frontier-ai-valuation-lab.vercel.app/horizon.html", live_label="Try Value Horizon",
          secondary_links=[
              ("Complete workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
-             ("Value Horizon method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VALUE_HORIZON.md")
+             ("Value Horizon method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VALUE_HORIZON.md"),
+             ("Try Financing Lens", "https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example")
          ],
          image="/assets/frontier-ai-horizon-3-4.png", alt="Value Horizon showing the selected terminal horizon and the resulting decomposition of operating enterprise value",
-         caption="Value Horizon 3.4: the working research tool with illustrative model assumptions.",
+         caption="Value Horizon: the working research tool with illustrative model assumptions. Application 3.5 also includes Financing Lens inside the Model.",
          fintech_showcase=True,
+         section_ids={
+             "Start with the cash flows beyond 2036": "section-1",
+             "Connect the question to a complete research workflow": "section-2",
+             "Translate operating value into equity and ownership": "section-financing",
+             "Make the engineering inspectable": "section-3",
+             "My role and the project boundaries": "section-4"
+         },
+         section_links={
+             "Translate operating value into equity and ownership": [
+                 ("Explore the hypothetical round", "https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example"),
+                 ("Read the financing method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md"),
+                 ("Download the worked PDF", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf")
+             ]
+         },
+         section_media={
+             "Translate operating value into equity and ownership": dict(
+                 image="/assets/frontier-ai-financing-3-5.png",
+                 alt="Financing Lens in the working Model, showing an assumed $250 billion pre-money round with $25 billion of primary capital, ownership before and after issuance, and a separate modeled-equity reconciliation",
+                 width=975, height=2033,
+                 caption="The working Financing Lens with the hypothetical Anthropic Base example. The assumed round has a $275 billion post-money price; the tracked holder moves from 10.00% to 9.09%. Cash, debt and financing terms are illustrative inputs.",
+                 href="https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example"
+             )
+         },
          proof_links=[
              ("Financial methodology", "Reinvestment, dates, terminal returns and model boundaries.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/METHODOLOGY.md"),
              ("API contract", "Submitted inputs, complete results and explicit failure states.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md"),
@@ -95,7 +119,7 @@ CASES = [
              ("Dated source register", "Reported evidence and analyst assumptions with separate meanings.", "https://frontier-ai-valuation-lab.vercel.app/index.html#sources")
          ],
          review=dict(
-             intro="Start with one research question, then follow the implementation and the checks. The published 3.4 workspace connects an interactive model to reproducible code; its forecasts remain illustrative assumptions.",
+             intro="Start with one research question, then follow the implementation and the checks. The published 3.5 workspace connects an interactive model to reproducible code; its forecasts and financing examples remain illustrative assumptions.",
              steps=[
                  ("Try a scenario", "Apply a stress in the Overview, then choose Explain this change to inspect the exact comparison.", "Open the workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
                  ("Trace the result", "Follow the source and verification links below to see how arithmetic, navigation and failure states are checked.", "Inspect code and checks", "#engineering-evidence"),
@@ -130,14 +154,20 @@ CASES = [
                  "Thesis Lab compares two complete cases and allocates their signed enterprise-value difference across six declared assumption groups. Exact grouped Shapley attribution includes the groups' interactions. A target landscape solves a required margin while holding the other eleven assumptions fixed. Either comparison case can be inspected in the Model and returned with its surrounding comparison intact.",
                  "The Research Casebook keeps saved operating cases or comparisons with a rationale, critical assumption, review trigger and selected sources. It supports exact reopening, import previews, conflict preservation and undoable deletion. Browser storage is local to the current origin and profile; explicit JSON export carries the research to another device. Printable briefs retain the calculation and analyst reasoning."
              ]),
+             ("Translate operating value into equity and ownership", [
+                 "Financing Lens extends the optional equity bridge inside the existing Model. Starting from operating enterprise value, the bridge adds assumed pre-round cash and subtracts debt and other claims outside the participating equity pool. The resulting modeled equity stays separate from the independently entered funding-round price. None of these balances establishes a company's actual balance sheet.",
+                 "The labeled Anthropic Base example assumes $20 billion of cash, $5 billion of debt and zero other claims. The modeled operating value of $367.8 billion becomes $382.8 billion of hypothetical pre-round equity. A separate assumed transaction at a $250 billion pre-money price, with $25 billion of primary capital, has a $275 billion post-money price. New investors receive 9.09%; a holder with 10% before the round retains 9.09% after it. The round price is an explicit assumption, not a valuation inferred from the model.",
+                 "This simple primary issuance assumes equal economic rights and retains the new capital as cash. It excludes fees, debt repayment, option-pool changes, SAFEs, secondary sales and preference waterfalls. Percentage dilution is shown as ownership arithmetic, with no investor-return claim. Cash, the equity bridge and the operating forecast keep separate meanings.",
+                 "A dedicated financing link and HTML or JSON export retain the operating case, hypothetical balances and round terms together. Operating-case saves in the Research Casebook retain their existing scope; financing terms travel in the separate financing snapshot. The worked PDF provides a readable example with the same assumptions and boundaries."
+             ]),
              ("Make the engineering inspectable", [
-                 "The browser and stateless Node.js API share deterministic financial calculations. Value Horizon adds a separate analytical module and API action around the preserved financial engine. Bounded inputs and explicit invalid states keep a numerical failure from becoming a plausible-looking output.",
+                 "The browser and stateless Node.js API share deterministic financial calculations. Value Horizon and Financing Lens add separate analytical modules around the preserved financial engine. Bounded inputs and explicit invalid states keep a numerical failure from becoming a plausible-looking output.",
                  "Agreement between the browser and API checks that the deployed calculations align. Separate Python calculations and hand-calculated fixtures provide independent arithmetic checks; recorded source hashes identify the inspected model. The repository also exercises full comparison handoffs, local persistence failures, keyboard interaction and responsive layouts. The verification record states what each check establishes and where its coverage ends.",
                  "Source records distinguish actual-period revenue, annualized run-rate, financing references and analyst assumptions. The evidence panels preserve publication, update and retrieval labels. They provide context for an input without certifying its forecast. Notes and source selections are not submitted to the calculation API."
              ]),
              ("My role and the project boundaries", [
                  "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full stack implementation and reproducible verification. The fintech portfolio gateway connects the working demonstration with the decisions and evidence behind it.",
-                 "Application 3.4.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
+                 "Application 3.5.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
                  "The outputs are conditional operating enterprise values derived from illustrative assumptions and incomplete public disclosures. Value Horizon is a truncation lens, not a forecast of business life or an investor's holding-period return. Attribution depends on the selected comparison and groups. Target requirements carry no scenario probabilities. Negative operating value is preserved, invalid calculations are identified, and hypothetical equity bridges are separate. The project makes no claim of a security-specific price target or investment returns."
              ])]),
 ]
@@ -189,10 +219,21 @@ def render(case: dict) -> str:
     review = render_review(case.get("review"))
     sections, toc = [], ['<a href="#review-guide">Review the engineering</a>'] if review else []
     for i, (heading, paragraphs) in enumerate(case["sections"], 1):
-        ident = "section-" + str(i)
-        toc.append(f'<a href="#{ident}">{e(heading)}</a>')
-        sections.append(f'<section id="{ident}"><h2>{e(heading)}<span class="punctuation">.</span></h2>' +
-                        "".join(f"<p>{e(p)}</p>" for p in paragraphs) + "</section>")
+        ident = case.get("section_ids", {}).get(heading, "section-" + str(i))
+        toc.append(f'<a href="#{e(ident, quote=True)}">{e(heading)}</a>')
+        section_links = case.get("section_links", {}).get(heading, [])
+        resources = '<div class="case-section-links">' + ''.join(
+            '<a href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' <span aria-hidden="true">↗</span></a>'
+            for label, url in section_links
+        ) + '</div>' if section_links else ''
+        figure = case.get("section_media", {}).get(heading)
+        detail_media = (
+            '<figure class="case-detail-media"><a href="' + e(figure["href"], quote=True) + '" target="_blank" rel="noopener noreferrer">'
+            '<img src="' + e(figure["image"], quote=True) + '" alt="' + e(figure["alt"], quote=True) + '" width="' + e(str(figure["width"]), quote=True) + '" height="' + e(str(figure["height"]), quote=True) + '" loading="lazy" decoding="async"></a>'
+            '<figcaption>' + e(figure["caption"]) + '</figcaption></figure>'
+        ) if figure else ''
+        sections.append(f'<section id="{e(ident, quote=True)}"><h2>{e(heading)}<span class="punctuation">.</span></h2>' +
+                        "".join(f"<p>{e(p)}</p>" for p in paragraphs) + detail_media + resources + "</section>")
     return f'''<!doctype html>
 <html lang="en">
 <head>

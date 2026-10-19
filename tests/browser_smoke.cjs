@@ -16,6 +16,18 @@ const server = http.createServer((req, res) => {
     res.end(bytes);
   });
 });
+async function captureFinancingCase(page, destination) {
+  const image = page.locator('.case-detail-media img');
+  await image.scrollIntoViewIfNeeded();
+  await image.evaluate(node => node.decode());
+  assert.equal(await image.evaluate(node => node.complete && node.naturalWidth > 0),true);
+  await page.locator('.case-detail-media').evaluate(figure => {
+    const headerHeight = document.querySelector('.site-header').getBoundingClientRect().height;
+    window.scrollTo({left:0,top:window.scrollY + figure.getBoundingClientRect().top - headerHeight - 16,behavior:'instant'});
+  });
+  // A viewport capture avoids compositor height limits on very long case pages.
+  await page.screenshot({path:destination});
+}
 (async () => {
   let browser;
   try {
@@ -51,11 +63,16 @@ const server = http.createServer((req, res) => {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      assert.equal(await page.locator('.case-article section').count(),4);
+      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : 4);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
+        assert.equal(await page.getByRole('link',{name:'Try Financing Lens ↗',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
         await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
+        assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
+        assert.equal(await page.locator('#section-3 h2').innerText(),'Make the engineering inspectable.');
+        assert.equal(await page.locator('#section-4 h2').innerText(),'My role and the project boundaries.');
+        await captureFinancingCase(page,path.join(out,'financing-case-desktop.png'));
       }
     }
     await page.goto(base);
@@ -65,6 +82,8 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('.primary-nav [aria-current="page"]').innerText(),'Fintech');
     assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/horizon.html');
     assert.equal(await page.locator('.fintech-proof').count(),4);
+    assert.equal(await page.locator('.fintech-journey-card').count(),4);
+    assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
     assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
     await page.screenshot({path:path.join(out,'fintech-gateway-desktop.png'),fullPage:true});
     for (const width of [390,768,1440]) {
@@ -78,7 +97,7 @@ const server = http.createServer((req, res) => {
         await page.goto(base+route);
         const sizes=await page.evaluate(()=>[document.documentElement.scrollWidth,innerWidth]);
         assert(sizes[0] <= sizes[1]+1, `Horizontal overflow on ${route} at ${width}: ${sizes}`);
-        const clipped=await page.locator('.horizon-example,.case-horizon-example').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
+        const clipped=await page.locator('.horizon-example,.case-horizon-example,.case-detail-media,.fintech-journey-card').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
         assert.equal(clipped,false,`Clipped example on ${route} at ${width}`);
       }
     }
@@ -100,6 +119,7 @@ const server = http.createServer((req, res) => {
     await page.goto(base+'/projects/frontier-ai-valuation-lab.html');
     await page.locator('.case-hero').screenshot({path:path.join(out,'fintech-case-mobile.png')});
     await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-mobile.png')});
+    await captureFinancingCase(page,path.join(out,'financing-case-mobile.png'));
     await page.goto(base+'/fintech.html');
     await page.keyboard.press('Tab');
     assert.equal(await page.locator('.skip-link').evaluate(node=>node===document.activeElement),true);
@@ -115,7 +135,8 @@ const server = http.createServer((req, res) => {
     await staticPage.goto(base+'/fintech.html');
     assert.equal(await staticPage.locator('h1').isVisible(),true);
     assert.equal(await staticPage.locator('.fintech-intro .button-primary').isVisible(),true);
-    assert.equal(await staticPage.locator('.fintech-journey-card').count(),3);
+    assert.equal(await staticPage.locator('.fintech-journey-card').count(),4);
+    assert.equal(await staticPage.locator('#financing-journey').isVisible(),true);
     await staticPage.goto(base+'/projects/frontier-ai-valuation-lab.html');
     assert.equal(await staticPage.locator('#review-guide').isVisible(),true);
     assert.equal(await staticPage.locator('#engineering-evidence tbody tr').count(),4);

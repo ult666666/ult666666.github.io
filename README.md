@@ -5,7 +5,7 @@
 **Portfolio:** https://ult666666.github.io/
 **GitHub:** https://github.com/ult666666
 
-**[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Value Horizon, the working Frontier AI Valuation Lab and the financial and engineering evidence behind them.
+**[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Value Horizon, Financing Lens, and the financial and engineering evidence behind the working Frontier AI Valuation Lab.
 
 A responsive portfolio connecting eight real public projects to source code, live demonstrations where available, and four engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
@@ -60,8 +60,12 @@ The optional browser harness accepts `PLAYWRIGHT_MODULE` for an installed Playwr
 
 The portfolio links to documented work, not fabricated employers, client engagements, contribution history or inflated usage statistics. Live websites, coursework, prototypes and research are labeled separately. The trading research project is not a deployed automated trading service or evidence of investment returns.
 
-The Fintech gateway and filter highlight Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Application 3.4 adds Value Horizon: an explicit-forecast-preserving lens on how many terminal cash-flow years remain in the valuation when later cash flows and residual value are set to zero. The portfolio's Anthropic Base illustration is a frozen example, not a second financial calculator. The live application carries the interaction and full calculation context.
+The Fintech gateway and filter highlight Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Value Horizon preserves the explicit forecast and shows how many terminal cash-flow years remain in the valuation when later cash flows and residual value are set to zero. The portfolio's Anthropic Base illustration is a frozen example, not a second financial calculator. The live application carries the interaction and full calculation context.
+
+Application 3.5 adds [Financing Lens](https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example) inside the existing Model. It separates modeled operating value, a hypothetical cash/debt/claims bridge, and an independently entered funding-round price. The worked primary issuance assumes equal economic rights and retained cash; it does not model fees, option-pool changes, SAFEs, secondary sales or preferences. Financing links and HTML/JSON exports retain the full example separately from operating-case saves in the Research Casebook. Read the [method](https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md) or download the [worked PDF](https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf).
 
 The case study connects financial-model review, a shared browser/Node.js calculation engine, dated sources and independent numerical verification. Its proof links lead to the actual methodology, API contract, verification record and source register. Scenario enterprise values and hypothetical equity bridges are distinct from security-specific price targets or trading results. The 18 October 2026 financial snapshot is unchanged.
+
+The [Financing Lens 3.5 local portfolio verification record](docs/verification/financing-3.5-local.json) records the current checks, preserved content and source hashes. It covers the portfolio integration; production deployment verification is recorded separately.
 
 Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.
