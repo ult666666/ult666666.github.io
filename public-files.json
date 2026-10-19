@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "files": [
+    "404.html",
+    "assets/blast-radius.png",
+    "assets/favicon.svg",
+    "assets/frontier-ai-experience-3-1.png",
+    "assets/frontier-ai-financing-3-5.png",
+    "assets/frontier-ai-horizon-3-4.png",
+    "assets/frontier-ai-ownership-3-6.png",
+    "assets/frontier-ai-research-3-3.png",
+    "assets/frontier-ai-thesis-3-2.png",
+    "assets/lineageguard.jpg",
+    "assets/motionx.jpg",
+    "assets/portfolio-og.png",
+    "assets/portfolio-og.svg",
+    "assets/teen-budgeting.png",
+    "fintech.css",
+    "fintech.html",
+    "index.html",
+    "projects/frontier-ai-valuation-lab.html",
+    "projects/lineageguard.html",
+    "projects/motionx.html",
+    "projects/trading-research.html",
+    "robots.txt",
+    "script.js",
+    "sitemap.xml",
+    "styles.css"
+  ]
+}

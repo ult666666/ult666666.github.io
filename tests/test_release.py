@@ -34,10 +34,10 @@ class ReleaseTests(unittest.TestCase):
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         with tempfile.TemporaryDirectory() as t:
-            destination = Path(t) / 'site'
+            destination = Path(t).resolve() / 'site'  # resolve our own newly-created macOS temp directory
             module.build(destination)
             names = {x.name for x in destination.iterdir()}
-            self.assertEqual(names, {'index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll'})
+            self.assertEqual(names, {'index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll', 'release-manifest.json'})
             self.assertFalse((destination / '.git').exists())
             self.assertFalse((destination / 'tests').exists())
             self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 4)

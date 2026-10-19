@@ -32,10 +32,14 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Browser interaction and responsive checks
-        run: npm run test:browser
       - name: Build public-only site
         run: npm run build
+      - name: Browser interaction and responsive checks on staged output
+        env:
+          PORTFOLIO_TEST_ROOT: _site
+        run: npm run test:browser
+      - name: Verify exact staged public payload
+        run: python3 -B scripts/build_site.py --verify _site
       - name: Upload tested public site
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b

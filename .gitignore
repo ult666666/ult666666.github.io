@@ -5,3 +5,14 @@ __pycache__/
 test-results/
 playwright-report/
 .DS_Store
+
+# Local secrets and runtime evidence are never portfolio source.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+/runtime/
+/private/
