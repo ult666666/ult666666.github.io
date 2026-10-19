@@ -21,13 +21,21 @@ const server = http.createServer((req, res) => {
   try {
     await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
     const base = `http://127.0.0.1:${server.address().port}`;
-    browser = await chromium.launch({headless:true});
+    const launchOptions = {headless:true};
+    if (process.env.PORTFOLIO_CHROMIUM_EXECUTABLE) launchOptions.executablePath = process.env.PORTFOLIO_CHROMIUM_EXECUTABLE;
+    if (process.env.PORTFOLIO_CHROMIUM_ARGS) {
+      const args = JSON.parse(process.env.PORTFOLIO_CHROMIUM_ARGS);
+      assert(Array.isArray(args) && args.every(value => typeof value === 'string'), 'Browser launch arguments must be a JSON array of strings');
+      launchOptions.args = args;
+    }
+    browser = await chromium.launch(launchOptions);
     const page = await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.project-card:visible').count(), 8);
+    assert.equal(await page.locator('.project-card').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     for (const [filter, count] of [['fintech',1],['ai',3],['web',2],['experimental',2],['all',8]]) {
       await page.locator(`[data-filter="${filter}"]`).click();
       assert.equal(await page.locator('.project-card:visible').count(), count);
@@ -44,11 +52,42 @@ const server = http.createServer((req, res) => {
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
       assert.equal(await page.locator('.case-article section').count(),4);
+      if (name === 'frontier-ai-valuation-lab') {
+        assert.equal(await page.locator('#review-guide').count(),1);
+        assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
+        await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
+      }
     }
+    await page.goto(base);
+    await page.locator('.fintech-entry').click();
+    assert.equal(new URL(page.url()).pathname, '/fintech.html');
+    assert.equal(await page.locator('h1').count(),1);
+    assert.equal(await page.locator('.primary-nav [aria-current="page"]').innerText(),'Fintech');
+    assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/horizon.html');
+    assert.equal(await page.locator('.fintech-proof').count(),4);
+    assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
+    await page.screenshot({path:path.join(out,'fintech-gateway-desktop.png'),fullPage:true});
     for (const width of [390,768,1440]) {
       await page.setViewportSize({width,height:900}); await page.goto(base);
       const sizes=await page.evaluate(()=>[document.documentElement.scrollWidth,innerWidth]);
       assert(sizes[0] <= sizes[1]+1, `Horizontal overflow at ${width}: ${sizes}`);
+    }
+    for (const width of [360,390,768,1440]) {
+      await page.setViewportSize({width,height:1000});
+      for (const route of ['/fintech.html','/projects/frontier-ai-valuation-lab.html']) {
+        await page.goto(base+route);
+        const sizes=await page.evaluate(()=>[document.documentElement.scrollWidth,innerWidth]);
+        assert(sizes[0] <= sizes[1]+1, `Horizontal overflow on ${route} at ${width}: ${sizes}`);
+        const clipped=await page.locator('.horizon-example,.case-horizon-example').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
+        assert.equal(clipped,false,`Clipped example on ${route} at ${width}`);
+      }
+    }
+    await page.setViewportSize({width:1440,height:1000});
+    for (const route of ['/fintech.html','/projects/frontier-ai-valuation-lab.html']) {
+      await page.goto(base+route);
+      await page.evaluate(()=>document.documentElement.style.zoom='2');
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`Horizontal page overflow on ${route} at 200% zoom`);
+      await page.evaluate(()=>document.documentElement.style.zoom='');
     }
     await page.setViewportSize({width:390,height:844}); await page.goto(base);
     await page.locator('.menu-toggle').click();
@@ -60,13 +99,34 @@ const server = http.createServer((req, res) => {
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-mobile.png')});
     await page.goto(base+'/projects/frontier-ai-valuation-lab.html');
     await page.locator('.case-hero').screenshot({path:path.join(out,'fintech-case-mobile.png')});
+    await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-mobile.png')});
+    await page.goto(base+'/fintech.html');
+    await page.keyboard.press('Tab');
+    assert.equal(await page.locator('.skip-link').evaluate(node=>node===document.activeElement),true);
+    await page.keyboard.press('Enter');
+    assert.equal(new URL(page.url()).hash,'#main');
+    await page.locator('.menu-toggle').click();
+    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'true');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');
+    await page.screenshot({path:path.join(out,'fintech-gateway-mobile.png'),fullPage:true});
+    const noJs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
+    const staticPage=await noJs.newPage();
+    await staticPage.goto(base+'/fintech.html');
+    assert.equal(await staticPage.locator('h1').isVisible(),true);
+    assert.equal(await staticPage.locator('.fintech-intro .button-primary').isVisible(),true);
+    assert.equal(await staticPage.locator('.fintech-journey-card').count(),3);
+    await staticPage.goto(base+'/projects/frontier-ai-valuation-lab.html');
+    assert.equal(await staticPage.locator('#review-guide').isVisible(),true);
+    assert.equal(await staticPage.locator('#engineering-evidence tbody tr').count(),4);
+    await noJs.close();
     assert.deepEqual(errors,[]);
     const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
     await og.goto(base+'/assets/portfolio-og.svg');
     if (process.env.RENDER_SOCIAL_IMAGE === '1') {
       await og.screenshot({path:path.join(root,'assets/portfolio-og.png')});
     }
-    console.log('BROWSER_PASS: 5 filter states, 4 case pages, 3 responsive widths, mobile menu, no JavaScript errors');
+    console.log('BROWSER_PASS: 5 filter states, 4 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard/mobile navigation, no-JavaScript entry and no JavaScript errors');
   } catch (error) { console.error(error); process.exitCode=1; }
   finally { if(browser) await browser.close(); await new Promise(resolve=>server.close(resolve)); }
 })();

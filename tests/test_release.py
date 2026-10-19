@@ -37,7 +37,7 @@ class ReleaseTests(unittest.TestCase):
             destination = Path(t) / 'site'
             module.build(destination)
             names = {x.name for x in destination.iterdir()}
-            self.assertEqual(names, {'index.html', '404.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll'})
+            self.assertEqual(names, {'index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll'})
             self.assertFalse((destination / '.git').exists())
             self.assertFalse((destination / 'tests').exists())
             self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 4)

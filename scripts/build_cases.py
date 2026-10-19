@@ -77,19 +77,25 @@ CASES = [
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="Compare, explain and inspect a valuation thesis, then keep the exact case with its reasoning.",
-         tags=["Research Workspace 3.3", "Research Casebook", "Contextual evidence", "Node.js API", "Python verification"],
+         title="Frontier AI Valuation Lab", hero="Make the distant cash flows visible, then follow the assumptions into the valuation.",
+         tags=["Value Horizon 3.4", "Financial modeling", "Node.js API", "Python verification", "Research Casebook"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
-         live="https://frontier-ai-valuation-lab.vercel.app/", live_label="Explore the workspace",
+         live="https://frontier-ai-valuation-lab.vercel.app/horizon.html", live_label="Try Value Horizon",
          secondary_links=[
-             ("Research Casebook", "https://frontier-ai-valuation-lab.vercel.app/casebook.html"),
-             ("Thesis Lab", "https://frontier-ai-valuation-lab.vercel.app/thesis.html"),
-             ("3.3 release", "https://github.com/ult666666/frontier-ai-valuation-lab/releases/tag/v3.3.0")
+             ("Complete workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
+             ("Value Horizon method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VALUE_HORIZON.md")
          ],
-         image="/assets/frontier-ai-research-3-3.png", alt="Research Casebook showing illustrative saved analyses and an Anthropic target-value comparison",
-         caption="Research Workspace 3.3: Research Casebook with an illustrative worked example.",
+         image="/assets/frontier-ai-horizon-3-4.png", alt="Value Horizon showing the selected terminal horizon and the resulting decomposition of operating enterprise value",
+         caption="Value Horizon 3.4: the working research tool with illustrative model assumptions.",
+         fintech_showcase=True,
+         proof_links=[
+             ("Financial methodology", "Reinvestment, dates, terminal returns and model boundaries.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/METHODOLOGY.md"),
+             ("API contract", "Submitted inputs, complete results and explicit failure states.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md"),
+             ("Verification record", "Independent calculations, browser journeys and the limits of each check.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md"),
+             ("Dated source register", "Reported evidence and analyst assumptions with separate meanings.", "https://frontier-ai-valuation-lab.vercel.app/index.html#sources")
+         ],
          review=dict(
-             intro="Start with one research question, then follow the implementation and the checks. The published 3.3 workflow connects an interactive model to reproducible code; its forecasts remain illustrative assumptions.",
+             intro="Start with one research question, then follow the implementation and the checks. The published 3.4 workspace connects an interactive model to reproducible code; its forecasts remain illustrative assumptions.",
              steps=[
                  ("Try a scenario", "Apply a stress in the Overview, then choose Explain this change to inspect the exact comparison.", "Open the workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
                  ("Trace the result", "Follow the source and verification links below to see how arithmetic, navigation and failure states are checked.", "Inspect code and checks", "#engineering-evidence"),
@@ -114,25 +120,25 @@ CASES = [
                   [("Evidence tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/evidence.test.js"), ("Evidence method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/EVIDENCE_CONTEXT.md")])
              ]),
          sections=[
-             ("Compare, explain and inspect", [
-                 "A private AI company's headline valuation says little about which growth, margin or capital assumptions support it. I built the Research Workspace to keep that reasoning connected as a reader moves from comparison to explanation, inspection and a saved research record.",
-                 "The Overview compares Anthropic and OpenAI through revenue, free cash flow and value beyond 2036. A selected stress opens the chosen company's exact baseline and changed case in Thesis Lab. Its signed waterfall allocates the enterprise-value change across six assumption groups, including interactions. A conditional target landscape then solves the operating margin required at each discount rate while holding the other eleven inputs fixed.",
-                 "Either case opens in the complete thirteen-input Model for inspection or editing. Returning to Thesis Lab carries that case's current assumptions and optional equity bridge back while retaining the other case, the exact landscape axes and the target. A solved required margin can become the alternative at full numerical precision. The journey keeps the surrounding comparison intact."
+             ("Start with the cash flows beyond 2036", [
+                 "A terminal-value total can hide how much of a valuation depends on cash flows far beyond the explicit forecast. I built Value Horizon to make that dependence visible within a working Anthropic and OpenAI research model.",
+                 "The lens keeps the remaining-2026 cash flow and every 2027–2036 forecast year unchanged. A selected number of terminal years starts in 2037. The calculation retains those years' discounted cash flows and assigns zero cash flows and zero residual value after the cutoff. It separates the explicit forecast, included continuation and excluded continuation.",
+                 "Under the frozen Anthropic Base assumptions, the perpetual operating enterprise value is $367.8 billion. Keeping ten terminal years, 2037–2046, with no residual produces $248.5 billion. The $119.3 billion difference is discounted continuation excluded by this lens. It is neither an investment loss nor a forecast of the company's closure. The same interaction is available for OpenAI and the other illustrative operating scenarios."
              ]),
-             ("Keep the analysis with its reasoning", [
-                 "The Research Casebook captures a complete single case or two-case comparison with its exact inputs. Each record holds a rationale, the assumption that needs to hold, an observable review trigger and selected sources. Editing these notes leaves the captured financial calculation unchanged; a revised operating thesis can be reopened, edited and saved as another analysis.",
-                 "Saved analyses can be searched, filtered and reopened. Two saved cases for the same company can become the exact endpoints of a new comparison. Import previews make incoming records reviewable, conflicting records are preserved, and deletion has an undo action.",
-                 "Notes and selected source references stay in the current browser and profile. Casebook JSON carries the complete research record to another browser or device, while a script-free HTML brief keeps the calculation, reasoning and dated evidence readable offline or in print. Calculation links preserve the numerical analysis without carrying the notes. The published worked examples are explicitly illustrative and are imported only when the reader chooses."
+             ("Connect the question to a complete research workflow", [
+                 "Value Horizon gives a first-time visitor a concrete financial question to explore. The complete Model exposes all thirteen operating assumptions, annual cash-flow reconciliation, sensitivities, reverse DCF and an optional hypothetical equity bridge. Dated evidence is available beside every input.",
+                 "Thesis Lab compares two complete cases and allocates their signed enterprise-value difference across six declared assumption groups. Exact grouped Shapley attribution includes the groups' interactions. A target landscape solves a required margin while holding the other eleven assumptions fixed. Either comparison case can be inspected in the Model and returned with its surrounding comparison intact.",
+                 "The Research Casebook keeps saved operating cases or comparisons with a rationale, critical assumption, review trigger and selected sources. It supports exact reopening, import previews, conflict preservation and undoable deletion. Browser storage is local to the current origin and profile; explicit JSON export carries the research to another device. Printable briefs retain the calculation and analyst reasoning."
              ]),
-             ("Connect evidence and calculations", [
-                 "Contextual evidence is available beside all thirteen inputs for both companies. The panel shows the exact current value or both comparison values beside the dated source register. Observation periods, publication labels, reporting status and source limitations remain distinct. These relationships explain context and methodology; they do not certify a forecast or assign confidence scores.",
-                 "The browser and stateless Node.js API share deterministic financial and thesis modules. Their agreement checks deployment consistency; it is not an independent arithmetic check. Casebook verification compares the complete returned financial calculation with the browser result. Notes and source selections are not sent to that API.",
-                 "Independent Python calculations check the financial model, grouped attribution and target-margin solutions. Exact grouped Shapley attribution evaluates all 64 combinations of the six assumption groups; a separate verification algorithm enumerates all 720 orders. Browser checks address the connected workflow, exact handoffs, keyboard operation and responsive layouts. The repository documents the verification methods and their limits."
+             ("Make the engineering inspectable", [
+                 "The browser and stateless Node.js API share deterministic financial calculations. Value Horizon adds a separate analytical module and API action around the preserved financial engine. Bounded inputs and explicit invalid states keep a numerical failure from becoming a plausible-looking output.",
+                 "Agreement between the browser and API checks that the deployed calculations align. Separate Python calculations and hand-calculated fixtures provide independent arithmetic checks; recorded source hashes identify the inspected model. The repository also exercises full comparison handoffs, local persistence failures, keyboard interaction and responsive layouts. The verification record states what each check establishes and where its coverage ends.",
+                 "Source records distinguish actual-period revenue, annualized run-rate, financing references and analyst assumptions. The evidence panels preserve publication, update and retrieval labels. They provide context for an input without certifying its forecast. Notes and source selections are not submitted to the calculation API."
              ]),
              ("My role and the project boundaries", [
-                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full-stack implementation and reproducible verification. The economic model makes reinvestment, discount dates, terminal returns on capital and the equity bridge explicit.",
-                 "Application 3.3.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF review remain the version 3.0 financial baseline. New research briefs describe their captured cases and analyst notes; they do not refresh the underlying company disclosures.",
-                 "The outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. Attribution depends on the selected reference and fixed groups; it describes the model's arithmetic and cannot establish business causality. Target requirements are conditional and carry no scenario probabilities. Negative enterprise value is preserved, invalid calculations are identified, and hypothetical equity bridges are labeled separately. The project makes no claim of a security-specific price target, a financing valuation or investment returns."
+                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full stack implementation and reproducible verification. The fintech portfolio gateway connects the working demonstration with the decisions and evidence behind it.",
+                 "Application 3.4.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
+                 "The outputs are conditional operating enterprise values derived from illustrative assumptions and incomplete public disclosures. Value Horizon is a truncation lens, not a forecast of business life or an investor's holding-period return. Attribution depends on the selected comparison and groups. Target requirements carry no scenario probabilities. Negative operating value is preserved, invalid calculations are identified, and hypothetical equity bridges are separate. The project makes no claim of a security-specific price target or investment returns."
              ])]),
 ]
 
@@ -175,6 +181,11 @@ def render(case: dict) -> str:
         links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + ' ↗</a>' + links
     links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' ↗</a>' for label, url in case.get("secondary_links", []))
     media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '" loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
+    extra_styles = '<link rel="stylesheet" href="/fintech.css">' if case.get("fintech_showcase") else ""
+    body_attributes = ' class="case-fintech"' if case.get("fintech_showcase") else ""
+    fintech_nav = '<a href="/fintech.html">Fintech</a>' if case.get("fintech_showcase") else ""
+    showcase = '<div class="case-horizon-example"><div><span class="case-example-label">A CONCRETE RESEARCH QUESTION</span><p>How much of Anthropic Base value remains with ten terminal years and no residual after 2046?</p><a class="fintech-text-link" href="/fintech.html">Explore the fintech portfolio →</a></div><div><p class="case-example-value">$367.8bn <span>→ $248.5bn</span></p><p class="case-example-footnote">Operating EV · Illustrative Base assumptions · 18 Oct 2026 model date. The explicit forecast stays fixed; the selected continuation begins in 2037.</p></div></div>' if case.get("fintech_showcase") else ""
+    proof = '<div class="case-proof-grid">' + ''.join('<a class="case-proof-link" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer"><strong>' + e(label) + ' ↗</strong><span>' + e(description) + '</span></a>' for label, description, url in case.get("proof_links", [])) + '</div>' if case.get("proof_links") else ""
     review = render_review(case.get("review"))
     sections, toc = [], ['<a href="#review-guide">Review the engineering</a>'] if review else []
     for i, (heading, paragraphs) in enumerate(case["sections"], 1):
@@ -191,16 +202,16 @@ def render(case: dict) -> str:
   <meta property="og:type" content="article"><meta property="og:title" content="{title} — Charles Dai">
   <meta property="og:description" content="{intro}">
   <link rel="canonical" href="https://ult666666.github.io/projects/{case["slug"]}.html">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">{extra_styles}
   <script defer src="/script.js"></script><title>{title} — Engineering Case Study | Charles Dai</title>
 </head>
-<body>
+<body{body_attributes}>
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header" id="top"><div class="container header-inner">
   <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
   <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
-    <a href="/#work">Work</a><a href="/#approach">Approach</a><a href="/#about">About</a>
+    <a href="/#work">Work</a>{fintech_nav}<a href="/#approach">Approach</a><a href="/#about">About</a>
     <a href="/#contact" class="nav-contact">Let's connect ↗</a>
   </nav>
 </div></header>
@@ -212,11 +223,11 @@ def render(case: dict) -> str:
   <p class="case-lead">{intro}</p>
   <div class="case-metadata">{tags}</div>
   <div class="hero-actions">{links}</div>
-  {media}
+  {showcase}{media}
 </section>
 <div class="case-main container">
   <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">CASE STUDY CONTENTS</span>{''.join(toc)}</nav>
-  <article class="case-article">{review}{''.join(sections)}
+  <article class="case-article">{review}{''.join(sections)}{proof}
     <div class="case-callout"><strong>Source first.</strong><p>This page describes engineering choices documented in the public project repository. Follow the source link for code, runnable instructions, and scope limitations.</p></div>
     <a class="button button-primary" href="/#work">Back to all projects ↗</a>
   </article>

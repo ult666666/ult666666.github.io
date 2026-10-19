@@ -10,7 +10,7 @@ import unittest
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = [ROOT / "index.html", *(ROOT / "projects").glob("*.html")]
+PAGES = [ROOT / "index.html", ROOT / "fintech.html", *(ROOT / "projects").glob("*.html")]
 CASE_NAMES = {"lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html"}
 CATEGORIES = {"ai", "web", "experimental", "fintech"}
 

@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = ('index.html', '404.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml')
+FILES = ('index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'script.js', 'robots.txt', 'sitemap.xml')
 DIRECTORIES = ('assets', 'projects')
 
 def build(destination: Path) -> None:

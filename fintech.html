@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="Charles Dai's fintech portfolio: turn a financial question into a working, inspectable research tool. Explore Value Horizon, the Frontier AI Valuation Lab and the engineering behind them.">
+  <meta name="author" content="Charles Dai">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fintech — Charles Dai">
+  <meta property="og:description" content="How much future is in the value? Explore a working financial research demo, its assumptions and the engineering behind it.">
+  <meta property="og:url" content="https://ult666666.github.io/fintech.html">
+  <meta property="og:image" content="https://ult666666.github.io/assets/frontier-ai-horizon-3-4.png">
+  <meta property="og:image:alt" content="Value Horizon in Frontier AI Valuation Lab, showing how terminal cash flows contribute to operating enterprise value">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://ult666666.github.io/fintech.html">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/fintech.css">
+  <script defer src="/script.js"></script>
+  <title>Fintech — Financial Research & Working Software | Charles Dai</title>
+</head>
+<body class="fintech-page">
+  <a class="skip-link" href="#main">Skip to fintech projects</a>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark" aria-hidden="true">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation"><a href="/#work">Work</a><a href="/fintech.html" aria-current="page">Fintech</a><a href="/#about">About</a><a href="/#contact" class="nav-contact">Let's connect <span aria-hidden="true">↗</span></a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="fintech-hero container" aria-labelledby="fintech-title">
+      <div class="fintech-intro">
+        <p class="eyebrow"><span class="presence-dot" aria-hidden="true"></span> CHARLES DAI / FINTECH PORTFOLIO</p>
+        <h1 id="fintech-title">How much future<br>is in the <em>value?</em></h1>
+        <p class="fintech-lead">I build financial research tools that let you follow the assumptions into the result. Start with one question, change the horizon, and inspect the cash flows that remain.</p>
+        <div class="hero-actions"><a class="button button-primary" href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer">Try Value Horizon <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="/projects/frontier-ai-valuation-lab.html">Read the case study <span aria-hidden="true">→</span></a></div>
+        <p class="fintech-byline">Independent, AI-assisted project · Financial research + full stack engineering</p>
+      </div>
+      <figure class="horizon-example" aria-labelledby="horizon-example-title" aria-describedby="horizon-example-note">
+        <div class="horizon-example-top"><span>ONE QUESTION, MADE CONCRETE</span><span class="example-company">ANTHROPIC / BASE</span></div>
+        <h2 id="horizon-example-title">Keep ten terminal years.<br>See what remains.</h2>
+        <div class="horizon-example-values"><div><span>Perpetual operating EV</span><strong>$367.8<span>bn</span></strong></div><span class="example-arrow" aria-hidden="true">→</span><div class="example-selected"><span>10 terminal years · no residual</span><strong>$248.5<span>bn</span></strong></div></div>
+        <div class="horizon-example-strip" aria-hidden="true"><span class="strip-explicit"></span><span class="strip-included"></span><span class="strip-excluded"></span></div>
+        <dl class="horizon-example-key"><div><dt><span class="example-dot explicit-dot" aria-hidden="true"></span>Forecast through 2036</dt><dd>$79.5bn</dd></div><div><dt><span class="example-dot included-dot" aria-hidden="true"></span>Continuation, 2037–2046</dt><dd>$169.0bn</dd></div><div><dt><span class="example-dot excluded-dot" aria-hidden="true"></span>Continuation after 2046, excluded</dt><dd>$119.3bn</dd></div></dl>
+        <figcaption id="horizon-example-note">Illustrative Base assumptions · Present values in USD billions · 18 Oct 2026 model date. The original forecast stays fixed. Cash flows and residual value after the selected cutoff are set to zero in this lens. <a href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer">Inspect the calculation <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
+    </section>
+
+    <div class="fintech-scope-strip"><div class="container"><span>FINANCIAL JUDGMENT</span><span>REPRODUCIBLE CALCULATIONS</span><span>DATED EVIDENCE</span><span>WORKING SOFTWARE</span></div></div>
+
+    <section class="fintech-project container" id="frontier" aria-labelledby="frontier-title">
+      <div class="fintech-section-heading"><div><p class="section-index">01 / FEATURED FINTECH PROJECT</p><h2 id="frontier-title">Frontier AI<br>Valuation Lab<span class="punctuation">.</span></h2></div><div class="fintech-project-intro"><span class="fintech-version">VALUE HORIZON / APPLICATION 3.4.0</span><p>A complete research workspace for Anthropic and OpenAI. Build an operating cash-flow case, explain the differences between assumptions, and keep the exact analysis with its reasoning.</p><a class="fintech-text-link" href="https://frontier-ai-valuation-lab.vercel.app/" target="_blank" rel="noopener noreferrer">Explore the complete workspace <span aria-hidden="true">↗</span></a></div></div>
+      <figure class="fintech-product-image"><a href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer" aria-label="Open the live Value Horizon demo"><img src="/assets/frontier-ai-horizon-3-4.png" alt="Value Horizon in the live valuation workspace, with the selected terminal horizon and a decomposition of operating enterprise value" loading="lazy"></a><figcaption><span>THE WORKING PRODUCT</span><span>Value Horizon · Illustrative model assumptions</span><a href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer">Open the demo <span aria-hidden="true">↗</span></a></figcaption></figure>
+    </section>
+
+    <section class="fintech-journey container" aria-labelledby="journey-title">
+      <div class="fintech-section-heading"><div><p class="section-index">02 / FOLLOW THE RESEARCH</p><h2 id="journey-title">A question leads<br>to the next question<span class="punctuation">.</span></h2></div><p class="fintech-section-note">Three connected ways to inspect the financial argument. Each opens the working tool.</p></div>
+      <div class="fintech-journey-grid">
+        <a class="fintech-journey-card" href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer"><div class="journey-card-top"><span>01 / VALUE HORIZON</span><span aria-hidden="true">↗</span></div><h3>How much value arrives later?</h3><p>Choose how many terminal years to include. Separate the retained explicit forecast, the selected continuation and the continuation left beyond the cutoff.</p><span class="journey-action">Explore time dependence <span aria-hidden="true">→</span></span></a>
+        <a class="fintech-journey-card" href="https://frontier-ai-valuation-lab.vercel.app/thesis.html" target="_blank" rel="noopener noreferrer"><div class="journey-card-top"><span>02 / THESIS LAB</span><span aria-hidden="true">↗</span></div><h3>Which assumptions change the value?</h3><p>Compare two complete operating cases. Read the signed attribution across six assumption groups and test the margin required for a chosen target.</p><span class="journey-action">Explain a comparison <span aria-hidden="true">→</span></span></a>
+        <a class="fintech-journey-card" href="https://frontier-ai-valuation-lab.vercel.app/casebook.html" target="_blank" rel="noopener noreferrer"><div class="journey-card-top"><span>03 / RESEARCH CASEBOOK</span><span aria-hidden="true">↗</span></div><h3>What would change your mind?</h3><p>Keep saved cases and comparisons with a rationale, critical assumption and review trigger. Export the complete research record to another browser or device.</p><span class="journey-action">Keep the reasoning <span aria-hidden="true">→</span></span></a>
+      </div>
+    </section>
+
+    <section class="fintech-evidence" aria-labelledby="evidence-title">
+      <div class="container fintech-evidence-grid">
+        <div class="fintech-evidence-intro"><p class="section-index">03 / INSPECT THE WORK</p><h2 id="evidence-title">The proof belongs<br>beside the demo<span class="punctuation">.</span></h2><p>The interface is one part of the project. The financial method, API contract, independent checks and source register are available to examine.</p><a class="button button-quiet" href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer">Explore the repository <span aria-hidden="true">↗</span></a></div>
+        <div class="fintech-proof-list">
+          <a class="fintech-proof" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/METHODOLOGY.md" target="_blank" rel="noopener noreferrer"><span class="proof-number">01</span><div><h3>Financial method</h3><p>Explicit reinvestment, dated discounting and terminal returns on capital. Operating EV and hypothetical equity adjustments keep separate definitions.</p><span>Read the methodology</span></div><span class="proof-arrow" aria-hidden="true">↗</span></a>
+          <a class="fintech-proof" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md" target="_blank" rel="noopener noreferrer"><span class="proof-number">02</span><div><h3>Full stack calculation contract</h3><p>Shared deterministic calculations in the browser and a stateless Node.js API. Complete submitted inputs, bounded requests and explicit failure states.</p><span>Inspect the API contract</span></div><span class="proof-arrow" aria-hidden="true">↗</span></a>
+          <a class="fintech-proof" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer"><span class="proof-number">03</span><div><h3>Independent numerical checks</h3><p>Separate Python calculations and recorded fixtures make arithmetic reproducible. The verification record identifies what was checked and the limits of those checks.</p><span>Review the verification evidence</span></div><span class="proof-arrow" aria-hidden="true">↗</span></a>
+          <a class="fintech-proof" href="https://frontier-ai-valuation-lab.vercel.app/index.html#sources" target="_blank" rel="noopener noreferrer"><span class="proof-number">04</span><div><h3>Evidence in context</h3><p>Actual-period revenue, annualized run-rate, funding references and analyst assumptions retain their dates and distinct meanings.</p><span>Trace the source register</span></div><span class="proof-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="fintech-role container" aria-labelledby="role-title">
+      <div><p class="section-index">04 / MY ROLE</p><h2 id="role-title">Financial research.<br>Product decisions.<br>Shipped software<span class="punctuation">.</span></h2></div>
+      <div class="fintech-role-copy"><p>I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project. My work connects financial-model review, interaction design, full stack implementation and reproducible verification.</p><p>The project presents conditional operating enterprise values from illustrative assumptions and incomplete public disclosures. Value Horizon is a truncation lens: it preserves the forecast through 2036, includes the selected terminal years, and assigns no cash flows or residual value after the cutoff. It does not forecast a company's closure or an investor's holding-period return.</p><p class="fintech-snapshot">Application 3.4.0 · Financial engine 3.0.0 · Research snapshot 18 Oct 2026. No live financial-data refresh, security-specific price target or investment-return claim.</p><div class="hero-actions"><a class="button button-primary" href="https://frontier-ai-valuation-lab.vercel.app/horizon.html" target="_blank" rel="noopener noreferrer">Explore Value Horizon <span aria-hidden="true">↗</span></a><a class="fintech-text-link" href="/projects/frontier-ai-valuation-lab.html">Read the engineering case study <span aria-hidden="true">→</span></a></div></div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a href="/" class="footer-brand" aria-label="Charles Dai, home">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="/#work">ALL PROJECTS <span aria-hidden="true">↗</span></a></span></footer>
+</body>
+</html>
