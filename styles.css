@@ -112,6 +112,9 @@ img{max-width:100%;height:auto}
 .project-media{position:relative;min-height:390px;border-left:1px solid var(--line)}
 .screenshot{padding:34px;background:linear-gradient(130deg,#223c35,#141e23);display:flex;align-items:center;justify-content:center}
 .screenshot img{width:100%;height:auto;object-fit:cover;max-height:330px;aspect-ratio:16/10;border:1px solid #4a5c56;border-radius:8px;box-shadow:0 20px 40px rgba(0,0,0,.30)}
+#frontier-ai-valuation-lab .project-media{margin:0;flex-direction:column;gap:18px}
+#frontier-ai-valuation-lab .project-media img{aspect-ratio:auto;object-fit:contain;max-height:none}
+#frontier-ai-valuation-lab .project-media figcaption{color:#aec8bb;font:10px/1.7 var(--mono);letter-spacing:.065em;text-align:center}
 .motionx-media{background:linear-gradient(125deg,#302b37,#171a23)}
 .motionx-media img{max-height:312px;aspect-ratio:16/9}
 .media-footnote{position:absolute;bottom:12px;left:34px;right:34px;display:flex;justify-content:space-between;color:#aec8bb}

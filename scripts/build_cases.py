@@ -77,30 +77,37 @@ CASES = [
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="08", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="Explain a change in enterprise value, then test the assumptions a target would require.",
-         tags=["Thesis Lab", "Exact grouped attribution", "Sensitivity landscape", "Node.js API", "Python verification"],
+         title="Frontier AI Valuation Lab", hero="Compare, explain and inspect a valuation thesis, then keep the exact case with its reasoning.",
+         tags=["Research Workspace 3.3", "Research Casebook", "Contextual evidence", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
-         live="https://frontier-ai-valuation-lab.vercel.app/thesis.html", live_label="Explore Thesis Lab",
-         image="/assets/frontier-ai-thesis-3-2.png", alt="Frontier AI Thesis Lab comparing Anthropic Base and Bull cases with signed valuation attribution",
+         live="https://frontier-ai-valuation-lab.vercel.app/", live_label="Explore the workspace",
+         secondary_links=[
+             ("Research Casebook", "https://frontier-ai-valuation-lab.vercel.app/casebook.html"),
+             ("Thesis Lab", "https://frontier-ai-valuation-lab.vercel.app/thesis.html"),
+             ("3.3 release", "https://github.com/ult666666/frontier-ai-valuation-lab/releases/tag/v3.3.0")
+         ],
+         image="/assets/frontier-ai-research-3-3.png", alt="Research Casebook showing illustrative saved analyses and an Anthropic target-value comparison",
+         caption="Research Workspace 3.3: Research Casebook with an illustrative worked example.",
          sections=[
-             ("From a headline to a testable thesis", [
-                 "A private AI company's headline valuation says little about which growth, margin or capital assumptions support it. A scenario calculator can return a precise number while leaving those dependencies hard to inspect.",
-                 "I built Thesis Lab to make that reasoning visible. It opens with Anthropic's Base and Bull cases, then lets viewers compare any two preset or edited cases for the same company. OpenAI is also available. The product connects an explanation of the valuation gap to a concrete test of what a chosen target would require."
+             ("Compare, explain and inspect", [
+                 "A private AI company's headline valuation says little about which growth, margin or capital assumptions support it. I built the Research Workspace to keep that reasoning connected as a reader moves from comparison to explanation, inspection and a saved research record.",
+                 "The Overview compares Anthropic and OpenAI through revenue, free cash flow and value beyond 2036. A selected stress opens the chosen company's exact baseline and changed case in Thesis Lab. Its signed waterfall allocates the enterprise-value change across six assumption groups, including interactions. A conditional target landscape then solves the operating margin required at each discount rate while holding the other eleven inputs fixed.",
+                 "Either case opens in the complete thirteen-input Model for inspection or editing. Returning to Thesis Lab carries that case's current assumptions and optional equity bridge back while retaining the other case, the exact landscape axes and the target. A solved required margin can become the alternative at full numerical precision. The journey keeps the surrounding comparison intact."
              ]),
-             ("Explain the gap, then test a target", [
-                 "A signed waterfall allocates the change in modeled enterprise value across six assumption groups. Exact grouped Shapley attribution evaluates all 64 combinations of reference and alternative groups, equivalent to averaging their marginal contributions over all 720 orders. This includes interactions without making the result depend on which slider was changed first.",
-                 "The target landscape varies the cost of capital and the 2036 operating margin while holding the alternative case's other eleven inputs fixed. At each discount rate, it solves the margin needed to support a selected enterprise value within the displayed range, or explains why no supported solution is available. These are conditional model results; the map assigns no scenario probabilities.",
-                 "A comparison link preserves the numeric precision of both complete cases, their optional hypothetical equity bridges, and the selected landscape and target. A standalone printable HTML brief carries the assumptions, attribution, forecasts and source context. Presenter view keeps the analysis clear during a walkthrough, and either case can be opened in the full model."
+             ("Keep the analysis with its reasoning", [
+                 "The Research Casebook captures a complete single case or two-case comparison with its exact inputs. Each record holds a rationale, the assumption that needs to hold, an observable review trigger and selected sources. Editing these notes leaves the captured financial calculation unchanged; a revised operating thesis can be reopened, edited and saved as another analysis.",
+                 "Saved analyses can be searched, filtered and reopened. Two saved cases for the same company can become the exact endpoints of a new comparison. Import previews make incoming records reviewable, conflicting records are preserved, and deletion has an undo action.",
+                 "Notes and selected source references stay in the current browser and profile. Casebook JSON carries the complete research record to another browser or device, while a script-free HTML brief keeps the calculation, reasoning and dated evidence readable offline or in print. Calculation links preserve the numerical analysis without carrying the notes. The published worked examples are explicitly illustrative and are imported only when the reader chooses."
              ]),
-             ("Shared calculations, independent checks", [
-                 "The browser and stateless Node.js API share deterministic financial and thesis modules, including attribution and landscape operations. Bounded inputs and explicit invalid states give the interface and API the same calculation contract.",
-                 "Reproducible verification uses a separate Python financial model and a different attribution algorithm: it enumerates all 720 orders to check JavaScript's weighted coalition calculation. Independent piecewise-linear margin solutions check the target frontier's bisection solver. The committed verification report covers 28 case comparisons, 390 grid cells and 80 frontier points, with numerical tolerances and hashes binding the evidence to the source files.",
-                 "The original workbench remains accessible alongside the paired Anthropic and OpenAI story through revenue, annual free cash flow and value beyond 2036. Bear, Base and Bull comparisons, paired stress controls and the complete thirteen-input model remain available for exploring the financial mechanics."
+             ("Connect evidence and calculations", [
+                 "Contextual evidence is available beside all thirteen inputs for both companies. The panel shows the exact current value or both comparison values, then connects them to a catalog of 21 recorded facts and 19 sources. Observation periods, publication labels, reporting status and source limitations remain distinct. The relationships explain context, reported arithmetic components, methodology and evidence boundaries; they do not certify a forecast or assign confidence scores.",
+                 "The browser and stateless Node.js API share deterministic financial and thesis modules across eight financial actions. Bounded inputs and explicit invalid states keep their calculation contract aligned. Casebook verification submits financial inputs to the API and compares the complete returned calculations with the browser results. Notes and source selections are not sent to that API.",
+                 "Independent Python calculations check the financial model, grouped attribution and target-margin solutions. Exact grouped Shapley attribution evaluates all 64 combinations of the six assumption groups; a separate verification algorithm enumerates all 720 orders. Browser checks address the connected workflow, exact handoffs, keyboard operation and responsive layouts. The repository documents the verification methods and their limits."
              ]),
              ("My role and the project boundaries", [
                  "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full-stack implementation and reproducible verification. The economic model makes reinvestment, discount dates, terminal returns on capital and the equity bridge explicit.",
-                 "Application 3.2.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF report remain the version 3.0 model and review snapshot; the comparison brief reflects the two selected cases.",
-                 "The outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. Attribution depends on the selected reference and the fixed group definitions; it describes the model's arithmetic and cannot establish business causality. Negative enterprise value is preserved, and invalid calculations are identified. Hypothetical equity bridges are labeled separately. The project makes no claim of a security-specific price target, a financing valuation or investment returns."
+                 "Application 3.3.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF review remain the version 3.0 financial baseline. New research briefs describe their captured cases and analyst notes; they do not refresh the underlying company disclosures.",
+                 "The outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. Attribution depends on the selected reference and fixed groups; it describes the model's arithmetic and cannot establish business causality. Target requirements are conditional and carry no scenario probabilities. Negative enterprise value is preserved, invalid calculations are identified, and hypothetical equity bridges are labeled separately. The project makes no claim of a security-specific price target, a financing valuation or investment returns."
              ])]),
 ]
 
@@ -111,7 +118,8 @@ def render(case: dict) -> str:
     links = '<a class="button button-quiet" href="' + e(case["repo"], quote=True) + '" target="_blank" rel="noopener noreferrer">Explore source ↗</a>'
     if case["live"]:
         links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + ' ↗</a>' + links
-    media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '" loading="eager"><figcaption>Visual from the public project repository.</figcaption></figure>') if case["image"] else ""
+    links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' ↗</a>' for label, url in case.get("secondary_links", []))
+    media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '" loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
     sections, toc = [], []
     for i, (heading, paragraphs) in enumerate(case["sections"], 1):
         ident = "section-" + str(i)
