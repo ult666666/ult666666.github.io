@@ -77,26 +77,27 @@ CASES = [
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="08", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="Make a valuation's assumptions as reviewable as its code.",
-         tags=["Financial modeling", "JavaScript", "Node.js API", "Source provenance", "Excel / PDF"],
+         title="Frontier AI Valuation Lab", hero="An interactive financial story, with every assumption open to challenge.",
+         tags=["Financial modeling", "Interactive visualization", "JavaScript", "Node.js API", "Shareable scenarios"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
          live="https://frontier-ai-valuation-lab.vercel.app/", live_label="Explore interactive demo",
-         image=None, alt=None,
+         image="/assets/frontier-ai-experience-3-1.png", alt="Frontier AI Valuation Lab comparison story with Anthropic and OpenAI forecast charts",
          sections=[
-             ("The problem", [
+             ("The financial question", [
                  "A private AI company's headline valuation can combine a dated funding round, an annualized revenue figure and a forecast built on very different assumptions. A calculator can perform the arithmetic correctly while leaving those differences hidden.",
-                 "I wanted an interactive research tool that makes the chain from evidence to assumptions to enterprise value visible. Anthropic and OpenAI provide a demanding case: rapid revenue growth, substantial investment needs and incomplete public financial disclosures."
+                 "I built a research tool that makes the chain from evidence to assumptions to enterprise value visible. The experience introduces the financial story first, then gives viewers the controls and underlying model to challenge it."
              ]),
-             ("Reviewing the economics", [
-                 "The AI-assisted review examined remaining-year cash flow, discount dates, tax policy, working capital, terminal reinvestment and the enterprise-to-equity bridge. The resulting economic FCFF model funds perpetual growth through an explicit growth-to-ROIC relationship and keeps unknown balance-sheet items unavailable.",
-                 "A useful discovery was that higher early growth does not always produce a higher valuation: it can require more investment before operating profits arrive. The reverse-DCF solver now checks derivative turning points to find multiple admissible growth rates and targets that touch the value curve without crossing it."
+             ("Compare, then challenge", [
+                 "The opening story follows Anthropic and OpenAI through revenue, annual free cash flow and value beyond 2036. Paired Bear, Base and Bull cases and a shared year control make the forecast paths directly comparable. Each chapter explains what the chart means, including how much modeled value depends on the distant future.",
+                 "The stress workspace changes early growth, terminal margin, the discount rate and capital efficiency for both companies. Results show the change against the selected baseline cases, and a stressed company can be opened in the full model. These are deterministic sensitivities to selected assumptions; the interface does not assign probabilities to the scenarios."
              ]),
-             ("Building a reviewable application", [
-                 "The browser and Node.js API share the same deterministic JavaScript calculation engine. Input validation, explicit failure states, scenario analysis and sensitivity calculations are exercised through model and API tests, including multiple-root, tangent-root and invalid-input cases.",
-                 "Dated source records distinguish reported observations from analyst assumptions. The interactive model is accompanied by a formula-based Excel workbook and a PDF report, so the investment policy and calculations can be inspected outside the interface. Structured exports preserve the scenario being reviewed."
+             ("A result others can review", [
+                 "The browser and Node.js API share a deterministic JavaScript financial engine. Comparison, paired stress calculations and individual driver sensitivities are also available through the API. Model and API tests exercise input validation, explicit failure states and reverse-DCF cases where several growth rates can support the same enterprise value.",
+                 "A scenario link preserves the selected company, assumptions and optional hypothetical equity bridge. A downloadable, standalone HTML brief carries the current scenario's forecast, valuation reconciliation and source references, and can be saved as a PDF from the browser. Viewers can take the reasoning with them as well as the headline result.",
+                 "Application release 3.1.0 extends the experience while retaining financial engine 3.0.0 and the 18 October 2026 research snapshot. The formula-based Excel workbook and existing PDF report remain the version 3.0 model and review snapshot; the custom HTML brief reflects the selected scenario."
              ]),
              ("My role and the project boundaries", [
-                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. The work combines financial-model review, full-stack implementation, source organization and reproducible verification. The repository makes that process inspectable.",
+                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interactive visualization, full-stack implementation and reproducible verification. The economic model makes reinvestment, discount dates, terminal returns on capital and the equity bridge explicit.",
                  "This is a financial modeling and software engineering demo. Its outputs are scenario enterprise values derived from analyst assumptions and incomplete public disclosures. A hypothetical equity bridge is labeled separately; the project does not establish a security-specific price target or a trading performance record."
              ])]),
 ]
