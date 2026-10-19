@@ -4,7 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(process.env.PORTFOLIO_TEST_ROOT || path.resolve(__dirname, '..'));
+const evidenceRoot = path.resolve(__dirname, '..', 'test-results');
 const types = {'.html':'text/html','.css':'text/css','.js':'text/javascript','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml'};
 const server = http.createServer((req, res) => {
   const relative = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
@@ -19,6 +20,11 @@ const server = http.createServer((req, res) => {
 async function captureFinancingCase(page, destination) {
   const image = page.locator('.case-detail-media img');
   await image.scrollIntoViewIfNeeded();
+  // Routing deliberately disables cache. Wait for a lazy image's real load
+  // before decode; screenshots must not depend on an earlier cached visit.
+  const imageNode = await image.elementHandle();
+  await page.waitForFunction(node => node.complete && node.naturalWidth > 0,
+                            imageNode, {timeout:15000});
   await image.evaluate(node => node.decode());
   assert.equal(await image.evaluate(node => node.complete && node.naturalWidth > 0),true);
   assert.equal(await image.evaluate(node => node.naturalWidth > node.naturalHeight),true,'The ownership case should use a compact landscape application capture');
@@ -45,17 +51,27 @@ async function captureFinancingCase(page, destination) {
     browser = await chromium.launch(launchOptions);
     const page = await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const errors = [];
+    const externalRequests = [];
+    await page.route('**/*', route => {
+      if (new URL(route.request().url()).origin === base) return route.continue();
+      externalRequests.push(route.request().url()); return route.abort();
+    });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.project-card:visible').count(), 8);
     assert.equal(await page.locator('.project-card').first().getAttribute('id'), 'frontier-ai-valuation-lab');
+    assert.equal(await page.locator('#engineering-proof .proof-path').count(),3);
+    for(const anchor of await page.locator('#engineering-proof .proof-path').all()){
+      assert.equal(await anchor.getAttribute('target'),'_blank');
+      assert((await anchor.getAttribute('rel')).includes('noreferrer'));
+    }
     for (const [filter, count] of [['fintech',1],['ai',3],['web',2],['experimental',2],['all',8]]) {
       await page.locator(`[data-filter="${filter}"]`).click();
       assert.equal(await page.locator('.project-card:visible').count(), count);
       assert.equal(await page.locator('#project-count').innerText(), String(count).padStart(2,'0'));
     }
-    const out = path.join(root, 'test-results'); fs.mkdirSync(out,{recursive:true});
+    const out = evidenceRoot; fs.mkdirSync(out,{recursive:true});
     await page.evaluate(()=>window.scrollTo(0,0));
     await page.waitForTimeout(100);
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
@@ -142,8 +158,14 @@ async function captureFinancingCase(page, destination) {
     await staticPage.goto(base+'/projects/frontier-ai-valuation-lab.html');
     assert.equal(await staticPage.locator('#review-guide').isVisible(),true);
     assert.equal(await staticPage.locator('#engineering-evidence tbody tr').count(),4);
+    await staticPage.goto(base);
+    assert.equal(await staticPage.locator('#engineering-proof .proof-path').count(),3);
+    await staticPage.locator('#engineering-proof').screenshot({path:path.join(out,'engineering-proof-nojs-mobile.png')});
     await noJs.close();
     assert.deepEqual(errors,[]);
+    assert.deepEqual(externalRequests,[], 'The portfolio loaded third-party resources');
+    await page.setViewportSize({width:1440,height:1000});await page.goto(base);
+    await page.locator('#engineering-proof').screenshot({path:path.join(out,'engineering-proof-desktop.png')});
     const og=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
     await og.goto(base+'/assets/portfolio-og.svg');
     if (process.env.RENDER_SOCIAL_IMAGE === '1') {

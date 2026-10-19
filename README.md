@@ -28,6 +28,12 @@ The project uses illustrative forecasts and a dated research snapshot. Its share
 | JUST-QR | Focused browser utility | [Source](https://github.com/ult666666/JUST-QR) |
 | Frontier AI Valuation Lab | AI-assisted independent fintech project; reviewed economic FCFF model and shared browser/Node.js API | [Source](https://github.com/ult666666/frontier-ai-valuation-lab) · [Demo](https://frontier-ai-valuation-lab.vercel.app/) · [Case study](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html) |
 
+## Inspect the engineering
+
+The homepage now connects three concrete questions to public implementation evidence: financial arithmetic, rejected schema-change inputs, and the publication boundary of the portfolio itself. These routes work without JavaScript and distinguish verification from forecasts, deployment authority and absolute-security claims.
+
+The [publication boundary](docs/PUBLICATION_BOUNDARY.md) records a reproduced directory-copy weakness and its repair. An exact `public-files.json` inventory replaces implicit approval of everything in `assets/` or `projects/`. The staged site carries a deterministic `release-manifest.json` with per-file SHA-256 values and is verified again before upload. Sensitive findings belong in the private route in [SECURITY.md](SECURITY.md), never a public issue with secrets attached.
+
 ## Local development
 
 Use Python 3.11+ and Node.js 22+.
@@ -37,8 +43,9 @@ python3 -m http.server 4319 --bind 127.0.0.1
 python3 -B -m unittest discover -s tests -v
 npm ci --ignore-scripts --no-audit --no-fund
 npx playwright install chromium
-npm run test:browser
 npm run build
+PORTFOLIO_TEST_ROOT=_site npm run test:browser
+python3 -B scripts/build_site.py --verify _site
 ```
 
 The build refuses to overwrite an existing `_site` directory. Start with a fresh checkout or remove only your previously generated `_site` output before rebuilding.
@@ -52,7 +59,9 @@ The optional browser harness accepts `PLAYWRIGHT_MODULE` for an installed Playwr
 - `styles.css`: responsive layout, visible keyboard focus, reduced-motion support.
 - `script.js`: progressively enhanced project filters and mobile navigation.
 - `scripts/build_cases.py`: deterministic case-study source and optional escaped reviewer guide; `--check` catches stale generated pages.
-- `scripts/build_site.py`: allowlisted static staging; Git metadata, local reports, tests and dependencies are never deployed.
+- `public-files.json`: exact reviewed deployment paths; new assets require an explicit inventory update.
+- `scripts/build_site.py`: snapshot-based static staging and byte verification; unlisted assets, unsafe file types and missing reviewed files refuse before output.
+- `release-manifest.json`: generated public SHA-256 inventory, not a signature or security certification.
 - `tests/`: structural/metadata/deployment checks plus real Chromium interaction checks.
 - `.github/workflows/portfolio.yml`: tests on pull requests and pushes; deploys only tested main-branch artifacts.
 
@@ -68,6 +77,6 @@ The browser/API calculation contract and dedicated financing links and HTML/JSON
 
 The case study connects financial-model review, a shared browser/Node.js calculation engine, dated sources and independent numerical verification. Its proof links lead to the actual methodology, API contract, verification record and source register. Scenario enterprise values and hypothetical equity bridges are distinct from security-specific price targets or trading results. The 18 October 2026 financial snapshot is unchanged.
 
-The [Ownership Frontier 3.6 local portfolio verification record](docs/verification/ownership-3.6-local.json) records the current portfolio checks, preserved content and source hashes. It covers this portfolio integration; production deployment verification is recorded separately. The earlier [Financing Lens 3.5 receipt](docs/verification/financing-3.5-local.json) remains available as historical evidence.
+The [Ownership Frontier 3.6 local portfolio verification record](docs/verification/ownership-3.6-local.json) records the portfolio checks at that revision, preserved content and source hashes. It covers this portfolio integration; production deployment verification is recorded separately. The earlier [Financing Lens 3.5 receipt](docs/verification/financing-3.5-local.json) remains available as historical evidence.
 
 Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.
