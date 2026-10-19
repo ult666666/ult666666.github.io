@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "scope": "Local portfolio integration of Ownership Frontier 3.6 within Financing Lens. This record does not claim production deployment, HTTPS verification or application calculation-suite results.",
+  "recordedAtUtc": "2026-10-19T21:10:10+00:00",
+  "baseCommit": "d6b8b7477b4f9677cade3264de7ec5720143c8ab",
+  "applicationVersion": "3.6.0",
+  "financialModelVersion": "3.0.0",
+  "financialSnapshotDate": "2026-10-18",
+  "verification": {
+    "unitTests": {
+      "command": "npm test",
+      "passed": 14,
+      "failures": 0
+    },
+    "caseGeneration": {
+      "command": "python3 -B scripts/build_cases.py",
+      "generatedCases": 4,
+      "status": "passed"
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "passed",
+      "verifiedGeneratedCases": 4,
+      "stagedFiles": 26,
+      "stagedDirectories": 2,
+      "totalStagedEntries": 28,
+      "stagedFilesMatchCurrentPublicSource": true
+    },
+    "browser": {
+      "command": "npm run test:browser",
+      "status": "passed",
+      "environment": {
+        "transport": "loopback HTTP on an ephemeral port selected by the existing harness",
+        "playwright": "installed runtime package selected using PLAYWRIGHT_MODULE",
+        "chromium": "installed Chromium binary selected using PORTFOLIO_CHROMIUM_EXECUTABLE",
+        "launchArguments": [
+          "--no-sandbox",
+          "--no-zygote",
+          "--use-gl=angle",
+          "--use-angle=swiftshader",
+          "--enable-unsafe-swiftshader"
+        ]
+      },
+      "filterStates": 5,
+      "projectCards": 8,
+      "casePages": 4,
+      "fintechJourneyCards": 4,
+      "responsiveWidthsPx": [
+        360,
+        390,
+        768,
+        1440
+      ],
+      "cssZoomPercent": 200,
+      "pageErrors": 0,
+      "checks": [
+        "Exact ownership-example destination in existing Financing card, case CTA and screenshot link",
+        "Decoded real application image is landscape, with matching authored and intrinsic dimensions",
+        "Preserved review-guide evidence and section anchors",
+        "No horizontal overflow at tested widths",
+        "Keyboard skip navigation",
+        "Mobile navigation and Escape handling",
+        "JavaScript-disabled entry"
+      ],
+      "assertionCount": null,
+      "assertionCountNote": "The existing browser harness is not instrumented to count assertions. The counts above describe observed scope."
+    },
+    "visualReview": {
+      "status": "passed",
+      "scope": "Actual ownership case capture and fintech gateway at desktop and mobile widths. The landscape illustration fits the article and mobile caption/links remain readable.",
+      "localReviewCaptures": {
+        "financing-case-desktop.png": {
+          "bytes": 309747,
+          "sha256": "f651626d8cd4db2f6efe70afb379d32ceaa9fb2dae8e4ca7f5697efec4bd93bf",
+          "width": 1440,
+          "height": 1000
+        },
+        "financing-case-mobile.png": {
+          "bytes": 91335,
+          "sha256": "71543c541bb9e66c7c7d329bd5f036dd048f310932d5aa6b7f24eb2829dfface",
+          "width": 390,
+          "height": 844
+        },
+        "fintech-gateway-desktop.png": {
+          "bytes": 971080,
+          "sha256": "a7910a3b93c41e8628a2997c4b60c63de98c7eead7a95ef410135e1316fedd3f",
+          "width": 1440,
+          "height": 4926
+        },
+        "fintech-gateway-mobile.png": {
+          "bytes": 635743,
+          "sha256": "c2cb79e3041b89c05ec8ada09035fcd3b85b925edd6328687bc1673afbc4640d",
+          "width": 390,
+          "height": 6677
+        }
+      },
+      "captureLocationNote": "Captures are produced by the existing harness in ignored test-results output; they are not publication assets."
+    },
+    "diffWhitespaceCheck": "passed",
+    "limitations": [
+      "Verification is local and separate from production deployment and link checks.",
+      "Functional and visual checks are not a full accessibility audit.",
+      "README receipt link was finalized after tests; README is not staged as website content. The reviewed public inputs were rechecked against the built files by hash."
+    ]
+  },
+  "applicationScreenshot": {
+    "sourceRepositoryPath": "frontier-ai-valuation-lab/docs/demo-ownership.png",
+    "portfolioPath": "assets/frontier-ai-ownership-3-6.png",
+    "bytes": 202278,
+    "sha256": "6c5fec5f5e9b8c1aaa8d340407f3159581b6189773672893b9fbe5edec091105",
+    "width": 975,
+    "height": 612,
+    "sourceMatchesPortfolioBytes": true,
+    "description": "Actual Ownership Frontier panel supplied by the app implementation and visually inspected in the portfolio. Shows hypothetical quote/current capital/holder context, selected retention floor, current round and capital limit."
+  },
+  "destinations": {
+    "workedExample": "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example",
+    "method": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md",
+    "workedPdf": "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf"
+  },
+  "preservation": {
+    "unchangedFiles": {
+      "projects/lineageguard.html": "1354c9ba4230a5977164119d7d4781cdc2ec447ecffa8b503297f682fe495ca1",
+      "projects/motionx.html": "69d4a7038fea8449ef16bd0f82c6b0f984ca36de51f097154f70aca9cb1cd7b6",
+      "projects/trading-research.html": "b40abfe60065ad9399a624a48102a69ac3726325a13241a61f378ef0c40ef082",
+      "assets/frontier-ai-horizon-3-4.png": "f95c98efaed44cb96e913ff3739f968f418140a6af69cd35b383763113432b5a"
+    },
+    "preservedContent": {
+      "reviewSteps": "cb6934c77f6806dc58c863b146a8ca83f68697305cb03c2189696c00c7fec0f0",
+      "engineeringEvidenceTable": "89f9d0e4e544e91c126c6d7614b7d8f98114967056ae7628c5fbc18de6bc50ea",
+      "fintechHero": "54c45a436b797d26837272632b3fc7426460686fb531dafe21eda921d9ae55b5",
+      "section-1": "f983b9f5e639e04ca181d34c81d588370adb0cbb0d4d31b80554157c97c600ab",
+      "section-2": "0dd34fbc376cc173f0617f427e478ba3ad721b472a03942284a70dbf7f7a706f",
+      "section-3": "d2bc856d8a61c958ab855afd7cd01968b6d57cf085101f8a9bf7f57a67fc2299",
+      "section-4": "Heading, anchor and purpose preserved; current application version updated to 3.6.0.",
+      "firstThreeJourneyCards": "dc5548c591982c7c7aa85909ce6ba325c72ad7bca6077dd7208120b2465bf751"
+    },
+    "stagedFileCount": 26,
+    "stagedFiles": {
+      ".nojekyll": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "404.html": {
+        "bytes": 581,
+        "sha256": "3c9f536dde0ce007d932ea4b309197995a5649bb74705c5113364e0320e8d328"
+      },
+      "assets/blast-radius.png": {
+        "bytes": 147272,
+        "sha256": "692352e17ec1e21f94cfcbe76a9776721ec1141bd1aa70b9d207237d31d73d39"
+      },
+      "assets/favicon.svg": {
+        "bytes": 439,
+        "sha256": "ff1113353d27c8419c4a2929f1640f0c03cb14a394fdc81878a690e117a40108"
+      },
+      "assets/frontier-ai-experience-3-1.png": {
+        "bytes": 138920,
+        "sha256": "f0a1deac608862dd86dc0861d26d86a41e2a494b6510aba3bfd7b3c461353b70"
+      },
+      "assets/frontier-ai-financing-3-5.png": {
+        "bytes": 242301,
+        "sha256": "6582c4ada18498f9ca82ead1a199c8d845894e17d21fac428db63107a71b3b71"
+      },
+      "assets/frontier-ai-horizon-3-4.png": {
+        "bytes": 166611,
+        "sha256": "f95c98efaed44cb96e913ff3739f968f418140a6af69cd35b383763113432b5a"
+      },
+      "assets/frontier-ai-ownership-3-6.png": {
+        "bytes": 202278,
+        "sha256": "6c5fec5f5e9b8c1aaa8d340407f3159581b6189773672893b9fbe5edec091105"
+      },
+      "assets/frontier-ai-research-3-3.png": {
+        "bytes": 158664,
+        "sha256": "9fc09378bf8d86c94ee34f33d9f63653a8360a982546835e96c1c88f04bca9af"
+      },
+      "assets/frontier-ai-thesis-3-2.png": {
+        "bytes": 113167,
+        "sha256": "5b294918d7ee2181ae1e284592620a8a3e4d312f05bc6975bc7a0325eded91d0"
+      },
+      "assets/lineageguard.jpg": {
+        "bytes": 82862,
+        "sha256": "cd6f533e8aabdb5d1e8213091911ca32ad81047a7b7f6a5daf956e1bc2c492c2"
+      },
+      "assets/motionx.jpg": {
+        "bytes": 167025,
+        "sha256": "d4937a76784c762a210781324a1a2fdce8ad533a0fc7c05c1dd533c37fc914dc"
+      },
+      "assets/portfolio-og.png": {
+        "bytes": 59502,
+        "sha256": "cac514d2c5e8bbf3a36de29dbbfd6f2b66b4cd9c8958c21ac3e90c3c76e1fdd9"
+      },
+      "assets/portfolio-og.svg": {
+        "bytes": 1299,
+        "sha256": "ad9f447476de16720f37eab93af8dce2221920340f199fe565b9648a5da8d733"
+      },
+      "assets/teen-budgeting.png": {
+        "bytes": 145091,
+        "sha256": "bccf857a64003146e08d3f14a364e1cf3ee91c2e6e572633bf2fbe7b00ce941c"
+      },
+      "fintech.css": {
+        "bytes": 13052,
+        "sha256": "b89310c7023d608563ceef49263ee92a5eec8122347567137b59f8d67068c94e"
+      },
+      "fintech.html": {
+        "bytes": 15298,
+        "sha256": "067e61d7e83f281101ee6a6e853755fe7c5e208f6a30c300dc8af3ab07cd0596"
+      },
+      "index.html": {
+        "bytes": 22364,
+        "sha256": "32e1242420e5d591aae48584818880cc58fc7d531d6f6bcc9c9e418dc690ba58"
+      },
+      "projects/frontier-ai-valuation-lab.html": {
+        "bytes": 21816,
+        "sha256": "5647a914f8fabdde9615f4766ad6bb35d66b3494afd2f2f953899ecfe608deed"
+      },
+      "projects/lineageguard.html": {
+        "bytes": 5263,
+        "sha256": "1354c9ba4230a5977164119d7d4781cdc2ec447ecffa8b503297f682fe495ca1"
+      },
+      "projects/motionx.html": {
+        "bytes": 5098,
+        "sha256": "69d4a7038fea8449ef16bd0f82c6b0f984ca36de51f097154f70aca9cb1cd7b6"
+      },
+      "projects/trading-research.html": {
+        "bytes": 4824,
+        "sha256": "b40abfe60065ad9399a624a48102a69ac3726325a13241a61f378ef0c40ef082"
+      },
+      "robots.txt": {
+        "bytes": 72,
+        "sha256": "c1f10b6c61d5035d4497ed4ca4f92eec863649c283ed86cee86e3c789c3b5abb"
+      },
+      "script.js": {
+        "bytes": 2217,
+        "sha256": "051b633425014531003f8864e2d4c1d0b48cdbfc6c04ee5b1b71a8e4897350db"
+      },
+      "sitemap.xml": {
+        "bytes": 544,
+        "sha256": "4556911a7567b1a5d77f26b12be5d1211ffdbe2067f6d876f195ed46f5eadc87"
+      },
+      "styles.css": {
+        "bytes": 26365,
+        "sha256": "a09d7ede4a8dd0e65888431fde3fbef3a8955e27e848276372a42438064a7076"
+      }
+    }
+  },
+  "sourceFiles": {
+    "README.md": {
+      "bytes": 8022,
+      "sha256": "40050c91d81c42b0240623b1eaf13bbb674fff1a4894f9e35d01d7c14030a2a5"
+    },
+    "fintech.html": {
+      "bytes": 15298,
+      "sha256": "067e61d7e83f281101ee6a6e853755fe7c5e208f6a30c300dc8af3ab07cd0596"
+    },
+    "index.html": {
+      "bytes": 22364,
+      "sha256": "32e1242420e5d591aae48584818880cc58fc7d531d6f6bcc9c9e418dc690ba58"
+    },
+    "fintech.css": {
+      "bytes": 13052,
+      "sha256": "b89310c7023d608563ceef49263ee92a5eec8122347567137b59f8d67068c94e"
+    },
+    "projects/frontier-ai-valuation-lab.html": {
+      "bytes": 21816,
+      "sha256": "5647a914f8fabdde9615f4766ad6bb35d66b3494afd2f2f953899ecfe608deed"
+    },
+    "scripts/build_cases.py": {
+      "bytes": 31125,
+      "sha256": "26065c000b483bae3f873b8188cc1bbf1bb20f1f0eb6a9966956d4c5aafdd60f"
+    },
+    "tests/browser_smoke.cjs": {
+      "bytes": 11001,
+      "sha256": "90aac8e3f4d74181b52ecfce8afd801e5f5009399f94dfaf6c8bf5b3bbde0998"
+    },
+    "assets/frontier-ai-ownership-3-6.png": {
+      "bytes": 202278,
+      "sha256": "6c5fec5f5e9b8c1aaa8d340407f3159581b6189773672893b9fbe5edec091105"
+    }
+  },
+  "selfHashNote": "The receipt is excluded from sourceFiles to avoid a self-referential hash."
+}

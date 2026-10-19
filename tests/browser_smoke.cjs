@@ -21,6 +21,8 @@ async function captureFinancingCase(page, destination) {
   await image.scrollIntoViewIfNeeded();
   await image.evaluate(node => node.decode());
   assert.equal(await image.evaluate(node => node.complete && node.naturalWidth > 0),true);
+  assert.equal(await image.evaluate(node => node.naturalWidth > node.naturalHeight),true,'The ownership case should use a compact landscape application capture');
+  assert.equal(await image.evaluate(node => Number(node.getAttribute('width')) === node.naturalWidth && Number(node.getAttribute('height')) === node.naturalHeight),true,'Authored screenshot dimensions must match the decoded asset');
   await page.locator('.case-detail-media').evaluate(figure => {
     const headerHeight = document.querySelector('.site-header').getBoundingClientRect().height;
     window.scrollTo({left:0,top:window.scrollY + figure.getBoundingClientRect().top - headerHeight - 16,behavior:'instant'});
@@ -67,9 +69,9 @@ async function captureFinancingCase(page, destination) {
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
-        assert.equal(await page.getByRole('link',{name:'Try Financing Lens ↗',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
+        assert.equal(await page.getByRole('link',{name:'Try Ownership Frontier ↗',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
-        assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
+        assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         assert.equal(await page.locator('#section-3 h2').innerText(),'Make the engineering inspectable.');
         assert.equal(await page.locator('#section-4 h2').innerText(),'My role and the project boundaries.');
         await captureFinancingCase(page,path.join(out,'financing-case-desktop.png'));
@@ -83,7 +85,7 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/horizon.html');
     assert.equal(await page.locator('.fintech-proof').count(),4);
     assert.equal(await page.locator('.fintech-journey-card').count(),4);
-    assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example');
+    assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
     assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
     await page.screenshot({path:path.join(out,'fintech-gateway-desktop.png'),fullPage:true});
     for (const width of [390,768,1440]) {

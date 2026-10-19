@@ -78,16 +78,16 @@ CASES = [
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
          title="Frontier AI Valuation Lab", hero="Make the distant cash flows visible, then follow the assumptions into the valuation.",
-         tags=["Financing Lens 3.5", "Value Horizon", "Financial modeling", "Node.js API", "Python verification"],
+         tags=["Ownership Frontier 3.6", "Financing Lens", "Value Horizon", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
          live="https://frontier-ai-valuation-lab.vercel.app/horizon.html", live_label="Try Value Horizon",
          secondary_links=[
              ("Complete workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
              ("Value Horizon method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VALUE_HORIZON.md"),
-             ("Try Financing Lens", "https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example")
+             ("Try Ownership Frontier", "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example")
          ],
          image="/assets/frontier-ai-horizon-3-4.png", alt="Value Horizon showing the selected terminal horizon and the resulting decomposition of operating enterprise value",
-         caption="Value Horizon: the working research tool with illustrative model assumptions. Application 3.5 also includes Financing Lens inside the Model.",
+         caption="Value Horizon: the working research tool with illustrative model assumptions. Application 3.6 adds Ownership Frontier within the Model’s Financing Lens.",
          fintech_showcase=True,
          section_ids={
              "Start with the cash flows beyond 2036": "section-1",
@@ -98,18 +98,18 @@ CASES = [
          },
          section_links={
              "Translate operating value into equity and ownership": [
-                 ("Explore the hypothetical round", "https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example"),
+                 ("Explore the ownership limit", "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example"),
                  ("Read the financing method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md"),
                  ("Download the worked PDF", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf")
              ]
          },
          section_media={
              "Translate operating value into equity and ownership": dict(
-                 image="/assets/frontier-ai-financing-3-5.png",
-                 alt="Financing Lens in the working Model, showing an assumed $250 billion pre-money round with $25 billion of primary capital, ownership before and after issuance, and a separate modeled-equity reconciliation",
-                 width=975, height=2033,
-                 caption="The working Financing Lens with the hypothetical Anthropic Base example. The assumed round has a $275 billion post-money price; the tracked holder moves from 10.00% to 9.09%. Cash, debt and financing terms are illustrative inputs.",
-                 href="https://frontier-ai-valuation-lab.vercel.app/index.html#financing-example"
+                 image="/assets/frontier-ai-ownership-3-6.png",
+                 alt="Ownership Frontier in the working Financing Lens: an assumed $250 billion pre-money quote, $25 billion primary round and 90 percent minimum retention of a starting stake, with a $27.78 billion capital limit",
+                 width=975, height=612,
+                 caption="Ownership Frontier: at the assumed $250 billion pre-money quote, retaining at least 90% of a starting stake permits approximately $27.78 billion in primary capital. The current $25 billion round leaves $2.78 billion within that limit. All terms are hypothetical.",
+                 href="https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example"
              )
          },
          proof_links=[
@@ -119,7 +119,7 @@ CASES = [
              ("Dated source register", "Reported evidence and analyst assumptions with separate meanings.", "https://frontier-ai-valuation-lab.vercel.app/index.html#sources")
          ],
          review=dict(
-             intro="Start with one research question, then follow the implementation and the checks. The published 3.5 workspace connects an interactive model to reproducible code; its forecasts and financing examples remain illustrative assumptions.",
+             intro="Start with one research question, then follow the implementation and the checks. The published 3.6 workspace connects an interactive model to reproducible code; its forecasts and financing examples remain illustrative assumptions.",
              steps=[
                  ("Try a scenario", "Apply a stress in the Overview, then choose Explain this change to inspect the exact comparison.", "Open the workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
                  ("Trace the result", "Follow the source and verification links below to see how arithmetic, navigation and failure states are checked.", "Inspect code and checks", "#engineering-evidence"),
@@ -156,9 +156,11 @@ CASES = [
              ]),
              ("Translate operating value into equity and ownership", [
                  "Financing Lens extends the optional equity bridge inside the existing Model. Starting from operating enterprise value, the bridge adds assumed pre-round cash and subtracts debt and other claims outside the participating equity pool. The resulting modeled equity stays separate from the independently entered funding-round price. None of these balances establishes a company's actual balance sheet.",
-                 "The labeled Anthropic Base example assumes $20 billion of cash, $5 billion of debt and zero other claims. The modeled operating value of $367.8 billion becomes $382.8 billion of hypothetical pre-round equity. A separate assumed transaction at a $250 billion pre-money price, with $25 billion of primary capital, has a $275 billion post-money price. New investors receive 9.09%; a holder with 10% before the round retains 9.09% after it. The round price is an explicit assumption, not a valuation inferred from the model.",
+                 "The labeled Anthropic Base example assumes $20 billion of cash, $5 billion of debt and zero other claims. The modeled operating value of $367.8 billion becomes $382.8 billion of hypothetical pre-round equity. A separate assumed $250 billion pre-money round with $25 billion of primary capital has a $275 billion post-money price. New investors receive 9.09%; a holder starting with 10% owns 9.09% afterward.",
+                 "Ownership Frontier turns that arithmetic into an explicit constraint. Retaining at least 90% of the starting stake means a 10% holder stays at or above 9% of the company. At the assumed $250 billion pre-money quote, approximately $27.78 billion of primary capital fits the limit, leaving $2.78 billion above the example’s $25 billion round. Interpreting the same $250 billion quote as post-money changes the limit to $25 billion. The chart makes the current round, chosen retention minimum and capital limit visible together.",
+                 "The full stack contract carries the decision as well as the calculation: the browser and API receive the complete financing case, and dedicated links and JSON or HTML briefs preserve its operating assumptions, hypothetical balances, round terms and retention minimum. A round that exceeds the chosen limit remains distinguishable from an invalid input. Operating-case saves in the Research Casebook retain their existing scope; the financing snapshot carries these additional terms.",
                  "This simple primary issuance assumes equal economic rights and retains the new capital as cash. It excludes fees, debt repayment, option-pool changes, SAFEs, secondary sales and preference waterfalls. Percentage dilution is shown as ownership arithmetic, with no investor-return claim. Cash, the equity bridge and the operating forecast keep separate meanings.",
-                 "A dedicated financing link and HTML or JSON export retain the operating case, hypothetical balances and round terms together. Operating-case saves in the Research Casebook retain their existing scope; financing terms travel in the separate financing snapshot. The worked PDF provides a readable example with the same assumptions and boundaries."
+                 "The limit answers a conditional ownership question. It does not estimate how much capital either company needs, can obtain or should raise. The worked PDF retains the example’s assumptions and method for review."
              ]),
              ("Make the engineering inspectable", [
                  "The browser and stateless Node.js API share deterministic financial calculations. Value Horizon and Financing Lens add separate analytical modules around the preserved financial engine. Bounded inputs and explicit invalid states keep a numerical failure from becoming a plausible-looking output.",
@@ -167,7 +169,7 @@ CASES = [
              ]),
              ("My role and the project boundaries", [
                  "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full stack implementation and reproducible verification. The fintech portfolio gateway connects the working demonstration with the decisions and evidence behind it.",
-                 "Application 3.5.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
+                 "Application 3.6.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
                  "The outputs are conditional operating enterprise values derived from illustrative assumptions and incomplete public disclosures. Value Horizon is a truncation lens, not a forecast of business life or an investor's holding-period return. Attribution depends on the selected comparison and groups. Target requirements carry no scenario probabilities. Negative operating value is preserved, invalid calculations are identified, and hypothetical equity bridges are separate. The project makes no claim of a security-specific price target or investment returns."
              ])]),
 ]
