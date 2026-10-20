@@ -136,7 +136,7 @@ CASES = [
              ("Capital method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"),
              ("Try Ownership Frontier", "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example")
          ],
-         image="/assets/frontier-ai-capital-4-0.png", image_width=1440, image_height=1381, alt="Capital Strategy Studio showing hypothetical financing plans against the capital objective and retained ownership floor",
+         image="/assets/frontier-ai-capital-visual-20261020.png", image_width=1440, image_height=1271, alt="Capital Strategy Studio showing hypothetical financing plans against the capital objective and retained ownership floor",
          caption="The working Capital Strategy Studio: explicit objectives, separate plan markers and a complete decision workflow. All financing terms are hypothetical.",
          fintech_showcase=True,
          showcase=dict(label="A SWITCHING VALUE YOU CAN REPRODUCE", question="When does the modeled existing-cohort allocation favor the smaller round over the larger one?", value="$635bn", footnote="Modeled pre-money equity residual where Plans A and B tie at a $600bn cohort allocation. The threshold follows the entered round terms; it is neither an operating EV target nor a company financing price."),

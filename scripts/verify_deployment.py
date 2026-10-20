@@ -35,8 +35,8 @@ MAX_VISITOR_SOURCES = 100  # Same finite inventory bound as the publication guar
 MAX_SOURCE_FILES = 256
 MAX_RESPONSE_BYTES = 8 * 1024 * 1024
 MAX_TOTAL_TRANSFER_BYTES = 64 * 1024 * 1024
-IMAGE = 'assets/frontier-ai-capital-4-0.png'
-IMAGE_SHA256 = '58d46330442f6226f84c1773cbc30546bdb691711acd8cbffd4c9355f5728772'
+IMAGE = 'assets/frontier-ai-capital-visual-20261020.png'
+IMAGE_SHA256 = 'db7919bc1165558535d70eb82295791e800b14885450516f0ce716ee5c34fc9d'
 APP = 'https://frontier-ai-valuation-lab.vercel.app'
 DEMO = APP + '/capital.html#worked-decision'
 CASE = 'projects/frontier-ai-valuation-lab.html'
@@ -239,13 +239,13 @@ def semantic_checks(bodies):
     check('Case exact Capital CTA', exact_cta(case, {'tag': 'section', 'cls': 'case-hero'}))
     for name, page in (('Homepage', home), ('Gateway', gateway), ('Case study', case)):
         images = [e for e in select(page, tag='img') if e.attrs.get('src') == '/' + IMAGE]
-        check(name + ' uses the 1440 by 1381 Capital screenshot', len(images) == 1
-              and images[0].attrs.get('width') == '1440' and images[0].attrs.get('height') == '1381'
+        check(name + ' uses the 1440 by 1271 Capital screenshot', len(images) == 1
+              and images[0].attrs.get('width') == '1440' and images[0].attrs.get('height') == '1271'
               and bool(images[0].attrs.get('alt')))
     image = bodies[IMAGE]
     check('Reviewed Capital PNG bytes and intrinsic dimensions', len(image) >= 24
           and image[:8] == b'\x89PNG\r\n\x1a\n' and image[12:16] == b'IHDR'
-          and struct.unpack('>II', image[16:24]) == (1440, 1381) and digest(image) == IMAGE_SHA256)
+          and struct.unpack('>II', image[16:24]) == (1440, 1271) and digest(image) == IMAGE_SHA256)
     check('Gateway financial snapshot remains 18 October 2026', text_is(gateway,
           'Application 4.0.0 · Capital method 1.0.0 · Financial engine 3.0.0 · Research snapshot 18 Oct 2026. The reviewed workbook and original financial review remain available.',
           tag='p', cls='fintech-snapshot'))
