@@ -19,7 +19,7 @@ The project uses illustrative forecasts and a dated research snapshot. Its share
 
 | Project | Scope | Evidence |
 | --- | --- | --- |
-| LineageGuard | Metadata-aware schema-change review | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
+| LineageGuard Studio | Typed orchestration, evidence readiness, interruption recovery and evaluations | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
 | MOTIONX | Next.js studio website and separate Python outreach validation | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
 | Agentic Trading Research | Research-only architecture and deterministic gates | [Public research snapshot](https://github.com/ult666666/agentic-trading-research) |
 | ProofCast | Local media generation with asset provenance | [Source](https://github.com/ult666666/proofcast-backblaze) |
@@ -86,3 +86,7 @@ The case study connects financial-model review, a shared browser/Node.js calcula
 The [Capital Strategy 4.0 local portfolio verification record](docs/verification/capital-4.0-local.json) records 34 structural tests, the real browser workflow, 56 navigation-resilience checks, the reviewed staged-file manifest and preserved concurrent changes. Production deployment verification is recorded separately in the application's release evidence. The historical [Ownership Frontier 3.6 record](docs/verification/ownership-3.6-local.json) and [Financing Lens 3.5 receipt](docs/verification/financing-3.5-local.json) retain their original revision and scope.
 
 Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.
+
+## LineageGuard Studio 2.0
+
+The [Studio case study](projects/lineageguard.html) now documents the executable DAG, source-bound evidence, bounded runtime, local SQLite writer fencing, recovery and evaluations. Its screenshot is copied byte-for-byte from the verified public Studio source. Browser-session preview and durable-local behavior are clearly separated. The original classic demo remains available in its repository. No private trading runtime or real catalog data is included.
