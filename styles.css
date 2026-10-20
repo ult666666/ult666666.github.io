@@ -373,3 +373,17 @@ img{max-width:100%;height:auto}
 .proof-link{margin-top:auto;font-size:12px;font-weight:600;line-height:1.7}
 @media(max-width:820px){.proof-grid{grid-template-columns:1fr}.proof-paths{margin-top:36px}.proof-path strong{margin-top:14px}.proof-path p{margin-bottom:16px}}
 @media(prefers-reduced-motion:reduce){.proof-path{transition:none}.proof-path:hover{transform:none}}
+
+/* LineageGuard-specific case evidence. Does not alter the other portfolio pages. */
+.case-lineageguard .case-section-links{display:flex;flex-wrap:wrap;gap:12px 22px;margin:24px 0 0}
+.case-lineageguard .case-section-links a{font-size:12px;font-weight:600;line-height:1.8;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.case-lineageguard .case-section-links a:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+.case-lineageguard .case-detail-media{max-width:100%;margin:28px 0 0;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+.case-lineageguard .case-detail-media:focus-within{outline:2px solid var(--accent);outline-offset:4px}
+.case-lineageguard .case-detail-media>a{display:block}
+.case-lineageguard .case-detail-media img{display:block;width:100%;height:auto}
+.case-lineageguard .case-detail-media figcaption{padding:16px 19px;font:11px/1.8 var(--mono);color:var(--muted)}
+.case-lineageguard #try-workflow{padding:25px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;background:var(--panel)}
+.case-lineageguard #try-workflow p:last-of-type{margin-bottom:0}
+.case-lineageguard .case-sidebar a:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+@media(max-width:590px){.case-lineageguard #try-workflow{padding:19px}.case-lineageguard .case-section-links{gap:11px 17px}.case-lineageguard .case-detail-media figcaption{padding:13px 15px}}
