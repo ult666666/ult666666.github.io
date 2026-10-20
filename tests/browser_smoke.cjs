@@ -99,10 +99,10 @@ async function captureFinancingCase(page, destination) {
     assert.equal(new URL(page.url()).pathname, '/fintech.html');
     assert.equal(await page.locator('h1').count(),1);
     assert.equal(await page.locator('.primary-nav [aria-current="page"]').innerText(),'Fintech');
-    assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/horizon.html');
+    assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision');
     assert.equal(await page.locator('.fintech-proof').count(),4);
     assert.equal(await page.locator('.fintech-journey-card').count(),4);
-    assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
+    assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#capital-record');
     assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
     await page.screenshot({path:path.join(out,'fintech-gateway-desktop.png'),fullPage:true});
     for (const width of [390,768,1440]) {
@@ -116,7 +116,7 @@ async function captureFinancingCase(page, destination) {
         await page.goto(base+route);
         const sizes=await page.evaluate(()=>[document.documentElement.scrollWidth,innerWidth]);
         assert(sizes[0] <= sizes[1]+1, `Horizontal overflow on ${route} at ${width}: ${sizes}`);
-        const clipped=await page.locator('.horizon-example,.case-horizon-example,.case-detail-media,.fintech-journey-card').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
+        const clipped=await page.locator('.capital-example,.case-capital-example,.case-detail-media,.fintech-journey-card').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
         assert.equal(clipped,false,`Clipped example on ${route} at ${width}`);
       }
     }

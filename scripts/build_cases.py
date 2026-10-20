@@ -77,100 +77,113 @@ CASES = [
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="Make the distant cash flows visible, then follow the assumptions into the valuation.",
-         tags=["Ownership Frontier 3.6", "Financing Lens", "Value Horizon", "Node.js API", "Python verification"],
+         title="Frontier AI Valuation Lab", hero="Connect a capital objective to scenario mathematics, an inspectable calculation and a documented business decision.",
+         tags=["Capital Strategy 4.0", "Financing & ownership", "Scenario analysis", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
-         live="https://frontier-ai-valuation-lab.vercel.app/horizon.html", live_label="Try Value Horizon",
+         live="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision", live_label="Try Capital Strategy Studio",
          secondary_links=[
-             ("Complete workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
-             ("Value Horizon method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VALUE_HORIZON.md"),
+             ("Worked decision PDF", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Capital_Decision.pdf"),
+             ("Capital method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"),
              ("Try Ownership Frontier", "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example")
          ],
-         image="/assets/frontier-ai-horizon-3-4.png", alt="Value Horizon showing the selected terminal horizon and the resulting decomposition of operating enterprise value",
-         caption="Value Horizon: the working research tool with illustrative model assumptions. Application 3.6 adds Ownership Frontier within the Model’s Financing Lens.",
+         image="/assets/frontier-ai-capital-4-0.png", image_width=1440, image_height=1381, alt="Capital Strategy Studio showing hypothetical financing plans against the capital objective and retained ownership floor",
+         caption="The working Capital Strategy Studio: explicit objectives, separate plan markers and a complete decision workflow. All financing terms are hypothetical.",
          fintech_showcase=True,
+         showcase=dict(label="A SWITCHING VALUE YOU CAN REPRODUCE", question="When does the modeled existing-cohort allocation favor the smaller round over the larger one?", value="$635bn", footnote="Modeled pre-money equity residual where Plans A and B tie at a $600bn cohort allocation. The threshold follows the entered round terms; it is neither an operating EV target nor a company financing price."),
          section_ids={
-             "Start with the cash flows beyond 2036": "section-1",
-             "Connect the question to a complete research workflow": "section-2",
-             "Translate operating value into equity and ownership": "section-financing",
+             "Start with the business decision": "section-1",
+             "Compare capital and ownership objectives": "section-financing",
+             "Challenge the choice across explicit scenarios": "section-2",
              "Make the engineering inspectable": "section-3",
              "My role and the project boundaries": "section-4"
          },
          section_links={
-             "Translate operating value into equity and ownership": [
+             "Start with the business decision": [
+                 ("Open the worked decision", "https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision"),
+                 ("Read the decision brief", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Capital_Decision.html")
+             ],
+             "Compare capital and ownership objectives": [
                  ("Explore the ownership limit", "https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example"),
-                 ("Read the financing method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md"),
-                 ("Download the worked PDF", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf")
+                 ("Read the financing method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md")
+             ],
+             "Challenge the choice across explicit scenarios": [
+                 ("Capital comparison method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"),
+                 ("Independent numerical reference", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/scripts/check_capital_reference.py"),
+                 ("Explore Value Horizon", "https://frontier-ai-valuation-lab.vercel.app/horizon.html")
+             ],
+             "Make the engineering inspectable": [
+                 ("Architecture and trust boundaries", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/ARCHITECTURE.md"),
+                 ("Reproduce the demo", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/DEMO_WALKTHROUGH.md")
              ]
          },
          section_media={
-             "Translate operating value into equity and ownership": dict(
+             "Compare capital and ownership objectives": dict(
                  image="/assets/frontier-ai-ownership-3-6.png",
                  alt="Ownership Frontier in the working Financing Lens: an assumed $250 billion pre-money quote, $25 billion primary round and 90 percent minimum retention of a starting stake, with a $27.78 billion capital limit",
                  width=975, height=612,
-                 caption="Ownership Frontier: at the assumed $250 billion pre-money quote, retaining at least 90% of a starting stake permits approximately $27.78 billion in primary capital. The current $25 billion round leaves $2.78 billion within that limit. All terms are hypothetical.",
+                 caption="A supporting drill-down in the Model: at the assumed $250 billion pre-money quote, retaining at least 90% of a starting stake permits approximately $27.78 billion in primary capital. The new Capital Studio compares multiple submitted plans and scenarios around these same round definitions.",
                  href="https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example"
              )
          },
          proof_links=[
-             ("Financial methodology", "Reinvestment, dates, terminal returns and model boundaries.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/METHODOLOGY.md"),
-             ("API contract", "Submitted inputs, complete results and explicit failure states.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md"),
-             ("Verification record", "Independent calculations, browser journeys and the limits of each check.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md"),
-             ("Dated source register", "Reported evidence and analyst assumptions with separate meanings.", "https://frontier-ai-valuation-lab.vercel.app/index.html#sources")
+             ("Capital methodology", "Eligibility, signed residual allocations, regret, switching values and model-conditioned price intervals.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"),
+             ("API contract", "Exact submitted snapshots, complete results and explicit failure states.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md"),
+             ("Verification record", "Independent calculations, browser journeys and the scope of each check.", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md"),
+             ("Dated source register", "Reported company evidence and analyst assumptions with separate meanings.", "https://frontier-ai-valuation-lab.vercel.app/index.html#sources")
          ],
          review=dict(
-             intro="Start with one research question, then follow the implementation and the checks. The published 3.6 workspace connects an interactive model to reproducible code; its forecasts and financing examples remain illustrative assumptions.",
+             intro="Start with the three-plan example. Tighten the retained-stake floor from 88% to 90%, then raise the capital objective from $25bn to $30bn. The first edit leaves one eligible plan; the second leaves none. Follow the same exact state through the code, calculation API and exported decision.",
              steps=[
-                 ("Try a scenario", "Apply a stress in the Overview, then choose Explain this change to inspect the exact comparison.", "Open the workspace", "https://frontier-ai-valuation-lab.vercel.app/"),
-                 ("Trace the result", "Follow the source and verification links below to see how arithmetic, navigation and failure states are checked.", "Inspect code and checks", "#engineering-evidence"),
-                 ("Keep the reasoning", "Save a case from the Model or Thesis Lab, add a rationale and review trigger, then export the Casebook JSON.", "Open the Casebook", "https://frontier-ai-valuation-lab.vercel.app/casebook.html")
+                 ("Change the objective", "Try the two edits above, then restore 88% to recover the larger-capital plan. After observing B become eligible, restore the $25bn capital objective and 88% floor before comparing the scenario rankings.", "Open Capital Studio", "https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision"),
+                 ("Inspect the rule", "Compare signed residual allocations and read where the ranking changes. The declared minimax rule never replaces the analyst's choice.", "Inspect code and checks", "#engineering-evidence"),
+                 ("Keep the reasoning", "Record a preference, tradeoff, review trigger and information needed. Export or reopen a versioned decision with exact numeric inputs.", "Read the worked brief", "https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Capital_Decision.html")
              ],
              evidence=[
-                 ("Consistent calculations", "The browser and Node API import the same pure financial engine.",
-                  [("FCFF engine", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/model.js"), ("JSON handler", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/lib/http.js")],
-                  "A separate Python implementation checks annual and terminal outputs. HTTP tests exercise real requests, invalid inputs and size limits.",
-                  [("Python parity", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/reference_parity.py"), ("HTTP tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/api.test.js")]),
-                 ("Exact workflow handoffs", "Model inspection carries the complete comparison, including separate bridges, the target and landscape axes.",
-                  [("Journey module", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/journey.js")],
-                  "Unit and browser checks follow edits into either case and back, preserving the other case and full numerical precision.",
-                  [("Journey tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/journey.test.js"), ("Browser journey", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/journey-browser.mjs")]),
-                 ("Honest save failures", "Local persistence separates financial snapshots from editable notes and preserves earlier saved data when a write fails.",
-                  [("Storage adapter", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/casebook-store.js")],
-                  "Checks cover corrupt JSON, blocked storage, quota failures and edits made while an earlier save is pending.",
-                  [("Storage tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/casebook-store.test.js"), ("Pending-save browser test", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/save-race-browser.mjs")]),
-                 ("Evidence with boundaries", "Dated records provide context for each model input. Editing a forecast never changes its status as an assumption.",
-                  [("Evidence module", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/evidence.js")],
-                  "Checks cover company/input mappings and known source references; the method documents what each relationship can establish.",
-                  [("Evidence tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/evidence.test.js"), ("Evidence method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/EVIDENCE_CONTEXT.md")])
+                 ("Consistent financial meaning", "The capital engine composes the preserved operating, horizon, financing and ownership modules. The same calculation runs in browser and API.",
+                  [("Capital calculation", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/capital-strategy.js"), ("JSON handler", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/lib/http.js")],
+                  "Independent arithmetic and hand fixtures check allocations, switching values, eligibility and price intervals. HTTP checks compare the complete response and bounded inputs.",
+                  [("Independent reference", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/scripts/check_capital_reference.py"), ("Capital HTTP tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-api.test.js")]),
+                 ("Current-state verification", "Every financial edit invalidates the prior API result. A revision token and request cancellation prevent a late response from verifying an edited decision.",
+                  [("Studio controller", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/capital.js")],
+                  "Browser checks exercise live edits, invalid drafts, objective conflicts, delayed verification, keyboard operation and responsive layouts.",
+                  [("Capital browser workflow", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-browser.mjs")]),
+                 ("Portable and inert decisions", "Versioned records carry exact inputs and plain-text reasoning. Imports recompute analysis; a preview precedes applying a new draft. Long decisions retain a JSON export path.",
+                  [("Record validation", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/capital-record.js"), ("Share codec", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/public/lib/capital-share.js")],
+                  "Record and codec tests challenge incompatible versions, untrusted stored results, Unicode, markup-like notes, malformed tokens and size limits.",
+                  [("Record tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-record.test.js"), ("Share tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-share.test.js")]),
+                 ("Visible limits and dated evidence", "Unavailable bridges, signed negative residuals and an empty eligible set have different meanings. Company source records remain tied to the frozen research date.",
+                  [("Capital method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"), ("Evidence context", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/EVIDENCE_CONTEXT.md")],
+                  "Boundary tests preserve those distinctions. The verification record binds reviewed files and artifacts by hash and separates numerical checks from forecast claims.",
+                  [("Capital boundary tests", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-strategy.test.js"), ("Verification record", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md")])
              ]),
          sections=[
-             ("Start with the cash flows beyond 2036", [
-                 "A terminal-value total can hide how much of a valuation depends on cash flows far beyond the explicit forecast. I built Value Horizon to make that dependence visible within a working Anthropic and OpenAI research model.",
-                 "The lens keeps the remaining-2026 cash flow and every 2027–2036 forecast year unchanged. A selected number of terminal years starts in 2037. The calculation retains those years' discounted cash flows and assigns zero cash flows and zero residual value after the cutoff. It separates the explicit forecast, included continuation and excluded continuation.",
-                 "Under the frozen Anthropic Base assumptions, the perpetual operating enterprise value is $367.8 billion. Keeping ten terminal years, 2037–2046, with no residual produces $248.5 billion. The $119.3 billion difference is discounted continuation excluded by this lens. It is neither an investment loss nor a forecast of the company's closure. The same interaction is available for OpenAI and the other illustrative operating scenarios."
+             ("Start with the business decision", [
+                 "A valuation becomes useful when it helps someone examine a decision. Capital Strategy Studio asks which submitted financing plans fit an explicit capital objective and ownership constraint, what their modeled consequences look like across named scenarios, and what would change an analyst's choice.",
+                 "The workflow is Define, Compare, Challenge, Record. The output is a complete decision record: objectives, alternatives, exact operating assumptions, a declared comparison metric, an analyst preference, its tradeoff, the information still needed and a review trigger. A machine-generated ranking remains separate from the person's judgment.",
+                 "The worked example uses three hypothetical plans. Plan A assumes a $250bn pre-money quote and $25bn primary raise; Plan B assumes $300bn and $35bn; Plan C assumes $300bn and $20bn. With a $25bn objective and 88% retained starting stake, A and B qualify. At 90%, only A qualifies. A $30bn objective and 90% floor leave none; returning the floor to 88% makes B eligible. These transitions are inspectable business tradeoffs, not a recommendation for either company."
              ]),
-             ("Connect the question to a complete research workflow", [
-                 "Value Horizon gives a first-time visitor a concrete financial question to explore. The complete Model exposes all thirteen operating assumptions, annual cash-flow reconciliation, sensitivities, reverse DCF and an optional hypothetical equity bridge. Dated evidence is available beside every input.",
-                 "Thesis Lab compares two complete cases and allocates their signed enterprise-value difference across six declared assumption groups. Exact grouped Shapley attribution includes the groups' interactions. A target landscape solves a required margin while holding the other eleven assumptions fixed. Either comparison case can be inspected in the Model and returned with its surrounding comparison intact.",
-                 "The Research Casebook keeps saved operating cases or comparisons with a rationale, critical assumption, review trigger and selected sources. It supports exact reopening, import previews, conflict preservation and undoable deletion. Browser storage is local to the current origin and profile; explicit JSON export carries the research to another device. Printable briefs retain the calculation and analyst reasoning."
+             ("Compare capital and ownership objectives", [
+                 "Capital and ownership are separate inputs. A plan qualifies only if its primary proceeds meet the stated capital objective and its retained fraction meets the ownership floor. Retaining 90% of a starting stake means a holder beginning with 10% retains at least 9% of the company. The chart shows each submitted plan individually against those objectives, with an equivalent numerical table.",
+                 "The capital objective is never inferred from cumulative economic FCFF deficits. That valuation measure includes modeling conventions such as the economic treatment of stock compensation and cannot establish a treasury cash requirement. Primary proceeds remain cash, operations stay fixed, fees are zero and economic rights are equal.",
+                 "The existing Financing Lens and Ownership Frontier provide a detailed round-level drill-down. An entered pre-money or post-money quote defines the issuance arithmetic independently of modeled value. A hypothetical cash, debt and other-claims bridge connects operating value to a signed equity residual; no absent balance is silently treated as zero."
              ]),
-             ("Translate operating value into equity and ownership", [
-                 "Financing Lens extends the optional equity bridge inside the existing Model. Starting from operating enterprise value, the bridge adds assumed pre-round cash and subtracts debt and other claims outside the participating equity pool. The resulting modeled equity stays separate from the independently entered funding-round price. None of these balances establishes a company's actual balance sheet.",
-                 "The labeled Anthropic Base example assumes $20 billion of cash, $5 billion of debt and zero other claims. The modeled operating value of $367.8 billion becomes $382.8 billion of hypothetical pre-round equity. A separate assumed $250 billion pre-money round with $25 billion of primary capital has a $275 billion post-money price. New investors receive 9.09%; a holder starting with 10% owns 9.09% afterward.",
-                 "Ownership Frontier turns that arithmetic into an explicit constraint. Retaining at least 90% of the starting stake means a 10% holder stays at or above 9% of the company. At the assumed $250 billion pre-money quote, approximately $27.78 billion of primary capital fits the limit, leaving $2.78 billion above the example’s $25 billion round. Interpreting the same $250 billion quote as post-money changes the limit to $25 billion. The chart makes the current round, chosen retention minimum and capital limit visible together.",
-                 "The full stack contract carries the decision as well as the calculation: the browser and API receive the complete financing case, and dedicated links and JSON or HTML briefs preserve its operating assumptions, hypothetical balances, round terms and retention minimum. A round that exceeds the chosen limit remains distinguishable from an invalid input. Operating-case saves in the Research Casebook retain their existing scope; the financing snapshot carries these additional terms.",
-                 "This simple primary issuance assumes equal economic rights and retains the new capital as cash. It excludes fees, debt repayment, option-pool changes, SAFEs, secondary sales and preference waterfalls. Percentage dilution is shown as ownership arithmetic, with no investor-return claim. Cash, the equity bridge and the operating forecast keep separate meanings.",
-                 "The limit answers a conditional ownership question. It does not estimate how much capital either company needs, can obtain or should raise. The worked PDF retains the example’s assumptions and method for review."
+             ("Challenge the choice across explicit scenarios", [
+                 "Each submitted operating scenario has all thirteen valuation assumptions and either perpetual continuation or a finite number of years after 2036. The finite lens assigns zero residual after the selected cutoff. Every scenario is applied to every plan; the tool does not drop an inconvenient or unavailable case.",
+                 "For a modeled pre-money equity residual M, a raise R and existing-cohort retention r, the selected allocation metric is r × (M + R). This is a conditional signed residual allocation under the stated simplified round assumptions. Negative results remain signed and are not presented as limited-liability share prices or investor returns.",
+                 "The plan comparison reports regret relative to the best eligible submitted plan in each listed scenario, the maximum such regret per plan, and all ties under the minimax rule. Pairwise switching values make ranking sensitivity visible. For Plans A and B, the allocation lines meet at M = $635bn, with each allocating $600bn to the existing cohort. B allocates more below that residual; A allocates more above it.",
+                 "A separate diagnostic combines a model-to-quote coverage floor with retained ownership. The resulting pre-money price interval must satisfy every submitted scenario. An empty interval, a nonpositive model-conditioned ceiling, a missing bridge and the no-finite-price case at 100% retention remain distinct. None of these analytical intervals establishes an available financing offer.",
+                 "The method is a finite scenario comparison. Case counts are not probabilities, minimax is conditional on the listed cases and declared metric, and three presets cannot prove global robustness. The documentation connects the design to primary-source work on scenario analysis and decisions under uncertainty without importing unsupported probability distributions."
              ]),
              ("Make the engineering inspectable", [
-                 "The browser and stateless Node.js API share deterministic financial calculations. Value Horizon and Financing Lens add separate analytical modules around the preserved financial engine. Bounded inputs and explicit invalid states keep a numerical failure from becoming a plausible-looking output.",
-                 "Agreement between the browser and API checks that the deployed calculations align. Separate Python calculations and hand-calculated fixtures provide independent arithmetic checks; recorded source hashes identify the inspected model. The repository also exercises full comparison handoffs, local persistence failures, keyboard interaction and responsive layouts. The verification record states what each check establishes and where its coverage ends.",
-                 "Source records distinguish actual-period revenue, annualized run-rate, financing references and analyst assumptions. The evidence panels preserve publication, update and retrieval labels. They provide context for an input without certifying its forecast. Notes and source selections are not submitted to the calculation API."
+                 "A pure JavaScript capital module composes the preserved financial engines. Browser ES modules and the stateless Node.js API use the same validated snapshot and return the same complete analysis. The capital endpoint keeps the existing 16 KiB request limit and does not receive analyst prose. No API key, database or paid market-data service is required to run the demo.",
+                 "The browser invalidates verification when financial inputs change and rejects stale responses. Invalid drafts suppress dependent results. Exported records and UTF-8 share links retain the submitted numeric precision and reasoning; imported analysis is recalculated instead of trusted. Import preview, bounded payloads and inert text rendering protect the decision state without pretending that an export is an authenticated financial document.",
+                 "Independent Python calculations and hand-derived fixtures challenge financial arithmetic separately from browser/API agreement. Browser workflows exercise edits, portability, explicit failure states and responsive use. Current verification receipts identify the reviewed source by hash; production and release checks are reported with their own scope.",
+                 "Earlier workflows remain usable: the Model, Value Horizon, exact grouped attribution in Thesis Lab, contextual evidence and the Research Casebook. Its local persistence still handles corrupt data, unavailable storage and pending-save edits. The portfolio's publication allowlist and staged-byte verification preserve the newer engineering safeguards alongside this project expansion."
              ]),
              ("My role and the project boundaries", [
-                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work combines financial-model review, interaction design, full stack implementation and reproducible verification. The fintech portfolio gateway connects the working demonstration with the decisions and evidence behind it.",
-                 "Application 3.6.0 retains financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and existing financial-review PDF remain the version 3.0 baseline. The application does not silently refresh company disclosures or re-underwrite the published operating assumptions.",
-                 "The outputs are conditional operating enterprise values derived from illustrative assumptions and incomplete public disclosures. Value Horizon is a truncation lens, not a forecast of business life or an investor's holding-period return. Attribution depends on the selected comparison and groups. Target requirements carry no scenario probabilities. Negative operating value is preserved, invalid calculations are identified, and hypothetical equity bridges are separate. The project makes no claim of a security-specific price target or investment returns."
+                 "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work connects financial-model review, product and business framing, quantitative method design, full stack implementation and reproducible verification. This case study presents inspectable work rather than a claimed client engagement or investment track record.",
+                 "Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and original financial-review PDF remain the version 3.0 baseline. New company evidence is not silently substituted for the reviewed assumptions.",
+                 "The outputs depend on illustrative assumptions and incomplete public disclosures. The simplified financing excludes fees, preference waterfalls, option-pool changes, conversions, secondary sales, investment-driven operating benefits and future rounds. It does not determine actual funding need, availability of financing, a security-specific price target or investment returns. The documented boundaries are part of the decision product."
              ])]),
 ]
 
@@ -212,11 +225,13 @@ def render(case: dict) -> str:
     if case["live"]:
         links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + ' ↗</a>' + links
     links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' ↗</a>' for label, url in case.get("secondary_links", []))
-    media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '" loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
+    image_size = (' width="' + e(str(case["image_width"]), quote=True) + '" height="' + e(str(case["image_height"]), quote=True) + '"') if case.get("image_width") and case.get("image_height") else ""
+    media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '"' + image_size + ' loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
     extra_styles = '<link rel="stylesheet" href="/fintech.css">' if case.get("fintech_showcase") else ""
     body_attributes = ' class="case-fintech"' if case.get("fintech_showcase") else ""
     fintech_nav = '<a href="/fintech.html">Fintech</a>' if case.get("fintech_showcase") else ""
-    showcase = '<div class="case-horizon-example"><div><span class="case-example-label">A CONCRETE RESEARCH QUESTION</span><p>How much of Anthropic Base value remains with ten terminal years and no residual after 2046?</p><a class="fintech-text-link" href="/fintech.html">Explore the fintech portfolio →</a></div><div><p class="case-example-value">$367.8bn <span>→ $248.5bn</span></p><p class="case-example-footnote">Operating EV · Illustrative Base assumptions · 18 Oct 2026 model date. The explicit forecast stays fixed; the selected continuation begins in 2037.</p></div></div>' if case.get("fintech_showcase") else ""
+    example = case.get("showcase")
+    showcase = (f'<div class="case-capital-example"><div><span class="case-example-label">{e(example["label"])}</span><p>{e(example["question"])}</p><a class="fintech-text-link" href="/fintech.html">Explore the fintech portfolio →</a></div><div><p class="case-example-value">{e(example["value"])}</p><p class="case-example-footnote">{e(example["footnote"])}</p></div></div>') if example else ""
     proof = '<div class="case-proof-grid">' + ''.join('<a class="case-proof-link" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer"><strong>' + e(label) + ' ↗</strong><span>' + e(description) + '</span></a>' for label, description, url in case.get("proof_links", [])) + '</div>' if case.get("proof_links") else ""
     review = render_review(case.get("review"))
     sections, toc = [], ['<a href="#review-guide">Review the engineering</a>'] if review else []
