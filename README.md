@@ -90,3 +90,14 @@ Project screenshots were copied from the corresponding public project repositori
 ## LineageGuard Studio 2.0
 
 The [Studio case study](projects/lineageguard.html) now documents the executable DAG, source-bound evidence, bounded runtime, local SQLite writer fencing, recovery and evaluations. Its screenshot is copied byte-for-byte from the verified public Studio source. Browser-session preview and durable-local behavior are clearly separated. The original classic demo remains available in its repository. No private trading runtime or real catalog data is included.
+
+
+### Review Inspector: portable, offline consistency checks
+
+The LineageGuard case study now includes the shipped [Review Inspector](projects/lineageguard.html#review-inspector), a three-minute engineering walkthrough, and revision-pinned implementation/test links. It distinguishes recomputed internal consistency from source authentication, recorded decisions from inspection-time evidence freshness, and browser/local persistence from cloud execution.
+
+`assets/lineageguard-review-inspector.png` is copied byte-for-byte from `assets/review-inspector.png` in LineageGuard commit `6ed607b5c9ff6f46f2bb3214b04d040b04c02c52`. SHA-256: `53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266`. It shows synthetic source data. No private local browser screenshot or runtime is published.
+
+The Inspector revision's 120 Node tests, 31 browser journeys and 19 evaluation assertions describe separate overlapping checks. They do not retroactively change the original v2.0.0 release receipt or establish independent catalog truth. Showcase tests cover pinned links, screenshot integrity, accessible anchors, no-JavaScript content, responsive widths and publication inventory. Other case pages and the fintech gateway remain byte-identical in this update.
+
+The [Inspector showcase verification record](docs/verification/lineageguard-inspector-showcase.json) binds the public source screenshot, authored case files and preserved other projects. Deployment results are verified separately after publication.

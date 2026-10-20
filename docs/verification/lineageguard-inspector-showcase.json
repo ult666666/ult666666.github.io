@@ -1,0 +1,48 @@
+{
+  "schema": "portfolio.case-verification/1",
+  "scope": "LineageGuard Inspector showcase; local verification, not deployment proof",
+  "observedPT": "2026-10-20T09:46:38.049614-07:00",
+  "portfolioBase": "59f0f4c91bd352b3ee81a89871a66f72befb3080",
+  "applicationSource": "6ed607b5c9ff6f46f2bb3214b04d040b04c02c52",
+  "checks": {
+    "pythonTests": 47,
+    "originalNavigationAssertions": 56,
+    "newInspectorShowcaseSections": 10,
+    "fullStagedBrowserSuite": "passed twice consecutively",
+    "negativeFeatureChecks": "four Python assertions and browser section existence failed before the showcase change",
+    "publicationGuards": "unchanged and passing"
+  },
+  "sourceFiles": {
+    "index.html": "b3079259fe69bae6d56e905715608d9c93f52dc830824e7be2a7d6a2890d0a94",
+    "projects/lineageguard.html": "b001ab473200f91a3d6708d7236518e11555dee8088db9feb46b3d08d4b8b210",
+    "scripts/build_cases.py": "4db6ef4ad7f6254ebe291a64207b89af2e146e37017d4aed54791f1a1432307b",
+    "styles.css": "304ab72fe11e441cc20d6cbe56e3dcaaf3f80500f1aceccb9d96753ba281db58",
+    "assets/lineageguard-review-inspector.png": "53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266",
+    "tests/inspector_showcase.cjs": "bacae11024180ccf270c405cf52985a752236eeaf32a401abdd84f2f81222269",
+    "tests/test_inspector_showcase.py": "62074a98c11b5920d31761b3f166dec2feba7767d3aadb621096010e79a09fae",
+    "tests/browser_smoke.cjs": "c06e8aaed5391e024b447c76079cebbc326acbca97a1d63c89e2bffdb5c14f8a",
+    "tests/test_case_review.py": "0294fb5a0b6071648ff8882cf1f69603a1319125b8f5964ab1b5641f02635d57",
+    "public-files.json": "a36e810a5ccf0b98edd1ca39f3dd56be3e79e4c26e5b1e2e86ee542744ec0667"
+  },
+  "protectedUnchangedFiles": {
+    "projects/motionx.html": "69d4a7038fea8449ef16bd0f82c6b0f984ca36de51f097154f70aca9cb1cd7b6",
+    "projects/frontier-ai-valuation-lab.html": "338102d421a58234673ab3cd6d44092cc4792acc4f7c61e3ea7473266235813c",
+    "projects/trading-research.html": "b40abfe60065ad9399a624a48102a69ac3726325a13241a61f378ef0c40ef082",
+    "fintech.html": "c0ac9fb800cb616cb18f07aa9f74f199c68703b527165db40e75f7eaaae548a6",
+    "fintech.css": "b558773a00be3156f7fcd345b9e3c3015be6f64948b1fe47e5faabe27581fbc4",
+    "script.js": "cc40cafad07f1b29015f9f71daa3c7e87190921a1c6c620f2e7e30192d682507"
+  },
+  "screenshot": {
+    "original": "https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/assets/review-inspector.png",
+    "sha256": "53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266",
+    "width": 1170,
+    "height": 987,
+    "sourceMode": "synthetic fixture"
+  },
+  "limits": [
+    "Showcase browser checks are not application correctness or independent source authentication",
+    "Original tagged application and release evidence remain unchanged",
+    "No private catalog data, trading runtime or local user screenshots are included",
+    "No independent external reviewer or audit is claimed"
+  ]
+}
