@@ -1,4 +1,4 @@
-"""The optional review guide must display authored text without interpreting HTML."""
+"""Review guides keep authored text inert and expose honest, safe demo entry points."""
 from html.parser import HTMLParser
 import importlib.util
 from pathlib import Path
@@ -16,15 +16,61 @@ class ReviewReader(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.text = []
         self.elements = []
+        self.links = []
+        self.active_link = None
 
     def handle_starttag(self, tag, attrs):
-        self.elements.append((tag, dict(attrs)))
+        attributes = dict(attrs)
+        self.elements.append((tag, attributes))
+        if tag == "a":
+            self.active_link = {"attributes": attributes, "text": []}
+            self.links.append(self.active_link)
+
+    def handle_endtag(self, tag):
+        if tag == "a":
+            self.active_link = None
 
     def handle_data(self, data):
         self.text.append(data)
+        if self.active_link is not None:
+            self.active_link["text"].append(data)
 
 
 class CaseReviewTests(unittest.TestCase):
+    def test_objective_preview_entry_points_preserve_the_primary_studio_route(self):
+        preview_url = "https://frontier-ai-valuation-lab.vercel.app/capital.html#capital-explore"
+        studio_url = "https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision"
+        for path in (ROOT / "fintech.html", ROOT / "projects/frontier-ai-valuation-lab.html"):
+            with self.subTest(page=path.name):
+                reader = ReviewReader()
+                reader.feed(path.read_text(encoding="utf-8"))
+                previews = [link for link in reader.links if link["attributes"].get("href") == preview_url]
+                self.assertEqual(len(previews), 1)
+                self.assertIn("Preview", "".join(previews[0]["text"]))
+                self.assertEqual(previews[0]["attributes"].get("target"), "_blank")
+                self.assertTrue({"noopener", "noreferrer"} <= set(previews[0]["attributes"].get("rel", "").split()))
+                primary = [link for link in reader.links
+                           if "button-primary" in link["attributes"].get("class", "").split()
+                           and "Try Capital Strategy Studio" in "".join(link["text"])]
+                self.assertEqual(len(primary), 1)
+                self.assertEqual(" ".join("".join(primary[0]["text"]).split()), "Try Capital Strategy Studio ↗")
+                self.assertEqual(primary[0]["attributes"]["href"], studio_url)
+
+    def test_objective_guide_separates_current_plan_preview_from_explicit_apply(self):
+        case = next(case for case in builder.CASES if case["slug"] == "frontier-ai-valuation-lab")
+        reader = ReviewReader()
+        reader.feed(builder.render_review(case["review"]))
+        text = " ".join("".join(reader.text).split())
+        for claim in ("against your current plans", "worked three-plan example",
+                      "$25bn and 88% leave A and B eligible", "90% leaves A",
+                      "$30bn with 90% leaves none", "returning to 88% leaves B",
+                      "Previewing does not change your draft.",
+                      "choose Apply to change only the capital objective and retention floor",
+                      "Plan terms and decision notes stay intact.",
+                      "explicitly apply $25bn and 88% again"):
+            with self.subTest(claim=claim):
+                self.assertTrue(claim in text, f"Missing preview/apply guidance: {claim}")
+
     def test_review_text_and_link_labels_cannot_inject_elements_or_attributes(self):
         # Removing escaping from the new renderer would turn this visible text
         # into an image, a script, or a second link attribute.
