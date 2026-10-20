@@ -31,7 +31,7 @@ sys.dont_write_bytecode = True
 from build_site import MANIFEST, ROOT, read_regular, release_document, safe_path, source_snapshot, verify
 
 STAGED_SITE = ROOT / '_site'
-VISITOR_SOURCE_COUNT = 26
+MAX_VISITOR_SOURCES = 100  # Same finite inventory bound as the publication guard.
 MAX_SOURCE_FILES = 256
 MAX_RESPONSE_BYTES = 8 * 1024 * 1024
 MAX_TOTAL_TRANSFER_BYTES = 64 * 1024 * 1024
@@ -104,8 +104,11 @@ def capture(expected_commit=None):
             raise ValueError('Tracked source inventory differs from the reviewed commit')
 
     payload = source_snapshot()
-    if len(payload) != VISITOR_SOURCE_COUNT + 1 or payload.get('.nojekyll') != b'':
-        raise ValueError('Expected exactly 26 visitor sources and an empty deployment marker')
+    # source_snapshot validates the explicit allowlist and rejects unlisted files.
+    # Its legitimate size can grow when another reviewed project asset is added.
+    visitor_source_count = len(payload) - 1
+    if not 1 <= visitor_source_count <= MAX_VISITOR_SOURCES or payload.get('.nojekyll') != b'':
+        raise ValueError('Expected a bounded reviewed inventory and an empty deployment marker')
     document = verify(STAGED_SITE)  # Existing --verify implementation; no source writes.
     if document != release_document(payload):
         raise ValueError('Staged release inventory differs from current reviewed sources')
@@ -139,7 +142,7 @@ def capture(expected_commit=None):
     return {
         'head': head, 'tree': git('rev-parse', 'HEAD^{tree}').decode().strip(),
         'expectedCommit': expected_commit, 'reviewedCommitVerified': expected_commit is not None,
-        'visitorSourceCount': VISITOR_SOURCE_COUNT, 'sourceFiles': sources,
+        'visitorSourceCount': visitor_source_count, 'sourceFiles': sources,
         'deploymentFiles': {name: file_record(raw) for name, raw in sorted(bodies.items())},
         'generatedFiles': ['.nojekyll', MANIFEST],
     }, bodies
@@ -251,7 +254,7 @@ def semantic_checks(bodies):
         for p in select(case, tag='p')))
     projects = select(home, tag='article', cls='project-card')
     check('Eight named homepage projects remain', [[h.text for h in select(project, tag='h3')] for project in projects] == [
-        [name] for name in ('Frontier AI Valuation Lab.', 'LineageGuard.', 'MOTIONX.', 'Agentic Trading Research.',
+        [name] for name in ('Frontier AI Valuation Lab.', 'LineageGuard Studio.', 'MOTIONX.', 'Agentic Trading Research.',
                            'ProofCast', 'Blast Radius Daily', 'Teen Budgeting', 'JUST-QR')])
     check('Three exact homepage proof routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
         'https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md',
@@ -346,7 +349,7 @@ def main():
         'expectedCommit': args.commit, 'networkRequested': args.run,
         'applicationVersion': '4.0.0', 'tlsVerification': True, 'tlsUsed': args.run and urlsplit(base).scheme == 'https',
         'transport': 'System curl with configuration files disabled, no redirects and ordinary certificate/hostname verification. HTTP is allowed only on loopback.',
-        'bounds': {'visitorSources': VISITOR_SOURCE_COUNT, 'maxResponseBytes': MAX_RESPONSE_BYTES,
+        'bounds': {'maxVisitorSources': MAX_VISITOR_SOURCES, 'maxResponseBytes': MAX_RESPONSE_BYTES,
                    'maxTotalTransferBytes': MAX_TOTAL_TRANSFER_BYTES, 'deadlineSeconds': args.deadline_seconds},
         'checks': [], 'semanticChecks': [], 'networkRequests': 0,
         'limitations': ['Byte and semantic checks describe the recorded deployment, not future uptime.',
@@ -356,6 +359,7 @@ def main():
     }
     try:
         before, staged = capture(args.commit)
+        report['bounds']['visitorSources'] = before['visitorSourceCount']
         report['sourceBinding'] = {'before': before, 'unchangedDuringRun': False}
         report['stagedSemanticChecks'] = semantic_checks(staged)
         if not all(check['passed'] for check in report['stagedSemanticChecks']):
@@ -393,7 +397,8 @@ def main():
     except (ValueError, OSError, subprocess.SubprocessError, UnicodeError) as error:
         report['error'] = str(error)
     report['counts'] = {
-        'visitorSources': VISITOR_SOURCE_COUNT, 'generatedManifests': 1, 'rootAliases': 1,
+        'visitorSources': report.get('sourceBinding', {}).get('before', {}).get('visitorSourceCount'),
+        'generatedManifests': 1, 'rootAliases': 1,
         'requiredHttpRequests': len(report['checks']), 'requiredHttpPassed': sum(c['passed'] for c in report['checks']),
         'semanticChecks': len(report['semanticChecks']), 'semanticChecksPassed': sum(c['passed'] for c in report['semanticChecks']),
         'deploymentMarkerRequests': int('deploymentMarker' in report),
