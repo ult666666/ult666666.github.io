@@ -8,29 +8,79 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 CASES = [
-    dict(slug="lineageguard", number="01", kind="AI SYSTEMS / DEVELOPER TOOLS",
-         title="LineageGuard", hero="Know the downstream impact before a schema change ships.",
-         tags=["JavaScript", "DataHub MCP", "Metadata", "Developer tooling"],
-         repo="https://github.com/ult666666/lineageguard-datahub-agent",
-         live="https://lineageguard-datahub-agent.vercel.app/", live_label="Explore live demo",
-         image="/assets/lineageguard.jpg", alt="LineageGuard schema change analysis interface",
-         sections=[
-             ("The problem", [
-                 "A schema edit may look local but change the behavior of downstream dashboards, datasets, pipelines or ML models. Reviewers need more than the SQL diff: they need the dependency context.",
-                 "The goal was to make an invisible blast radius understandable before the change is applied."
-             ]),
-             ("The engineering approach", [
-                 "LineageGuard brings lineage, ownership, usage and quality signals from DataHub into a structured schema-change review. It generates an impact assessment, staged migration guidance and review notes.",
-                 "The workflow returns a block, conditional or proceed decision, with supporting context rather than an unexamined AI assertion."
-             ]),
-             ("Implementation and verification", [
-                 "The public repository contains a DataHub MCP integration, a portable Codex skill, example review artifacts and a runnable demo. Its documented local checks include npm test, npm run mcp:smoke and npm run demo.",
-                 "The system emphasizes explainable review artifacts and approval-gated write-back instead of immediately changing the metadata store."
-             ]),
-             ("Tradeoffs and boundaries", [
-                 "Metadata quality affects any automated impact analysis. A generated migration still needs its owning team to validate correctness and deployment sequencing.",
-                 "The hosted demo demonstrates the interface and workflow; it is not a guarantee of compatibility with every organization's live DataHub environment."
-             ])]),
+    {'slug': 'lineageguard',
+     'number': '01',
+     'kind': 'AGENT ORCHESTRATION / DEVELOPER TOOLS',
+     'title': 'LineageGuard Studio',
+     'hero': 'Compose a review. Understand every decision. Recover without pretending a failed run '
+             'succeeded.',
+     'tags': ['Workflow orchestration', 'Evidence contracts', 'SQLite recovery', 'Read-only MCP'],
+     'repo': 'https://github.com/ult666666/lineageguard-datahub-agent',
+     'live': 'https://lineageguard-datahub-agent.vercel.app/',
+     'live_label': 'Open Studio',
+     'image': '/assets/lineageguard-studio-v2.png',
+     'image_width': 1440,
+     'image_height': 1669,
+     'alt': 'LineageGuard Studio with an executable review graph, explicit evidence readiness and a live '
+            'event trace',
+     'caption': 'The working Studio 2.0 browser-session preview, using synthetic catalog evidence. The '
+                'separate local runtime adds durable SQLite checkpoints.',
+     'sections': [('The problem',
+                   ['A data-change review has to coordinate more than a risk score: which source was read, '
+                    'whether its evidence is complete, which tasks finished, and what remains trustworthy '
+                    'after interruption.',
+                    'I expanded the original LineageGuard demo into a source-bound workflow system. The '
+                    'visible graph represents compiled execution dependencies, rather than a predefined '
+                    'narrative attached to a final result.']),
+                  ('The orchestration system',
+                   ['The typed composer rejects unknown capabilities, cycles, missing dependencies and '
+                    'invalid budgets before a read begins. A shared browser/Node interpreter runs '
+                    'independent evidence reads concurrently, tracks attempts and deadlines, and '
+                    'checkpoints actual state transitions.',
+                    'Compatibility risk and evidence readiness remain separate. Unknown usage is not zero, '
+                    'truncated lineage is not complete, and BIGINT to SMALLINT is not treated as safe '
+                    'simply because both types are numeric. Deterministic policy—not an LLM confidence '
+                    'score—determines the review outcome.']),
+                  ('Failure and recovery evidence',
+                   ['The local SQLite coordinator uses revision compare-and-swap, expiring writer leases '
+                    'and admission reservations. Tests interrupt a test-owned process after a committed '
+                    'checkpoint, reopen the database, refuse an obsolete writer and resume the same run '
+                    'identity in a new generation.',
+                    'Complete, current outputs are reused only under an unchanged source and request '
+                    'binding. Changed input invalidates previous results and local acknowledgements. The '
+                    'browser exposes pause, reload, resume, cancellation, source-outage recovery, exact '
+                    'exports and comparisons between alternative plans.',
+                    'The release verification separates the 84-test Node suite, 24 browser journeys and 19 '
+                    'executed synthetic evaluation assertions. Source checks, deployment observations and '
+                    'live-tenant validation are distinct kinds of evidence.']),
+                  ('My role, runtime modes and limits',
+                   ['I set the product scope, budget and safety boundaries and used AI-assisted '
+                    'implementation and regression design to build the compiler, runtime, evidence policy '
+                    'and review experience. The components are labeled honestly: deterministic stages are '
+                    'not presented as an autonomous LLM team.',
+                    'The public browser-session preview executes against same-origin synthetic tools and '
+                    'stores checkpoints in the current browser. The local Node service adds durable SQLite '
+                    'state. Neither is advertised as an authenticated multi-tenant or distributed execution '
+                    'platform.',
+                    'No SQL execution, catalog mutation or paid inference is enabled. A local review note '
+                    'is not organizational authorization. The optional DataHub capture is read-only and '
+                    'conservatively profiled; the release does not claim real-tenant validation.'])],
+     'section_links': {'The orchestration system': [('DAG compiler',
+                                                     'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/recipe.js'),
+                                                    ('Execution interpreter',
+                                                     'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/runtime.js'),
+                                                    ('Architecture',
+                                                     'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ARCHITECTURE.md')],
+                       'Failure and recovery evidence': [('Interrupted-process recovery test',
+                                                          'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/process-recovery.test.mjs'),
+                                                         ('Release verification',
+                                                          'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/VERIFICATION.md'),
+                                                         ('Five-minute walkthrough',
+                                                          'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/DEMO_WALKTHROUGH.md')],
+                       'My role, runtime modes and limits': [('Threat model',
+                                                              'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/THREAT_MODEL.md'),
+                                                             ('Original demo history',
+                                                              'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/CLASSIC_HISTORY.md')]}},
     dict(slug="motionx", number="02", kind="FRONTEND / PRODUCT ENGINEERING",
          title="MOTIONX", hero="A visual studio experience with deliberate frontend engineering.",
          tags=["Next.js", "TypeScript", "Tailwind CSS", "Python", "Playwright"],
