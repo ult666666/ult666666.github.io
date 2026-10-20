@@ -35,6 +35,9 @@ filters.forEach((button) =>
   button.addEventListener("click", () => setFilter(button.dataset.filter))
 );
 
+// Reveal JS-dependent filters only after their handlers exist.
+if (filters.length) document.documentElement.dataset.filtersReady = "true";
+
 const menuButton = document.querySelector(".menu-toggle");
 const menu = document.getElementById("primary-nav");
 
@@ -56,12 +59,19 @@ if (menu && menuButton) {
   );
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMenu();
+    if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+      const focusWasInside = menu.contains(document.activeElement);
+      closeMenu();
+      if (focusWasInside) menuButton.focus();
+    }
   });
 
   window.matchMedia("(min-width: 591px)").addEventListener("change", (event) => {
     if (event.matches) closeMenu();
   });
+
+  // Default HTML/CSS stays navigable if this enhancement never initializes.
+  document.documentElement.dataset.navigationReady = "true";
 }
 
 const year = document.getElementById("year");
