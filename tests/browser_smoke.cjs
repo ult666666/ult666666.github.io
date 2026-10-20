@@ -50,6 +50,7 @@ async function captureFinancingCase(page, destination) {
     }
     browser = await chromium.launch(launchOptions);
     await require('./navigation_resilience.cjs')(browser, base);
+    await require('./inspector_showcase.cjs')(browser, base);
     const page = await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const errors = [];
     const externalRequests = [];
@@ -82,7 +83,7 @@ async function captureFinancingCase(page, destination) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : 4);
+      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : name === 'lineageguard' ? 6 : 4);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);

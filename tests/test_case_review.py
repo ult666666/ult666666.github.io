@@ -30,7 +30,7 @@ class CaseReviewTests(unittest.TestCase):
         # into an image, a script, or a second link attribute.
         unsafe = '<img src=x onerror="alert(1)">'
         label = 'Read "the model" <script>alert(2)</script>'
-        case = dict(builder.CASES[0], image=None)
+        case = dict(builder.CASES[0], image=None, section_media={})
         case["review"] = {
             "intro": unsafe,
             "steps": [(unsafe, "Inspect the result.", label, "https://example.org/source?a=1&b=2")],

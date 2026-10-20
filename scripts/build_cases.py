@@ -14,7 +14,7 @@ CASES = [
      'title': 'LineageGuard Studio',
      'hero': 'Compose a review. Understand every decision. Recover without pretending a failed run '
              'succeeded.',
-     'tags': ['Workflow orchestration', 'Evidence contracts', 'SQLite recovery', 'Read-only MCP'],
+     'tags': ['Workflow orchestration', 'Offline review verification', 'SQLite recovery', 'Read-only MCP'],
      'repo': 'https://github.com/ult666666/lineageguard-datahub-agent',
      'live': 'https://lineageguard-datahub-agent.vercel.app/',
      'live_label': 'Open Studio',
@@ -50,9 +50,44 @@ CASES = [
                     'binding. Changed input invalidates previous results and local acknowledgements. The '
                     'browser exposes pause, reload, resume, cancellation, source-outage recovery, exact '
                     'exports and comparisons between alternative plans.',
-                    'The release verification separates the 84-test Node suite, 24 browser journeys and 19 '
-                    'executed synthetic evaluation assertions. Source checks, deployment observations and '
-                    'live-tenant validation are distinct kinds of evidence.']),
+                    'The Inspector revision verified on 20 October 2026 has 120 Node tests, 31 browser '
+                    'journeys and 19 evaluation assertions. These are separate, overlapping checks, not '
+                    'independent evidence of catalog truth. The original v2.0.0 release keeps its '
+                    'historical verification record; later launcher and Inspector changes are identified '
+                    'by their own commits.']),
+                  ('Verify the exported review',
+                   ['Review Inspector checks the current review or an exported JSON file without uploading '
+                    'it, writing run history, opening a catalog connection or resuming a workflow. A '
+                    'recipient can inspect a review after it leaves the application instead of trusting a '
+                    'screenshot or a claimed checksum.',
+                    'I reproduced an export inconsistency that survived a recomputed outer checksum: the '
+                    'final SQL draft no longer matched the completed step output. The added semantic guard '
+                    'checks result-to-step agreement, validates the embedded evidence, reproduces '
+                    'deterministic compatibility and policy, and regenerates the draft. The same guard now '
+                    'runs before JSON, Markdown and SQL exports.',
+                    'The panel separates the recorded decision from the assessment of embedded evidence at '
+                    'inspection time. A previously valid review may now need fresh evidence. It shows '
+                    'source authentication as false: internal consistency is not authentication, a digital '
+                    'signature, independently observed execution or permission to migrate. The Inspector '
+                    'shares the same policy functions with the runtime; it is a replay check, not an '
+                    'independent policy implementation.',
+                    'A local file remains local. The file-only CLI and browser panel reject malformed or '
+                    'ambiguous JSON and oversized inputs, clear stale success after refusal, and do not '
+                    'restore imported packages as runnable state. Browser tests disable networking during '
+                    'inspection and check that no request or checkpoint write occurs.']),
+                  ('Try a three-minute engineering review',
+                   ['Compose and run. Open Studio, choose Revenue field rename, and run the review. '
+                    'Inspect a completed node: the graph, outputs and event trace describe actual '
+                    'execution. The decision remains a review result, not permission to execute SQL.',
+                    'Break and recover. Choose Evidence-source outage and run it. The lineage step must '
+                    'fail rather than produce a favorable result. Select Restore synthetic source, then '
+                    'Resume run. Inspect the same run identity in a new generation and the completed '
+                    'evidence reused under its unchanged binding.',
+                    'Carry and challenge the result. Open Review package and select Inspect current '
+                    'review. Export the verified run JSON, then select that file in Review Inspector. '
+                    'Compare the recorded conclusion with current freshness. A modified draft without '
+                    'consistent evidence must be refused. Finally, execute the evaluation suite and '
+                    'inspect expected-versus-observed outcomes.']),
                   ('My role, runtime modes and limits',
                    ['I set the product scope, budget and safety boundaries and used AI-assisted '
                     'implementation and regression design to build the compiler, runtime, evidence policy '
@@ -60,8 +95,8 @@ CASES = [
                     'not presented as an autonomous LLM team.',
                     'The public browser-session preview executes against same-origin synthetic tools and '
                     'stores checkpoints in the current browser. The local Node service adds durable SQLite '
-                    'state. Neither is advertised as an authenticated multi-tenant or distributed execution '
-                    'platform.',
+                    'state. Neither is advertised as an authenticated multi-tenant or distributed '
+                    'execution platform.',
                     'No SQL execution, catalog mutation or paid inference is enabled. A local review note '
                     'is not organizational authorization. The optional DataHub capture is read-only and '
                     'conservatively profiled; the release does not claim real-tenant validation.'])],
@@ -80,7 +115,41 @@ CASES = [
                        'My role, runtime modes and limits': [('Threat model',
                                                               'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/THREAT_MODEL.md'),
                                                              ('Original demo history',
-                                                              'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/CLASSIC_HISTORY.md')]}},
+                                                              'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/CLASSIC_HISTORY.md')],
+                       'Verify the exported review': [('Inspector and trust boundaries',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/REVIEW_INSPECTOR.md'),
+                                                      ('Semantic verification code',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/public/studio/core/inspection.js'),
+                                                      ('Adversarial inspection tests',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/test/studio/inspection.test.mjs'),
+                                                      ('Offline browser checks',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/scripts/inspection-browser.cjs')],
+                       'Try a three-minute engineering review': [('Open the working Studio',
+                                                                  'https://lineageguard-datahub-agent.vercel.app/'),
+                                                                 ('Walkthrough and interview framing',
+                                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/DEMO_WALKTHROUGH.md'),
+                                                                 ('Current verification record',
+                                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/VERIFICATION.md')]},
+     'lineageguard_showcase': True,
+     'section_ids': {'The problem': 'section-1',
+                     'The orchestration system': 'section-2',
+                     'Failure and recovery evidence': 'section-3',
+                     'Verify the exported review': 'review-inspector',
+                     'Try a three-minute engineering review': 'try-workflow',
+                     'My role, runtime modes and limits': 'section-4'},
+     'section_media': {'Verify the exported review': {'image': '/assets/lineageguard-review-inspector.png',
+                                                      'alt': 'Review Inspector showing the recorded '
+                                                             'decision, current evidence freshness and the '
+                                                             'explicit boundary: internally consistent, '
+                                                             'not authenticated',
+                                                      'width': 1170,
+                                                      'height': 987,
+                                                      'caption': 'Actual Inspector interface from the '
+                                                                 'public source at 6ed607b5. Synthetic '
+                                                                 'review data; the pass describes internal '
+                                                                 'consistency, not authenticated evidence '
+                                                                 'or execution approval.',
+                                                      'href': 'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/REVIEW_INSPECTOR.md'}}},
     dict(slug="motionx", number="02", kind="FRONTEND / PRODUCT ENGINEERING",
          title="MOTIONX", hero="A visual studio experience with deliberate frontend engineering.",
          tags=["Next.js", "TypeScript", "Tailwind CSS", "Python", "Playwright"],
@@ -278,7 +347,7 @@ def render(case: dict) -> str:
     image_size = (' width="' + e(str(case["image_width"]), quote=True) + '" height="' + e(str(case["image_height"]), quote=True) + '"') if case.get("image_width") and case.get("image_height") else ""
     media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '"' + image_size + ' loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
     extra_styles = '<link rel="stylesheet" href="/fintech.css">' if case.get("fintech_showcase") else ""
-    body_attributes = ' class="case-fintech"' if case.get("fintech_showcase") else ""
+    body_attributes = ' class="case-fintech"' if case.get("fintech_showcase") else ' class="case-lineageguard"' if case.get("lineageguard_showcase") else ""
     fintech_nav = '<a href="/fintech.html">Fintech</a>' if case.get("fintech_showcase") else ""
     example = case.get("showcase")
     showcase = (f'<div class="case-capital-example"><div><span class="case-example-label">{e(example["label"])}</span><p>{e(example["question"])}</p><a class="fintech-text-link" href="/fintech.html">Explore the fintech portfolio →</a></div><div><p class="case-example-value">{e(example["value"])}</p><p class="case-example-footnote">{e(example["footnote"])}</p></div></div>') if example else ""
