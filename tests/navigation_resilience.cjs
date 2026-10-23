@@ -1,6 +1,6 @@
 /* Real-browser regression checks for navigation when enhancement is unavailable. */
 const assert = require('node:assert/strict');
-const routes = ['/', '/fintech.html', '/projects/lineageguard.html',
+const routes = ['/', '/fintech.html', '/projects/engineering-lab.html', '/projects/lineageguard.html',
   '/projects/motionx.html', '/projects/trading-research.html',
   '/projects/frontier-ai-valuation-lab.html'];
 

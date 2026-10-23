@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="Charles Dai's engineering lab: durable webhooks, reproducible AI evaluation and full-stack nonprofit reporting. Run the code and inspect the failure tests.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Engineering Lab — Charles Dai">
+  <meta property="og:description" content="Three independent systems connecting backend reliability, AI evaluation and useful operational reporting.">
+  <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
+  <link rel="canonical" href="https://ult666666.github.io/projects/engineering-lab.html">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/script.js"></script>
+  <title>Engineering Lab — Charles Dai</title>
+</head>
+<body class="engineering-lab">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header" id="top"><div class="container header-inner">
+    <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="/#work">Work</a><a href="/fintech.html">Fintech</a><a href="/projects/engineering-lab.html" aria-current="page">Engineering</a><a href="/#about">About</a><a href="/#contact" class="nav-contact">Let's connect ↗</a>
+    </nav>
+  </div></header>
+  <main id="main">
+    <section class="lab-intro container">
+      <a class="case-back" href="/#work">← ALL PROJECTS</a>
+      <p class="eyebrow">ENGINEERING LAB / 2026</p>
+      <h1>Good interfaces.<br><em>Hard edges, handled.</em></h1>
+      <p class="lab-lead">Three independent systems exploring what happens after the happy path: repeated deliveries, a model regression, and a report that counts the same person twice.</p>
+      <p class="lab-scope">Independent portfolio projects · Synthetic data</p>
+      <div class="lab-index" aria-label="Project index">
+        <a href="#section-1"><span>01 / BACKEND</span><strong>RelayBox</strong><span>Receive → claim → recover ↘</span></a>
+        <a href="#section-2"><span>02 / APPLIED AI</span><strong>TraceBench</strong><span>Check → compare → explain ↘</span></a>
+        <a href="#section-3"><span>03 / FULL-STACK</span><strong>Impact Ledger</strong><span>Import → filter → report ↘</span></a>
+      </div>
+    </section>
+
+    <section class="lab-project container" id="section-1" aria-labelledby="relaybox-title">
+      <div class="lab-number">01 <span>BACKEND RELIABILITY</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="relaybox-title">RelayBox</h2>
+          <p class="lab-tagline">A webhook arrived twice. The worker disappeared. Now what?</p>
+          <p>A signed webhook inbox with a durable SQLite job lifecycle. Delivery IDs deduplicate matching payloads, conflicting reuses are rejected, and expiring leases let a new worker recover interrupted work.</p>
+          <p>The detail to inspect: a fencing token prevents an old worker from acknowledging a job after another worker has reclaimed it.</p>
+          <div class="tag-set"><span>Python</span><span>SQLite</span><span>HMAC</span><span>HTTP integration tests</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer">Run RelayBox ↗</a>
+            <a href="https://github.com/ult666666/relaybox/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Architecture ↗</a>
+            <a href="https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>JOB LIFECYCLE</span><span>LOCAL SQLITE</span></div>
+          <ol class="lab-lifecycle">
+            <li><span class="lab-state">queued</span><span>Persist the accepted delivery</span></li>
+            <li><span class="lab-state">leased</span><span>Claim a bounded worker lease</span></li>
+            <li><span class="lab-state">queued (retry)</span><span>Recover with another attempt</span></li>
+            <li><span class="lab-state">succeeded / dead_letter</span><span>Record the outcome explicitly</span></li>
+          </ol>
+          <p class="lab-artifact-note">At-least-once work requires idempotent handlers. A durable inbox cannot make an external side effect happen exactly once.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-project container" id="section-2" aria-labelledby="tracebench-title">
+      <div class="lab-number">02 <span>REPRODUCIBLE AI EVALUATION</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="tracebench-title">TraceBench</h2>
+          <p class="lab-tagline">A new answer sounds better. Did the contract get worse?</p>
+          <p>An offline evaluation toolkit for recorded model outputs. Explicit exact, contains and JSON-subset checks turn English and Mandarin fixtures into reproducible results. Baseline comparisons identify which cases regressed.</p>
+          <p>Measured latency and explicitly supplied token pricing remain separate from correctness. No provider keys or model calls are needed to reproduce the examples.</p>
+          <div class="tag-set"><span>Python package</span><span>JSONL</span><span>Decimal arithmetic</span><span>Regression gates</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer">Try the evaluation ↗</a>
+            <a href="https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Method &amp; architecture ↗</a>
+            <a href="https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact lab-terminal">
+          <div class="lab-artifact-head"><span>REVIEW THE CHANGE</span><span>OFFLINE / DETERMINISTIC</span></div>
+          <div class="lab-eval-row"><span>Input</span><strong>Cases + recorded outputs</strong></div>
+          <div class="lab-eval-row"><span>Validate</span><strong>Unique IDs, complete results</strong></div>
+          <div class="lab-eval-row"><span>Evaluate</span><strong>Explicit, inspectable checks</strong></div>
+          <div class="lab-eval-row"><span>Compare</span><strong>Baseline → candidate</strong></div>
+          <p class="lab-artifact-note">A passing contract is evidence about those cases. It does not establish general model quality or safety.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-project container" id="section-3" aria-labelledby="impact-title">
+      <div class="lab-number">03 <span>FULL-STACK / OPERATIONS ANALYTICS</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="impact-title">Impact Ledger</h2>
+          <p class="lab-tagline">One participant. Three visits. Two very different numbers.</p>
+          <p>A nonprofit reporting workbench with a typed frontend, a Python API and a SQLite store. Filter synthetic program records, distinguish unique participants from attendance, and compare session spending with budget.</p>
+          <p>Sessions and attendance have separate grains, so a busy event does not multiply its own expenses. Imports validate before committing, and accessible tables keep the numbers available alongside the charts.</p>
+          <div class="tag-set"><span>TypeScript</span><span>Python API</span><span>SQLite</span><span>CSV validation</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer">Explore the synthetic demo ↗</a>
+            <a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer">Full-stack source ↗</a>
+            <a href="https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
+          </div>
+          <p class="lab-demo-note">The hosted preview uses a bundled synthetic snapshot. Run the local API for persistent imports. Participation counts describe activity; they do not establish causal impact.</p>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>THE REPORTING CONTRACT</span><span>SYNTHETIC RECORDS</span></div>
+          <dl class="lab-definitions">
+            <div><dt>People reached</dt><dd>Distinct participant IDs in the filtered attendance.</dd></div>
+            <div><dt>Attendance</dt><dd>One participant's visit to one session.</dd></div>
+            <div><dt>Program spending</dt><dd>Count each session's actual cost once.</dd></div>
+            <div><dt>Filter scope</dt><dd>State the selected program and date range.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-review container" id="section-4" aria-labelledby="review-title">
+      <p class="section-index">HOW TO REVIEW THE WORK</p>
+      <h2 id="review-title">Start with the failure.</h2>
+      <div class="lab-review-grid">
+        <div><span>01 / RUN</span><h3>Reproduce the example</h3><p>Each README starts with a local quickstart and synthetic fixtures. No paid service is needed.</p></div>
+        <div><span>02 / BREAK</span><h3>Inspect a boundary test</h3><p>Trace a stale lease, a missing evaluation output, or a malformed import through the actual test and implementation.</p></div>
+        <div><span>03 / WEIGH</span><h3>Read the tradeoffs</h3><p>Architecture notes and verification records explain the supported behavior and the limits of the evidence.</p></div>
+      </div>
+      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect my interests in applied AI, useful interfaces and business operations. English READMEs and Chinese guides support a clear technical handoff. They are educational systems with documented deployment limits.</p><a class="button button-quiet" href="/#work">Back to all projects ↗</a></div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>
+</body>
+</html>
