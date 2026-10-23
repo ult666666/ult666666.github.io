@@ -1,0 +1,48 @@
+name: Installed synthetic operations handoff
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: installed-handoff-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  installed-handoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - name: Verify launcher and fixed-release downloader boundaries
+        run: python3 -B -m unittest discover -s tests -p 'test_handoff*.py' -v
+      - name: Explicitly download and verify only reviewed release wheels
+        run: python3 -B scripts/fetch_handoff_wheels.py --download --output "$RUNNER_TEMP/handoff-wheels"
+      - name: Run real services and installed contract gate offline
+        run: python3 -B scripts/verify_handoff.py --wheel-dir "$RUNNER_TEMP/handoff-wheels" --output "$RUNNER_TEMP/handoff-evidence"
+      - name: Retain only normalized synthetic evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: installed-synthetic-handoff
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            ${{ runner.temp }}/handoff-evidence/handoff-receipt.json
+            ${{ runner.temp }}/handoff-evidence/fixture-hashes.json
+            ${{ runner.temp }}/handoff-evidence/outputs.jsonl
+            ${{ runner.temp }}/handoff-evidence/synthetic-regression-outputs.jsonl
+            ${{ runner.temp }}/handoff-evidence/clean.json
+            ${{ runner.temp }}/handoff-evidence/clean.md
+            ${{ runner.temp }}/handoff-evidence/clean.html
+            ${{ runner.temp }}/handoff-evidence/synthetic-regression.json
+            ${{ runner.temp }}/handoff-evidence/synthetic-regression.md
+            ${{ runner.temp }}/handoff-evidence/synthetic-regression.html

@@ -31,31 +31,40 @@
 Files: `scripts/verify_handoff.py`, `tests/test_handoff.py`, `examples/operations_handoff/release-lock.json`.
 Interfaces: `validate_inputs(wheel_dir, output, lock) -> (canonical_wheels, canonical_output)`; `verify(wheel_dir, output) -> None`.
 
-- [ ] Write unit tests for missing/foreign/hash/metadata wheels, selected symlinks, existing and aliased output, Unicode/spaced/leading-hyphen names, no mutation before validation, and subprocess-failure cleanup.
-- [ ] Run `python3 -B -m unittest discover -s tests -p test_handoff.py -v`; observe missing launcher failure.
-- [ ] Implement strict bounded wheel validation; fresh venv installation with argv lists, cleared PYTHONPATH and `-I`; private temporary execution and exclusive final output publication.
-- [ ] Re-run focused tests and the complete existing suite.
-- [ ] Commit launcher and tests.
+- [x] Write unit tests for missing/foreign/hash/metadata wheels, selected symlinks, existing and aliased output, Unicode/spaced/leading-hyphen names, no mutation before validation, and subprocess-failure cleanup.
+- [x] Run `python3 -B -m unittest discover -s tests -p test_handoff.py -v`; observe missing launcher failure.
+- [x] Implement strict bounded wheel validation; fresh venv installation with argv lists, cleared PYTHONPATH and `-I`; private temporary execution and exclusive final output publication.
+- [x] Re-run focused tests and the complete existing suite.
+- [x] Commit launcher and tests.
 
 ### Task 2: Real installed handoff and contract reports
 
 Files: `examples/operations_handoff/{run_installed.py,sessions.csv,attendance.csv,participants.json,oracle.json,cases.jsonl,README.md}`, integration test in `tests/test_handoff.py`.
 Interfaces: isolated child `run_installed.py --fixtures DIR --output DIR`, with fresh venv interpreter; bounded whitelist of normalized files consumed by launcher.
 
-- [ ] Write independent assertions for exact counts/cents/hundredths, inclusive filters, recovery columns, retained clean/regression reports and exit codes 0/3/2; observe failed integration before child exists.
-- [ ] Implement signed HTTP 202/200 stable identity and 409 unchanged replay; real receipt worker; metrics nonmutation; canonical receipt CSV adapter; HTTP preview/import/summary/comparison, repeated-import rejection and separate-program advisory race.
-- [ ] Stop service/worker before acknowledged inbox backup, verify, CLI restore to new path; compare every persisted column privately, report only normalized counts/equality.
-- [ ] Run installed CLI against actual records and checked-in json_subset cases, clean baseline and deliberate synthetic mutation; retain JSON/Markdown/HTML reports and bounded input/output hashes.
-- [ ] Run offline full integration against parent's exact locked wheel directory, then full portfolio suite and staged browser/publication checks; inspect retained reports for paths/tokens/runtime files.
-- [ ] Commit child, fixtures and evidence.
+- [x] Write independent assertions for exact counts/cents/hundredths, inclusive filters, recovery columns, retained clean/regression reports and exit codes 0/3/2; observe failed integration before child exists.
+- [x] Implement signed HTTP 202/200 stable identity and 409 unchanged replay; real receipt worker; metrics nonmutation; canonical receipt CSV adapter; HTTP preview/import/summary/comparison, repeated-import rejection and separate-program advisory race.
+- [x] Stop service/worker before acknowledged inbox backup, verify, CLI restore to new path; compare every persisted column privately, report only normalized counts/equality.
+- [x] Run installed CLI against actual records and checked-in json_subset cases, clean baseline and deliberate synthetic mutation; retain JSON/Markdown/HTML reports and bounded input/output hashes.
+- [x] Run offline full integration against parent's exact locked wheel directory, then full portfolio suite and staged browser/publication checks; inspect retained reports for paths/tokens/runtime files.
+- [x] Commit child, fixtures and evidence.
 
 ### Task 3: Read-only CI and handoff documentation
 
 Files: `.github/workflows/handoff.yml`, `scripts/fetch_handoff_wheels.py`, README and final external `../report-installed-handoff.md`.
 Interfaces: fetcher requires explicit `--download --output NEW_DIR`; fixed reviewed HTTPS URLs only, bounded request time and wheel size; verifier remains offline.
 
-- [ ] Write failing fetcher tests for missing explicit mode, protected destination, bounded download and wrong hash with cleanup.
-- [ ] Implement explicit downloader and separate CI job with pinned checkout/setup-python, no write permissions/secrets and explicit evidence artifact paths.
-- [ ] Document English and concise Chinese operations, transaction boundaries, artifact trust and synthetic regression limits.
-- [ ] Run full suite, offline integration, staged browser and exact publication validation; report exact commits, release locks, red/green commands and remaining parent review/hosted CI responsibilities.
-- [ ] Commit CI/docs, leave clean feature branch for parent review.
+- [x] Write failing fetcher tests for missing explicit mode, protected destination, bounded download and wrong hash with cleanup.
+- [x] Implement explicit downloader and separate CI job with pinned checkout/setup-python, no write permissions/secrets and explicit evidence artifact paths.
+- [x] Document English and concise Chinese operations, transaction boundaries, artifact trust and synthetic regression limits.
+- [x] Run full suite, offline integration, staged browser and exact publication validation; report exact commits, release locks, red/green commands and remaining parent review/hosted CI responsibilities.
+- [x] Commit CI/docs, leave clean feature branch for parent review.
+
+## Execution record
+
+- Task 1: seven boundary failures observed before the launcher existed; focused tests then passed. Full suite at that checkpoint: 57 tests, one explicitly skipped installed integration. Commit `fd54fd7`.
+- Task 2: real offline installed integration first failed because the child was absent, then passed against the exact locked wheels. A thread-start failure test reproduced an open bound-server cleanup gap; fixed and green. Full final suite: 67/67, including the installed integration.
+- Task 3: five downloader failures observed before implementation; a redirect-chain deadline test subsequently failed, then passed after propagating the shared deadline to redirected requests. Two real public-download/offline runs reproduced all ten retained evidence files byte-for-byte.
+- Fresh temporary public staging passed four-case generation, 64 navigation checks, Inspector and engineering showcase workflows, responsive/filter/no-JavaScript browser checks and exact 31-file publication verification. Plain `npm run build` initially refused the pre-existing `_site` as designed; that directory was preserved.
+- Ruling: compare every persisted column and logical metadata across restore, and verify each physical file against its own recovery receipt. SQLite backup can alter physical bytes; identical physical SHA across different backup generations is not required by the spec.
+- No child agents, parent effort-ledger edits or remote mutations. Independent whole-branch review, actual hosted CI, PR/merge and any visitor/publication route remain parent responsibilities.

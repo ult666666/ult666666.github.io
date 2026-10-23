@@ -56,6 +56,8 @@ The build refuses to overwrite an existing `_site` directory. Start with a fresh
 
 The optional browser harness accepts `PLAYWRIGHT_MODULE` for an installed Playwright package and `PORTFOLIO_CHROMIUM_EXECUTABLE` for an available Chromium binary. `PORTFOLIO_CHROMIUM_ARGS` accepts a JSON array of explicit launch arguments when the development environment needs them. These settings do not affect the published site.
 
+The [installed synthetic operations handoff](examples/operations_handoff/README.md) is a source-only integration of released RelayBox 0.4.0, TraceBench 0.3.0 and Impact Ledger 1.2.0 wheels. It verifies real signed HTTP delivery, receipts, advisory CSV imports, exact bilingual fixture accounting, recovery and recorded contract exits 0/3/2 in a fresh offline environment. Its normalized [clean report](examples/operations_handoff/evidence/clean.html) and deliberately [mutated regression report](examples/operations_handoff/evidence/synthetic-regression.html) stay outside the Pages inventory. The separate read-only `handoff.yml` workflow downloads only the hash-locked public release assets before running the drill.
+
 ## Architecture
 
 - `index.html`: accessible static project content; all projects remain available without JavaScript.
