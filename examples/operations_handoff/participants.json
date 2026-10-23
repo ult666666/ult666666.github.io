@@ -1,0 +1,4 @@
+{
+  "notice": "Invented bilingual labels only. The ledger imports participant IDs, not names.",
+  "participants": {"p1": "Alex Chen / 陈安", "p2": "Sam Lin / 林思", "p3": "Maya Wu / 吴美", "p4": "Leo Zhao / 赵乐"}
+}

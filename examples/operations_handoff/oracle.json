@@ -1,0 +1,12 @@
+{
+  "notice": "Hand-derived fixture oracle supplied before implementation; all records invented. Units are explicit integers, not floating-point accounting.",
+  "program": "Learning Lab / 学习计划",
+  "filters": {"start": "2026-10-01", "end": "2026-10-31", "program": "Learning Lab / 学习计划"},
+  "prior_window": {"start": "2026-08-31", "end": "2026-09-30", "days": 31},
+  "base_rows": {"sessions": 4, "attendance": 7},
+  "current_exact": {"sessions": 2, "unique_participants": 3, "attendance": 4, "participant_hours_hundredths": 700, "session_hours_hundredths": 350, "budget_cents": 13025, "actual_cents": 13025, "variance_cents": 0},
+  "prior_exact": {"sessions": 2, "unique_participants": 2, "attendance": 3, "participant_hours_hundredths": 325, "session_hours_hundredths": 200, "budget_cents": 13010, "actual_cents": 13100, "variance_cents": 90},
+  "deltas_exact": {"sessions": 0, "unique_participants": 1, "attendance": 1, "participant_hours_hundredths": 375, "session_hours_hundredths": 150, "budget_cents": 15, "actual_cents": -75, "variance_cents": -90},
+  "inclusive_days": {"2026-10-01": ["current-1"], "2026-10-14": ["current-2"]},
+  "post_race_rows": {"sessions": 5, "attendance": 7}
+}

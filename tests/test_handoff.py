@@ -111,6 +111,67 @@ class HandoffBoundaryTests(unittest.TestCase):
                 module.verify(self.wheels, self.output)
         self.assertEqual(set(self.base.iterdir()), before)
 
+    def fake_execution(self, module, action=None):
+        def run(argv, **kwargs):
+            if kwargs['label'] == 'installed handoff':
+                reports = Path(argv[-1])
+                for name in module.REPORT_FILES:
+                    (reports / name).write_text('{}\n')
+                if action:
+                    action(reports)
+        return run
+
+    def test_partial_publication_failure_removes_only_new_output(self):
+        module = launcher()
+        original_open = Path.open
+        def fail_selected(path, *args, **kwargs):
+            if path.parent.name == self.output.name and path.name == 'clean.md':
+                raise OSError('simulated publication failure')
+            return original_open(path, *args, **kwargs)
+        before = set(self.base.iterdir())
+        with patch.object(module, 'load_lock', return_value=self.lock), \
+             patch.object(module, 'run_checked', side_effect=self.fake_execution(module)), \
+             patch.object(Path, 'open', fail_selected):
+            with self.assertRaises(OSError):
+                module.verify(self.wheels, self.output)
+        self.assertEqual(set(self.base.iterdir()), before)
+
+    def test_destination_appearing_during_execution_is_preserved(self):
+        module = launcher()
+        def arrive(reports):
+            self.output.mkdir()
+            (self.output / 'sentinel').write_text('keep concurrent output')
+        with patch.object(module, 'load_lock', return_value=self.lock), \
+             patch.object(module, 'run_checked', side_effect=self.fake_execution(module, arrive)):
+            with self.assertRaises(FileExistsError):
+                module.verify(self.wheels, self.output)
+        self.assertEqual((self.output / 'sentinel').read_text(), 'keep concurrent output')
+
+    def test_reports_with_private_paths_are_not_published(self):
+        module = launcher()
+        def private(reports):
+            (reports / 'clean.md').write_text(str(ROOT))
+        with patch.object(module, 'load_lock', return_value=self.lock), \
+             patch.object(module, 'run_checked', side_effect=self.fake_execution(module, private)):
+            with self.assertRaises(module.HandoffError):
+                module.verify(self.wheels, self.output)
+        self.assertFalse(self.output.exists())
+
+    def test_bound_server_is_closed_if_thread_cannot_start(self):
+        spec = importlib.util.spec_from_file_location('run_installed', ROOT / 'examples/operations_handoff/run_installed.py')
+        child = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(child)
+        class Server:
+            closed = False
+            def serve_forever(self, **kwargs): pass
+            def server_close(self): self.closed = True
+        server = Server()
+        with patch.object(child.threading.Thread, 'start', side_effect=RuntimeError('thread unavailable')):
+            with self.assertRaises(RuntimeError):
+                with child.running(server):
+                    self.fail('thread startup must fail before yielding')
+        self.assertTrue(server.closed, 'bound server leaked on thread startup failure')
+
     def test_bad_arguments_exit_two_without_output(self):
         result = subprocess.run([os.sys.executable, '-B', str(SCRIPT), '--wheel-dir', str(self.wheels)],
                                 capture_output=True, timeout=10)
@@ -143,6 +204,11 @@ class InstalledHandoffTests(unittest.TestCase):
             clean = json.loads((output / 'clean.json').read_text())
             regression = json.loads((output / 'synthetic-regression.json').read_text())
             self.assertEqual(clean['summary']['failed'], 0)
+            manifest = json.loads((output / 'fixture-hashes.json').read_text())
+            self.assertEqual(manifest['wheels'], {w['filename']: w['sha256'] for w in LOCK['wheels']})
+            self.assertEqual(set(manifest['outputs']), set(launcher().REPORT_FILES) - {'fixture-hashes.json'})
+            for name, expected in manifest['outputs'].items():
+                self.assertEqual(hashlib.sha256((output / name).read_bytes()).hexdigest(), expected)
             self.assertGreater(regression['summary']['failed'], 0)
             for p in output.iterdir():
                 text = p.read_text()

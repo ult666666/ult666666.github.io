@@ -1,0 +1,8 @@
+attendance_id,session_id,participant_id
+a1,prior-1,p1
+a2,prior-1,p2
+a3,prior-2,p1
+a4,current-1,p1
+a5,current-1,p3
+a6,current-2,p3
+a7,current-2,p4

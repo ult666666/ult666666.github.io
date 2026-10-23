@@ -1,0 +1,5 @@
+session_id,program,session_date,duration_hours,budget,actual
+prior-1,Learning Lab / 学习计划,2026-09-01,1.25,100.10,99.99
+prior-2,Learning Lab / 学习计划,2026-09-14,0.75,30.00,31.01
+current-1,Learning Lab / 学习计划,2026-10-01,1.50,50.00,55.00
+current-2,Learning Lab / 学习计划,2026-10-14,2.00,80.25,75.25
