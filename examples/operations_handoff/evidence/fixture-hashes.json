@@ -1,0 +1,27 @@
+{
+  "algorithm": "sha256",
+  "inputs": {
+    "attendance.csv": "8679e967fc406e6d3c5cd703ab0fd2c92bfde89cb1cb9edfdeb92a006a60d0ba",
+    "cases.jsonl": "ab74cd1d4b8292de910ab919b2c4b6d9094777de5fc5f7485d32108ad956e107",
+    "oracle.json": "583928a0193844363de1b1f586164cc81659ff76a04461cf45e4f94c0514f306",
+    "participants.json": "9beb6df5b27edbdbb122779379e036ad6d9bbe978212b74dd4ae713d26d0bf3f",
+    "release-lock.json": "6ce5015ac103b70ccd43822bbe483fa69d368becd5416e91930400fb22252037",
+    "sessions.csv": "1315d1407b2d7daaa1582a18f1099256a795f819e57a1af635f58ed5585faf9e"
+  },
+  "outputs": {
+    "clean.html": "f351d2a83ab84a46d80472a14a2ab5196a921b0e3d73d5c97e2a17d71dd78afa",
+    "clean.json": "da6c7aafdac36afbad4b4c465a7ae25f53f33c836dda96dff05e17f51e93a71a",
+    "clean.md": "bdea5ac052e3f67370def73a6ca6fcf11ebedc475bd48207cbeac6d99b427be4",
+    "handoff-receipt.json": "64378f06722d968f98c028f8b253261250f76da4137fe97515de56b10bff9f64",
+    "outputs.jsonl": "f0541e8fc12bd1580b8a11825c92dc9b441cdb22fc83f5e647b82a5df4736fde",
+    "synthetic-regression-outputs.jsonl": "129418426a05ad83faebf7a2294273a981ce41275d0faa737269e0b08e065da3",
+    "synthetic-regression.html": "269fffc2f684c6557b46ea8bb2679d15bd97a485f67a5edf5d2bd56825ff19d4",
+    "synthetic-regression.json": "460b0911f8f63c8b8781f1ed638a269308ab865b175a3bfc61d7fd9a65bf7885",
+    "synthetic-regression.md": "17f501dc0f5a133d89d9818cb37735c24adcc702cd1cefad6c96363e9b071f73"
+  },
+  "wheels": {
+    "impact_ledger-1.2.0-py3-none-any.whl": "2be781ffe02ef80e66f43d8f1ef1e726fc90bd24dd6d092ea42fd2ee8b3c43bf",
+    "relaybox_inbox-0.4.0-py3-none-any.whl": "e6f4e4ea2b2bb53073b956c33b95237fa473c57a5053d1049d873314ee19b93a",
+    "tracebench-0.3.0-py3-none-any.whl": "92edcb3a9bfad7e73f17ae311f0490328ad1ad326a447b14cc0dfc01c0b543e4"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "canonical_receipts": [
+    {
+      "delivery_id": "synthetic-attendance",
+      "digest": "d85a16acb9f4861251bade3c251a61f8ba24f7d716cf278bf0f95c83d1777b16",
+      "payload": {
+        "csv": "attendance_id,session_id,participant_id\na1,prior-1,p1\na2,prior-1,p2\na3,prior-2,p1\na4,current-1,p1\na5,current-1,p3\na6,current-2,p3\na7,current-2,p4\n",
+        "kind": "attendance"
+      },
+      "version": 1
+    },
+    {
+      "delivery_id": "synthetic-sessions",
+      "digest": "726ae6932ed39ff1df0b7610104b2b7d2aeb7d44ed9e47dd052e6a6c2346c5ff",
+      "payload": {
+        "csv": "session_id,program,session_date,duration_hours,budget,actual\nprior-1,Learning Lab / 学习计划,2026-09-01,1.25,100.10,99.99\nprior-2,Learning Lab / 学习计划,2026-09-14,0.75,30.00,31.01\ncurrent-1,Learning Lab / 学习计划,2026-10-01,1.50,50.00,55.00\ncurrent-2,Learning Lab / 学习计划,2026-10-14,2.00,80.25,75.25\n",
+        "kind": "sessions"
+      },
+      "version": 1
+    }
+  ],
+  "installed_modules_verified_inside_fresh_venv": true,
+  "installed_versions": {
+    "impact-ledger": "1.2.0",
+    "relaybox": "0.4.0",
+    "tracebench": "0.3.0"
+  },
+  "limitations": [
+    "Bounded synthetic adapter with explicit duplicate rejection; no exactly-once distributed pipeline.",
+    "Queue snapshot time is supplied logical time, not measured latency.",
+    "Acknowledged inbox snapshot excludes receipt files and does not fence the old database.",
+    "TraceBench checks recorded JSON contracts; no model calls or semantic quality claim."
+  ],
+  "schema_version": 1,
+  "synthetic": true,
+  "synthetic_mutation": {
+    "case": "import-totals",
+    "field": "current_exact.actual_cents",
+    "from": 13025,
+    "notice": "Deliberate recorded-output mutation, not an observed provider regression.",
+    "to": 13024
+  },
+  "tracebench_exit_codes": {
+    "clean": 0,
+    "invalid_input": 2,
+    "synthetic_regression": 3
+  },
+  "transaction_boundaries": [
+    "receipt effect",
+    "CSV import",
+    "inbox acknowledgment"
+  ]
+}
