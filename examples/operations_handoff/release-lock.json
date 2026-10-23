@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "notice": "Reviewed synthetic portfolio integration; trusted released code, not a wheel execution sandbox",
+  "wheels": [
+    {
+      "project": "relaybox",
+      "distribution": "relaybox-inbox",
+      "version": "0.4.0",
+      "repository": "ult666666/relaybox",
+      "tag": "v0.4.0",
+      "commit": "56cab56d83ee07bbbb7db23842125ba81ded6f27",
+      "filename": "relaybox_inbox-0.4.0-py3-none-any.whl",
+      "sha256": "e6f4e4ea2b2bb53073b956c33b95237fa473c57a5053d1049d873314ee19b93a",
+      "url": "https://github.com/ult666666/relaybox/releases/download/v0.4.0/relaybox_inbox-0.4.0-py3-none-any.whl"
+    },
+    {
+      "project": "tracebench",
+      "distribution": "tracebench",
+      "version": "0.3.0",
+      "repository": "ult666666/tracebench",
+      "tag": "v0.3.0",
+      "commit": "60351fb1342d85a52b2e9ce2ceb6c84a503cfc7d",
+      "filename": "tracebench-0.3.0-py3-none-any.whl",
+      "sha256": "92edcb3a9bfad7e73f17ae311f0490328ad1ad326a447b14cc0dfc01c0b543e4",
+      "url": "https://github.com/ult666666/tracebench/releases/download/v0.3.0/tracebench-0.3.0-py3-none-any.whl"
+    },
+    {
+      "project": "impact-ledger",
+      "distribution": "impact-ledger",
+      "version": "1.2.0",
+      "repository": "ult666666/impact-ledger",
+      "tag": "v1.2.0",
+      "commit": "507ce2ebf021c5c43937092b8e77dae98c378240",
+      "filename": "impact_ledger-1.2.0-py3-none-any.whl",
+      "sha256": "2be781ffe02ef80e66f43d8f1ef1e726fc90bd24dd6d092ea42fd2ee8b3c43bf",
+      "url": "https://github.com/ult666666/impact-ledger/releases/download/v1.2.0/impact_ledger-1.2.0-py3-none-any.whl"
+    }
+  ]
+}
