@@ -460,6 +460,31 @@ img{max-width:100%;height:auto}
 .lab-walkthrough .lab-expect{border-left:2px solid var(--aqua);padding-left:12px;font-size:12px;color:var(--ink-soft)}
 .lab-code-links{display:flex;gap:14px 22px;flex-wrap:wrap;margin-top:20px}
 .lab-code-links a{font-size:12px;text-decoration:underline;text-underline-offset:5px}
+.lab-handoff-entry{font-size:13px;line-height:1.8;margin-top:24px;color:var(--muted)}
+.lab-handoff-entry a{color:var(--aqua);text-decoration:underline;text-underline-offset:5px;margin-right:12px}
+.lab-operations h2{font-size:clamp(32px,3.7vw,48px);line-height:1.15;letter-spacing:-.045em;margin:0 0 20px;max-width:760px}
+.lab-operations-lead{max-width:800px;font-size:14px;line-height:1.9;color:var(--muted);margin-bottom:30px}
+.lab-operations .lab-project-grid{align-items:start;gap:38px}
+.lab-handoff-path{margin:0;padding-left:22px;color:var(--muted);font-size:13px;line-height:1.85}
+.lab-handoff-path li{padding-left:7px;margin-bottom:16px}
+.lab-handoff-path li::marker{color:var(--aqua);font-family:var(--mono)}
+.lab-handoff-path strong{color:var(--ink-soft);font-weight:600}
+.lab-transaction-note{font-size:12px;line-height:1.85;color:var(--ink-soft);border-left:2px solid var(--aqua);padding-left:14px;margin-top:22px}
+.lab-handoff-comparison table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;line-height:1.7;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.lab-handoff-comparison caption{text-align:left;font-size:13px;color:var(--aqua);padding-bottom:20px}
+.lab-handoff-comparison th,.lab-handoff-comparison td{text-align:right;vertical-align:top;padding:13px 0 13px 12px;border-bottom:1px solid var(--line)}
+.lab-handoff-comparison th:first-child{text-align:left;padding-left:0;width:36%;font-weight:500;color:var(--ink-soft)}
+.lab-handoff-comparison thead th{font-size:11px;font-weight:500;color:var(--muted)}
+.lab-handoff-proof{display:grid;grid-template-columns:1fr 1fr;gap:38px;margin-top:34px;padding-top:24px;border-top:1px solid var(--line)}
+.lab-handoff-proof>div{min-width:0}
+.lab-handoff-proof h3{font-size:18px;letter-spacing:-.02em;margin:0 0 12px}
+.lab-handoff-proof p{font-size:13px;line-height:1.85;color:var(--muted)}
+.lab-handoff-proof strong{color:var(--ink-soft)}
+.lab-handoff-proof code{font:11px/1.9 var(--mono);color:var(--ink-soft)}
+.lab-handoff-proof pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:7px}
+@media(max-width:820px){.lab-operations .lab-project-grid,.lab-handoff-proof{grid-template-columns:1fr;gap:26px}}
+@media(max-width:590px){.lab-handoff-comparison{padding:17px}.lab-handoff-comparison th,.lab-handoff-comparison td{padding-left:8px}.lab-handoff-entry span{display:block;margin-top:7px}}
+@media print{.engineering-lab{--bg:#fff;--ink:#111;--ink-soft:#222;--muted:#333;--aqua:#15534c;--accent:#15534c;--panel:#fff;--line:#888;--line-strong:#666;background:white;color:#111}.engineering-lab .site-header{position:static;background:white}.engineering-lab .brand-sub,.engineering-lab .primary-nav>a{color:#111}.engineering-lab .lab-artifact{background:white}.lab-operations{padding-block:24px}.lab-operations h2{font-size:26px}.lab-operations .section-index,.lab-operations p,.lab-operations li,.lab-operations strong,.lab-operations code,.lab-operations a,.lab-handoff-comparison caption,.lab-handoff-comparison th,.lab-handoff-comparison td{color:#111}.lab-operations .lab-artifact,.lab-handoff-proof pre{background:white;border-color:#555}.lab-operations .lab-project-grid,.lab-handoff-proof{display:block}.lab-handoff-proof>div{margin-top:22px}.lab-handoff-comparison{margin-top:22px;break-inside:avoid}.lab-handoff-comparison tr,.lab-handoff-proof pre{break-inside:avoid}.lab-operations a{text-decoration:underline}.lab-operations th,.lab-operations td{border-color:#888}}
 @media(max-width:820px){.lab-walkthrough-body{grid-template-columns:1fr;gap:0}.lab-walkthrough>summary{flex-wrap:wrap;gap:7px 12px}.lab-walkthrough>summary>span:first-child{flex-basis:100%}.lab-walkthrough>summary>span:last-child{margin-left:0}.lab-walkthrough-body,.lab-walkthrough>summary{padding-inline:19px}}
 @media(max-width:1090px){.lab-project-grid{gap:32px}.lab-entry{align-items:flex-start}.lab-entry strong{font-size:15px}}
 @media(max-width:820px){.lab-project-grid{grid-template-columns:1fr;gap:30px}.lab-intro{padding-top:42px}.lab-lead{font-size:17px}.lab-handoff{display:block}.lab-handoff .button{margin-top:20px}.lab-entry{flex-wrap:wrap}.lab-entry strong{flex-basis:65%}}
