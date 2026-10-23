@@ -51,6 +51,7 @@ async function captureFinancingCase(page, destination) {
     browser = await chromium.launch(launchOptions);
     await require('./navigation_resilience.cjs')(browser, base);
     await require('./inspector_showcase.cjs')(browser, base);
+    await require('./engineering_showcase.cjs')(browser, base);
     const page = await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const errors = [];
     const externalRequests = [];

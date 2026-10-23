@@ -208,7 +208,8 @@ def select(root, tag=None, cls=None, ident=None):
 
 def semantic_checks(bodies):
     pages = {name: Reader(bodies[name]).root for name in ('index.html', 'fintech.html', CASE,
-             'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html')}
+             'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
+             'projects/engineering-lab.html')}
     home, gateway, case = (pages[name] for name in ('index.html', 'fintech.html', CASE))
     checks = []
 
@@ -261,8 +262,9 @@ def semantic_checks(bodies):
         'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md',
         'https://github.com/ult666666/ult666666.github.io/blob/main/docs/PUBLICATION_BOUNDARY.md'])
     navigation = {
-        'index.html': ['#work', '/fintech.html', '#approach', '#about', '#contact'],
+        'index.html': ['#work', '/fintech.html', '/projects/engineering-lab.html', '#approach', '#about', '#contact'],
         'fintech.html': ['/#work', '/fintech.html', '/#about', '/#contact'],
+        'projects/engineering-lab.html': ['/#work', '/fintech.html', '/projects/engineering-lab.html', '/#about', '/#contact'],
         CASE: ['/#work', '/fintech.html', '/#approach', '/#about', '/#contact'],
     }
     for name in pages:
@@ -272,6 +274,11 @@ def semantic_checks(bodies):
               and [a.attrs.get('href') for a in select(nav[0], tag='a')] == expected)
     current = [a for a in select(gateway, tag='a') if a.attrs.get('aria-current') == 'page']
     check('Fintech navigation marks the current page', len(current) == 1 and current[0].attrs.get('href') == '/fintech.html')
+    lab_links = {a.attrs.get('href') for a in select(pages['projects/engineering-lab.html'], tag='a')}
+    check('Engineering lab connects three source and verification routes', all(
+        'https://github.com/ult666666/' + repo in lab_links
+        and 'https://github.com/ult666666/' + repo + '/blob/main/docs/VERIFICATION.md' in lab_links
+        for repo in ('relaybox', 'tracebench', 'impact-ledger')))
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
           and a.text == 'Worked decision PDF ↗' for a in select(case, tag='a')))
     return checks

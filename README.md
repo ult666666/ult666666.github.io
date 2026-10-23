@@ -7,7 +7,7 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A responsive portfolio connecting eight real public projects to source code, live demonstrations where available, and four engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
+A responsive portfolio connecting eight selected projects and three engineering-lab additions to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
 ## Start the review
 
@@ -16,6 +16,8 @@ The homepage features **Frontier AI Valuation Lab** first. Its [engineering revi
 The project uses illustrative forecasts and a dated research snapshot. Its shared browser/API engine establishes consistency; the separate Python reference supplies the independent arithmetic check. Linked verification records identify the scope and date of their results.
 
 ## Selected projects
+
+The [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) adds three independent, AI-assisted portfolio builds: [RelayBox](https://github.com/ult666666/relaybox) for durable signed webhook ingestion, [TraceBench](https://github.com/ult666666/tracebench) for offline AI evaluation, and [Impact Ledger](https://github.com/ult666666/impact-ledger) for full-stack nonprofit operations reporting. Their READMEs provide reproducible local quickstarts, synthetic fixtures, test evidence and English/Chinese handoff documentation. The [hosted Impact Ledger preview](https://ult666666.github.io/impact-ledger/) runs on a bundled synthetic snapshot; persistence belongs to its local Python API.
 
 | Project | Scope | Evidence |
 | --- | --- | --- |
@@ -55,6 +57,7 @@ The optional browser harness accepts `PLAYWRIGHT_MODULE` for an installed Playwr
 ## Architecture
 
 - `index.html`: accessible static project content; all projects remain available without JavaScript.
+- `projects/engineering-lab.html`: a static review route for three complementary engineering projects, their source, architecture and verification records.
 - `fintech.html` / `fintech.css`: the dedicated fintech gateway, a labeled three-plan capital comparison and direct links to the working decision studio and its evidence.
 - `styles.css`: responsive layout, visible keyboard focus, reduced-motion support.
 - `script.js`: progressively enhanced project filters and mobile navigation.
