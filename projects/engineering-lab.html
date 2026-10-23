@@ -31,6 +31,7 @@
       <h1>Good interfaces.<br><em>Hard edges, handled.</em></h1>
       <p class="lab-lead">Three independent systems exploring what happens after the happy path: repeated deliveries, a model regression, and a report that counts the same person twice.</p>
       <p class="lab-scope">Independent portfolio projects · Synthetic data</p>
+      <p class="lab-handoff-entry"><a href="#operations-handoff">Follow the installed operations handoff ↘</a> <span>One event, three tools, exact recorded evidence.</span></p>
       <div class="lab-index" aria-label="Project index">
         <a href="#section-1"><span>01 / BACKEND</span><strong>RelayBox</strong><span>Receive → claim → recover ↘</span></a>
         <a href="#section-2"><span>02 / APPLIED AI</span><strong>TraceBench</strong><span>Check → compare → explain ↘</span></a>
@@ -52,7 +53,7 @@
             <a href="https://github.com/ult666666/relaybox/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Architecture ↗</a>
             <a href="https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
           </div>
-          <p class="lab-demo-note"><a href="https://github.com/ult666666/relaybox/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">Worker release 0.2.0 ↗</a> adds bounded processing, explicit lease renewal and canonical local receipts. Receipt publication and inbox acknowledgment remain separate transactions.</p>
+          <p class="lab-demo-note"><a href="https://github.com/ult666666/relaybox/releases/tag/v0.4.0" target="_blank" rel="noopener noreferrer">Queue visibility 0.4.0 ↗</a> separates ready/delayed work and active/expired leases without mutating the inbox. <a href="https://github.com/ult666666/relaybox/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">Recovery 0.3.0 ↗</a> adds verified snapshots and new-path restore; retain receipts separately. <a href="https://github.com/ult666666/relaybox/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">Worker 0.2.0 ↗</a> introduced bounded processing and canonical receipts. Receipt publication and inbox acknowledgment remain separate transactions.</p>
         </div>
         <div class="lab-artifact">
           <div class="lab-artifact-head"><span>JOB LIFECYCLE</span><span>LOCAL SQLITE</span></div>
@@ -89,7 +90,7 @@
             <a href="https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Method &amp; architecture ↗</a>
             <a href="https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
           </div>
-          <p class="lab-demo-note"><a href="https://github.com/ult666666/tracebench/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">HTML release 0.2.0 ↗</a> makes full recorded results searchable and printable. The hosted example deliberately contains two regressions; every output, timing and price is synthetic.</p>
+          <p class="lab-demo-note"><a href="https://github.com/ult666666/tracebench/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">Reusable CI 0.3.0 ↗</a> retains JSON, Markdown and HTML evidence before applying the regression gate. The current live report keeps the searchable, printable results introduced in <a href="https://github.com/ult666666/tracebench/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">HTML 0.2.0 ↗</a>. Its two regressions are deliberate; every output, timing and price is synthetic.</p>
         </div>
         <div class="lab-artifact lab-terminal">
           <div class="lab-artifact-head"><span>REVIEW THE CHANGE</span><span>OFFLINE / DETERMINISTIC</span></div>
@@ -123,7 +124,7 @@
             <a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer">Full-stack source ↗</a>
             <a href="https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification ↗</a>
           </div>
-          <p class="lab-demo-note">The hosted preview uses a bundled synthetic snapshot. <a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0" target="_blank" rel="noopener noreferrer">Reporting release 1.1.0 ↗</a> adds equal-length prior-period comparison and a complete print report. Set both dates, apply the filters, then compare. Run the local API for persistent imports. Participation counts describe activity; they do not establish causal impact.</p>
+          <p class="lab-demo-note"><a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.2.0" target="_blank" rel="noopener noreferrer">Import preview 1.2.0 ↗</a> adds optional advisory CSV validation in the local API; preview reserves no IDs and import revalidates atomically. The hosted bundled synthetic snapshot retains the equal-length comparison and print report from <a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0" target="_blank" rel="noopener noreferrer">Reporting 1.1.0 ↗</a>. Set both dates, apply, then compare. Persistent imports need the local API; activity counts do not establish causal impact.</p>
         </div>
         <div class="lab-artifact">
           <div class="lab-artifact-head"><span>THE REPORTING CONTRACT</span><span>SYNTHETIC RECORDS</span></div>
@@ -142,6 +143,55 @@
           <div><h3>Follow the decision</h3><p>Inspect the session and attendance tables, then follow <code>_rows</code> into <code>summarize</code>. Costs belong to a session; visits belong to a participant and session. Filters must describe the same reporting population.</p><p>Participation and spending show activity. They do not establish outcomes, eligibility coverage or causal impact. Every example record is synthetic.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/store.py" target="_blank" rel="noopener noreferrer">Inspect the aggregation ↗</a></div></div>
         </div>
       </details>
+    </section>
+
+    <section class="lab-project lab-operations container" id="operations-handoff" aria-labelledby="handoff-title">
+      <p class="section-index">ONE INSTALLED HANDOFF</p>
+      <h2 id="handoff-title">An event becomes an inspectable report.</h2>
+      <p class="lab-operations-lead">This AI-assisted educational drill connects the three released tools through real local HTTP services. Fictional English/Mandarin names, including Alex Chen / 陈安, make the synthetic fixtures readable; the ledger imports participant IDs.</p>
+      <div class="lab-project-grid">
+        <div>
+          <ol class="lab-handoff-path">
+            <li><strong>Accept a signed event.</strong> RelayBox persists the delivery, deduplicates an identical replay and rejects a changed one.</li>
+            <li><strong>Keep the receipt.</strong> A bounded worker writes canonical receipts; an explicit adapter extracts their sessions and attendance CSV bytes.</li>
+            <li><strong>Preview, then import.</strong> Impact Ledger's advisory preview changes no rows and reserves no IDs. A separate explicit import revalidates and commits atomically.</li>
+            <li><strong>Compare exact totals.</strong> The selected program and inclusive dates fix the population. Costs count each session once; people count distinct IDs.</li>
+            <li><strong>Check the recorded contract.</strong> TraceBench checks nine recorded JSON contracts, with no provider calls.</li>
+          </ol>
+          <p class="lab-transaction-note">The receipt effect, CSV import and inbox acknowledgment are separate transactions. They do not guarantee exactly-once processing across systems.</p>
+        </div>
+        <div class="lab-artifact lab-handoff-comparison">
+          <table aria-describedby="handoff-measures">
+            <caption>Learning Lab / 学习计划 · equal 31-day periods</caption>
+            <thead><tr><th scope="col">Measure</th><th scope="col">Current: October 1–31, 2026</th><th scope="col">Prior: August 31–September 30, 2026</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Distinct people</th><td>3</td><td>2</td></tr>
+              <tr><th scope="row">Attendance</th><td>4</td><td>3</td></tr>
+              <tr><th scope="row">Participant-hours</th><td>7</td><td>3.25</td></tr>
+              <tr><th scope="row">Session-hours</th><td>3.5</td><td>2</td></tr>
+              <tr><th scope="row">Actual spend (USD)</th><td>130.25</td><td>131.00</td></tr>
+            </tbody>
+          </table>
+          <p class="lab-artifact-note" id="handoff-measures">Participant-hours sum each person's attended session duration; session-hours count each session once. These values match an independently hand-derived fixture oracle.</p>
+        </div>
+      </div>
+      <div class="lab-handoff-proof">
+        <div>
+          <h3>Make one cent fail.</h3>
+          <p class="lab-contract-note">Clean: <strong>9/9, exit 0</strong>. A deliberate synthetic mutation of recorded actual cents, <code>13025 → 13024</code>, gives <strong>8/9, exit 3</strong>; only <code>import-totals</code> regresses. Invalid input gives <strong>exit 2</strong>. This verifies the recorded contract, without a model-quality claim.</p>
+          <div class="lab-code-links">
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/README.md" target="_blank" rel="noopener noreferrer">Reproduction README ↗</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/release-lock.json" target="_blank" rel="noopener noreferrer">Frozen release lock ↗</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/clean.html" target="_blank" rel="noopener noreferrer">Clean HTML · GitHub source ↗</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/synthetic-regression.html" target="_blank" rel="noopener noreferrer">Synthetic regression HTML · GitHub source ↗</a>
+          </div>
+        </div>
+        <div>
+          <h3>Reproduce with prepared wheels.</h3>
+          <p>From the portfolio repository root with Python 3.11+, follow the README's separate explicit download step first. Set <code>WHEEL_DIR</code> and <code>OUTPUT_DIR</code> to your local paths outside the checkout, with existing trusted parents; the output directory must not exist. This command installs the locked wheels offline in a fresh environment.</p>
+          <pre><code>python3 -B scripts/verify_handoff.py --wheel-dir "$WHEEL_DIR" --output "$OUTPUT_DIR"</code></pre>
+        </div>
+      </div>
     </section>
 
     <section class="lab-review container" id="section-4" aria-labelledby="review-title">
