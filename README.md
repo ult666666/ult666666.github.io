@@ -19,6 +19,8 @@ The project uses illustrative forecasts and a dated research snapshot. Its share
 
 The [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) adds three independent, AI-assisted portfolio builds: [RelayBox](https://github.com/ult666666/relaybox) for durable signed webhook ingestion, [TraceBench](https://github.com/ult666666/tracebench) for offline AI evaluation, and [Impact Ledger](https://github.com/ult666666/impact-ledger) for full-stack nonprofit operations reporting. Their READMEs provide reproducible local quickstarts, synthetic fixtures, test evidence and English/Chinese handoff documentation. The [hosted Impact Ledger preview](https://ult666666.github.io/impact-ledger/) runs on a bundled synthetic snapshot; persistence belongs to its local Python API.
 
+The first workflow releases add [RelayBox 0.2.0 local processing and receipts](https://github.com/ult666666/relaybox/releases/tag/v0.2.0), [TraceBench 0.2.0 standalone HTML reports](https://github.com/ult666666/tracebench/releases/tag/v0.2.0), and [Impact Ledger 1.1.0 prior-period comparison and printing](https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0). Open the [synthetic evaluation report](https://ult666666.github.io/tracebench/) to inspect its two deliberate regressions. These links preserve a dated release scope; timing observations and prices are supplied fixtures, and local receipt publication is a separate transaction from inbox acknowledgment.
+
 | Project | Scope | Evidence |
 | --- | --- | --- |
 | LineageGuard Studio | Typed orchestration, evidence readiness, interruption recovery and evaluations | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
