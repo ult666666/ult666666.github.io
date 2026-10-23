@@ -64,6 +64,13 @@
           <p class="lab-artifact-note">At-least-once work requires idempotent handlers. A durable inbox cannot make an external side effect happen exactly once.</p>
         </div>
       </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Reproduce a stale worker <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a RelayBox checkout with Python 3.11+, run this focused test. It uses a temporary database and a controlled clock.</p><pre><code>python3 -m unittest tests.test_store.StoreTests.test_stale_worker_is_fenced_after_reclaim -v</code></pre><p class="lab-expect">Expected: one passing test. Worker B reclaims an expired lease; worker A's old token cannot acknowledge it.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>claim</code> and <code>_complete</code> together. The SQLite write transaction selects one owner, while the current token and expiry guard completion.</p><p>A process can still finish an external side effect after losing its lease. The consumer must make that effect idempotent; this database cannot roll it back.</p><div class="lab-code-links"><a href="https://github.com/ult666666/relaybox/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/relaybox/blob/main/relaybox/store.py" target="_blank" rel="noopener noreferrer">Inspect the transaction ↗</a></div></div>
+        </div>
+      </details>
     </section>
 
     <section class="lab-project container" id="section-2" aria-labelledby="tracebench-title">
@@ -90,6 +97,13 @@
           <p class="lab-artifact-note">A passing contract is evidence about those cases. It does not establish general model quality or safety.</p>
         </div>
       </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Find a pass-to-fail regression <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a TraceBench checkout with Python 3.11+, run the baseline comparison test. It joins cases by ID, independently of output order.</p><pre><code>python3 -m unittest tests.test_evaluate.EvaluationTests.test_baseline_detects_regressions_and_improvements_by_id -v</code></pre><p class="lab-expect">Expected: one passing test. A new failure remains a regression even when another case improves.</p></div>
+          <div><h3>Follow the decision</h3><p>Trace suite fingerprinting and the comparison of per-case pass states. A changed contract requires a fresh baseline, so unlike suites cannot quietly produce a reassuring comparison.</p><p>These checks measure explicit fixture contracts. Recorded timing and token usage are supplied observations; a passing result does not establish broad model quality.</p><div class="lab-code-links"><a href="https://github.com/ult666666/tracebench/blob/main/tests/test_evaluate.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/tracebench/blob/main/tracebench/evaluate.py" target="_blank" rel="noopener noreferrer">Inspect the comparison ↗</a></div></div>
+        </div>
+      </details>
     </section>
 
     <section class="lab-project container" id="section-3" aria-labelledby="impact-title">
@@ -118,6 +132,13 @@
           </dl>
         </div>
       </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Check the reporting grain <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From an Impact Ledger checkout with Python 3.11+, run the storage tests. The first reporting case checks attendance, distinct people and spending together.</p><pre><code>python3 -m unittest discover -s tests -p test_store.py -v</code></pre><p class="lab-expect">Expected: the suite passes. Adding attendance does not multiply a session's spending, and repeat visitors are counted distinctly.</p></div>
+          <div><h3>Follow the decision</h3><p>Inspect the session and attendance tables, then follow <code>_rows</code> into <code>summarize</code>. Costs belong to a session; visits belong to a participant and session. Filters must describe the same reporting population.</p><p>Participation and spending show activity. They do not establish outcomes, eligibility coverage or causal impact. Every example record is synthetic.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/store.py" target="_blank" rel="noopener noreferrer">Inspect the aggregation ↗</a></div></div>
+        </div>
+      </details>
     </section>
 
     <section class="lab-review container" id="section-4" aria-labelledby="review-title">

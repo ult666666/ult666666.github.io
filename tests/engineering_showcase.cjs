@@ -20,12 +20,25 @@ module.exports = async function engineeringShowcase(browser, base) {
         assert(await page.locator(`a[href="https://github.com/ult666666/${repo}/blob/main/docs/VERIFICATION.md"]`).count() >= 1);
       }
       assert.equal(await page.getByText('Independent portfolio projects · Synthetic data', {exact:true}).count(), 1);
+      const walkthroughs = page.locator('details.lab-walkthrough');
+      assert.equal(await walkthroughs.count(), 3, 'Each project needs a runnable review route');
+      for (const walkthrough of await walkthroughs.all()) {
+        const summary = walkthrough.locator('summary');
+        assert.equal(await walkthrough.getAttribute('open'), null);
+        await summary.focus();
+        await page.keyboard.press('Enter');
+        assert.notEqual(await walkthrough.getAttribute('open'), null, 'Keyboard opens native walkthrough');
+        assert(await walkthrough.locator('pre code').isVisible(), 'Runnable command stays readable without JavaScript');
+        assert(await walkthrough.locator('a[href*="/tests/"]').count() >= 1, 'Walkthrough links to the proving test');
+      }
       for (const width of [360, 768, 1440]) {
         await page.setViewportSize({width, height:1000});
         // Load at each viewport, including when script execution is disabled.
         // This avoids measuring a preceding viewport's transient scroll extent.
         await page.goto(base + '/projects/engineering-lab.html');
+        for (const summary of await page.locator('details.lab-walkthrough > summary').all()) await summary.click();
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Showcase overflow at ${width}`);
+        assert.equal(await page.locator('.lab-walkthrough pre').evaluateAll(nodes => nodes.some(node => node.scrollWidth > node.clientWidth + 1)), false, 'Commands wrap without clipping');
       }
       await page.setViewportSize({width:1440, height:1000});
       const out = path.resolve(__dirname, '..', 'test-results');
