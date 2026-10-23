@@ -33,7 +33,9 @@ module.exports = async function engineeringShowcase(browser, base) {
       if (javaScriptEnabled) {
         await page.screenshot({path:path.join(out, 'engineering-lab-desktop.png'),fullPage:true});
         await page.setViewportSize({width:390, height:844});
-        await page.screenshot({path:path.join(out, 'engineering-lab-mobile.png'),fullPage:true});
+        await page.goto(base + '/projects/engineering-lab.html');
+        const capture = await page.screenshot({path:path.join(out, 'engineering-lab-mobile.png'),fullPage:true});
+        assert.equal(capture.readUInt32BE(16), 390, 'Mobile evidence must use the requested viewport');
       }
       assert.deepEqual(errors, []);
     } finally { await context.close(); }
