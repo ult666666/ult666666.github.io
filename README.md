@@ -31,7 +31,7 @@ The [foundations page](https://ult666666.github.io/projects/foundations.html) ad
 | --- | --- | --- |
 | LineageGuard Studio | Typed orchestration, evidence readiness, interruption recovery and evaluations | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
 | MOTIONX | Next.js studio website and separate Python outreach validation | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
-| Agentic Trading Research | Research-only architecture and deterministic gates | [Public research snapshot](https://github.com/ult666666/agentic-trading-research) |
+| Agentic Trading Research | Research-only architecture and deterministic gates; separate runnable synthetic research-gate example | [Snapshot](https://github.com/ult666666/agentic-trading-research) · [Offline demo + tests](https://github.com/ult666666/agentic-trading-research/tree/main/examples) |
 | ProofCast | Local media generation with asset provenance | [Source](https://github.com/ult666666/proofcast-backblaze) |
 | Blast Radius Daily | Deterministic Devvit community puzzle | [Source](https://github.com/ult666666/blast-radius-daily) |
 | Teen Budgeting | Coursework demo; fictional data and no persistent authentication | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
