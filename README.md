@@ -11,6 +11,8 @@ A responsive portfolio connecting eight selected projects, three engineering-lab
 
 The homepage also offers a [six-project recent-build spotlight](https://ult666666.github.io/#recent-builds): shortcuts to source, demos and clear local/synthetic boundaries, not extra claims of production deployments.
 
+The first-screen specialty routes jump to real projects without client-side routing. Four gallery images come directly from pinned commits in their public project repositories; SHA-256 digests, source paths, and dimensions are recorded in [docs/RECENT_VISUALS.json](docs/RECENT_VISUALS.json). Two additional cards use decorative CSS diagrams. No screenshot requires personal or account data.
+
 ## Start the review
 
 The homepage features **Frontier AI Valuation Lab** first. Its [engineering review guide](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html#review-guide) connects a short demo journey to the public source and checks for calculation consistency, exact navigation handoffs, save failures and evidence provenance. The evidence table becomes stacked cards on small screens and remains readable without JavaScript.

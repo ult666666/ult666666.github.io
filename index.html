@@ -55,6 +55,15 @@
           <a class="button button-primary" href="projects/frontier-ai-valuation-lab.html">Explore the fintech project <span aria-hidden="true">↗</span></a>
           <a class="button button-quiet" href="#work">Selected work <span aria-hidden="true">↘</span></a>
         </div>
+        <div class="hero-tracks">
+          <p class="hero-tracks-label">EXPLORE BY SPECIALTY</p>
+          <nav class="hero-track-links" aria-label="Explore projects by specialty">
+            <a href="#frontier-ai-valuation-lab">Fintech <span aria-hidden="true">↗</span></a>
+            <a href="#lineageguard">AI Engineering <span aria-hidden="true">↗</span></a>
+            <a href="#saas-analytics-warehouse">Data &amp; Analytics <span aria-hidden="true">↗</span></a>
+            <a href="#contrastkit">Product &amp; UX <span aria-hidden="true">↗</span></a>
+          </nav>
+        </div>
       </div>
       <aside class="hero-aside" aria-label="Engineering values">
         <div class="aside-top"><span class="tiny-square"></span><span>HOW I APPROACH A BUILD</span><span class="aside-seq">00 / 03</span></div>
@@ -90,38 +99,44 @@
           <a href="https://github.com/ult666666?tab=repositories" target="_blank" rel="noopener noreferrer">All repositories ↗</a>
         </div>
         <div class="recent-grid">
-          <article class="recent-card">
+          <article class="recent-card" id="saas-analytics-warehouse">
             <span class="recent-category">01 / ANALYTICS ENGINEERING</span>
+            <figure class="recent-media recent-screenshot"><img src="/assets/recent-saas-mrr-trend.png" width="1170" height="598" alt="Synthetic monthly recurring revenue trend chart generated from a seeded fictional SaaS dataset" loading="lazy" decoding="async"><figcaption>FICTIONAL SAAS DATA · GENERATED REPORT</figcaption></figure>
             <h4>SaaS Analytics Warehouse</h4>
             <p>Reproducible dbt/DuckDB models for reconciled MRR, retention and unit economics, using fictional SaaS data.</p>
             <div class="recent-links"><a href="https://ult666666.github.io/saas-analytics-warehouse/" target="_blank" rel="noopener noreferrer">Report preview ↗</a><a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer">Source &amp; tests ↗</a></div>
           </article>
-          <article class="recent-card">
+          <article class="recent-card" id="impact-ledger">
             <span class="recent-category">02 / DATA PRODUCT</span>
+            <figure class="recent-media recent-screenshot"><img src="/assets/recent-impact-ledger.png" width="1440" height="2515" alt="Impact Ledger desktop dashboard showing fictional nonprofit participation and session spending" loading="lazy" decoding="async"><figcaption>SYNTHETIC PARTICIPATION · LOCAL PRODUCT</figcaption></figure>
             <h4>Impact Ledger</h4>
             <p>Participation and spending dashboard that separates unique people, attendance and session costs. Synthetic records only.</p>
             <div class="recent-links"><a href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer">Read-only preview ↗</a><a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer">Source &amp; checks ↗</a></div>
           </article>
-          <article class="recent-card">
+          <article class="recent-card" id="contrastkit">
             <span class="recent-category">03 / PRODUCT + ACCESSIBILITY</span>
+            <figure class="recent-media recent-screenshot"><img src="/assets/recent-contrastkit.png" width="1280" height="1000" alt="ContrastKit color palette auditor with a contrast matrix and preview of tested foreground background pairs" loading="lazy" decoding="async"><figcaption>COLOR PALETTE AUDITOR · DEMO</figcaption></figure>
             <h4>ContrastKit</h4>
             <p>WCAG 2.2 checks, OKLCH color fixes and palette audits through a TypeScript web app, library and CLI.</p>
             <div class="recent-links"><a href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer">Try the app ↗</a><a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer">Source &amp; CLI ↗</a></div>
           </article>
-          <article class="recent-card">
+          <article class="recent-card" id="searchlite">
             <span class="recent-category">04 / SEARCH ENGINEERING</span>
+            <div class="recent-media recent-schematic" aria-hidden="true"><div class="recent-flow"><span>QUERY</span><i>→</i><strong>BM25F</strong><i>→</i><span>RANK</span></div><div class="recent-microcopy"><span>FULL-TEXT INDEX</span><span>EXPLAINABLE SCORES</span></div></div>
             <h4>Searchlite</h4>
             <p>Zero-dependency TypeScript search with BM25F, phrase and fuzzy matching, explainable results and evaluation.</p>
             <div class="recent-links"><a href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer">Search demo ↗</a><a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer">Source &amp; evaluation ↗</a></div>
           </article>
-          <article class="recent-card">
+          <article class="recent-card" id="tracebench">
             <span class="recent-category">05 / AI EVALUATION</span>
+            <div class="recent-media recent-schematic recent-schematic-eval" aria-hidden="true"><div class="recent-flow"><span>CASES</span><i>→</i><strong>CHECKS</strong><i>→</i><span>GATE</span></div><div class="recent-microcopy"><span>RECORDED OUTPUTS</span><span>BASELINE DIFF</span></div></div>
             <h4>TraceBench</h4>
             <p>Offline English/Mandarin AI-output evaluation, supplied token-cost arithmetic and reproducible regression gates.</p>
             <div class="recent-links"><a href="https://ult666666.github.io/tracebench/" target="_blank" rel="noopener noreferrer">Synthetic report ↗</a><a href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer">Source &amp; contracts ↗</a></div>
           </article>
-          <article class="recent-card">
+          <article class="recent-card" id="relaybox">
             <span class="recent-category">06 / BACKEND RELIABILITY</span>
+            <figure class="recent-media recent-screenshot"><img src="/assets/recent-relaybox.png" width="1440" height="1836" alt="RelayBox dashboard showing four synthetic webhook deliveries in different durable processing states" loading="lazy" decoding="async"><figcaption>LOCAL WORKER DASHBOARD · SYNTHETIC</figcaption></figure>
             <h4>RelayBox</h4>
             <p>Signed webhook intake with idempotent SQLite jobs, fenced leases and recovery. Runs locally, not as a hosted service.</p>
             <div class="recent-links"><a href="projects/engineering-lab.html#section-1">Read the case ↗</a><a href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer">Source &amp; local demo ↗</a></div>

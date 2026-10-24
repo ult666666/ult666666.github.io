@@ -150,6 +150,36 @@ class PortfolioTests(unittest.TestCase):
         self.assertIn("synthetic", panel.lower())
         self.assertNotIn("data-category=", panel)
 
+    def test_recent_visuals_have_pinned_public_provenance(self):
+        import hashlib
+        import json
+        manifest = json.loads((ROOT / "docs/RECENT_VISUALS.json").read_text())
+        self.assertEqual(manifest["schema"], "portfolio_visual_provenance/1")
+        records = manifest["assets"]
+        self.assertEqual(len(records), 4)
+        inventory = set(json.loads((ROOT / "public-files.json").read_text())["files"])
+        html = (ROOT / "index.html").read_text()
+        for record in records:
+            self.assertRegex(record["source_commit"], r"^[0-9a-f]{40}$")
+            self.assertIn(record["asset"], inventory)
+            path = ROOT / record["asset"]
+            raw = path.read_bytes()
+            self.assertEqual(raw[:8], b"\x89PNG\r\n\x1a\n")
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), record["sha256"])
+            self.assertIn('src="/' + record["asset"] + '"', html)
+            self.assertIn('id="' + record["anchor"] + '"', html)
+            self.assertIn(record["alt"], html)
+
+    def test_recruiter_routes_resolve_to_real_project_ids(self):
+        html = (ROOT / "index.html").read_text()
+        parsed = parse(ROOT / "index.html")
+        self.assertIn('aria-label="Explore projects by specialty"', html)
+        for anchor in ("frontier-ai-valuation-lab", "lineageguard",
+                       "saas-analytics-warehouse", "contrastkit"):
+            self.assertIn(anchor, parsed.ids)
+            self.assertIn('href="#' + anchor + '"', html)
+        self.assertEqual(html.count('class="recent-media'), 6)
+
     def test_css_and_js_exist_and_match_basic_contract(self):
         css = (ROOT / "styles.css").read_text()
         js = (ROOT / "script.js").read_text()

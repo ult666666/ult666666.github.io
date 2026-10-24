@@ -125,7 +125,13 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 32, 'Payload includes the existing .nojekyll')
+        visuals = json.loads((ROOT / 'docs/RECENT_VISUALS.json').read_text())['assets']
+        allowed_extra = {record['asset'] for record in visuals}
+        self.assertEqual(len(allowed_extra), 4)
+        self.assertEqual({name for name in inventory if name.startswith('assets/recent-')},
+                         allowed_extra, 'Only reviewed gallery images may extend the inventory')
+        self.assertEqual(len(inventory) + 1, 32 + len(allowed_extra),
+                         'Payload includes .nojekyll and exactly the four reviewed images')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
                              for name in inventory))
         articles = Document((ROOT / 'index.html').read_text()).root.find('article')
