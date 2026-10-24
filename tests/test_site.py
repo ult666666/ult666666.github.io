@@ -101,7 +101,7 @@ class PortfolioTests(unittest.TestCase):
 
     def test_project_inventory_and_filters(self):
         doc = parse(ROOT / "index.html")
-        self.assertEqual(len(doc.project_categories), 8)
+        self.assertEqual(len(doc.project_categories), 9)
         self.assertTrue(set(doc.project_categories) <= CATEGORIES)
         buttons = {a.get("data-filter"): a for a in doc.controls if "data-filter" in a}
         self.assertEqual(set(buttons), {"all", "fintech", "ai", "web", "experimental"})

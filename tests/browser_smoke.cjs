@@ -63,7 +63,7 @@ async function captureFinancingCase(page, destination) {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
-    assert.equal(await page.locator('.project-card:visible').count(), 8);
+    assert.equal(await page.locator('.project-card:visible').count(), 9);
     assert.equal(await page.locator('.project-card').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     assert.equal(await page.locator('.hero-track-links a').count(),4);
     for (const anchor of ['frontier-ai-valuation-lab','lineageguard','saas-analytics-warehouse','contrastkit']) {
@@ -84,7 +84,7 @@ async function captureFinancingCase(page, destination) {
       assert.equal(await anchor.getAttribute('target'),'_blank');
       assert((await anchor.getAttribute('rel')).includes('noreferrer'));
     }
-    for (const [filter, count] of [['fintech',1],['ai',3],['web',2],['experimental',2],['all',8]]) {
+    for (const [filter, count] of [['fintech',1],['ai',3],['web',3],['experimental',2],['all',9]]) {
       await page.locator(`[data-filter="${filter}"]`).click();
       assert.equal(await page.locator('.project-card:visible').count(), count);
       assert.equal(await page.locator('#project-count').innerText(), String(count).padStart(2,'0'));

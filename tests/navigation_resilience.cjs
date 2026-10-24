@@ -28,8 +28,8 @@ module.exports = async function navigationResilience(browser, base) {
         if (route === '/') {
           results.push({name:`${mode}: no inert filter buttons`,
             pass:!await page.locator('.filters').isVisible()});
-          results.push({name:`${mode}: all eight projects remain visible`,
-            pass:await page.locator('.project-card:visible').count() === 8});
+          results.push({name:`${mode}: all nine projects remain visible`,
+            pass:await page.locator('.project-card:visible').count() === 9});
         }
         results.push({name:`${mode}: no horizontal overflow on ${route}`,
           pass:await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)});

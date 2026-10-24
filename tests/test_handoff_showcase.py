@@ -130,13 +130,13 @@ class HandoffShowcaseTests(unittest.TestCase):
         self.assertEqual(len(allowed_extra), 4)
         self.assertEqual({name for name in inventory if name.startswith('assets/recent-')},
                          allowed_extra, 'Only reviewed gallery images may extend the inventory')
-        self.assertEqual(len(inventory) + 1, 32 + len(allowed_extra),
+        self.assertEqual(len(inventory) + 1, 33 + len(allowed_extra),
                          'Payload includes .nojekyll and exactly the four reviewed images')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
                              for name in inventory))
         articles = Document((ROOT / 'index.html').read_text()).root.find('article')
         self.assertEqual(sum('project-card' in node.attrs.get('class', '').split()
-                             for node in articles), 8)
+                             for node in articles), 9)
         self.assertEqual({name for name in inventory if name.startswith('projects/')}, {
             'projects/lineageguard.html', 'projects/motionx.html',
             'projects/trading-research.html', 'projects/frontier-ai-valuation-lab.html',

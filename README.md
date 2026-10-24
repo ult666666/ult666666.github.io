@@ -7,7 +7,7 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A responsive portfolio connecting eight selected projects, three engineering-lab additions and seven foundations builds to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
+A responsive portfolio connecting nine selected projects, three engineering-lab additions and seven foundations builds to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
 The homepage also offers a [six-project recent-build spotlight](https://ult666666.github.io/#recent-builds): shortcuts to source, demos and clear local/synthetic boundaries, not extra claims of production deployments.
 
@@ -36,6 +36,7 @@ The [foundations page](https://ult666666.github.io/projects/foundations.html) ad
 | Blast Radius Daily | Deterministic Devvit community puzzle | [Source](https://github.com/ult666666/blast-radius-daily) |
 | Teen Budgeting | Coursework demo; fictional data and no persistent authentication | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
 | JUST-QR | Focused browser utility | [Source](https://github.com/ult666666/JUST-QR) |
+| Luma Keys | AI-assisted offline piano practice desktop app: numbered score, sheet music and falling notes, 3-D hands playing a planned fingering, graded sight reading and on-device PDF recognition | [Source](https://github.com/ult666666/luma-keys) · [Hand motion design](https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md) |
 | Frontier AI Valuation Lab | AI-assisted independent fintech project; capital decisions, economic FCFF valuation, independent numerical references and a shared browser/Node.js API | [Source](https://github.com/ult666666/frontier-ai-valuation-lab) · [Capital Studio](https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision) · [Case study](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html) |
 
 ## Inspect the engineering
@@ -100,6 +101,8 @@ The case study connects financial-model review, a shared browser/Node.js calcula
 The [Capital Strategy 4.0 local portfolio verification record](docs/verification/capital-4.0-local.json) records 34 structural tests, the real browser workflow, 56 navigation-resilience checks, the reviewed staged-file manifest and preserved concurrent changes. Production deployment verification is recorded separately in the application's release evidence. The historical [Ownership Frontier 3.6 record](docs/verification/ownership-3.6-local.json) and [Financing Lens 3.5 receipt](docs/verification/financing-3.5-local.json) retain their original revision and scope.
 
 Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.
+
+`assets/luma-keys-practice.png` is downscaled to 1440 × 900 and reduced to a 256-color palette from `docs/screenshots/practice-hands.png` in Luma Keys commit `b5d41ea8804b0cd4d3a489436536e7f7f490f2ab`. SHA-256: `75ec4d8632c3e0c64886b3219ca6e7ac6880edeea5eac14afee5754bcd18a326`. It shows the app's development build on a public-domain Mutopia score.
 
 ## LineageGuard Studio 2.0
 

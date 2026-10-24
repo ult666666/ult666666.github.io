@@ -254,9 +254,9 @@ def semantic_checks(bodies):
         'Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot.' in p.text
         for p in select(case, tag='p')))
     projects = select(home, tag='article', cls='project-card')
-    check('Eight named homepage projects remain', [[h.text for h in select(project, tag='h3')] for project in projects] == [
+    check('Nine named homepage projects remain', [[h.text for h in select(project, tag='h3')] for project in projects] == [
         [name] for name in ('Frontier AI Valuation Lab.', 'LineageGuard Studio.', 'MOTIONX.', 'Agentic Trading Research.',
-                           'ProofCast', 'Blast Radius Daily', 'Teen Budgeting', 'JUST-QR')])
+                           'Luma Keys.', 'ProofCast', 'Blast Radius Daily', 'Teen Budgeting', 'JUST-QR')])
     check('Three exact homepage proof routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
         'https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md',
         'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md',
