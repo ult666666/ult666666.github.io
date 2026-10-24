@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1012">
-  <meta name="description" content="Charles Dai's foundations: option pricing, A/B-test statistics, a double-entry ledger, SaaS metrics, search ranking and color contrast, each checked against a reference it did not produce.">
+  <meta name="description" content="Charles Dai's foundations: option pricing, A/B-test statistics, a double-entry ledger, SaaS metrics, search ranking, color contrast and cited question answering, each checked against a reference it did not produce.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Foundations — Charles Dai">
-  <meta property="og:description" content="Six independent builds that check well-studied methods against textbook values, published tables, reference libraries and accounting invariants.">
+  <meta property="og:description" content="Seven independent builds that check well-studied methods against textbook values, published tables, reference libraries, accounting invariants and their own cited sources.">
   <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
   <link rel="canonical" href="https://ult666666.github.io/projects/foundations.html">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -29,7 +29,7 @@
       <a class="case-back" href="/#work">← ALL PROJECTS</a>
       <p class="eyebrow">FOUNDATIONS / 2026</p>
       <h1>Start from a known answer.<br><em>Then trust the code.</em></h1>
-      <p class="lab-lead">Six independent builds implement well-studied methods: option pricing, experiment statistics, double-entry accounting, SaaS metrics, search ranking and color contrast. Each one is checked against a reference it did not produce.</p>
+      <p class="lab-lead">Seven independent builds implement well-studied methods: option pricing, experiment statistics, double-entry accounting, SaaS metrics, search ranking, color contrast and cited question answering. Each one is checked against a reference it did not produce.</p>
       <p class="lab-scope">Independent portfolio projects · Synthetic and fictional data</p>
       <div class="lab-index" aria-label="Project index">
         <a href="#section-1"><span>01 / QUANT FINANCE</span><strong>quantkit</strong><span>Price → optimize → backtest ↘</span></a>
@@ -38,6 +38,7 @@
         <a href="#section-4"><span>04 / ANALYTICS ENGINEERING</span><strong>saas-analytics-warehouse</strong><span>Generate → model → reconcile ↘</span></a>
         <a href="#section-5"><span>05 / SEARCH</span><strong>searchlite</strong><span>Index → rank → explain ↘</span></a>
         <a href="#section-6"><span>06 / ACCESSIBILITY</span><strong>contrastkit</strong><span>Measure → fix → audit ↘</span></a>
+        <a href="#section-7"><span>07 / AI ENGINEERING</span><strong>citecheck</strong><span>Retrieve → answer → verify ↘</span></a>
       </div>
     </section>
 
@@ -249,7 +250,43 @@
       </details>
     </section>
 
-    <section class="lab-review container" id="section-7" aria-labelledby="review-title">
+    <section class="lab-project container" id="section-7" aria-labelledby="citecheck-title">
+      <div class="lab-number">07 <span>AI ENGINEERING</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="citecheck-title">citecheck</h2>
+          <p class="lab-tagline">The answer sounds confident. Does the source actually say that?</p>
+          <p>Question answering over a document collection with the Claude API. Passages come from a SQLite FTS5 index ranked with BM25, the model must cite a retrieved passage for every sentence through a strict tool schema, and the app abstains without a model call when nothing relevant is found.</p>
+          <p>The detail to inspect: a checker rejects citations to passages that were never retrieved and flags any sentence whose numbers or content words are missing from the passages it cites.</p>
+          <div class="tag-set"><span>Python</span><span>Claude API</span><span>SQLite FTS5</span><span>FastAPI</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer">Run citecheck ↗</a>
+            <a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design ↗</a>
+          </div>
+          <p class="lab-demo-note">Tests and the bundled evaluation replay hand-written synthetic responses, so no API key is needed and no real model output is claimed. Live mode uses your own key.</p>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>CHECKED AGAINST</span><span>ITS OWN SOURCES</span></div>
+          <dl class="lab-definitions">
+            <div><dt>Retrieved passages</dt><dd>Every citation must point to a passage that was actually retrieved.</dd></div>
+            <div><dt>Cited text</dt><dd>A number missing from the cited passages makes a sentence unsupported, however many words match.</dd></div>
+            <div><dt>Human labels</dt><dd>On the fixtures the checker flagged 5 of 7 sentences labelled unsupported, and 2 of 42 labelled supported.</dd></div>
+            <div><dt>Abstention</dt><dd>Questions the handbook cannot answer should get no answer.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">Word overlap is not entailment: a negation flip passes the checker, and a test pins that limitation.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Catch an invented number <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a citecheck checkout with uv installed, index the fictional handbook and ask a prepared question. No API key is needed.</p><pre><code>uv run citecheck index examples/handbook
+uv run citecheck ask "What is the deadline for submitting an expense?"</code></pre><p class="lab-expect">Expected: the first sentence is supported (9 of 9 content words found); the second is flagged unsupported because "60" appears in no cited passage. No API call is made.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>verify.py</code>. Citations outside the retrieved set are rejected first; support is then the share of a sentence's content words found in its cited passages, and any number missing from them overrides a high score.</p><p>The checker catches invented numbers and unsupported wording, not reasoning errors. Its evaluation set is small, fictional and labelled by one author.</p><div class="lab-code-links"><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_verify.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/citecheck/blob/main/src/citecheck/verify.py" target="_blank" rel="noopener noreferrer">Inspect the checker ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-review container" id="section-8" aria-labelledby="review-title">
       <p class="section-index">HOW TO REVIEW THE WORK</p>
       <h2 id="review-title">Check the reference, then the code.</h2>
       <div class="lab-review-grid">
@@ -257,7 +294,7 @@
         <div><span>02 / COMPARE</span><h3>Find the reference</h3><p>Textbook values, published tables, reference libraries and accounting invariants come from outside the code they check.</p></div>
         <div><span>03 / WEIGH</span><h3>Read the limits</h3><p>Each README and design note states what the project does not do and what its evidence does not establish.</p></div>
       </div>
-      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect finance, statistics, data and interface work with the habits I care about: explicit contracts, reproducible checks and stated limits. They are educational projects with synthetic or fictional data and make no claims of production use or adoption.</p><a class="button button-quiet" href="/#work">Back to all projects ↗</a></div>
+      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect finance, statistics, data, interface and applied AI work with the habits I care about: explicit contracts, reproducible checks and stated limits. They are educational projects with synthetic or fictional data and make no claims of production use or adoption.</p><a class="button button-quiet" href="/#work">Back to all projects ↗</a></div>
     </section>
   </main>
   <footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>

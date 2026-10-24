@@ -4,7 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROUTE = '/projects/foundations.html';
-const REPOS = ['quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit'];
+const REPOS = ['quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit',
+  'citecheck'];
 const LIVE = ['https://ult666666.github.io/saas-analytics-warehouse/', 'https://ult666666.github.io/searchlite/',
   'https://ult666666.github.io/contrastkit/'];
 
@@ -25,7 +26,7 @@ module.exports = async function foundationsShowcase(browser, base) {
       for (const url of LIVE) assert.equal(await page.locator(`a[href="${url}"]`).count(), 1, `Live link ${url}`);
       assert.equal(await page.getByText('Independent portfolio projects · Synthetic and fictional data', {exact:true}).count(), 1);
       const entry = page.locator('.lab-index a').first();
-      assert.equal(await page.locator('.lab-index a').count(), 6, 'The index reaches every project');
+      assert.equal(await page.locator('.lab-index a').count(), REPOS.length, 'The index reaches every project');
       // Reach the index through actual keyboard navigation, then follow it.
       for (let attempt = 0; attempt < 30; attempt++) {
         await page.keyboard.press('Tab');
@@ -39,7 +40,7 @@ module.exports = async function foundationsShowcase(browser, base) {
       await page.keyboard.press('Enter');
       assert.equal(new URL(page.url()).hash, '#section-1');
       const walkthroughs = page.locator('details.lab-walkthrough');
-      assert.equal(await walkthroughs.count(), 6, 'Each project needs a runnable review route');
+      assert.equal(await walkthroughs.count(), REPOS.length, 'Each project needs a runnable review route');
       for (const walkthrough of await walkthroughs.all()) {
         const summary = walkthrough.locator('summary');
         assert.equal(await walkthrough.getAttribute('open'), null);
@@ -83,5 +84,5 @@ module.exports = async function foundationsShowcase(browser, base) {
     await page.getByRole('link', {name:'Explore the foundations ↗', exact:true}).click();
     assert.equal(new URL(page.url()).pathname, ROUTE);
   } finally { await page.close(); }
-  console.log('FOUNDATIONS_SHOWCASE_PASS: six native keyboard walkthroughs, source/design/live links, 320/360/768/1440 widths, 200% zoom, focus and no-JavaScript access');
+  console.log('FOUNDATIONS_SHOWCASE_PASS: seven native keyboard walkthroughs, source/design/live links, 320/360/768/1440 widths, 200% zoom, focus and no-JavaScript access');
 };
