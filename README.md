@@ -7,7 +7,7 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A responsive portfolio connecting eight selected projects and three engineering-lab additions to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
+A responsive portfolio connecting eight selected projects, three engineering-lab additions and six foundations builds to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
 
 ## Start the review
 
@@ -20,6 +20,8 @@ The project uses illustrative forecasts and a dated research snapshot. Its share
 The [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) adds three independent, AI-assisted portfolio builds: [RelayBox](https://github.com/ult666666/relaybox) for durable signed webhook ingestion, [TraceBench](https://github.com/ult666666/tracebench) for offline AI evaluation, and [Impact Ledger](https://github.com/ult666666/impact-ledger) for full-stack nonprofit operations reporting. Their READMEs provide reproducible local quickstarts, synthetic fixtures, test evidence and English/Chinese handoff documentation. The [hosted Impact Ledger preview](https://ult666666.github.io/impact-ledger/) runs on a bundled synthetic snapshot; persistence belongs to its local Python API.
 
 The first workflow releases add [RelayBox 0.2.0 local processing and receipts](https://github.com/ult666666/relaybox/releases/tag/v0.2.0), [TraceBench 0.2.0 standalone HTML reports](https://github.com/ult666666/tracebench/releases/tag/v0.2.0), and [Impact Ledger 1.1.0 prior-period comparison and printing](https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0). Open the [synthetic evaluation report](https://ult666666.github.io/tracebench/) to inspect its two deliberate regressions. These links preserve a dated release scope; timing observations and prices are supplied fixtures, and local receipt publication is a separate transaction from inbox acknowledgment.
+
+The [foundations page](https://ult666666.github.io/projects/foundations.html) adds six independent, AI-assisted builds that check well-studied methods against references they did not produce: [quantkit](https://github.com/ult666666/quantkit) for option pricing, portfolios and look-ahead-safe backtests; [powerlift](https://github.com/ult666666/powerlift) for experiment statistics; [ledgerline](https://github.com/ult666666/ledgerline) for an idempotent double-entry ledger API; [saas-analytics-warehouse](https://github.com/ult666666/saas-analytics-warehouse) for tested dbt metrics; [searchlite](https://github.com/ult666666/searchlite) for explainable search ranking; and [contrastkit](https://github.com/ult666666/contrastkit) for accessible color. Each section gives one runnable command and its observed result. The hosted [dbt docs](https://ult666666.github.io/saas-analytics-warehouse/), [search demo](https://ult666666.github.io/searchlite/) and [Palette Auditor](https://ult666666.github.io/contrastkit/) use synthetic or bundled data.
 
 | Project | Scope | Evidence |
 | --- | --- | --- |
@@ -62,6 +64,7 @@ The [installed synthetic operations handoff](examples/operations_handoff/README.
 
 - `index.html`: accessible static project content; all projects remain available without JavaScript.
 - `projects/engineering-lab.html`: a static review route for three complementary engineering projects, their source, architecture and verification records.
+- `projects/foundations.html`: a static review route for six reference-checked builds, each with source, design notes, live demos where available and one runnable proving test.
 - `fintech.html` / `fintech.css`: the dedicated fintech gateway, a labeled three-plan capital comparison and direct links to the working decision studio and its evidence.
 - `styles.css`: responsive layout, visible keyboard focus, reduced-motion support.
 - `script.js`: progressively enhanced project filters and mobile navigation.

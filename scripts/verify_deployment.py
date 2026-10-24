@@ -209,7 +209,7 @@ def select(root, tag=None, cls=None, ident=None):
 def semantic_checks(bodies):
     pages = {name: Reader(bodies[name]).root for name in ('index.html', 'fintech.html', CASE,
              'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
-             'projects/engineering-lab.html')}
+             'projects/engineering-lab.html', 'projects/foundations.html')}
     home, gateway, case = (pages[name] for name in ('index.html', 'fintech.html', CASE))
     checks = []
 
@@ -265,6 +265,7 @@ def semantic_checks(bodies):
         'index.html': ['#work', '/fintech.html', '/projects/engineering-lab.html', '#approach', '#about', '#contact'],
         'fintech.html': ['/#work', '/fintech.html', '/#about', '/#contact'],
         'projects/engineering-lab.html': ['/#work', '/fintech.html', '/projects/engineering-lab.html', '/#about', '/#contact'],
+        'projects/foundations.html': ['/#work', '/fintech.html', '/projects/engineering-lab.html', '/#about', '/#contact'],
         CASE: ['/#work', '/fintech.html', '/#approach', '/#about', '/#contact'],
     }
     for name in pages:
@@ -279,6 +280,12 @@ def semantic_checks(bodies):
         'https://github.com/ult666666/' + repo in lab_links
         and 'https://github.com/ult666666/' + repo + '/blob/main/docs/VERIFICATION.md' in lab_links
         for repo in ('relaybox', 'tracebench', 'impact-ledger')))
+    foundation_links = {a.attrs.get('href') for a in select(pages['projects/foundations.html'], tag='a')}
+    check('Foundations connect six source and design routes', all(
+        any(href == 'https://github.com/ult666666/' + repo or href.startswith('https://github.com/ult666666/' + repo + '/')
+            for href in foundation_links if href)
+        and 'https://github.com/ult666666/' + repo + '/blob/main/docs/DESIGN.md' in foundation_links
+        for repo in ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit')))
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
           and a.text == 'Worked decision PDF ↗' for a in select(case, tag='a')))
     return checks

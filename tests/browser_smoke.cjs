@@ -52,6 +52,7 @@ async function captureFinancingCase(page, destination) {
     await require('./navigation_resilience.cjs')(browser, base);
     await require('./inspector_showcase.cjs')(browser, base);
     await require('./engineering_showcase.cjs')(browser, base);
+    await require('./foundations_showcase.cjs')(browser, base);
     const page = await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
     const errors = [];
     const externalRequests = [];

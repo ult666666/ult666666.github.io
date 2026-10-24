@@ -125,7 +125,7 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 31, 'Payload includes the existing .nojekyll')
+        self.assertEqual(len(inventory) + 1, 32, 'Payload includes the existing .nojekyll')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
                              for name in inventory))
         articles = Document((ROOT / 'index.html').read_text()).root.find('article')
@@ -134,7 +134,7 @@ class HandoffShowcaseTests(unittest.TestCase):
         self.assertEqual({name for name in inventory if name.startswith('projects/')}, {
             'projects/lineageguard.html', 'projects/motionx.html',
             'projects/trading-research.html', 'projects/frontier-ai-valuation-lab.html',
-            'projects/engineering-lab.html'})
+            'projects/engineering-lab.html', 'projects/foundations.html'})
 
 
 if __name__ == '__main__':

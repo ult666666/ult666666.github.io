@@ -1,0 +1,47 @@
+# Foundations review route
+
+The foundations page adds six public source projects to the portfolio. Each implements a well-studied method and checks it against a reference the code did not produce:
+
+- quantkit: option pricing, portfolio construction and a daily backtester with an enforced no-look-ahead contract; checked against Hull's worked example, put–call parity and closed-form portfolios.
+- powerlift: A/B-test design and analysis; group sequential boundaries checked against Jennison & Turnbull's tables and published Lan–DeMets bounds, and tests against SciPy and statsmodels.
+- ledgerline: a FastAPI double-entry ledger; balance, immutability, idempotency and reconciliation invariants enforced by unit, concurrency and Hypothesis state-machine tests.
+- saas-analytics-warehouse: a dbt and DuckDB warehouse for a fictional SaaS company; MRR bridge reconciliation and movement exclusivity enforced as data tests that fail the build.
+- searchlite: a TypeScript search engine; `explain()` must reproduce the returned score, and highlighting must escape hostile document text.
+- contrastkit: WCAG 2.2 contrast, OKLCH fixes and color-vision simulation; checked against the WCAG formula, published simulation matrices and fix properties.
+
+These are independent, AI-assisted educational projects. Data is synthetic or fictional. The hosted dbt docs, search demo and Palette Auditor run on generated or bundled data. The page does not claim external adoption, production operation, or professional engagements.
+
+## Runnable reviewer walkthroughs
+
+Each project has a native HTML disclosure with one focused command, its expected result, a link to the proving test and a link to the implementation it exercises. The commands below were run on 23 October 2026 against each repository's published `main` branch:
+
+| Project | Command | Observed result |
+| --- | --- | --- |
+| quantkit | `uv run pytest tests/test_backtest_engine.py -k lookahead -v` | 7 passed |
+| powerlift | `uv run pytest tests/test_sequential.py -k "jennison_turnbull or published_bounds or five_looks" -v` | 12 passed |
+| ledgerline | `uv run pytest tests/test_concurrency.py -v` | 6 passed |
+| saas-analytics-warehouse | `make data build` | dbt `PASS=173 WARN=0 ERROR=0`, including `assert_mrr_bridge_reconciles` |
+| searchlite | `npx vitest run test/engine/highlight.test.ts test/engine/scoring.test.ts -t "hostile\|exactly the score"` | 2 passed, 47 skipped |
+| contrastkit | `npx contrastkit check 777 fff` (after `npm ci` and `npm run build`) | `4.47:1`, fails AA for normal text, exit code 1 |
+
+The routes refer to actual repository tests and work without JavaScript. `tests/test_foundations.py` pins the exact commands, the six source and design-note links, the three hosted links and the stated scope, so the page cannot drift from this record unnoticed.
+
+## Publication
+
+`projects/foundations.html` is an explicitly reviewed entry in `public-files.json`. It reuses the engineering lab's existing styles and progressively enhanced navigation, so no new visitor assets are published. The homepage entry and sitemap make it discoverable without changing the original eight project cards or their filters. Public staging still refuses unlisted files and verifies every released byte, and the staged semantic checks require all six source and design-note routes.
+
+## Verification
+
+On 23 October 2026, Python 3.13.9 / Node 24.18.0 / Playwright 1.61.1:
+
+```sh
+python3 -B -m unittest discover -s tests -v
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+PORTFOLIO_TEST_ROOT=_site npm run test:browser
+python3 -B scripts/build_site.py --verify _site
+```
+
+The structural suite passed 77 tests, with the existing installed-handoff integration test skipped because it needs prepared wheels. `tests/foundations_showcase.cjs` runs inside the existing browser command: it opens all six walkthroughs by keyboard with JavaScript enabled and disabled, checks the source, design-note and hosted links, measures 320, 360, 768 and 1440 pixel widths with every walkthrough open, checks 200% zoom and follows the homepage entry. The staged payload verified 32 public files.
+
+These checks establish page behavior and publication consistency. They do not verify the correctness of all linked project code; each repository's own tests and design notes carry that scope.
