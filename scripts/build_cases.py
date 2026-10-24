@@ -178,6 +178,19 @@ CASES = [
          tags=["Python", "Deterministic validation", "Provenance", "Agent workflows"],
          repo="https://github.com/ult666666/agentic-trading-research",
          live=None, live_label=None, image=None, alt=None,
+         secondary_links=[
+             ("Run synthetic gate", "https://github.com/ult666666/agentic-trading-research/tree/main/examples"),
+         ],
+         proof_links=[
+             ("Runnable gate", "Six fixed synthetic scenarios, no broker or market data", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/fail_closed_gate.py"),
+             ("Negative-case tests", "Inspect deterministic HOLD and input validation tests", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py"),
+             ("GitHub Actions", "Read-only offline checks of the public teaching example", "https://github.com/ult666666/agentic-trading-research/actions/workflows/research-demo.yml"),
+         ],
+         section_links={
+             "Engineering principles": [
+                 ("Try the six synthetic scenarios", "https://github.com/ult666666/agentic-trading-research/tree/main/examples")
+             ],
+         },
          sections=[
              ("The problem", [
                  "An AI-generated market thesis can sound convincing while relying on stale prices, weak sources or incompatible risk assumptions.",
@@ -185,14 +198,15 @@ CASES = [
              ]),
              ("The architecture", [
                  "The research architecture separates model-generated proposals from deterministic Python checks for source freshness, provenance, risk and decision boundaries.",
-                 "Structured outputs and explicit failure states let the system withhold a result when necessary instead of quietly inventing confidence."
+                 "Structured outputs and explicit failure states let the system withhold a result when necessary instead of quietly inventing confidence.",
+                 "A separate, runnable public teaching example shows six synthetic outcomes: one reviewable research case and five HOLD cases, with automated negative tests. It cannot query real markets or place orders."
              ]),
              ("Engineering principles", [
                  "I prioritize reproducible tests, machine-readable evidence, conservative release gates, and reviewable control-plane changes.",
                  "This pattern also applies outside finance: AI can help generate options, while clear policy and traceable evidence decide what is actually allowed."
              ]),
              ("Status and limitations", [
-                 "The public repository is a curated research and architecture snapshot for code review. It does not include the complete runnable system, market data, configuration or operational records.",
+                 "The public repository is a curated research and architecture snapshot, not the complete runnable production system. Its self-contained synthetic demo is independently runnable and deliberately cannot access accounts, market feeds or private runtime.",
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
