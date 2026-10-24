@@ -281,11 +281,12 @@ def semantic_checks(bodies):
         and 'https://github.com/ult666666/' + repo + '/blob/main/docs/VERIFICATION.md' in lab_links
         for repo in ('relaybox', 'tracebench', 'impact-ledger')))
     foundation_links = {a.attrs.get('href') for a in select(pages['projects/foundations.html'], tag='a')}
-    check('Foundations connect six source and design routes', all(
+    check('Foundations connect seven source and design routes', all(
         any(href == 'https://github.com/ult666666/' + repo or href.startswith('https://github.com/ult666666/' + repo + '/')
             for href in foundation_links if href)
         and 'https://github.com/ult666666/' + repo + '/blob/main/docs/DESIGN.md' in foundation_links
-        for repo in ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit')))
+        for repo in ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit',
+                     'citecheck')))
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
           and a.text == 'Worked decision PDF ↗' for a in select(case, tag='a')))
     return checks

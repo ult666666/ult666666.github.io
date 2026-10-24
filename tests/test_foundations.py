@@ -8,7 +8,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / 'projects' / 'foundations.html'
-REPOS = ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit')
+REPOS = ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit',
+         'citecheck')
 LIVE = ('https://ult666666.github.io/saas-analytics-warehouse/', 'https://ult666666.github.io/searchlite/',
         'https://ult666666.github.io/contrastkit/')
 # Each command was run against the published repositories; the page states its observed result.
@@ -19,6 +20,8 @@ COMMANDS = (
     'make data build',
     'npx vitest run test/engine/highlight.test.ts test/engine/scoring.test.ts -t "hostile|exactly the score"',
     'npx contrastkit check 777 fff',
+    'uv run citecheck index examples/handbook\n'
+    'uv run citecheck ask "What is the deadline for submitting an expense?"',
 )
 
 
@@ -53,8 +56,8 @@ def parse() -> Page:
 
 
 class FoundationsTests(unittest.TestCase):
-    def test_six_projects_in_order(self):
-        self.assertEqual(parse().headings[:6], list(REPOS))
+    def test_projects_in_order(self):
+        self.assertEqual(parse().headings[:len(REPOS)], list(REPOS))
 
     def test_each_project_links_source_design_and_proving_code(self):
         hrefs = parse().hrefs
@@ -76,7 +79,8 @@ class FoundationsTests(unittest.TestCase):
     def test_scope_and_limits_are_stated(self):
         text = PAGE.read_text(encoding='utf-8')
         for phrase in ('Synthetic and fictional data', 'not investment advice', 'it is not a benchmark',
-                       'All data is synthetic', 'no claims of production use or adoption'):
+                       'All data is synthetic', 'no claims of production use or adoption',
+                       'hand-written synthetic responses'):
             self.assertIn(phrase, text)
 
     def test_homepage_sitemap_and_inventory_include_the_page(self):
