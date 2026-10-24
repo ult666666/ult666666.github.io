@@ -113,3 +113,7 @@ The LineageGuard case study now includes the shipped [Review Inspector](projects
 The Inspector revision's 120 Node tests, 31 browser journeys and 19 evaluation assertions describe separate overlapping checks. They do not retroactively change the original v2.0.0 release receipt or establish independent catalog truth. Showcase tests cover pinned links, screenshot integrity, accessible anchors, no-JavaScript content, responsive widths and publication inventory. Other case pages and the fintech gateway remain byte-identical in this update.
 
 The [Inspector showcase verification record](docs/verification/lineageguard-inspector-showcase.json) binds the public source screenshot, authored case files and preserved other projects. Deployment results are verified separately after publication.
+
+## License
+
+The source code is available under the [MIT License](LICENSE). The portfolio's written content, images and other media are © 2026 Charles Dai, all rights reserved, and are not covered by the MIT License.
