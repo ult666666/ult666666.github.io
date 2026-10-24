@@ -139,6 +139,17 @@ class PortfolioTests(unittest.TestCase):
         self.assertIn('lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md', page)
         self.assertEqual(page.count('class="proof-path"'), 3)
 
+    def test_recent_projects_have_direct_code_and_demo_links(self):
+        page = (ROOT / "index.html").read_text()
+        self.assertEqual(page.count('id="recent-builds"'), 1)
+        panel = page.split('<section class="recent-builds"', 1)[1].split('</section>', 1)[0]
+        self.assertEqual(panel.count('class="recent-card"'), 6)
+        for repo in ("saas-analytics-warehouse", "impact-ledger", "contrastkit",
+                     "searchlite", "tracebench", "relaybox"):
+            self.assertIn("https://github.com/ult666666/" + repo, panel)
+        self.assertIn("synthetic", panel.lower())
+        self.assertNotIn("data-category=", panel)
+
     def test_css_and_js_exist_and_match_basic_contract(self):
         css = (ROOT / "styles.css").read_text()
         js = (ROOT / "script.js").read_text()
