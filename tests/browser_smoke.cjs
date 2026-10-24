@@ -65,6 +65,20 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.project-card:visible').count(), 8);
     assert.equal(await page.locator('.project-card').first().getAttribute('id'), 'frontier-ai-valuation-lab');
+    assert.equal(await page.locator('.hero-track-links a').count(),4);
+    for (const anchor of ['frontier-ai-valuation-lab','lineageguard','saas-analytics-warehouse','contrastkit']) {
+      assert.equal(await page.locator('[id="' + anchor + '"]').count(),1);
+      await page.locator('.hero-track-links a[href="#' + anchor + '"]').click();
+      assert.equal(new URL(page.url()).hash,'#' + anchor);
+    }
+    const visualImages = page.locator('.recent-screenshot img');
+    assert.equal(await visualImages.count(),4);
+    for (const img of await visualImages.all()) {
+      await img.scrollIntoViewIfNeeded();
+      await img.evaluate(node => node.decode());
+      assert.equal(await img.evaluate(node => node.complete && node.naturalWidth >= 300),true);
+    }
+    await page.goto(base);
     assert.equal(await page.locator('#engineering-proof .proof-path').count(),3);
     for(const anchor of await page.locator('#engineering-proof .proof-path').all()){
       assert.equal(await anchor.getAttribute('target'),'_blank');
