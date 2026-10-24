@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="Charles Dai's foundations: option pricing, A/B-test statistics, a double-entry ledger, SaaS metrics, search ranking and color contrast, each checked against a reference it did not produce.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Foundations — Charles Dai">
+  <meta property="og:description" content="Six independent builds that check well-studied methods against textbook values, published tables, reference libraries and accounting invariants.">
+  <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
+  <link rel="canonical" href="https://ult666666.github.io/projects/foundations.html">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/script.js"></script>
+  <title>Foundations — Charles Dai</title>
+</head>
+<body class="engineering-lab foundations">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header" id="top"><div class="container header-inner">
+    <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a href="/#work">Work</a><a href="/fintech.html">Fintech</a><a href="/projects/engineering-lab.html">Engineering</a><a href="/#about">About</a><a href="/#contact" class="nav-contact">Let's connect ↗</a>
+    </nav>
+  </div></header>
+  <main id="main">
+    <section class="lab-intro container">
+      <a class="case-back" href="/#work">← ALL PROJECTS</a>
+      <p class="eyebrow">FOUNDATIONS / 2026</p>
+      <h1>Start from a known answer.<br><em>Then trust the code.</em></h1>
+      <p class="lab-lead">Six independent builds implement well-studied methods: option pricing, experiment statistics, double-entry accounting, SaaS metrics, search ranking and color contrast. Each one is checked against a reference it did not produce.</p>
+      <p class="lab-scope">Independent portfolio projects · Synthetic and fictional data</p>
+      <div class="lab-index" aria-label="Project index">
+        <a href="#section-1"><span>01 / QUANT FINANCE</span><strong>quantkit</strong><span>Price → optimize → backtest ↘</span></a>
+        <a href="#section-2"><span>02 / EXPERIMENTATION</span><strong>powerlift</strong><span>Plan → test → monitor ↘</span></a>
+        <a href="#section-3"><span>03 / FINTECH BACKEND</span><strong>ledgerline</strong><span>Post → replay → reconcile ↘</span></a>
+        <a href="#section-4"><span>04 / ANALYTICS ENGINEERING</span><strong>saas-analytics-warehouse</strong><span>Generate → model → reconcile ↘</span></a>
+        <a href="#section-5"><span>05 / SEARCH</span><strong>searchlite</strong><span>Index → rank → explain ↘</span></a>
+        <a href="#section-6"><span>06 / ACCESSIBILITY</span><strong>contrastkit</strong><span>Measure → fix → audit ↘</span></a>
+      </div>
+    </section>
+
+    <section class="lab-project container" id="section-1" aria-labelledby="quantkit-title">
+      <div class="lab-number">01 <span>QUANTITATIVE FINANCE</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="quantkit-title">quantkit</h2>
+          <p class="lab-tagline">The backtest looks great. Did it trade on tomorrow's prices?</p>
+          <p>Option pricing with Black–Scholes–Merton formulas, Cox–Ross–Rubinstein trees and Monte Carlo; mean–variance and risk-parity portfolios; and a vectorized daily backtester, in Python.</p>
+          <p>The detail to inspect: a strategy decides with prices through day t, and those weights earn day t+1's return. A checker changes later prices and fails any strategy whose earlier weights move.</p>
+          <div class="tag-set"><span>Python</span><span>NumPy</span><span>SciPy</span><span>pandas</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer">Run quantkit ↗</a>
+            <a href="https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design &amp; verification ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>CHECKED AGAINST</span><span>INDEPENDENT REFERENCES</span></div>
+          <dl class="lab-definitions">
+            <div><dt>Hull's worked example</dt><dd>S = 42, K = 40, r = 10%, σ = 20%, T = 0.5 prices the call at 4.76 and the put at 0.81.</dd></div>
+            <div><dt>Put–call parity</dt><dd>Holds for randomly generated contracts.</dd></div>
+            <div><dt>Closed forms</dt><dd>The numerical optimizer matches the analytic minimum-variance, tangency and target-return portfolios.</dd></div>
+            <div><dt>Convergence</dt><dd>The European binomial price approaches Black–Scholes as steps increase.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">Constant-volatility models on synthetic prices. Educational software, not investment advice.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Catch a strategy that peeks <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a quantkit checkout with uv installed, run the look-ahead tests.</p><pre><code>uv run pytest tests/test_backtest_engine.py -k lookahead -v</code></pre><p class="lab-expect">Expected: 7 passed. Six built-in strategy configurations pass the checker, and a deliberately peeking strategy is caught.</p></div>
+          <div><h3>Follow the decision</h3><p>Read the timing contract at the top of <code>engine.py</code>. Weights set at the close of day t are held during day t+1; drift, turnover and costs follow from share counts without a loop over days.</p><p>Passing the checker shows a strategy cannot see future prices. It says nothing about whether the strategy would have made money.</p><div class="lab-code-links"><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_backtest_engine.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/quantkit/blob/main/src/quantkit/backtest/engine.py" target="_blank" rel="noopener noreferrer">Inspect the timing contract ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-project container" id="section-2" aria-labelledby="powerlift-title">
+      <div class="lab-number">02 <span>EXPERIMENTATION STATISTICS</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="powerlift-title">powerlift</h2>
+          <p class="lab-tagline">Checking an A/B test every morning feels harmless. It isn't.</p>
+          <p>Experiment design and analysis in Python: sample sizes and power, frequentist and Bayesian comparisons, CUPED variance reduction, sample-ratio-mismatch checks and multiple-testing corrections.</p>
+          <p>The detail to inspect: group sequential boundaries come from the joint normal distribution of the interim z-statistics, so a team can look early without inflating its false-positive rate.</p>
+          <div class="tag-set"><span>Python</span><span>SciPy</span><span>NumPy</span><span>Simulation</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer">Run powerlift ↗</a>
+            <a href="https://github.com/ult666666/powerlift/blob/main/docs/METHODOLOGY.md" target="_blank" rel="noopener noreferrer">Methodology ↗</a>
+            <a href="https://github.com/ult666666/powerlift/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design ↗</a>
+          </div>
+          <p class="lab-demo-note">The README's peeking simulation runs 10,000 A/A experiments (seed 2026): stopping at the first p &lt; 0.05 across ten looks flags 19.5% of them, against a 5% target.</p>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>CHECKED AGAINST</span><span>PUBLISHED VALUES</span></div>
+          <dl class="lab-definitions">
+            <div><dt>Jennison &amp; Turnbull tables</dt><dd>Pocock constants for 5 and 10 looks; O'Brien–Fleming constants for 2, 3, 4, 5 and 10 looks.</dd></div>
+            <div><dt>Lan–DeMets bounds</dt><dd>O'Brien–Fleming-type alpha spending with five looks.</dd></div>
+            <div><dt>SciPy and statsmodels</dt><dd>Tests, intervals, power and multiple-testing corrections agree with reference implementations.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">Large-sample normal approximations with two arms. Matching published constants checks the arithmetic, not whether an approximation suits a small experiment.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Reproduce published boundaries <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a powerlift checkout with uv installed, run the published-value tests.</p><pre><code>uv run pytest tests/test_sequential.py -k "jennison_turnbull or published_bounds or five_looks" -v</code></pre><p class="lab-expect">Expected: 12 passed. Each constant and boundary matches its published value within the stated tolerance.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>group_sequential_boundaries</code> in <code>sequential.py</code>. It solves for the constant whose crossing probability under no effect equals alpha, using correlation √(t<sub>i</sub>/t<sub>j</sub>) between looks.</p><p>Sequential monitoring controls false positives across planned looks. It does not rescue a test that was underpowered from the start.</p><div class="lab-code-links"><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_sequential.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/powerlift/blob/main/src/powerlift/sequential.py" target="_blank" rel="noopener noreferrer">Inspect the boundary solver ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-project container" id="section-3" aria-labelledby="ledgerline-title">
+      <div class="lab-number">03 <span>FINTECH BACKEND</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="ledgerline-title">ledgerline</h2>
+          <p class="lab-tagline">The client timed out and retried. Did the customer pay twice?</p>
+          <p>A double-entry ledger API built with FastAPI and SQLAlchemy. Journal entries are integer minor units that must balance per currency, posted transactions are immutable, and corrections are reversals.</p>
+          <p>The detail to inspect: each write is one database transaction that replays the stored response for a repeated Idempotency-Key and compare-and-swaps every account version it touches, so concurrent requests cannot overdraw an account.</p>
+          <div class="tag-set"><span>Python</span><span>FastAPI</span><span>SQLAlchemy 2.0</span><span>PostgreSQL / SQLite</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer">Run ledgerline ↗</a>
+            <a href="https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>INVARIANTS</span><span>ENFORCED BY TESTS</span></div>
+          <dl class="lab-definitions">
+            <div><dt>Balanced</dt><dd>Every transaction sums to zero in each currency.</dd></div>
+            <div><dt>Immutable</dt><dd>Corrections are reversals, at most one per transaction.</dd></div>
+            <div><dt>Idempotent</dt><dd>The same key and body replay the original response; a different body is rejected.</dd></div>
+            <div><dt>Reconciled</dt><dd>Stored balances equal the sum of their entries.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">A Hypothesis state machine checks these after random sequences of operations, and CI repeats the suite on PostgreSQL.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Race transfers against one balance <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a ledgerline checkout with uv installed, run the concurrency tests.</p><pre><code>uv run pytest tests/test_concurrency.py -v</code></pre><p class="lab-expect">Expected: 6 passed. Concurrent transfers never overdraw an account or lose an update, and duplicate requests take effect once.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>_write</code> and <code>_post</code> in <code>service.py</code>: idempotency lookup, validation, a version check on each account in sorted order, then the insert. A conflict rolls back and retries with fresh data a bounded number of times.</p><p>Shared API keys and SQLite's single writer are deliberate limits. The design notes list what a production ledger would add.</p><div class="lab-code-links"><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_concurrency.py" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/ledgerline/blob/main/src/ledgerline/service.py" target="_blank" rel="noopener noreferrer">Inspect the transaction ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-project container" id="section-4" aria-labelledby="warehouse-title">
+      <div class="lab-number">04 <span>ANALYTICS ENGINEERING</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="warehouse-title">saas-analytics-warehouse</h2>
+          <p class="lab-tagline">Revenue went up. New customers, upgrades, or a reporting error?</p>
+          <p>Analytics engineering for a fictional SaaS company. A seeded generator writes eight raw tables, a dbt and DuckDB warehouse models MRR movements, cohort retention and unit economics, and a report rebuilds its charts.</p>
+          <p>The detail to inspect: every customer-month's MRR change gets exactly one label (new, expansion, contraction, churn or reactivation), so the monthly bridge has to reconcile to the cent.</p>
+          <div class="tag-set"><span>dbt</span><span>DuckDB</span><span>SQL</span><span>Python</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://ult666666.github.io/saas-analytics-warehouse/" target="_blank" rel="noopener noreferrer">Browse the dbt docs ↗</a>
+            <a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer">Warehouse source ↗</a>
+            <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/METRICS.md" target="_blank" rel="noopener noreferrer">Metric definitions ↗</a>
+            <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>DATA TESTS</span><span>FAIL THE BUILD</span></div>
+          <dl class="lab-definitions">
+            <div><dt>Bridge reconciles</dt><dd>Starting MRR plus every movement equals ending MRR, every month.</dd></div>
+            <div><dt>One movement each</dt><dd>Each changed customer-month matches exactly one category.</dd></div>
+            <div><dt>Two systems agree</dt><dd>MRR from subscription events matches the invoices in force.</dd></div>
+            <div><dt>No overlaps</dt><dd>A customer is never on two subscriptions at once.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">All data is synthetic. The numbers demonstrate the method, not market benchmarks.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Reconcile the MRR bridge <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a warehouse checkout with uv and make installed, generate the data and build the warehouse.</p><pre><code>make data build</code></pre><p class="lab-expect">Expected: dbt reports PASS=173 WARN=0 ERROR=0, including <code>assert_mrr_bridge_reconciles</code>.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>fct_mrr_movements.sql</code>. MRR is a month-end snapshot on a gap-free customer-month spine; a customer is new in the first paid month and reactivated after a gap.</p><p>Month-end snapshots hide a cancellation and return within one month. The metric definitions list that and every other edge case.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/models/marts/core/fct_mrr_movements.sql" target="_blank" rel="noopener noreferrer">Inspect the movement logic ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-project container" id="section-5" aria-labelledby="searchlite-title">
+      <div class="lab-number">05 <span>SEARCH AND RETRIEVAL</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="searchlite-title">searchlite</h2>
+          <p class="lab-tagline">Any search box can rank results. Can it explain them?</p>
+          <p>A zero-dependency TypeScript search engine: Porter stemming, a positional inverted index, BM25F ranking across weighted fields, a query language with phrases, prefixes and fuzzy terms, highlighting, and hybrid retrieval with reciprocal rank fusion.</p>
+          <p>The detail to inspect: <code>explain()</code> rebuilds a result's score clause by clause and field by field, and a test requires it to equal the score the search returned.</p>
+          <div class="tag-set"><span>TypeScript</span><span>BM25F</span><span>Vite</span><span>Vitest</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer">Try the live search ↗</a>
+            <a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer">Library source ↗</a>
+            <a href="https://github.com/ult666666/searchlite/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>ABLATION</span><span>nDCG@10</span></div>
+          <dl class="lab-definitions">
+            <div><dt>BM25F with stemming and field boosts</dt><dd>0.927</dd></div>
+            <div><dt>Without stemming</dt><dd>0.904</dd></div>
+            <div><dt>Hybrid with toy trigram vectors (RRF)</dt><dd>0.935</dd></div>
+          </dl>
+          <p class="lab-artifact-note">60 glossary entries and 22 queries labelled by the author. The table demonstrates the evaluation harness; it is not a benchmark.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Try to inject markup <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a searchlite checkout after <code>npm ci</code>, run the two focused tests.</p><pre><code>npx vitest run test/engine/highlight.test.ts test/engine/scoring.test.ts -t "hostile|exactly the score"</code></pre><p class="lab-expect">Expected: 2 passed, 47 skipped. Hostile document text cannot inject HTML, and every explanation adds up to the returned score.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>highlight.ts</code>. Document text is escaped before <code>&lt;mark&gt;</code> tags are inserted, so those tags are the only markup that can reach the page.</p><p>The index lives in memory and analysis is English-only: suited to small collections, not millions of documents.</p><div class="lab-code-links"><a href="https://github.com/ult666666/searchlite/blob/main/test/engine/highlight.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/searchlite/blob/main/src/engine/highlight.ts" target="_blank" rel="noopener noreferrer">Inspect the escaping ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-project container" id="section-6" aria-labelledby="contrastkit-title">
+      <div class="lab-number">06 <span>ACCESSIBILITY AND HCI</span></div>
+      <div class="lab-project-grid">
+        <div class="lab-copy">
+          <h2 id="contrastkit-title">contrastkit</h2>
+          <p class="lab-tagline">The gray text looks fine to you. Can everyone read it?</p>
+          <p>WCAG 2.2 contrast checks, perceptual OKLCH fixes for failing pairs, color-vision-deficiency simulation and palette audits: a zero-dependency TypeScript library, a CLI that can gate design tokens in CI, and a React app.</p>
+          <p>The detail to inspect: a fix keeps the hue and changes only OKLCH lightness, searching both directions for the closest passing color. Ratios are truncated, so a near miss never displays as a pass.</p>
+          <div class="tag-set"><span>TypeScript</span><span>React</span><span>OKLCH</span><span>WCAG 2.2</span></div>
+          <div class="lab-links">
+            <a class="button button-primary" href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer">Open Palette Auditor ↗</a>
+            <a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer">Library and CLI source ↗</a>
+            <a href="https://github.com/ult666666/contrastkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design ↗</a>
+          </div>
+        </div>
+        <div class="lab-artifact">
+          <div class="lab-artifact-head"><span>CHECKED AGAINST</span><span>STANDARDS AND PROPERTIES</span></div>
+          <dl class="lab-definitions">
+            <div><dt>WCAG 2.2 formula</dt><dd>Black on white is 21:1; #777777 on white is 4.47:1 and fails AA for normal text.</dd></div>
+            <div><dt>Published matrices</dt><dd>Color-vision simulation follows Machado, Oliveira and Fernandes (2009).</dd></div>
+            <div><dt>Fix properties</dt><dd>Every suggested fix meets its target and stays inside the sRGB gamut.</dd></div>
+            <div><dt>The app itself</dt><dd>Component tests include automated axe accessibility checks.</dd></div>
+          </dl>
+          <p class="lab-artifact-note">WCAG 2 contrast is a coarse legibility model, and simulation approximates dichromacy.</p>
+        </div>
+      </div>
+      <details class="lab-walkthrough">
+        <summary><span>REVIEW THE CODE</span> Fail a gray that looks fine <span aria-hidden="true">+</span></summary>
+        <div class="lab-walkthrough-body">
+          <div><h3>Run the boundary</h3><p>From a contrastkit checkout, run <code>npm ci</code> and <code>npm run build</code>, then check the pair.</p><pre><code>npx contrastkit check 777 fff</code></pre><p class="lab-expect">Expected: 4.47:1, failing AA for normal text, with exit code 1 so a CI job stops on it.</p></div>
+          <div><h3>Follow the decision</h3><p>Read <code>suggestFix</code> in <code>fix.ts</code>. It binary-searches OKLCH lightness in both directions, maps each candidate into gamut, and ranks passing colors by their distance from the original.</p><p>Contrast is one input to legibility. Font size, weight and context still need human review.</p><div class="lab-code-links"><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/fix.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test ↗</a><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/fix.ts" target="_blank" rel="noopener noreferrer">Inspect the fix search ↗</a></div></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="lab-review container" id="section-7" aria-labelledby="review-title">
+      <p class="section-index">HOW TO REVIEW THE WORK</p>
+      <h2 id="review-title">Check the reference, then the code.</h2>
+      <div class="lab-review-grid">
+        <div><span>01 / RUN</span><h3>Reproduce one check</h3><p>Each section gives one focused command and its expected result. No paid service or account is needed.</p></div>
+        <div><span>02 / COMPARE</span><h3>Find the reference</h3><p>Textbook values, published tables, reference libraries and accounting invariants come from outside the code they check.</p></div>
+        <div><span>03 / WEIGH</span><h3>Read the limits</h3><p>Each README and design note states what the project does not do and what its evidence does not establish.</p></div>
+      </div>
+      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect finance, statistics, data and interface work with the habits I care about: explicit contracts, reproducible checks and stated limits. They are educational projects with synthetic or fictional data and make no claims of production use or adoption.</p><a class="button button-quiet" href="/#work">Back to all projects ↗</a></div>
+    </section>
+  </main>
+  <footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>
+</body>
+</html>
