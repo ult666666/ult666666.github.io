@@ -98,8 +98,8 @@
         "Python"
       ],
       "summary": "A reproducible analytics pipeline for MRR, retention and unit economics.",
-      "scenario": "Generate fictional subscriptions and payments, build the warehouse and reconcile MRR movements into a report.",
-      "inspect": "Read metric definitions, staging and mart models, then inspect reconciliation and data-quality checks.",
+      "scenario": "Build a fictional subscription warehouse, then trace one historical month from the MRR bridge to customer records, payment-failure losses and channel/reason totals.",
+      "inspect": "Follow the read-only investigation through exact-cent customer-count, total-loss and payment-failure-subset reconciliation. Tests retain historical churn after reactivation and refuse broken joins or inconsistent source data before writing reports.",
       "limits": "Seeded fictional SaaS data; results describe the fixture, not a real business.",
       "links": [
         {
@@ -116,14 +116,14 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/METRICS.md"
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/CHURN_INVESTIGATION.md"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql"
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/tests/test_churn.py"
         }
       ],
-      "command": "make all"
+      "command": "uv sync --locked\nmake data build MONTHS=24 SCALE=0.25\nuv run python -m saasreport.churn --month 2024-12 --output-dir ../tallyloom-churn-2024-12"
     },
     {
       "id": "impact-ledger",

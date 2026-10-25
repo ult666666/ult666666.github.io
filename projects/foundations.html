@@ -150,6 +150,7 @@
         <div class="lab-copy">
           <h2 id="warehouse-title">saas-analytics-warehouse</h2>
           <p>Analytics engineering for a fictional SaaS company. A seeded generator writes eight raw tables, a dbt and DuckDB warehouse models MRR movements, cohort retention and unit economics, and a report rebuilds its charts.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> trace a selected month from the MRR bridge to fictional customer records, payment-failure losses and channel/reason totals. The <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/CHURN_INVESTIGATION.md" target="_blank" rel="noopener noreferrer">read-only investigation walkthrough</a> reconciles exact cents and customer counts before writing three CSVs and a Markdown report. Payment-failure churn remains a subset of total loss.</p>
           <p>Every customer-month's MRR change gets exactly one label (new, expansion, contraction, churn or reactivation), so the monthly bridge has to reconcile to the cent.</p>
           <div class="tag-set"><span>dbt</span><span>DuckDB</span><span>SQL</span><span>Python</span></div>
           <div class="lab-links">
