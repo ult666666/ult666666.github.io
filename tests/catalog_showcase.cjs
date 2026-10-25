@@ -19,8 +19,8 @@ module.exports = async (browser, base) => {
   await page.getByLabel('Focus area').selectOption('backend');
   await page.getByLabel('Search projects').fill('  PYTHON   sqlite  ');
   assert.deepEqual(await page.locator('.catalog-card:visible').evaluateAll(nodes=>nodes.map(n=>n.id).sort()),
-                   ['citecheck','impact-ledger','relaybox']);
-  assert.equal(await page.locator('#catalog-count').innerText(),'3 of 19 projects');
+                   ['citecheck','impact-ledger','ledgerline','relaybox']);
+  assert.equal(await page.locator('#catalog-count').innerText(),'4 of 19 projects');
   await page.getByLabel('Search projects').fill('CUPED');
   assert.equal(await page.locator('.catalog-card:visible').count(),0);
   assert.equal(await page.locator('#catalog-empty').isVisible(),true);

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 AREAS = {'finance': 'Finance', 'data': 'Data & analytics', 'ai': 'AI & search',
          'backend': 'Backend systems', 'product': 'Product & HCI'}
 FORMS = {'web': 'Web application', 'desktop': 'Desktop application', 'library': 'Library / CLI',
-         'research': 'Research demonstration', 'coursework': 'Coursework', 'platform': 'Platform game'}
+         'service': 'Local API service', 'research': 'Research demonstration', 'coursework': 'Coursework', 'platform': 'Platform game'}
 HOSTS = {'github.com', 'ult666666.github.io', 'frontier-ai-valuation-lab.vercel.app',
          'lineageguard-datahub-agent.vercel.app', 'madebymotionx.com', 'teen-budgeting-hw3.vercel.app'}
 FIELDS = {'id', 'name', 'areas', 'form', 'stack', 'summary', 'scenario', 'inspect', 'limits', 'command', 'links'}
