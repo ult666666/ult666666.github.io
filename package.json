@@ -6,7 +6,7 @@
   "scripts": {
     "test": "python3 -B -m unittest discover -s tests -v",
     "test:browser": "node tests/browser_smoke.cjs",
-    "build": "python3 -B scripts/build_cases.py --check && python3 -B scripts/build_site.py"
+    "build": "python3 -B scripts/build_cases.py --check && python3 -B scripts/build_catalog.py --check && python3 -B scripts/build_site.py"
   },
   "devDependencies": {
     "playwright": "1.61.1"
