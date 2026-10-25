@@ -17,8 +17,7 @@ class LineageGuardStudioTests(unittest.TestCase):
         text = (ROOT / 'index.html').read_text()
         self.assertIn('LineageGuard Studio', text)
         self.assertIn('/assets/lineageguard-studio-v2.png', text)
-        self.assertIn('Workflow orchestration', text)
-        self.assertIn('browser-session preview', text)
+        self.assertIn('database schema changes', text)
 
     def test_new_screenshot_is_explicitly_in_the_public_inventory(self):
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']

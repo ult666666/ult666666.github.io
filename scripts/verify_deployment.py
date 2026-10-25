@@ -220,22 +220,21 @@ def semantic_checks(bodies):
         nodes = select(root, **selector)
         return len(nodes) == 1 and nodes[0].text == expected
 
-    def exact_cta(root, scope):
+    def exact_cta(root, scope, label='Try Capital Strategy Studio'):
         nodes = select(root, **scope)
         return (len(nodes) == 1 and sum(a.attrs.get('href') == DEMO
-                and a.text == 'Try Capital Strategy Studio ↗' for a in select(nodes[0], tag='a')) == 1)
+                and a.text == label for a in select(nodes[0], tag='a')) == 1)
 
-    check('Homepage title', text_is(home, 'Charles Dai — Software, Fintech & AI Systems', tag='title'))
-    check('Fintech title names Capital Strategy', text_is(gateway, 'Fintech — Capital Strategy & Working Software | Charles Dai', tag='title'))
-    check('Case-study title', text_is(case, 'Frontier AI Valuation Lab — Engineering Case Study | Charles Dai', tag='title'))
-    check('Gateway Capital Studio application 4.0.0', text_is(gateway, 'CAPITAL STRATEGY STUDIO / APPLICATION 4.0.0', cls='fintech-version'))
-    check('Gateway business-decision headline', text_is(gateway, 'Make the tradeoff. Show your work.', tag='h1', ident='fintech-title'))
-    for name, page in (('Homepage', home), ('Case study', case)):
-        check(name + ' identifies Capital Strategy 4.0', any(e.text == 'Capital Strategy 4.0' for e in select(page, tag='span')))
+    check('Homepage title', text_is(home, 'Charles Dai', tag='title'))
+    check('Fintech title names Capital Strategy', text_is(gateway, 'Fintech: Capital Strategy Studio | Charles Dai', tag='title'))
+    check('Case-study title', text_is(case, 'Frontier AI Valuation Lab: case study | Charles Dai', tag='title'))
+    check('Gateway Capital Studio application 4.0.0', text_is(gateway, 'Capital Strategy Studio, application 4.0.0', cls='fintech-version'))
+    check('Gateway headline', text_is(gateway, 'Comparing financing plans for a frontier AI lab', tag='h1', ident='fintech-title'))
+    check('Case study identifies Capital Strategy 4.0', any(e.text == 'Capital Strategy 4.0' for e in select(case, tag='span')))
     cards = select(gateway, tag='a', cls='fintech-journey-card')
     check('Four ordered exact Capital journey anchors', [a.attrs.get('href') for a in cards] == [
         APP + '/capital.html#' + anchor for anchor in ('worked-decision', 'capital-plans', 'capital-challenge', 'capital-record')])
-    check('Homepage exact Capital CTA', exact_cta(home, {'tag': 'article', 'ident': 'frontier-ai-valuation-lab'}))
+    check('Homepage exact Capital CTA', exact_cta(home, {'tag': 'article', 'ident': 'frontier-ai-valuation-lab'}, 'Live'))
     check('Gateway exact Capital CTA', exact_cta(gateway, {'tag': 'section', 'cls': 'fintech-hero'}))
     check('Case exact Capital CTA', exact_cta(case, {'tag': 'section', 'cls': 'case-hero'}))
     for name, page in (('Homepage', home), ('Gateway', gateway), ('Case study', case)):
@@ -253,28 +252,22 @@ def semantic_checks(bodies):
     check('Case separates new application from frozen financial snapshot', any(
         'Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot.' in p.text
         for p in select(case, tag='p')))
-    projects = select(home, tag='article', cls='project-card')
-    check('Nine named homepage projects remain', [[h.text for h in select(project, tag='h3')] for project in projects] == [
-        [name] for name in ('Frontier AI Valuation Lab.', 'LineageGuard Studio.', 'MOTIONX.', 'Agentic Trading Research.',
-                           'Luma Keys.', 'ProofCast', 'Blast Radius Daily', 'Teen Budgeting', 'JUST-QR')])
-    check('Three exact homepage proof routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
+    projects = select(home, tag='article', cls='work')
+    check('Four selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [
+        [name] for name in ('Frontier AI Valuation Lab', 'LineageGuard Studio', 'Luma Keys', 'MOTIONX')])
+    rows = [th for th in select(home, tag='th') if th.attrs.get('scope') == 'row']
+    check('Homepage index lists 17 projects', len(rows) == 17 and len({th.text for th in rows}) == 17)
+    check('Two exact homepage reading routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
         'https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md',
-        'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md',
-        'https://github.com/ult666666/ult666666.github.io/blob/main/docs/PUBLICATION_BOUNDARY.md'])
-    navigation = {
-        'index.html': ['#work', '/fintech.html', '/projects/engineering-lab.html', '#approach', '#about', '#contact'],
-        'fintech.html': ['/#work', '/fintech.html', '/#about', '/#contact'],
-        'projects/engineering-lab.html': ['/#work', '/fintech.html', '/projects/engineering-lab.html', '/#about', '/#contact'],
-        'projects/foundations.html': ['/#work', '/fintech.html', '/projects/engineering-lab.html', '/#about', '/#contact'],
-        CASE: ['/#work', '/fintech.html', '/#approach', '/#about', '/#contact'],
-    }
+        'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md'])
+    navigation = {'index.html': ['#work', '#index', '#about', '#contact']}
     for name in pages:
-        expected = navigation.get(name, ['/#work', '/#approach', '/#about', '/#contact'])
+        expected = navigation.get(name, ['/#work', '/#index', '/#about', '/#contact'])
         nav = select(pages[name], tag='nav', cls='primary-nav', ident='primary-nav')
         check('Current primary navigation: ' + name, len(nav) == 1
               and [a.attrs.get('href') for a in select(nav[0], tag='a')] == expected)
-    current = [a for a in select(gateway, tag='a') if a.attrs.get('aria-current') == 'page']
-    check('Fintech navigation marks the current page', len(current) == 1 and current[0].attrs.get('href') == '/fintech.html')
+    check('Pages load no JavaScript', all(all(node.attrs.get('type') == 'application/ld+json' for node in select(page, tag='script'))
+                                          for page in pages.values()))
     lab_links = {a.attrs.get('href') for a in select(pages['projects/engineering-lab.html'], tag='a')}
     check('Engineering lab connects three source and verification routes', all(
         'https://github.com/ult666666/' + repo in lab_links
@@ -288,7 +281,7 @@ def semantic_checks(bodies):
         for repo in ('quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse', 'searchlite', 'contrastkit',
                      'citecheck')))
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
-          and a.text == 'Worked decision PDF ↗' for a in select(case, tag='a')))
+          and a.text == 'Worked decision PDF' for a in select(case, tag='a')))
     return checks
 
 

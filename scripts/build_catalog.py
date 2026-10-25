@@ -66,15 +66,15 @@ def validate(catalog):
 def render(catalog):
     validate(catalog)
     cards = []
-    for number, project in enumerate(catalog['projects'], 1):
+    for project in catalog['projects']:
         p = {key: escape(project[key], quote=True) for key in ('id', 'name', 'summary', 'scenario', 'inspect', 'limits', 'command')}
         areas = ' '.join(project['areas'])
         tags = ''.join('<li>' + escape(item) + '</li>' for item in project['stack'])
-        links = ''.join('<a href="' + escape(link['url'], quote=True) + '">' + escape(link['label'])
-                        + ' <span aria-hidden="true">↗</span></a>' for link in project['links'])
-        labels = ' / '.join(AREAS[area] for area in project['areas'])
+        links = ''.join('<a href="' + escape(link['url'], quote=True) + '">' + escape(link['label']) + '</a>'
+                        for link in project['links'])
+        labels = ' · '.join(AREAS[area] for area in project['areas'])
         cards.append(f'''<article class="catalog-card" id="{p['id']}" data-areas="{areas}">
-<div class="catalog-card-top"><span>{number:02d} / {escape(labels)}</span><span class="catalog-form">{FORMS[project['form']]}</span></div>
+<div class="catalog-card-top"><span>{escape(labels)}</span><span class="catalog-form">{FORMS[project['form']]}</span></div>
 <h2>{p['name']}</h2><p class="catalog-summary">{p['summary']}</p>
 <ul class="catalog-stack" aria-label="Technology">{tags}</ul>
 <dl><dt>A scenario to explore</dt><dd>{p['scenario']}</dd><dt>Follow the implementation</dt><dd>{p['inspect']}</dd><dt>Project scope</dt><dd>{p['limits']}</dd></dl>
@@ -83,21 +83,31 @@ def render(catalog):
     options = ''.join('<option value="' + key + '">' + escape(label) + '</option>' for key, label in AREAS.items())
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
 <meta name="description" content="Explore Charles Dai's software projects by problem, technology and runnable scenario, with source, demos and scope statements.">
-<meta name="theme-color" content="#0b1012"><title>Project explorer — Charles Dai</title>
+<title>Project explorer | Charles Dai</title>
 <link rel="canonical" href="https://ult666666.github.io/projects/catalog.html"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/project-catalog.css"><script defer src="/project-catalog.js"></script></head>
-<body><a class="skip-link" href="#main">Skip to projects</a>
-<header class="catalog-header"><div class="container"><a class="brand" href="/"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI / SOFTWARE</span></a><nav aria-label="Portfolio navigation"><a href="/">Selected work</a><a href="/projects/engineering-lab.html">Engineering lab</a><a href="https://github.com/ult666666">GitHub ↗</a></nav></div></header>
-<main class="container" id="main"><section class="catalog-intro" aria-labelledby="title"><p class="section-index">PROJECT EXPLORER / PROBLEMS INTO SOFTWARE</p>
-<h1 id="title">Find the problem.<br><span>Follow the build.</span></h1><p class="catalog-lead">Finance tools, data products, AI systems and interfaces. Choose a project, try a concrete scenario, then inspect the decisions and code behind it.</p>
-<div class="catalog-routes"><a href="/projects/frontier-ai-valuation-lab.html">A financing decision ↗</a><a href="/projects/engineering-lab.html#operations-handoff">An end-to-end operations handoff ↗</a><a href="/projects/foundations.html">Reference-checked foundations ↗</a></div>
-<p class="catalog-note">Public projects include web apps, local tools, research demonstrations and coursework built with AI assistance. Each entry explains its scope; links lead to the current source and documented checks. Run commands from a repository checkout after its README setup; requirements differ. Demo database seed commands require a fresh path.</p></section>
-<form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Try Python, SQLite, accessibility…" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option>{options}</select></div><button type="reset">Clear filters</button></form>
-<div class="catalog-results"><p id="catalog-count" role="status" aria-live="polite">{len(cards)} projects</p><span>SCENARIO → IMPLEMENTATION → SCOPE</span></div>
-<p id="catalog-empty" hidden>No projects match those filters. Try a broader search or clear the filters.</p>
+<body class="catalog-page"><a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header" id="top"><div class="wrap header-inner">
+  <a class="site-name" href="/">Charles Dai</a>
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+    <a href="/#work">Work</a><a href="/#index">Index</a><a href="/#about">About</a><a href="/#contact">Contact</a>
+  </nav>
+</div></header>
+<main class="wrap" id="main"><section class="catalog-intro" aria-labelledby="title">
+<a class="case-back" href="/#index">← All work</a>
+<p class="eyebrow">Project explorer</p>
+<h1 id="title">Every project, with a way to try it</h1>
+<p class="catalog-lead">Search by problem or technology. Each entry has a scenario to try, a command to run locally, where to look in the code, and what the project does not do.</p>
+<p class="catalog-note">These include web apps, local tools, research demonstrations and coursework, built with AI assistance. Run a command from a checkout of its repository after following that README; requirements differ, and demo database seed commands need a fresh path.</p></section>
+<form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Try Python, SQLite, accessibility…" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option>{options}</select></div><button class="button" type="reset">Clear filters</button></form>
+<div class="catalog-results"><p id="catalog-count" role="status" aria-live="polite">{len(cards)} projects</p></div>
+<p id="catalog-empty" hidden>No projects match those filters. Try a broader search, or clear the filters.</p>
 <div class="catalog-grid">{''.join(cards)}</div>
-<footer class="catalog-footer"><p>Interested in how these pieces fit together?</p><a href="/#contact">Get in touch ↗</a><a href="/">Back to selected work ↗</a></footer></main></body></html>
+</main>
+<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666">GitHub</a><a href="#top">Back to top</a></p></footer>
+</body></html>
 '''
 
 

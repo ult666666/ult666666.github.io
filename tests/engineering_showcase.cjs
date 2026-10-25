@@ -124,7 +124,7 @@ module.exports = async function engineeringShowcase(browser, base) {
   const page = await browser.newPage();
   try {
     await page.goto(base);
-    await page.getByRole('link', {name:'Explore the engineering lab ↗',exact:true}).click();
+    await page.getByRole('link', {name:'Engineering lab',exact:true}).click();
     assert.equal(new URL(page.url()).pathname, '/projects/engineering-lab.html');
   } finally { await page.close(); }
   console.log('ENGINEERING_SHOWCASE_PASS: three native keyboard walkthroughs, fixed-evidence handoff, accessible comparison, 320/360/768/1440 widths, 200% zoom, focus, print and no-JavaScript access');

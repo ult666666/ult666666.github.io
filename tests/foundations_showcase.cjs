@@ -81,7 +81,7 @@ module.exports = async function foundationsShowcase(browser, base) {
   const page = await browser.newPage();
   try {
     await page.goto(base);
-    await page.getByRole('link', {name:'Explore the foundations ↗', exact:true}).click();
+    await page.getByRole('link', {name:'Foundations', exact:true}).click();
     assert.equal(new URL(page.url()).pathname, ROUTE);
   } finally { await page.close(); }
   console.log('FOUNDATIONS_SHOWCASE_PASS: seven native keyboard walkthroughs, source/design/live links, 320/360/768/1440 widths, 200% zoom, focus and no-JavaScript access');
