@@ -1,4 +1,4 @@
-# Charles Dai — software development portfolio
+# Charles Dai: portfolio site
 
 [![Portfolio checks](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml/badge.svg)](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml)
 
@@ -7,11 +7,11 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A responsive portfolio connecting nine selected projects, three engineering-lab additions and seven foundations builds to source code, live demonstrations where available, and four detailed engineering case studies. Built as a small static site, with no application backend, analytics, account collection, or external font dependency.
+A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies and two collection pages (the engineering lab and foundations). It is plain HTML and CSS, with no JavaScript, web fonts, analytics, cookies or third-party requests.
 
-The homepage also offers a [six-project recent-build spotlight](https://ult666666.github.io/#recent-builds): shortcuts to source, demos and clear local/synthetic boundaries, not extra claims of production deployments.
+The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). In short: a printed-page layout with paper, ink and one blue for links, a single system serif, and plain first-person copy.
 
-The first-screen specialty routes jump to real projects without client-side routing. Four gallery images come directly from pinned commits in their public project repositories; SHA-256 digests, source paths, and dimensions are recorded in [docs/RECENT_VISUALS.json](docs/RECENT_VISUALS.json). Two additional cards use decorative CSS diagrams. No screenshot requires personal or account data.
+`assets/motionx-site.jpg` is a 1440 × 900 screenshot of the opening screen of https://madebymotionx.com/, captured on 25 October 2026 and saved as JPEG. SHA-256: `a37cabcb8db5be11f6923b770a2f77592d7f2eb587cfde7296552cb81c59e7fc`. No screenshot requires personal or account data.
 
 ## Start the review
 
@@ -41,7 +41,7 @@ The [foundations page](https://ult666666.github.io/projects/foundations.html) ad
 
 ## Inspect the engineering
 
-The homepage now connects three concrete questions to public implementation evidence: financial arithmetic, rejected schema-change inputs, and the publication boundary of the portfolio itself. These routes work without JavaScript and distinguish verification from forecasts, deployment authority and absolute-security claims.
+The About section on the homepage links three documents for readers who prefer reading to clicking through demos: how the financial arithmetic is checked, how LineageGuard refuses schema-change inputs, and how this site decides which files it publishes.
 
 The [publication boundary](docs/PUBLICATION_BOUNDARY.md) records a reproduced directory-copy weakness and its repair. An exact `public-files.json` inventory replaces implicit approval of everything in `assets/` or `projects/`. The staged site carries a deterministic `release-manifest.json` with per-file SHA-256 values and is verified again before upload. Sensitive findings belong in the private route in [SECURITY.md](SECURITY.md), never a public issue with secrets attached.
 
@@ -67,12 +67,12 @@ The [installed synthetic operations handoff](examples/operations_handoff/README.
 
 ## Architecture
 
-- `index.html`: accessible static project content; all projects remain available without JavaScript.
+- `index.html`: the homepage: introduction, selected work, smaller builds, the project index, about and contact.
 - `projects/engineering-lab.html`: a static review route for three complementary engineering projects, their source, architecture and verification records.
 - `projects/foundations.html`: a static review route for seven reference-checked builds, each with source, design notes, live demos where available and one runnable proving test.
 - `fintech.html` / `fintech.css`: the dedicated fintech gateway, a labeled three-plan capital comparison and direct links to the working decision studio and its evidence.
-- `styles.css`: responsive layout, visible keyboard focus, reduced-motion support.
-- `script.js`: progressively enhanced project filters and mobile navigation.
+- `styles.css`: the shared design system (tokens, type, grid) and every page's layout; visible keyboard focus and reduced-motion support.
+- `docs/DESIGN.md`: the design brief: what changed in October 2026, the tokens and the page structure.
 - `scripts/build_cases.py`: deterministic case-study source and optional escaped reviewer guide; `--check` catches stale generated pages.
 - `public-files.json`: exact reviewed deployment paths; new assets require an explicit inventory update.
 - `scripts/build_site.py`: snapshot-based static staging and byte verification; unlisted assets, unsafe file types and missing reviewed files refuse before output.
@@ -84,7 +84,7 @@ The [installed synthetic operations handoff](examples/operations_handoff/README.
 
 The portfolio links to documented work, not fabricated employers, client engagements, contribution history or inflated usage statistics. Live websites, coursework, prototypes and research are labeled separately. The trading research project is not a deployed automated trading service or evidence of investment returns.
 
-The Fintech gateway and filter highlight Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Application **4.0 introduces Capital Strategy Studio**. The portfolio's static three-plan illustration comes from its hypothetical Anthropic worked decision: a $25 billion capital objective and an 88% retained-stake floor. A and B meet both objectives; C preserves more ownership but falls $5 billion short of the capital objective. Raising the retained-stake floor to 90% leaves A eligible. The live application carries the complete editable calculation.
+The fintech page highlights Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Application **4.0 introduces Capital Strategy Studio**. The portfolio's static three-plan illustration comes from its hypothetical Anthropic worked decision: a $25 billion capital objective and an 88% retained-stake floor. A and B meet both objectives; C preserves more ownership but falls $5 billion short of the capital objective. Raising the retained-stake floor to 90% leaves A eligible. The live application carries the complete editable calculation.
 
 The review journey follows **Define → Compare → Challenge → Record**. Visitors can compare up to six financing plans across nine explicit scenarios, inspect signed residual allocations and finite-scenario minimax regret, and see when pairwise switching values or the more demanding all-scenario pricing interval change the conclusion. The analyst's choice and reasoning remain separate from the comparison rule. Exact share links, a recomputed JSON decision record, a standalone HTML brief and the worked PDF keep those inputs and judgments together.
 

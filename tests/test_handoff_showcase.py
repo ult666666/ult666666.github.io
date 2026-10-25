@@ -125,18 +125,14 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        visuals = json.loads((ROOT / 'docs/RECENT_VISUALS.json').read_text())['assets']
-        allowed_extra = {record['asset'] for record in visuals}
-        self.assertEqual(len(allowed_extra), 4)
-        self.assertEqual({name for name in inventory if name.startswith('assets/recent-')},
-                         allowed_extra, 'Only reviewed gallery images may extend the inventory')
-        self.assertEqual(len(inventory) + 1, 33 + len(allowed_extra),
-                         'Payload includes .nojekyll and exactly the four reviewed images')
+        self.assertEqual(len(inventory) + 1, 32, 'Payload includes .nojekyll and the 31 reviewed files')
+        self.assertFalse(any(name.startswith('assets/recent-') for name in inventory),
+                         'The retired gallery images stay out of the inventory')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
                              for name in inventory))
         articles = Document((ROOT / 'index.html').read_text()).root.find('article')
-        self.assertEqual(sum('project-card' in node.attrs.get('class', '').split()
-                             for node in articles), 9)
+        self.assertEqual(sum('work' in node.attrs.get('class', '').split()
+                             for node in articles), 4)
         self.assertEqual({name for name in inventory if name.startswith('projects/')}, {
             'projects/lineageguard.html', 'projects/motionx.html',
             'projects/trading-research.html', 'projects/frontier-ai-valuation-lab.html',

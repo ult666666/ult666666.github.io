@@ -99,15 +99,25 @@ class PortfolioTests(unittest.TestCase):
                     self.assertIn("noopener", attrs.get("rel", ""))
                     self.assertIn("noreferrer", attrs.get("rel", ""))
 
-    def test_project_inventory_and_filters(self):
+    def test_selected_work_and_index_inventory(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
         doc = parse(ROOT / "index.html")
-        self.assertEqual(len(doc.project_categories), 9)
-        self.assertTrue(set(doc.project_categories) <= CATEGORIES)
-        buttons = {a.get("data-filter"): a for a in doc.controls if "data-filter" in a}
-        self.assertEqual(set(buttons), {"all", "fintech", "ai", "web", "experimental"})
-        self.assertEqual(buttons["all"]["aria-pressed"], "true")
+        selected = re.findall(r'<article class="work(?: [^"]*)?" id="([^"]+)"', html)
+        self.assertEqual(selected, ["frontier-ai-valuation-lab", "lineageguard", "luma-keys", "motionx"])
+        table = html.split('<table class="index-table"', 1)[1].split("</table>", 1)[0]
+        rows = re.findall(r'<th scope="row"[^>]*>([^<]+)</th>', table)
+        self.assertEqual(len(rows), 17)
+        self.assertEqual(len(rows), len(set(rows)))
+        for name in ("Frontier AI Valuation Lab", "LineageGuard Studio", "Luma Keys", "MOTIONX", "quantkit",
+                     "ledgerline", "powerlift", "citecheck", "searchlite", "ContrastKit", "TraceBench",
+                     "RelayBox", "Impact Ledger", "SaaS Analytics Warehouse", "Agentic Trading Research",
+                     "ProofCast", "Blast Radius Daily"):
+            self.assertIn(name, rows)
+        for row in table.split('<th scope="row"')[1:]:
+            with self.subTest(row=row[:60]):
+                self.assertIn('href="https://github.com/ult666666/', row.split("</tr>", 1)[0])
+        self.assertEqual(doc.controls, [], "The homepage needs no buttons or scripted controls")
         self.assertIn("primary-nav", doc.ids)
-        self.assertIn("project-count", doc.ids)
 
     def test_case_studies_are_generated_deterministically(self):
         result = subprocess.run([sys.executable, "-B", str(ROOT / "scripts" / "build_cases.py"),
@@ -134,60 +144,58 @@ class PortfolioTests(unittest.TestCase):
     def test_homepage_links_to_inspectable_engineering_evidence(self):
         page = (ROOT / 'index.html').read_text()
         self.assertIn('id="engineering-proof"', page)
-        self.assertIn('docs/PUBLICATION_BOUNDARY.md', page)
         self.assertIn('frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md', page)
         self.assertIn('lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md', page)
-        self.assertEqual(page.count('class="proof-path"'), 3)
+        self.assertEqual(page.count('class="proof-path"'), 2)
 
-    def test_recent_projects_have_direct_code_and_demo_links(self):
-        page = (ROOT / "index.html").read_text()
-        self.assertEqual(page.count('id="recent-builds"'), 1)
-        panel = page.split('<section class="recent-builds"', 1)[1].split('</section>', 1)[0]
-        self.assertEqual(panel.count('class="recent-card"'), 6)
-        for repo in ("saas-analytics-warehouse", "impact-ledger", "contrastkit",
-                     "searchlite", "tracebench", "relaybox"):
-            self.assertIn("https://github.com/ult666666/" + repo, panel)
-        self.assertIn("synthetic", panel.lower())
-        self.assertNotIn("data-category=", panel)
-
-    def test_recent_visuals_have_pinned_public_provenance(self):
-        import hashlib
+    def test_selected_work_images_have_intrinsic_sizes(self):
         import json
-        manifest = json.loads((ROOT / "docs/RECENT_VISUALS.json").read_text())
-        self.assertEqual(manifest["schema"], "portfolio_visual_provenance/1")
-        records = manifest["assets"]
-        self.assertEqual(len(records), 4)
+        import struct
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
         inventory = set(json.loads((ROOT / "public-files.json").read_text())["files"])
-        html = (ROOT / "index.html").read_text()
-        for record in records:
-            self.assertRegex(record["source_commit"], r"^[0-9a-f]{40}$")
-            self.assertIn(record["asset"], inventory)
-            path = ROOT / record["asset"]
-            raw = path.read_bytes()
-            self.assertEqual(raw[:8], b"\x89PNG\r\n\x1a\n")
-            self.assertEqual(hashlib.sha256(raw).hexdigest(), record["sha256"])
-            self.assertIn('src="/' + record["asset"] + '"', html)
-            self.assertIn('id="' + record["anchor"] + '"', html)
-            self.assertIn(record["alt"], html)
+        work = html.split('<div class="selected">', 1)[1].split("</section>", 1)[0]
+        images = re.findall(r'<img src="/([^"]+)" width="(\d+)" height="(\d+)" alt="([^"]+)"', work)
+        self.assertEqual(len(images), 4)
+        for asset, width, height, alt in images:
+            with self.subTest(asset=asset):
+                self.assertIn(asset, inventory)
+                raw = (ROOT / asset).read_bytes()
+                if raw[:8] == b"\x89PNG\r\n\x1a\n":
+                    self.assertEqual(struct.unpack(">II", raw[16:24]), (int(width), int(height)))
+                self.assertGreater(len(alt), 20)
+        for repo in ("saas-analytics-warehouse", "impact-ledger", "contrastkit", "searchlite", "tracebench", "relaybox"):
+            self.assertIn('href="https://github.com/ult666666/' + repo + '"', html)
+        self.assertEqual(html.count("synthetic data"), 1, "Say it once, in the index note")
 
-    def test_recruiter_routes_resolve_to_real_project_ids(self):
-        html = (ROOT / "index.html").read_text()
+    def test_navigation_targets_exist(self):
         parsed = parse(ROOT / "index.html")
-        self.assertIn('aria-label="Explore projects by specialty"', html)
-        for anchor in ("frontier-ai-valuation-lab", "lineageguard",
-                       "saas-analytics-warehouse", "contrastkit"):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        nav = html.split('<nav class="primary-nav"', 1)[1].split("</nav>", 1)[0]
+        self.assertEqual(re.findall(r'href="([^"]+)"', nav), ["#work", "#index", "#about", "#contact"])
+        for anchor in ("work", "index", "about", "contact", "frontier-ai-valuation-lab", "lineageguard",
+                       "luma-keys", "motionx"):
             self.assertIn(anchor, parsed.ids)
-            self.assertIn('href="#' + anchor + '"', html)
-        self.assertEqual(html.count('class="recent-media'), 6)
+        for page in PAGES:
+            if page.name == "index.html":
+                continue
+            with self.subTest(page=page.name):
+                text = page.read_text(encoding="utf-8")
+                inner = text.split('<nav class="primary-nav"', 1)[1].split("</nav>", 1)[0]
+                self.assertEqual(re.findall(r'href="([^"]+)"', inner), ["/#work", "/#index", "/#about", "/#contact"])
 
-    def test_css_and_js_exist_and_match_basic_contract(self):
-        css = (ROOT / "styles.css").read_text()
-        js = (ROOT / "script.js").read_text()
+    def test_styles_contract_and_no_scripts(self):
+        css = (ROOT / "styles.css").read_text(encoding="utf-8")
         self.assertIn("@media (prefers-reduced-motion:reduce)", css)
         self.assertIn(":focus-visible", css)
-        self.assertIn(".project-card[hidden]", css)
-        self.assertIn("aria-pressed", js)
-        self.assertIn("aria-expanded", js)
+        self.assertIn(".skip-link", css)
+        self.assertFalse((ROOT / "script.js").exists())
+        for page in [*PAGES, ROOT / "404.html"]:
+            with self.subTest(page=page.name):
+                text = page.read_text(encoding="utf-8")
+                scripts = re.findall(r"<script\b[^>]*>", text)
+                self.assertTrue(all('type="application/ld+json"' in tag for tag in scripts), scripts)
+                self.assertIn('class="skip-link" href="#main"', text)
+                self.assertNotIn('class="menu-toggle"', text)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-/* Real Chromium checks for navigation, filters, accessibility basics and responsive layout. */
+/* Real Chromium checks for navigation, content inventory, accessibility basics and responsive layout. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -63,37 +63,41 @@ async function captureFinancingCase(page, destination) {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
-    assert.equal(await page.locator('.project-card:visible').count(), 9);
-    assert.equal(await page.locator('.project-card').first().getAttribute('id'), 'frontier-ai-valuation-lab');
-    assert.equal(await page.locator('.hero-track-links a').count(),4);
-    for (const anchor of ['frontier-ai-valuation-lab','lineageguard','saas-analytics-warehouse','contrastkit']) {
-      assert.equal(await page.locator('[id="' + anchor + '"]').count(),1);
-      await page.locator('.hero-track-links a[href="#' + anchor + '"]').click();
-      assert.equal(new URL(page.url()).hash,'#' + anchor);
+    assert.match(await page.locator('h1').innerText(), /^I’m Charles Dai\./);
+    assert.equal(await page.locator('article.work').count(), 4);
+    assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
+    assert.equal(await page.locator('.index-table th[scope="row"]').count(), 17);
+    assert.equal(await page.locator('button,[role="button"]').count(), 0, 'The homepage has no scripted controls');
+    for (const [label, hash] of [['Work','#work'],['Index','#index'],['About','#about'],['Contact','#contact']]) {
+      await page.locator('#primary-nav').getByRole('link',{name:label,exact:true}).click();
+      assert.equal(new URL(page.url()).hash, hash);
+      assert.equal(await page.locator(hash).count(), 1);
     }
-    const visualImages = page.locator('.recent-screenshot img');
-    assert.equal(await visualImages.count(),4);
-    for (const img of await visualImages.all()) {
-      await img.scrollIntoViewIfNeeded();
-      await img.evaluate(node => node.decode());
-      assert.equal(await img.evaluate(node => node.complete && node.naturalWidth >= 300),true);
+    for (const selector of ['.work-figure img']) {
+      const images = page.locator(selector);
+      assert.equal(await images.count(), 4);
+      for (const img of await images.all()) {
+        await img.scrollIntoViewIfNeeded();
+        await img.evaluate(node => node.decode());
+        assert.equal(await img.evaluate(node => node.complete && node.naturalWidth >= 300), true, selector);
+        assert.equal(await img.evaluate(node => Number(node.getAttribute('width')) === node.naturalWidth && Number(node.getAttribute('height')) === node.naturalHeight), true, 'Authored image size must match the file');
+      }
+    }
+    const localTargets = await page.locator('a[href^="/"]').evaluateAll(links => [...new Set(links.map(link => link.getAttribute('href').split('#')[0]))]);
+    for (const target of localTargets) {
+      const response = await page.request.get(base + target);
+      assert.equal(response.status(), 200, 'Local link ' + target);
     }
     await page.goto(base);
-    assert.equal(await page.locator('#engineering-proof .proof-path').count(),3);
+    assert.equal(await page.locator('#engineering-proof .proof-path').count(),2);
     for(const anchor of await page.locator('#engineering-proof .proof-path').all()){
       assert.equal(await anchor.getAttribute('target'),'_blank');
       assert((await anchor.getAttribute('rel')).includes('noreferrer'));
-    }
-    for (const [filter, count] of [['fintech',1],['ai',3],['web',3],['experimental',2],['all',9]]) {
-      await page.locator(`[data-filter="${filter}"]`).click();
-      assert.equal(await page.locator('.project-card:visible').count(), count);
-      assert.equal(await page.locator('#project-count').innerText(), String(count).padStart(2,'0'));
     }
     const out = evidenceRoot; fs.mkdirSync(out,{recursive:true});
     await page.evaluate(()=>window.scrollTo(0,0));
     await page.waitForTimeout(100);
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
-    await page.locator('[data-filter="fintech"]').click();
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-desktop.png')});
     for (const name of ['lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
       const response = await page.goto(base + '/projects/' + name + '.html');
@@ -103,19 +107,19 @@ async function captureFinancingCase(page, destination) {
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
-        assert.equal(await page.getByRole('link',{name:'Try Ownership Frontier ↗',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
+        assert.equal(await page.getByRole('link',{name:'Try Ownership Frontier',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
         assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
-        assert.equal(await page.locator('#section-3 h2').innerText(),'Make the engineering inspectable.');
-        assert.equal(await page.locator('#section-4 h2').innerText(),'My role and the project boundaries.');
+        assert.equal(await page.locator('#section-3 h2').innerText(),'Make the engineering inspectable');
+        assert.equal(await page.locator('#section-4 h2').innerText(),'My role and the project boundaries');
         await captureFinancingCase(page,path.join(out,'financing-case-desktop.png'));
       }
     }
-    await page.goto(base);
-    await page.locator('.fintech-entry').click();
+    await page.goto(base + '/projects/frontier-ai-valuation-lab.html');
+    await page.getByRole('link',{name:'More on the fintech work',exact:true}).click();
     assert.equal(new URL(page.url()).pathname, '/fintech.html');
     assert.equal(await page.locator('h1').count(),1);
-    assert.equal(await page.locator('.primary-nav [aria-current="page"]').innerText(),'Fintech');
+    assert.equal(await page.locator('h1').innerText(),'Comparing financing plans for a frontier AI lab');
     assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision');
     assert.equal(await page.locator('.fintech-proof').count(),4);
     assert.equal(await page.locator('.fintech-journey-card').count(),4);
@@ -145,12 +149,10 @@ async function captureFinancingCase(page, destination) {
       await page.evaluate(()=>document.documentElement.style.zoom='');
     }
     await page.setViewportSize({width:390,height:844}); await page.goto(base);
-    await page.locator('.menu-toggle').click();
-    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'true');
-    await page.keyboard.press('Escape');
-    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');
+    assert.equal(await page.locator('#primary-nav a').evaluateAll(links => links.every(link => {
+      const box = link.getBoundingClientRect(); return box.width > 0 && box.right <= innerWidth;
+    })), true, 'All navigation links fit on a phone without a menu');
     await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
-    await page.locator('[data-filter="fintech"]').click();
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-mobile.png')});
     await page.goto(base+'/projects/frontier-ai-valuation-lab.html');
     await page.locator('.case-hero').screenshot({path:path.join(out,'fintech-case-mobile.png')});
@@ -161,10 +163,6 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('.skip-link').evaluate(node=>node===document.activeElement),true);
     await page.keyboard.press('Enter');
     assert.equal(new URL(page.url()).hash,'#main');
-    await page.locator('.menu-toggle').click();
-    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'true');
-    await page.keyboard.press('Escape');
-    assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');
     await page.screenshot({path:path.join(out,'fintech-gateway-mobile.png'),fullPage:true});
     const noJs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
     const staticPage=await noJs.newPage();
@@ -177,7 +175,7 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await staticPage.locator('#review-guide').isVisible(),true);
     assert.equal(await staticPage.locator('#engineering-evidence tbody tr').count(),4);
     await staticPage.goto(base);
-    assert.equal(await staticPage.locator('#engineering-proof .proof-path').count(),3);
+    assert.equal(await staticPage.locator('#engineering-proof .proof-path').count(),2);
     await staticPage.locator('#engineering-proof').screenshot({path:path.join(out,'engineering-proof-nojs-mobile.png')});
     await noJs.close();
     assert.deepEqual(errors,[]);
@@ -189,7 +187,7 @@ async function captureFinancingCase(page, destination) {
     if (process.env.RENDER_SOCIAL_IMAGE === '1') {
       await og.screenshot({path:path.join(root,'assets/portfolio-og.png')});
     }
-    console.log('BROWSER_PASS: 5 filter states, 4 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard/mobile navigation, no-JavaScript entry and no JavaScript errors');
+    console.log('BROWSER_PASS: homepage inventory and anchors, decoded images, local links, 4 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard skip link, no-JavaScript entry and no third-party requests');
   } catch (error) { console.error(error); process.exitCode=1; }
   finally { if(browser) await browser.close(); await new Promise(resolve=>server.close(resolve)); }
 })();

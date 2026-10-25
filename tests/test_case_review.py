@@ -53,7 +53,7 @@ class CaseReviewTests(unittest.TestCase):
                            if "button-primary" in link["attributes"].get("class", "").split()
                            and "Try Capital Strategy Studio" in "".join(link["text"])]
                 self.assertEqual(len(primary), 1)
-                self.assertEqual(" ".join("".join(primary[0]["text"]).split()), "Try Capital Strategy Studio ↗")
+                self.assertEqual(" ".join("".join(primary[0]["text"]).split()), "Try Capital Strategy Studio")
                 self.assertEqual(primary[0]["attributes"]["href"], studio_url)
 
     def test_objective_guide_separates_current_plan_preview_from_explicit_apply(self):
@@ -93,7 +93,7 @@ class CaseReviewTests(unittest.TestCase):
         self.assertFalse(any(tag == "img" for tag, _ in reader.elements))
         self.assertFalse(any("onerror" in attrs for _, attrs in reader.elements))
         scripts = [attrs for tag, attrs in reader.elements if tag == "script"]
-        self.assertEqual(scripts, [{"defer": None, "src": "/script.js"}])
+        self.assertEqual(scripts, [], "Case studies are plain HTML and CSS")
         links = [attrs["href"] for tag, attrs in reader.elements if tag == "a"]
         self.assertIn("https://example.org/source?a=1&b=2", links)
 
