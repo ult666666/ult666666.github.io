@@ -562,7 +562,7 @@
       "summary": "Offline piano practice with score views, planned fingering and graded sight reading.",
       "scenario": "Build a disposable browser session, generate an exercise, play clean and flawed timed runs, then inspect saved progress and repeat the exact seed.",
       "inspect": "Run five sight-reading stories and inspect screenshots, failure receipts, owned-server cleanup and Web Audio practice grading without optional engines.",
-      "limits": "Browser QA covers synthetic exercises on macOS/Linux. Native packaging, physical MIDI, microphone/PDF recognition and companion engines need separate verification.",
+      "limits": "Browser QA uses synthetic exercises with 3-D hands off on macOS/Linux. Physical input, native packaging and optional engines need separate verification.",
       "links": [
         {
           "label": "Source & setup",
