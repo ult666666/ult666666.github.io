@@ -10,10 +10,11 @@ ROOT = Path(__file__).resolve().parent.parent
 CASES = [
     {'slug': 'lineageguard',
      'number': '01',
-     'kind': 'AGENT ORCHESTRATION / DEVELOPER TOOLS',
+     'kind': 'Developer tools',
      'title': 'LineageGuard Studio',
-     'hero': 'Compose a review. Understand every decision. Recover without pretending a failed run '
-             'succeeded.',
+     'hero': 'A workbench for reviewing database schema changes. Each check runs as a step in a small '
+             'workflow, every verdict keeps the evidence it was based on, and a run that crashes can resume '
+             'where it stopped.',
      'tags': ['Workflow orchestration', 'Offline review verification', 'SQLite recovery', 'Read-only MCP'],
      'repo': 'https://github.com/ult666666/lineageguard-datahub-agent',
      'live': 'https://lineageguard-datahub-agent.vercel.app/',
@@ -150,12 +151,15 @@ CASES = [
                                                                  'consistency, not authenticated evidence '
                                                                  'or execution approval.',
                                                       'href': 'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/REVIEW_INSPECTOR.md'}}},
-    dict(slug="motionx", number="02", kind="FRONTEND / PRODUCT ENGINEERING",
-         title="MOTIONX", hero="A visual studio experience with deliberate frontend engineering.",
+    dict(slug="motionx", number="02", kind="Website",
+         title="MOTIONX", hero="The website for MOTIONX, the motion-design studio I run. It is built with Next.js and TypeScript, "
+              "and a separate Python workflow checks outreach drafts and waits for a person to approve them.",
          tags=["Next.js", "TypeScript", "Tailwind CSS", "Python", "Playwright"],
          repo="https://github.com/ult666666/motionx-studio",
          live="https://madebymotionx.com/", live_label="Visit live website",
-         image="/assets/motionx.jpg", alt="MOTIONX cinematic studio website visual",
+         image="/assets/motionx-site.jpg", image_width=1440, image_height=900,
+         alt="The MOTIONX website's opening screen: a glossy 3-D X character standing in a dim cinema beside the headline From first frame to final click",
+         caption="The studio site's opening screen, captured on 25 October 2026.",
          sections=[
              ("The problem", [
                  "A motion-first product website should communicate a point of view without sacrificing clarity, responsive design or a straightforward contact flow.",
@@ -173,8 +177,9 @@ CASES = [
                  "The visual studies on the site are explicitly self-initiated concepts, not claimed client engagements or financial results.",
                  "The outreach code is a reviewed drafting workflow, not an autonomous mass sender. The public source uses fictional test fixtures rather than real prospect data."
              ])]),
-    dict(slug="trading-research", number="03", kind="PYTHON / RELIABLE SYSTEMS",
-         title="Agentic Trading Research", hero="When AI can propose ideas, software must still verify the evidence.",
+    dict(slug="trading-research", number="03", kind="Research system",
+         title="Agentic Trading Research", hero="A research-only system for short-term stock research. Language models gather evidence and "
+              "propose ideas, and plain Python checks decide what passes. It cannot place orders.",
          tags=["Python", "Deterministic validation", "Provenance", "Agent workflows"],
          repo="https://github.com/ult666666/agentic-trading-research",
          live=None, live_label=None, image=None, alt=None,
@@ -209,8 +214,9 @@ CASES = [
                  "The public repository is a curated research and architecture snapshot, not the complete runnable production system. Its self-contained synthetic demo is independently runnable and deliberately cannot access accounts, market feeds or private runtime.",
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
-    dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="FINTECH / FULL-STACK ENGINEERING",
-         title="Frontier AI Valuation Lab", hero="Connect a capital objective to scenario mathematics, an inspectable calculation and a documented business decision.",
+    dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="Fintech",
+         title="Frontier AI Valuation Lab", hero="A valuation and financing model for frontier AI labs. Set a capital goal, compare financing plans "
+              "across explicit scenarios, and keep a record of the decision and the math behind it.",
          tags=["Capital Strategy 4.0", "Financing & ownership", "Scenario analysis", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
          live="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision", live_label="Try Capital Strategy Studio",
@@ -222,7 +228,7 @@ CASES = [
          image="/assets/frontier-ai-capital-visual-20261020.png", image_width=1440, image_height=1271, alt="Capital Strategy Studio showing hypothetical financing plans against the capital objective and retained ownership floor",
          caption="The working Capital Strategy Studio: explicit objectives, separate plan markers and a complete decision workflow. All financing terms are hypothetical.",
          fintech_showcase=True,
-         showcase=dict(label="A SWITCHING VALUE YOU CAN REPRODUCE", question="When does the modeled existing-cohort allocation favor the smaller round over the larger one?", value="$635bn", footnote="Modeled pre-money equity residual where Plans A and B tie at a $600bn cohort allocation. The threshold follows the entered round terms; it is neither an operating EV target nor a company financing price."),
+         showcase=dict(label="A switching value you can reproduce", question="When does the modeled existing-cohort allocation favor the smaller round over the larger one?", value="$635bn", footnote="Modeled pre-money equity residual where Plans A and B tie at a $600bn cohort allocation. The threshold follows the entered round terms; it is neither an operating EV target nor a company financing price."),
          section_ids={
              "Start with the business decision": "section-1",
              "Compare capital and ownership objectives": "section-financing",
@@ -327,10 +333,10 @@ def render_review(review: dict | None) -> str:
 
     def link(label: str, url: str) -> str:
         external = ' target="_blank" rel="noopener noreferrer"' if url.startswith("https://") else ""
-        return f'<a href="{e(url, quote=True)}"{external}>{e(label)} <span aria-hidden="true">↗</span></a>'
+        return f'<a href="{e(url, quote=True)}"{external}>{e(label)}</a>'
 
     steps = "".join(
-        f'<li><span class="review-step-index" aria-hidden="true">{i:02d}</span><h3>{e(title)}</h3><p>{e(body)}</p>{link(label, url)}</li>'
+        f'<li><span class="review-step-index" aria-hidden="true">Step {i}</span><h3>{e(title)}</h3><p>{e(body)}</p>{link(label, url)}</li>'
         for i, (title, body, label, url) in enumerate(review["steps"], 1)
     )
     rows = "".join(
@@ -342,7 +348,7 @@ def render_review(review: dict | None) -> str:
     )
     return (
         '<aside class="case-review" id="review-guide" aria-labelledby="review-heading">'
-        '<p class="section-index">A GUIDE FOR REVIEWERS</p><h2 id="review-heading">Review the engineering<span class="punctuation">.</span></h2>'
+        '<p class="section-index">A guide for reviewers</p><h2 id="review-heading">Review the engineering</h2>'
         f'<p>{e(review["intro"])}</p><ol class="review-steps">{steps}</ol>'
         '<table class="evidence-table" id="engineering-evidence"><caption>Implementation and verification map</caption>'
         '<thead><tr><th scope="col">Engineering concern</th><th scope="col">Implementation</th><th scope="col">Verification</th></tr></thead>'
@@ -354,26 +360,26 @@ def render_review(review: dict | None) -> str:
 def render(case: dict) -> str:
     title, intro = e(case["title"]), e(case["hero"])
     tags = "".join(f"<span>{e(x)}</span>" for x in case["tags"])
-    links = '<a class="button button-quiet" href="' + e(case["repo"], quote=True) + '" target="_blank" rel="noopener noreferrer">Explore source ↗</a>'
+    links = '<a class="button button-quiet" href="' + e(case["repo"], quote=True) + '" target="_blank" rel="noopener noreferrer">Source on GitHub</a>'
     if case["live"]:
-        links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + ' ↗</a>' + links
-    links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' ↗</a>' for label, url in case.get("secondary_links", []))
+        links = '<a class="button button-primary" href="' + e(case["live"], quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(case["live_label"]) + '</a>' + links
+    links += "".join('<a class="button button-quiet" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + '</a>' for label, url in case.get("secondary_links", []))
     image_size = (' width="' + e(str(case["image_width"]), quote=True) + '" height="' + e(str(case["image_height"]), quote=True) + '"') if case.get("image_width") and case.get("image_height") else ""
     media = ('<figure class="case-hero-media"><img src="' + e(case["image"]) + '" alt="' + e(case["alt"]) + '"' + image_size + ' loading="eager"><figcaption>' + e(case.get("caption", "Visual from the public project repository.")) + '</figcaption></figure>') if case["image"] else ""
     extra_styles = '<link rel="stylesheet" href="/fintech.css">' if case.get("fintech_showcase") else ""
     body_attributes = ' class="case-fintech"' if case.get("fintech_showcase") else ' class="case-lineageguard"' if case.get("lineageguard_showcase") else ""
     fintech_nav = '<a href="/fintech.html">Fintech</a>' if case.get("fintech_showcase") else ""
     example = case.get("showcase")
-    showcase = (f'<div class="case-capital-example"><div><span class="case-example-label">{e(example["label"])}</span><p>{e(example["question"])}</p><a class="fintech-text-link" href="/fintech.html">Explore the fintech portfolio →</a></div><div><p class="case-example-value">{e(example["value"])}</p><p class="case-example-footnote">{e(example["footnote"])}</p></div></div>') if example else ""
-    proof = '<div class="case-proof-grid">' + ''.join('<a class="case-proof-link" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer"><strong>' + e(label) + ' ↗</strong><span>' + e(description) + '</span></a>' for label, description, url in case.get("proof_links", [])) + '</div>' if case.get("proof_links") else ""
+    showcase = (f'<div class="case-capital-example"><div><span class="case-example-label">{e(example["label"])}</span><p>{e(example["question"])}</p><a class="fintech-text-link" href="/fintech.html">More on the fintech work</a></div><div><p class="case-example-value">{e(example["value"])}</p><p class="case-example-footnote">{e(example["footnote"])}</p></div></div>') if example else ""
+    proof = '<div class="case-proof-grid">' + ''.join('<a class="case-proof-link" href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer"><strong>' + e(label) + '</strong><span>' + e(description) + '</span></a>' for label, description, url in case.get("proof_links", [])) + '</div>' if case.get("proof_links") else ""
     review = render_review(case.get("review"))
-    sections, toc = [], ['<a href="#review-guide">Review the engineering</a>'] if review else []
+    sections, toc = [], (['<a href="#review-guide">Review the engineering</a>'] if review else [])
     for i, (heading, paragraphs) in enumerate(case["sections"], 1):
         ident = case.get("section_ids", {}).get(heading, "section-" + str(i))
         toc.append(f'<a href="#{e(ident, quote=True)}">{e(heading)}</a>')
         section_links = case.get("section_links", {}).get(heading, [])
         resources = '<div class="case-section-links">' + ''.join(
-            '<a href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + ' <span aria-hidden="true">↗</span></a>'
+            '<a href="' + e(url, quote=True) + '" target="_blank" rel="noopener noreferrer">' + e(label) + '</a>'
             for label, url in section_links
         ) + '</div>' if section_links else ''
         figure = case.get("section_media", {}).get(heading)
@@ -382,49 +388,47 @@ def render(case: dict) -> str:
             '<img src="' + e(figure["image"], quote=True) + '" alt="' + e(figure["alt"], quote=True) + '" width="' + e(str(figure["width"]), quote=True) + '" height="' + e(str(figure["height"]), quote=True) + '" loading="lazy" decoding="async"></a>'
             '<figcaption>' + e(figure["caption"]) + '</figcaption></figure>'
         ) if figure else ''
-        sections.append(f'<section id="{e(ident, quote=True)}"><h2>{e(heading)}<span class="punctuation">.</span></h2>' +
+        sections.append(f'<section id="{e(ident, quote=True)}"><h2>{e(heading)}</h2>' +
                         "".join(f"<p>{e(p)}</p>" for p in paragraphs) + detail_media + resources + "</section>")
     return f'''<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1012">
+  <meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
   <meta name="description" content="{intro}">
-  <meta property="og:type" content="article"><meta property="og:title" content="{title} — Charles Dai">
+  <meta property="og:type" content="article"><meta property="og:title" content="{title}, a case study by Charles Dai">
   <meta property="og:description" content="{intro}">
   <link rel="canonical" href="https://ult666666.github.io/projects/{case["slug"]}.html">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">{extra_styles}
-  <script defer src="/script.js"></script><title>{title} — Engineering Case Study | Charles Dai</title>
+  <title>{title}: case study | Charles Dai</title>
 </head>
 <body{body_attributes}>
 <a class="skip-link" href="#main">Skip to main content</a>
-<header class="site-header" id="top"><div class="container header-inner">
-  <a class="brand" href="/" aria-label="Charles Dai, home"><span class="brand-mark">CD<span class="brand-dot">.</span></span><span class="brand-sub">CHARLES DAI<span> / </span>SOFTWARE</span></a>
-  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">☰</span></button>
-  <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
-    <a href="/#work">Work</a>{fintech_nav}<a href="/#approach">Approach</a><a href="/#about">About</a>
-    <a href="/#contact" class="nav-contact">Let's connect ↗</a>
+<header class="site-header" id="top"><div class="wrap header-inner">
+  <a class="site-name" href="/">Charles Dai</a>
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+    <a href="/#work">Work</a><a href="/#index">Index</a><a href="/#about">About</a><a href="/#contact">Contact</a>
   </nav>
 </div></header>
 <main id="main">
 <section class="case-hero container">
-  <a class="case-back" href="/#work">← ALL PROJECTS</a>
-  <p class="eyebrow">{e(case["number"])} / {e(case["kind"])}</p>
-  <h1>{title}<span class="punctuation">.</span></h1>
+  <a class="case-back" href="/#work">← All work</a>
+  <p class="eyebrow">Case study: {e(case["kind"].lower())}</p>
+  <h1>{title}</h1>
   <p class="case-lead">{intro}</p>
   <div class="case-metadata">{tags}</div>
   <div class="hero-actions">{links}</div>
   {showcase}{media}
 </section>
 <div class="case-main container">
-  <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">CASE STUDY CONTENTS</span>{''.join(toc)}</nav>
+  <nav class="case-sidebar" aria-label="On this page"><span class="sidebar-heading">On this page</span>{''.join(toc)}</nav>
   <article class="case-article">{review}{''.join(sections)}{proof}
-    <div class="case-callout"><strong>Source first.</strong><p>This page describes engineering choices documented in the public project repository. Follow the source link for code, runnable instructions, and scope limitations.</p></div>
-    <a class="button button-primary" href="/#work">Back to all projects ↗</a>
+    <div class="case-callout"><strong>Read the source too.</strong><p>This page describes choices documented in the public repository. The repository has the code, instructions for running it and the limits of what it does.</p></div>
+    <a class="button" href="/#work">Back to all projects</a>
   </article>
 </div>
 </main>
-<footer class="site-footer container"><a href="/" class="footer-brand">CD<span>.</span></a><span>CHARLES DAI © <span id="year">2026</span></span><span><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></span></footer>
+<footer class="site-footer container"><p>© 2026 Charles Dai</p><p>Plain HTML and CSS, with no JavaScript, cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><a href="#top">Back to top</a></p></footer>
 </body>
 </html>
 '''
