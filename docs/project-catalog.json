@@ -180,8 +180,8 @@
         "OKLCH"
       ],
       "summary": "Color contrast auditing across a web app, library and CLI.",
-      "scenario": "Audit a palette, inspect failing foreground/background pairs and compare perceptual color fixes.",
-      "inspect": "Trace WCAG contrast math, OKLCH fixes and palette tests; compare the CLI result with the web preview.",
+      "scenario": "Download a failing palette and selected pair as tokens JSON, audit it with the CLI, apply the suggested fix and confirm the next downloaded file passes.",
+      "inspect": "Follow real browser JSON export into the built CLI. Tests preserve the pair and target, gate invalid names and keep actual colors unchanged by color-vision simulation.",
       "limits": "Color checks support accessibility work; they do not constitute a complete accessibility audit.",
       "links": [
         {
@@ -198,11 +198,11 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/contrastkit/blob/main/docs/DESIGN.md"
+          "url": "https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/cli.test.ts"
+          "url": "https://github.com/ult666666/contrastkit/blob/main/app/test/tokens-export.test.tsx"
         }
       ],
       "command": "npm ci\nnpm test\nnpm run build"
@@ -253,7 +253,7 @@
       "areas": [
         "backend"
       ],
-      "form": "library",
+      "form": "service",
       "stack": [
         "Python",
         "SQLite",
@@ -338,8 +338,8 @@
         "pandas"
       ],
       "summary": "Options pricing, portfolio optimization and backtesting checked against independent references.",
-      "scenario": "Price an option and inspect how portfolio decisions use only information available before the next return.",
-      "inspect": "Review pricing reference checks and the no-look-ahead backtest tests, then run the documented examples.",
+      "scenario": "Generate fictional prices, estimate monthly risk-parity allocations using only prior closes and compare against equal weight on the same dates and costs. Inspect six CSV exports.",
+      "inspect": "Follow estimation-window receipts, targets and wealth exports. Future-price perturbation tests keep earlier allocations fixed; the comparison includes shared warmup and entry costs.",
       "limits": "Educational quantitative software using illustrative inputs; no investment recommendation or live execution.",
       "links": [
         {
@@ -352,14 +352,14 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md"
+          "url": "https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/quantkit/blob/main/tests/test_backtest_engine.py"
+          "url": "https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py"
         }
       ],
-      "command": "uv sync\nuv run quantkit price --spot 42 --strike 40 --rate 0.10 --vol 0.20 --maturity 0.5"
+      "command": "uv sync\nuv run python examples/walk_forward_risk_parity.py"
     },
     {
       "id": "powerlift",
@@ -404,16 +404,17 @@
         "finance",
         "backend"
       ],
-      "form": "library",
+      "form": "service",
       "stack": [
         "Python",
         "FastAPI",
         "SQLAlchemy",
-        "PostgreSQL"
+        "PostgreSQL",
+        "SQLite"
       ],
       "summary": "A double-entry ledger API with immutable balanced entries and idempotent writes.",
-      "scenario": "Post a balanced transfer, retry the same request and inspect the response to a concurrent overdraft attempt.",
-      "inspect": "Follow journal invariants, request idempotency and database concurrency tests across the supported database setup.",
+      "scenario": "Run a disposable local HTTP wallet: deposit, transfer, retry with the same key, reject an overdraft, reverse the transfer and reconcile current and historical balances.",
+      "inspect": "Follow the one-command receipt: replay identity, unchanged rejected-write balances, reversal links, historical state and zero trial balance. The example owns and cleans up its temporary database and server.",
       "limits": "Engineering demonstration; it is not a bank, payment processor or accounting system certification.",
       "links": [
         {
@@ -426,14 +427,14 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md"
+          "url": "https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_concurrency.py"
+          "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_wallet_demo.py"
         }
       ],
-      "command": "uv sync\nuv run pytest -q"
+      "command": "uv sync\nuv run python examples/wallet_demo.py"
     },
     {
       "id": "searchlite",
@@ -448,8 +449,8 @@
         "BM25F"
       ],
       "summary": "A full-text search engine with explainable ranking and retrieval evaluation.",
-      "scenario": "Search a small document collection with phrase, prefix and fuzzy queries, then inspect score contributions.",
-      "inspect": "Follow query parsing, BM25F scoring and safe highlighting, then run the nDCG evaluation fixture.",
+      "scenario": "Index a selected local Markdown/text directory, save a reusable snapshot and query it with snippets and score explanations without rereading the sources.",
+      "inspect": "Follow the docs consumer example through deterministic file traversal, public index serialization and reload. Real-process tests check safe paths, bounds, no-overwrite behavior and snapshot-only searches.",
       "limits": "Small in-memory search library and demo; fixture quality is not a general search benchmark.",
       "links": [
         {
@@ -466,14 +467,14 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/searchlite/blob/main/docs/DESIGN.md"
+          "url": "https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/searchlite/blob/main/test/engine/scoring.test.ts"
+          "url": "https://github.com/ult666666/searchlite/blob/main/test/search-docs.test.ts"
         }
       ],
-      "command": "npm ci --ignore-scripts\nnpm run eval"
+      "command": "npm ci --ignore-scripts\nnpm run build\nmkdir -p .cache\nnpm run search:docs -- index docs .cache/local-docs.json\nnpm run search:docs -- search .cache/local-docs.json '\"query language\"'"
     },
     {
       "id": "citecheck",
@@ -490,7 +491,7 @@
       ],
       "summary": "Document question answering with retrieved citations, claim checks and abstention evaluation.",
       "scenario": "Index the sample handbook, ask a supported question and compare with a question the documents cannot answer.",
-      "inspect": "Follow retrieval and sentence citation checks through offline fixtures; enable the optional live provider separately.",
+      "inspect": "Follow real SQLite indexing, retrieval and sentence-citation checks. Markdown fence regressions verify that example headings remain under their enclosing source section.",
       "limits": "Offline fixture responses are hand-written. Live answers require provider configuration and may incur usage charges.",
       "links": [
         {
@@ -507,7 +508,7 @@
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/citecheck/blob/main/tests/test_verify.py"
+          "url": "https://github.com/ult666666/citecheck/blob/main/tests/test_index.py"
         }
       ],
       "command": "uv sync\nuv run citecheck index examples/handbook\nuv run citecheck ask \"What is the deadline for submitting an expense?\""
@@ -593,7 +594,7 @@
       "summary": "A one-minute Reddit puzzle about downstream effects of schema changes.",
       "scenario": "Choose which downstream objects a schema change affects, then compare the game result with the dependency graph.",
       "inspect": "Follow graph propagation and deterministic puzzle tests before reviewing the Devvit interface.",
-      "limits": "Platform game source. Publishing or testing in Reddit requires the documented Devvit environment.",
+      "limits": "The local browser demo uses fake community data. Reddit context, Redis and platform actions require the documented Devvit environment.",
       "links": [
         {
           "label": "Source & setup",
@@ -608,7 +609,7 @@
           "url": "https://github.com/ult666666/blast-radius-daily/blob/main/test/game.test.ts"
         }
       ],
-      "command": "npm ci\nnpm run verify"
+      "command": "npm ci\nnpm run preview:local\n# Open http://127.0.0.1:4174/src/client/game.html?demo=1&day=2026-07-14"
     },
     {
       "id": "agentic-trading-research",
