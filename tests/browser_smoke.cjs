@@ -49,6 +49,7 @@ async function captureFinancingCase(page, destination) {
       launchOptions.args = args;
     }
     browser = await chromium.launch(launchOptions);
+    await require('./catalog_showcase.cjs')(browser, base);
     await require('./navigation_resilience.cjs')(browser, base);
     await require('./inspector_showcase.cjs')(browser, base);
     await require('./engineering_showcase.cjs')(browser, base);

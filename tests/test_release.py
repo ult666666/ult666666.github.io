@@ -37,10 +37,10 @@ class ReleaseTests(unittest.TestCase):
             destination = Path(t).resolve() / 'site'  # resolve our own newly-created macOS temp directory
             module.build(destination)
             names = {x.name for x in destination.iterdir()}
-            self.assertEqual(names, {'index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll', 'release-manifest.json'})
+            self.assertEqual(names, {'index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'project-catalog.css', 'project-catalog.js', 'robots.txt', 'sitemap.xml', 'assets', 'projects', '.nojekyll', 'release-manifest.json'})
             self.assertFalse((destination / '.git').exists())
             self.assertFalse((destination / 'tests').exists())
-            self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 6)
+            self.assertEqual(len(list((destination / 'projects').glob('*.html'))), 7)
             with self.assertRaises(FileExistsError):
                 module.build(destination)
 

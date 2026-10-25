@@ -1,0 +1,108 @@
+/*
+  Project explorer. Uses the shared tokens in styles.css; the search controls appear only
+  once project-catalog.js has wired them up, so the page is complete without JavaScript.
+*/
+
+.catalog-page { --paper-light: #fbf9f4; }
+
+.catalog-intro { max-width: 46em; padding-block: 44px 36px; }
+.catalog-intro h1 {
+  margin: 0 0 18px;
+  font-size: clamp(36px, 4.4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+.catalog-lead { max-width: 34em; margin: 0 0 16px; color: var(--ink-2); font-size: clamp(19px, 1.9vw, 22px); line-height: 1.5; }
+.catalog-note { max-width: 40em; margin: 0; color: var(--muted); font: italic 16px/1.55 var(--serif); }
+
+/* ---------- Search ---------- */
+
+.catalog-controls {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 260px) auto;
+  gap: 16px;
+  align-items: end;
+  padding-block: 22px;
+  border-block: 1px solid var(--rule-strong);
+}
+.catalog-controls label { display: block; margin-bottom: 6px; color: var(--ink); font: 600 15px/1.4 var(--sans); }
+.catalog-controls input, .catalog-controls select {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: var(--paper-light);
+  color: var(--ink);
+  font: 17px/1.4 var(--serif);
+}
+.catalog-controls input::placeholder { color: var(--muted); opacity: 1; }
+.catalog-controls input:focus-visible, .catalog-controls select:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.catalog-controls .button { cursor: pointer; }
+
+.catalog-results { margin: 22px 0 6px; }
+.catalog-results p { margin: 0; color: var(--muted); font: italic 16px/1.5 var(--serif); }
+#catalog-empty { margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--rule); color: var(--ink-2); }
+
+/* ---------- Entries ---------- */
+
+.catalog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; padding-bottom: 72px; }
+.catalog-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--rule-strong);
+  scroll-margin-top: 24px;
+}
+.catalog-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  color: var(--muted);
+  font: italic 15.5px/1.5 var(--serif);
+}
+.catalog-card h2 { margin: 6px 0 8px; font-size: 25px; line-height: 1.25; font-weight: 700; overflow-wrap: anywhere; }
+.catalog-summary { margin: 0 0 10px; color: var(--ink); }
+.catalog-stack { margin: 0 0 18px; padding: 0; color: var(--muted); font: 15.5px/1.5 var(--sans); list-style: none; }
+.catalog-stack li { display: inline; }
+.catalog-stack li + li::before { content: " · "; }
+.catalog-card dl { margin: 0 0 18px; }
+.catalog-card dt { margin: 14px 0 2px; color: var(--ink); font: 700 16px/1.4 var(--serif); }
+.catalog-card dt:first-child { margin-top: 0; }
+.catalog-card dd { margin: 0; color: var(--ink-2); font-size: 16.5px; line-height: 1.55; overflow-wrap: anywhere; }
+.catalog-command h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+.catalog-command pre {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+.catalog-command code { color: var(--ink); font-size: 13.5px; line-height: 1.6; }
+.catalog-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: auto; font: 16px/1.6 var(--sans); }
+
+/* ---------- Responsive and print ---------- */
+
+@media (max-width: 800px) {
+  .catalog-grid { grid-template-columns: minmax(0, 1fr); }
+  .catalog-controls { grid-template-columns: 1fr 1fr; }
+  .catalog-controls > div:first-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .catalog-intro { padding-block: 28px 28px; }
+  .catalog-controls { grid-template-columns: minmax(0, 1fr); }
+  .catalog-controls > div:first-child { grid-column: auto; }
+  .catalog-controls .button { width: 100%; }
+}
+
+@media print {
+  .catalog-controls { display: none; }
+  .catalog-grid { display: block; }
+  .catalog-card { break-inside: avoid; }
+}

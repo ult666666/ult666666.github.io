@@ -48,6 +48,7 @@
           <h2 id="quantkit-title">quantkit</h2>
           <p>Option pricing with Black–Scholes–Merton formulas, Cox–Ross–Rubinstein trees and Monte Carlo; mean–variance and risk-parity portfolios; and a vectorized daily backtester, in Python.</p>
           <p>A strategy decides with prices through day t, and those weights earn day t+1's return. A checker changes later prices and fails any strategy whose earlier weights move.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> generate fictional prices, estimate monthly allocations from prior closes and compare on shared dates and costs. Inspect six CSV exports in the <a href="https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md" target="_blank" rel="noopener noreferrer">walk-forward guide</a> and its <a href="https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py" target="_blank" rel="noopener noreferrer">timing regression tests</a>.</p>
           <div class="tag-set"><span>Python</span><span>NumPy</span><span>SciPy</span><span>pandas</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer">Run quantkit</a>
@@ -81,6 +82,7 @@
           <h2 id="powerlift-title">powerlift</h2>
           <p>Experiment design and analysis in Python: sample sizes and power, frequentist and Bayesian comparisons, CUPED variance reduction, sample-ratio-mismatch checks and multiple-testing corrections.</p>
           <p>Group sequential boundaries come from the joint normal distribution of the interim z-statistics, so a team can look early without inflating its false-positive rate.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> read a seeded per-user CSV, check allocation and the declared outcome window, then inspect a CUPED readout with uncertainty. The <a href="https://github.com/ult666666/powerlift/blob/main/docs/EXPERIMENT_READOUT.md" target="_blank" rel="noopener noreferrer">experiment walkthrough</a> includes blocked scenarios and an inconclusive synthetic result.</p>
           <div class="tag-set"><span>Python</span><span>SciPy</span><span>NumPy</span><span>Simulation</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer">Run powerlift</a>
@@ -115,6 +117,7 @@
           <h2 id="ledgerline-title">ledgerline</h2>
           <p>A double-entry ledger API built with FastAPI and SQLAlchemy. Journal entries are integer minor units that must balance per currency, posted transactions are immutable, and corrections are reversals.</p>
           <p>Each write is one database transaction that replays the stored response for a repeated Idempotency-Key and compare-and-swaps every account version it touches, so concurrent requests cannot overdraw an account.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> run an isolated wallet over real local HTTP. Verify retry identity, overdraft rejection, reversal and historical balances, then reconcile and clean up. The <a href="https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md" target="_blank" rel="noopener noreferrer">wallet demo guide</a> explains the receipt and disposable storage.</p>
           <div class="tag-set"><span>Python</span><span>FastAPI</span><span>SQLAlchemy 2.0</span><span>PostgreSQL / SQLite</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer">Run ledgerline</a>
@@ -183,6 +186,7 @@
           <h2 id="searchlite-title">searchlite</h2>
           <p>A zero-dependency TypeScript search engine: Porter stemming, a positional inverted index, BM25F ranking across weighted fields, a query language with phrases, prefixes and fuzzy terms, highlighting, and hybrid retrieval with reciprocal rank fusion.</p>
           <p><code>explain()</code> rebuilds a result's score clause by clause and field by field, and a test requires it to equal the score the search returned.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> index a local documentation folder, save a snapshot and query it with snippets and score explanations. The <a href="https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents" target="_blank" rel="noopener noreferrer">local docs walkthrough</a> uses the built library; searches read the snapshot and do not reread source files.</p>
           <div class="tag-set"><span>TypeScript</span><span>BM25F</span><span>Vite</span><span>Vitest</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer">Try the live search</a>
@@ -216,6 +220,7 @@
           <h2 id="contrastkit-title">contrastkit</h2>
           <p>WCAG 2.2 contrast checks, perceptual OKLCH fixes for failing pairs, color-vision-deficiency simulation and palette audits: a zero-dependency TypeScript library, a CLI that can gate design tokens in CI, and a React app.</p>
           <p>A fix keeps the hue and changes only OKLCH lightness, searching both directions for the closest passing color. Ratios are truncated, so a near miss never displays as a pass.</p>
+          <p class="lab-demo-note"><strong>Complete workflow:</strong> download the current palette as tokens JSON, audit it with the CLI, apply the suggested fix and audit the next download. The <a href="https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci" target="_blank" rel="noopener noreferrer">web-to-CLI walkthrough</a> preserves the selected pair and target; simulations do not change exported colors.</p>
           <div class="tag-set"><span>TypeScript</span><span>React</span><span>OKLCH</span><span>WCAG 2.2</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer">Open Palette Auditor</a>
@@ -250,6 +255,7 @@
           <h2 id="citecheck-title">citecheck</h2>
           <p>Question answering over a document collection with the Claude API. Passages come from a SQLite FTS5 index ranked with BM25, the model must cite a retrieved passage for every sentence through a strict tool schema, and the app abstains without a model call when nothing relevant is found.</p>
           <p>A checker rejects citations to passages that were never retrieved and flags any sentence whose numbers or content words are missing from the passages it cites.</p>
+          <p class="lab-demo-note"><strong>A boundary worth checking:</strong> headings inside fenced code examples keep their enclosing section citation. <a href="https://github.com/ult666666/citecheck/blob/main/tests/test_index.py" target="_blank" rel="noopener noreferrer">Real index and retrieval regressions</a> exercise shorter or invalid closing fences and the genuine section that follows.</p>
           <div class="tag-set"><span>Python</span><span>Claude API</span><span>SQLite FTS5</span><span>FastAPI</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer">Run citecheck</a>

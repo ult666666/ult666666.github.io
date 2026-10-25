@@ -1,0 +1,723 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "frontier-ai-valuation-lab",
+      "name": "Frontier AI Valuation Lab",
+      "areas": [
+        "finance",
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "JavaScript",
+        "Node.js",
+        "Python"
+      ],
+      "summary": "A financing workspace that connects capital objectives, ownership scenarios and a reviewable decision.",
+      "scenario": "Compare hypothetical financing plans, change a retained-ownership objective and inspect where the ranking changes.",
+      "inspect": "Follow the shared calculation engine and Node API, then compare with the independent Python reference and verification guide.",
+      "limits": "Independent research with illustrative assumptions; company names imply no affiliation or endorsement.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/frontier-ai-valuation-lab.html"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/frontier-ai-valuation-lab"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/ARCHITECTURE.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-strategy.test.js"
+        }
+      ],
+      "command": "npm test\nnpm start"
+    },
+    {
+      "id": "lineageguard-datahub-agent",
+      "name": "LineageGuard Studio",
+      "areas": [
+        "ai",
+        "data",
+        "backend"
+      ],
+      "form": "web",
+      "stack": [
+        "Node.js",
+        "SQLite",
+        "JavaScript"
+      ],
+      "summary": "Typed review workflows with evidence, policy checks and recovery.",
+      "scenario": "Compose a review workflow, inspect an evidence-backed decision and follow the trace through recovery.",
+      "inspect": "Start with the Studio inspector and engineering review; follow typed workflow contracts, runtime tests and policy evaluations.",
+      "limits": "Synthetic demo; optional DataHub integration is read-only. The demo does not demonstrate a production deployment.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://lineageguard-datahub-agent.vercel.app/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/lineageguard.html"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/REVIEW_INSPECTOR.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/inspection.test.mjs"
+        }
+      ],
+      "command": "npm run studio:evaluate"
+    },
+    {
+      "id": "saas-analytics-warehouse",
+      "name": "SaaS Analytics Warehouse",
+      "areas": [
+        "data"
+      ],
+      "form": "web",
+      "stack": [
+        "dbt",
+        "DuckDB",
+        "SQL",
+        "Python"
+      ],
+      "summary": "A reproducible analytics pipeline for MRR, retention and unit economics.",
+      "scenario": "Generate fictional subscriptions and payments, build the warehouse and reconcile MRR movements into a report.",
+      "inspect": "Read metric definitions, staging and mart models, then inspect reconciliation and data-quality checks.",
+      "limits": "Seeded fictional SaaS data; results describe the fixture, not a real business.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/saas-analytics-warehouse/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-4"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/METRICS.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql"
+        }
+      ],
+      "command": "make all"
+    },
+    {
+      "id": "impact-ledger",
+      "name": "Impact Ledger",
+      "areas": [
+        "data",
+        "backend",
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "TypeScript",
+        "Python",
+        "SQLite"
+      ],
+      "summary": "Participation and spending reporting with a local API and atomic CSV imports.",
+      "scenario": "Preview an attendance import, resolve validation errors, import it and compare unique participants with attendance and session spending.",
+      "inspect": "Follow preview/import shared validation, exact money arithmetic and calendar-period comparison through API and browser tests.",
+      "limits": "Hosted preview is read-only and synthetic. Writes require running the local application.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/impact-ledger/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/engineering-lab.html#section-3"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/impact-ledger"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/impact-ledger/blob/main/docs/ARCHITECTURE.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md"
+        }
+      ],
+      "command": "python3 -m impact_ledger --db .local/demo.db seed\npython3 -m impact_ledger --db .local/demo.db serve"
+    },
+    {
+      "id": "contrastkit",
+      "name": "ContrastKit",
+      "areas": [
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "TypeScript",
+        "React",
+        "OKLCH"
+      ],
+      "summary": "Color contrast auditing across a web app, library and CLI.",
+      "scenario": "Download a failing palette and selected pair as tokens JSON, audit it with the CLI, apply the suggested fix and confirm the next downloaded file passes.",
+      "inspect": "Follow real browser JSON export into the built CLI. Tests preserve the pair and target, gate invalid names and keep actual colors unchanged by color-vision simulation.",
+      "limits": "Color checks support accessibility work; they do not constitute a complete accessibility audit.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/contrastkit/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-6"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/contrastkit"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/contrastkit/blob/main/app/test/tokens-export.test.tsx"
+        }
+      ],
+      "command": "npm ci\nnpm test\nnpm run build"
+    },
+    {
+      "id": "motionx-studio",
+      "name": "MOTIONX Studio",
+      "areas": [
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Python"
+      ],
+      "summary": "A motion-led studio website with a separate outreach-validation workflow.",
+      "scenario": "Explore the responsive studio pages, then inspect how the separate Python workflow validates outreach inputs.",
+      "inspect": "Follow the frontend structure and architecture notes; review validation boundaries independently of the public website.",
+      "limits": "Public site and validation tooling are separate. A website preview does not demonstrate outreach delivery or client adoption.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://madebymotionx.com/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/motionx.html"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/motionx-studio"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/motionx-studio/blob/main/README.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/motionx-studio/tree/main/outreach/tests"
+        }
+      ],
+      "command": "npm ci\nnpm run dev -- -p 3939"
+    },
+    {
+      "id": "relaybox",
+      "name": "RelayBox",
+      "areas": [
+        "backend"
+      ],
+      "form": "service",
+      "stack": [
+        "Python",
+        "SQLite",
+        "HMAC"
+      ],
+      "summary": "A durable signed-webhook inbox with idempotency and fenced worker leases.",
+      "scenario": "Deliver the same signed event twice, process the job and inspect retry, lease and recovery behavior locally.",
+      "inspect": "Follow ingestion uniqueness, transactional lease ownership and worker receipt handling; inspect the local diagnostic dashboard.",
+      "limits": "Local single-host SQLite service. Diagnostic samples are not throughput or service-level claims.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/engineering-lab.html#section-1"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/relaybox"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/relaybox/blob/main/docs/ARCHITECTURE.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md"
+        }
+      ],
+      "command": "python3 -m relaybox --db .local/demo.sqlite3 demo\npython3 -m relaybox --db .local/demo.sqlite3 serve --demo-secret"
+    },
+    {
+      "id": "tracebench",
+      "name": "TraceBench",
+      "areas": [
+        "ai",
+        "backend"
+      ],
+      "form": "library",
+      "stack": [
+        "Python",
+        "JSONL",
+        "Decimal"
+      ],
+      "summary": "Offline evaluation of recorded AI outputs with exact supplied-cost accounting and regression gates.",
+      "scenario": "Evaluate a bilingual recorded fixture, compare a baseline and inspect a deliberately failing regression or budget rule.",
+      "inspect": "Read strict input contracts and the JSON/Markdown/HTML reports, then trace reusable CI gate behavior.",
+      "limits": "Evaluates supplied recorded outputs; it does not call a model or measure live model quality.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/tracebench/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/engineering-lab.html#section-2"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/tracebench"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md"
+        }
+      ],
+      "command": "python3 -m tracebench evaluate --cases fixtures/cases.jsonl --outputs fixtures/clean.jsonl --pricing fixtures/pricing.json"
+    },
+    {
+      "id": "quantkit",
+      "name": "quantkit",
+      "areas": [
+        "finance"
+      ],
+      "form": "library",
+      "stack": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "pandas"
+      ],
+      "summary": "Options pricing, portfolio optimization and backtesting checked against independent references.",
+      "scenario": "Generate fictional prices, estimate monthly risk-parity allocations using only prior closes and compare against equal weight on the same dates and costs. Inspect six CSV exports.",
+      "inspect": "Follow estimation-window receipts, targets and wealth exports. Future-price perturbation tests keep earlier allocations fixed; the comparison includes shared warmup and entry costs.",
+      "limits": "Educational quantitative software using illustrative inputs; no investment recommendation or live execution.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-1"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/quantkit"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py"
+        }
+      ],
+      "command": "uv sync\nuv run python examples/walk_forward_risk_parity.py"
+    },
+    {
+      "id": "powerlift",
+      "name": "powerlift",
+      "areas": [
+        "data"
+      ],
+      "form": "library",
+      "stack": [
+        "Python",
+        "SciPy",
+        "statsmodels"
+      ],
+      "summary": "Experiment statistics with power analysis, CUPED, sequential monitoring and Bayesian tools.",
+      "scenario": "Read a seeded per-user experiment CSV, check the allocation and outcome window, then compare raw and CUPED-adjusted estimates with uncertainty.",
+      "inspect": "Follow the complete experiment readout from CSV validation through SRM and horizon gates to CUPED. Try the blocked scenarios before inspecting the statistical library references.",
+      "limits": "Statistical results depend on study design and data assumptions; a significant result alone is not a business decision.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-2"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/powerlift"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/powerlift/blob/main/docs/EXPERIMENT_READOUT.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/powerlift/blob/main/tests/test_experiment_readout.py"
+        }
+      ],
+      "command": "uv sync\nuv run python examples/experiment_readout.py --as-of 2026-09-15"
+    },
+    {
+      "id": "ledgerline",
+      "name": "ledgerline",
+      "areas": [
+        "finance",
+        "backend"
+      ],
+      "form": "service",
+      "stack": [
+        "Python",
+        "FastAPI",
+        "SQLAlchemy",
+        "PostgreSQL",
+        "SQLite"
+      ],
+      "summary": "A double-entry ledger API with immutable balanced entries and idempotent writes.",
+      "scenario": "Run a disposable local HTTP wallet: deposit, transfer, retry with the same key, reject an overdraft, reverse the transfer and reconcile current and historical balances.",
+      "inspect": "Follow the one-command receipt: replay identity, unchanged rejected-write balances, reversal links, historical state and zero trial balance. The example owns and cleans up its temporary database and server.",
+      "limits": "Engineering demonstration; it is not a bank, payment processor or accounting system certification.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-3"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/ledgerline"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_wallet_demo.py"
+        }
+      ],
+      "command": "uv sync\nuv run python examples/wallet_demo.py"
+    },
+    {
+      "id": "searchlite",
+      "name": "searchlite",
+      "areas": [
+        "ai",
+        "backend"
+      ],
+      "form": "library",
+      "stack": [
+        "TypeScript",
+        "BM25F"
+      ],
+      "summary": "A full-text search engine with explainable ranking and retrieval evaluation.",
+      "scenario": "Index a selected local Markdown/text directory, save a reusable snapshot and query it with snippets and score explanations without rereading the sources.",
+      "inspect": "Follow the docs consumer example through deterministic file traversal, public index serialization and reload. Real-process tests check safe paths, bounds, no-overwrite behavior and snapshot-only searches.",
+      "limits": "Small in-memory search library and demo; fixture quality is not a general search benchmark.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/searchlite/"
+        },
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-5"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/searchlite"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/searchlite/blob/main/test/search-docs.test.ts"
+        }
+      ],
+      "command": "npm ci --ignore-scripts\nnpm run build\nmkdir -p .cache\nnpm run search:docs -- index docs .cache/local-docs.json\nnpm run search:docs -- search .cache/local-docs.json '\"query language\"'"
+    },
+    {
+      "id": "citecheck",
+      "name": "citecheck",
+      "areas": [
+        "ai",
+        "backend"
+      ],
+      "form": "library",
+      "stack": [
+        "Python",
+        "Claude API",
+        "SQLite FTS5"
+      ],
+      "summary": "Document question answering with retrieved citations, claim checks and abstention evaluation.",
+      "scenario": "Index the sample handbook, ask a supported question and compare with a question the documents cannot answer.",
+      "inspect": "Follow real SQLite indexing, retrieval and sentence-citation checks. Markdown fence regressions verify that example headings remain under their enclosing source section.",
+      "limits": "Offline fixture responses are hand-written. Live answers require provider configuration and may incur usage charges.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/foundations.html#section-7"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/citecheck"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/citecheck/blob/main/tests/test_index.py"
+        }
+      ],
+      "command": "uv sync\nuv run citecheck index examples/handbook\nuv run citecheck ask \"What is the deadline for submitting an expense?\""
+    },
+    {
+      "id": "proofcast-backblaze",
+      "name": "ProofCast",
+      "areas": [
+        "ai",
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "Python",
+        "Streamlit",
+        "SHA-256"
+      ],
+      "summary": "Local media generation with provenance records and optional object storage.",
+      "scenario": "Generate a local asset bundle, verify the saved manifest against its actual media files, then alter a copied file and inspect the explicit failure.",
+      "inspect": "Follow the offline verification CLI, byte digests and media-format checks. Reproduce missing-file, tamper and moved-bundle cases without uploading anything.",
+      "limits": "Local workflow demonstration. A digest identifies bytes; it does not prove authorship or the truth of media content.",
+      "links": [
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/proofcast-backblaze"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/README.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/tests/test_verification.py"
+        }
+      ],
+      "command": ".venv/bin/python -m proofcast.cli --title \"Synthetic demo\" --script \"A local verification example.\""
+    },
+    {
+      "id": "luma-keys",
+      "name": "Luma Keys",
+      "areas": [
+        "product"
+      ],
+      "form": "desktop",
+      "stack": [
+        "Electron",
+        "React",
+        "three.js",
+        "Web Audio"
+      ],
+      "summary": "Offline piano practice with score views, planned fingering and graded sight reading.",
+      "scenario": "Open a practice piece, compare numbered score, sheet and falling-note views, then follow the planned fingering.",
+      "inspect": "Review the desktop app setup, Web Audio/MIDI handling, practice grading and on-device recognition boundaries.",
+      "limits": "Desktop application; browser screenshots do not replace an installed macOS practice session. Optional local AI needs separate setup.",
+      "links": [
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/luma-keys"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs"
+        }
+      ],
+      "command": "npm ci\nnpm test\nnpm run build"
+    },
+    {
+      "id": "blast-radius-daily",
+      "name": "Blast Radius Daily",
+      "areas": [
+        "product",
+        "data"
+      ],
+      "form": "platform",
+      "stack": [
+        "TypeScript",
+        "Devvit"
+      ],
+      "summary": "A one-minute Reddit puzzle about downstream effects of schema changes.",
+      "scenario": "Choose which downstream objects a schema change affects, then compare the game result with the dependency graph.",
+      "inspect": "Follow graph propagation and deterministic puzzle tests before reviewing the Devvit interface.",
+      "limits": "The local browser demo uses fake community data. Reddit context, Redis and platform actions require the documented Devvit environment.",
+      "links": [
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/blast-radius-daily"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/src/shared/game.ts"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/test/game.test.ts"
+        }
+      ],
+      "command": "npm ci\nnpm run preview:local\n# Open http://127.0.0.1:4174/src/client/game.html?demo=1&day=2026-07-14"
+    },
+    {
+      "id": "agentic-trading-research",
+      "name": "Agentic Trading Research",
+      "areas": [
+        "finance",
+        "ai"
+      ],
+      "form": "research",
+      "stack": [
+        "Python",
+        "JSON Schema"
+      ],
+      "summary": "An offline research architecture with a runnable fail-closed review gate.",
+      "scenario": "Run six synthetic gate scenarios and inspect why missing or contradictory evidence blocks a research result.",
+      "inspect": "Follow schema validation, gate reasons and negative tests; compare the architecture with the runnable subset.",
+      "limits": "Research-review-only demonstration with synthetic fixtures; no automated orders, brokerage connection or trading advice.",
+      "links": [
+        {
+          "label": "Read case study",
+          "url": "/projects/trading-research.html"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/agentic-trading-research"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/agentic-trading-research/blob/main/examples/README.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py"
+        }
+      ],
+      "command": "python3 -B examples/fail_closed_gate.py --all\npython3 -B -m unittest discover -s examples -p \"test_*.py\" -v"
+    },
+    {
+      "id": "just-qr",
+      "name": "JUST-QR",
+      "areas": [
+        "product"
+      ],
+      "form": "web",
+      "stack": [
+        "HTML",
+        "JavaScript",
+        "Canvas"
+      ],
+      "summary": "A minimal browser QR generator with image export.",
+      "scenario": "Generate and export a QR code, try an invalid or oversized destination, recover with a valid URL and compare clipboard/download images.",
+      "inspect": "Read URL validation and recovery in the single-page implementation, then inspect independent QR decoding and quiet-zone pixel checks for both export paths.",
+      "limits": "Browser utility; a QR code encodes input and does not validate whether the destination is trustworthy.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://ult666666.github.io/JUST-QR/"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/JUST-QR"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/JUST-QR/blob/main/index.html"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/JUST-QR/blob/main/tests/qr.spec.mjs"
+        }
+      ],
+      "command": "python3 -m http.server 8000"
+    },
+    {
+      "id": "teen-budgeting-hw3",
+      "name": "Teen Budgeting",
+      "areas": [
+        "product"
+      ],
+      "form": "coursework",
+      "stack": [
+        "JavaScript",
+        "Node.js",
+        "HTML/CSS"
+      ],
+      "summary": "A classroom budgeting application using fictional examples.",
+      "scenario": "Explore the budgeting flow and compare the displayed spending categories and totals with the source.",
+      "inspect": "Read the course-project setup, server routes and frontend interactions; keep its classroom scope in view.",
+      "limits": "Coursework demo with fictional data; no persistent authentication or real financial accounts.",
+      "links": [
+        {
+          "label": "Open demo",
+          "url": "https://teen-budgeting-hw3.vercel.app/"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/teen-budgeting-hw3"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/teen-budgeting-hw3/blob/main/docs/requirements.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/teen-budgeting-hw3/blob/main/tests/story.test.mjs"
+        }
+      ],
+      "command": "npm ci\nnpm test\nnpm run build\nnpm run dev"
+    }
+  ]
+}

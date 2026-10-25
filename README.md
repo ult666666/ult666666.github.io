@@ -7,11 +7,17 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies and two collection pages (the engineering lab and foundations). It is plain HTML and CSS, with no JavaScript, web fonts, analytics, cookies or third-party requests.
+A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. It is plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search is the only JavaScript, and every page works without it.
 
 The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). In short: a printed-page layout with paper, ink and one blue for links, a single system serif, and plain first-person copy.
 
 `assets/motionx-site.jpg` is a 1440 × 900 screenshot of the opening screen of https://madebymotionx.com/, captured on 25 October 2026 and saved as JPEG. SHA-256: `a37cabcb8db5be11f6923b770a2f77592d7f2eb587cfde7296552cb81c59e7fc`. No screenshot requires personal or account data.
+
+## Project explorer
+
+[Browse all 19 public projects](https://ult666666.github.io/projects/catalog.html) by scenario, implementation route, technology and scope. Text search and area filters compose; every project and link remains available without JavaScript.
+
+The reviewed source is `docs/project-catalog.json`. After editing it, run `python3 -B scripts/build_catalog.py`; the build and test suite reject stale generated HTML. The catalog adds no external services or runtime dependencies. Only its generated HTML, CSS and JavaScript enter the reviewed public payload.
 
 ## Start the review
 

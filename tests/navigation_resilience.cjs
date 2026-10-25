@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const routes = ['/', '/fintech.html', '/projects/engineering-lab.html', '/projects/foundations.html', '/projects/lineageguard.html',
   '/projects/motionx.html', '/projects/trading-research.html',
-  '/projects/frontier-ai-valuation-lab.html'];
+  '/projects/frontier-ai-valuation-lab.html', '/projects/catalog.html'];
 
 module.exports = async function navigationResilience(browser, base) {
   const results = [];

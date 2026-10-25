@@ -40,8 +40,9 @@ a page grid with notes in the margin.
    beyond a colour change.
 5. **Say it honestly, once.** AI assistance and synthetic data are stated once in the index
    note, and each project page keeps its own scope section.
-6. **Keep it plain and fast.** No JavaScript, no web fonts, no cookies, no third-party requests.
-   Every image has its intrinsic size set, so nothing jumps while loading.
+6. **Keep it plain and fast.** No web fonts, no cookies, no third-party requests, and no
+   JavaScript except the project explorer's search, which only filters entries already on the
+   page. Every image has its intrinsic size set, so nothing jumps while loading.
 7. **Be accessible by default.** WCAG AA contrast, visible focus, a skip link, real headings and
    tables, reduced motion respected, readable at 200% zoom and at 320 px.
 

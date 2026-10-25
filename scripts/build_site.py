@@ -13,7 +13,7 @@ import re
 import stat
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = ('index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'robots.txt', 'sitemap.xml')
+FILES = ('index.html', 'fintech.html', '404.html', 'styles.css', 'fintech.css', 'project-catalog.css', 'project-catalog.js', 'robots.txt', 'sitemap.xml')
 DIRECTORIES = ('assets', 'projects')
 INVENTORY = 'public-files.json'
 MANIFEST = 'release-manifest.json'

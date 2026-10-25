@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
+<meta name="description" content="Explore Charles Dai's software projects by problem, technology and runnable scenario, with source, demos and scope statements.">
+<title>Project explorer | Charles Dai</title>
+<link rel="canonical" href="https://ult666666.github.io/projects/catalog.html"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/project-catalog.css"><script defer src="/project-catalog.js"></script></head>
+<body class="catalog-page"><a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header" id="top"><div class="wrap header-inner">
+  <a class="site-name" href="/">Charles Dai</a>
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+    <a href="/#work">Work</a><a href="/#index">Index</a><a href="/#about">About</a><a href="/#contact">Contact</a>
+  </nav>
+</div></header>
+<main class="wrap" id="main"><section class="catalog-intro" aria-labelledby="title">
+<a class="case-back" href="/#index">← All work</a>
+<p class="eyebrow">Project explorer</p>
+<h1 id="title">Every project, with a way to try it</h1>
+<p class="catalog-lead">Search by problem or technology. Each entry has a scenario to try, a command to run locally, where to look in the code, and what the project does not do.</p>
+<p class="catalog-note">These include web apps, local tools, research demonstrations and coursework, built with AI assistance. Run a command from a checkout of its repository after following that README; requirements differ, and demo database seed commands need a fresh path.</p></section>
+<form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Try Python, SQLite, accessibility…" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option><option value="finance">Finance</option><option value="data">Data &amp; analytics</option><option value="ai">AI &amp; search</option><option value="backend">Backend systems</option><option value="product">Product &amp; HCI</option></select></div><button class="button" type="reset">Clear filters</button></form>
+<div class="catalog-results"><p id="catalog-count" role="status" aria-live="polite">19 projects</p></div>
+<p id="catalog-empty" hidden>No projects match those filters. Try a broader search, or clear the filters.</p>
+<div class="catalog-grid"><article class="catalog-card" id="frontier-ai-valuation-lab" data-areas="finance product">
+<div class="catalog-card-top"><span>Finance · Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>Frontier AI Valuation Lab</h2><p class="catalog-summary">A financing workspace that connects capital objectives, ownership scenarios and a reviewable decision.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>JavaScript</li><li>Node.js</li><li>Python</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Compare hypothetical financing plans, change a retained-ownership objective and inspect where the ranking changes.</dd><dt>Follow the implementation</dt><dd>Follow the shared calculation engine and Node API, then compare with the independent Python reference and verification guide.</dd><dt>Project scope</dt><dd>Independent research with illustrative assumptions; company names imply no affiliation or endorsement.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm test
+npm start</code></pre></div>
+<nav class="catalog-links" aria-label="Frontier AI Valuation Lab links"><a href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision">Open demo</a><a href="/projects/frontier-ai-valuation-lab.html">Read case study</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab">Source &amp; setup</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/ARCHITECTURE.md">Design &amp; method</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-strategy.test.js">Proving checks</a></nav></article><article class="catalog-card" id="lineageguard-datahub-agent" data-areas="ai data backend">
+<div class="catalog-card-top"><span>AI &amp; search · Data &amp; analytics · Backend systems</span><span class="catalog-form">Web application</span></div>
+<h2>LineageGuard Studio</h2><p class="catalog-summary">Typed review workflows with evidence, policy checks and recovery.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Node.js</li><li>SQLite</li><li>JavaScript</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Compose a review workflow, inspect an evidence-backed decision and follow the trace through recovery.</dd><dt>Follow the implementation</dt><dd>Start with the Studio inspector and engineering review; follow typed workflow contracts, runtime tests and policy evaluations.</dd><dt>Project scope</dt><dd>Synthetic demo; optional DataHub integration is read-only. The demo does not demonstrate a production deployment.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm run studio:evaluate</code></pre></div>
+<nav class="catalog-links" aria-label="LineageGuard Studio links"><a href="https://lineageguard-datahub-agent.vercel.app/">Open demo</a><a href="/projects/lineageguard.html">Read case study</a><a href="https://github.com/ult666666/lineageguard-datahub-agent">Source &amp; setup</a><a href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/REVIEW_INSPECTOR.md">Design &amp; method</a><a href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/inspection.test.mjs">Proving checks</a></nav></article><article class="catalog-card" id="saas-analytics-warehouse" data-areas="data">
+<div class="catalog-card-top"><span>Data &amp; analytics</span><span class="catalog-form">Web application</span></div>
+<h2>SaaS Analytics Warehouse</h2><p class="catalog-summary">A reproducible analytics pipeline for MRR, retention and unit economics.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>dbt</li><li>DuckDB</li><li>SQL</li><li>Python</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Generate fictional subscriptions and payments, build the warehouse and reconcile MRR movements into a report.</dd><dt>Follow the implementation</dt><dd>Read metric definitions, staging and mart models, then inspect reconciliation and data-quality checks.</dd><dt>Project scope</dt><dd>Seeded fictional SaaS data; results describe the fixture, not a real business.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>make all</code></pre></div>
+<nav class="catalog-links" aria-label="SaaS Analytics Warehouse links"><a href="https://ult666666.github.io/saas-analytics-warehouse/">Open demo</a><a href="/projects/foundations.html#section-4">Read case study</a><a href="https://github.com/ult666666/saas-analytics-warehouse">Source &amp; setup</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/METRICS.md">Design &amp; method</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql">Proving checks</a></nav></article><article class="catalog-card" id="impact-ledger" data-areas="data backend product">
+<div class="catalog-card-top"><span>Data &amp; analytics · Backend systems · Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>Impact Ledger</h2><p class="catalog-summary">Participation and spending reporting with a local API and atomic CSV imports.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>Python</li><li>SQLite</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Preview an attendance import, resolve validation errors, import it and compare unique participants with attendance and session spending.</dd><dt>Follow the implementation</dt><dd>Follow preview/import shared validation, exact money arithmetic and calendar-period comparison through API and browser tests.</dd><dt>Project scope</dt><dd>Hosted preview is read-only and synthetic. Writes require running the local application.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>python3 -m impact_ledger --db .local/demo.db seed
+python3 -m impact_ledger --db .local/demo.db serve</code></pre></div>
+<nav class="catalog-links" aria-label="Impact Ledger links"><a href="https://ult666666.github.io/impact-ledger/">Open demo</a><a href="/projects/engineering-lab.html#section-3">Read case study</a><a href="https://github.com/ult666666/impact-ledger">Source &amp; setup</a><a href="https://github.com/ult666666/impact-ledger/blob/main/docs/ARCHITECTURE.md">Design &amp; method</a><a href="https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md">Proving checks</a></nav></article><article class="catalog-card" id="contrastkit" data-areas="product">
+<div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>ContrastKit</h2><p class="catalog-summary">Color contrast auditing across a web app, library and CLI.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>React</li><li>OKLCH</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Download a failing palette and selected pair as tokens JSON, audit it with the CLI, apply the suggested fix and confirm the next downloaded file passes.</dd><dt>Follow the implementation</dt><dd>Follow real browser JSON export into the built CLI. Tests preserve the pair and target, gate invalid names and keep actual colors unchanged by color-vision simulation.</dd><dt>Project scope</dt><dd>Color checks support accessibility work; they do not constitute a complete accessibility audit.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+npm test
+npm run build</code></pre></div>
+<nav class="catalog-links" aria-label="ContrastKit links"><a href="https://ult666666.github.io/contrastkit/">Open demo</a><a href="/projects/foundations.html#section-6">Read case study</a><a href="https://github.com/ult666666/contrastkit">Source &amp; setup</a><a href="https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci">Design &amp; method</a><a href="https://github.com/ult666666/contrastkit/blob/main/app/test/tokens-export.test.tsx">Proving checks</a></nav></article><article class="catalog-card" id="motionx-studio" data-areas="product">
+<div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>MOTIONX Studio</h2><p class="catalog-summary">A motion-led studio website with a separate outreach-validation workflow.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Next.js</li><li>TypeScript</li><li>Python</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Explore the responsive studio pages, then inspect how the separate Python workflow validates outreach inputs.</dd><dt>Follow the implementation</dt><dd>Follow the frontend structure and architecture notes; review validation boundaries independently of the public website.</dd><dt>Project scope</dt><dd>Public site and validation tooling are separate. A website preview does not demonstrate outreach delivery or client adoption.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+npm run dev -- -p 3939</code></pre></div>
+<nav class="catalog-links" aria-label="MOTIONX Studio links"><a href="https://madebymotionx.com/">Open demo</a><a href="/projects/motionx.html">Read case study</a><a href="https://github.com/ult666666/motionx-studio">Source &amp; setup</a><a href="https://github.com/ult666666/motionx-studio/blob/main/README.md">Design &amp; method</a><a href="https://github.com/ult666666/motionx-studio/tree/main/outreach/tests">Proving checks</a></nav></article><article class="catalog-card" id="relaybox" data-areas="backend">
+<div class="catalog-card-top"><span>Backend systems</span><span class="catalog-form">Local API service</span></div>
+<h2>RelayBox</h2><p class="catalog-summary">A durable signed-webhook inbox with idempotency and fenced worker leases.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>SQLite</li><li>HMAC</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Deliver the same signed event twice, process the job and inspect retry, lease and recovery behavior locally.</dd><dt>Follow the implementation</dt><dd>Follow ingestion uniqueness, transactional lease ownership and worker receipt handling; inspect the local diagnostic dashboard.</dd><dt>Project scope</dt><dd>Local single-host SQLite service. Diagnostic samples are not throughput or service-level claims.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>python3 -m relaybox --db .local/demo.sqlite3 demo
+python3 -m relaybox --db .local/demo.sqlite3 serve --demo-secret</code></pre></div>
+<nav class="catalog-links" aria-label="RelayBox links"><a href="/projects/engineering-lab.html#section-1">Read case study</a><a href="https://github.com/ult666666/relaybox">Source &amp; setup</a><a href="https://github.com/ult666666/relaybox/blob/main/docs/ARCHITECTURE.md">Design &amp; method</a><a href="https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md">Proving checks</a></nav></article><article class="catalog-card" id="tracebench" data-areas="ai backend">
+<div class="catalog-card-top"><span>AI &amp; search · Backend systems</span><span class="catalog-form">Library / CLI</span></div>
+<h2>TraceBench</h2><p class="catalog-summary">Offline evaluation of recorded AI outputs with exact supplied-cost accounting and regression gates.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>JSONL</li><li>Decimal</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Evaluate a bilingual recorded fixture, compare a baseline and inspect a deliberately failing regression or budget rule.</dd><dt>Follow the implementation</dt><dd>Read strict input contracts and the JSON/Markdown/HTML reports, then trace reusable CI gate behavior.</dd><dt>Project scope</dt><dd>Evaluates supplied recorded outputs; it does not call a model or measure live model quality.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>python3 -m tracebench evaluate --cases fixtures/cases.jsonl --outputs fixtures/clean.jsonl --pricing fixtures/pricing.json</code></pre></div>
+<nav class="catalog-links" aria-label="TraceBench links"><a href="https://ult666666.github.io/tracebench/">Open demo</a><a href="/projects/engineering-lab.html#section-2">Read case study</a><a href="https://github.com/ult666666/tracebench">Source &amp; setup</a><a href="https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md">Design &amp; method</a><a href="https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md">Proving checks</a></nav></article><article class="catalog-card" id="quantkit" data-areas="finance">
+<div class="catalog-card-top"><span>Finance</span><span class="catalog-form">Library / CLI</span></div>
+<h2>quantkit</h2><p class="catalog-summary">Options pricing, portfolio optimization and backtesting checked against independent references.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>NumPy</li><li>SciPy</li><li>pandas</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Generate fictional prices, estimate monthly risk-parity allocations using only prior closes and compare against equal weight on the same dates and costs. Inspect six CSV exports.</dd><dt>Follow the implementation</dt><dd>Follow estimation-window receipts, targets and wealth exports. Future-price perturbation tests keep earlier allocations fixed; the comparison includes shared warmup and entry costs.</dd><dt>Project scope</dt><dd>Educational quantitative software using illustrative inputs; no investment recommendation or live execution.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>uv sync
+uv run python examples/walk_forward_risk_parity.py</code></pre></div>
+<nav class="catalog-links" aria-label="quantkit links"><a href="/projects/foundations.html#section-1">Read case study</a><a href="https://github.com/ult666666/quantkit">Source &amp; setup</a><a href="https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md">Design &amp; method</a><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py">Proving checks</a></nav></article><article class="catalog-card" id="powerlift" data-areas="data">
+<div class="catalog-card-top"><span>Data &amp; analytics</span><span class="catalog-form">Library / CLI</span></div>
+<h2>powerlift</h2><p class="catalog-summary">Experiment statistics with power analysis, CUPED, sequential monitoring and Bayesian tools.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>SciPy</li><li>statsmodels</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Read a seeded per-user experiment CSV, check the allocation and outcome window, then compare raw and CUPED-adjusted estimates with uncertainty.</dd><dt>Follow the implementation</dt><dd>Follow the complete experiment readout from CSV validation through SRM and horizon gates to CUPED. Try the blocked scenarios before inspecting the statistical library references.</dd><dt>Project scope</dt><dd>Statistical results depend on study design and data assumptions; a significant result alone is not a business decision.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>uv sync
+uv run python examples/experiment_readout.py --as-of 2026-09-15</code></pre></div>
+<nav class="catalog-links" aria-label="powerlift links"><a href="/projects/foundations.html#section-2">Read case study</a><a href="https://github.com/ult666666/powerlift">Source &amp; setup</a><a href="https://github.com/ult666666/powerlift/blob/main/docs/EXPERIMENT_READOUT.md">Design &amp; method</a><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_experiment_readout.py">Proving checks</a></nav></article><article class="catalog-card" id="ledgerline" data-areas="finance backend">
+<div class="catalog-card-top"><span>Finance · Backend systems</span><span class="catalog-form">Local API service</span></div>
+<h2>ledgerline</h2><p class="catalog-summary">A double-entry ledger API with immutable balanced entries and idempotent writes.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>SQLite</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Run a disposable local HTTP wallet: deposit, transfer, retry with the same key, reject an overdraft, reverse the transfer and reconcile current and historical balances.</dd><dt>Follow the implementation</dt><dd>Follow the one-command receipt: replay identity, unchanged rejected-write balances, reversal links, historical state and zero trial balance. The example owns and cleans up its temporary database and server.</dd><dt>Project scope</dt><dd>Engineering demonstration; it is not a bank, payment processor or accounting system certification.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>uv sync
+uv run python examples/wallet_demo.py</code></pre></div>
+<nav class="catalog-links" aria-label="ledgerline links"><a href="/projects/foundations.html#section-3">Read case study</a><a href="https://github.com/ult666666/ledgerline">Source &amp; setup</a><a href="https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md">Design &amp; method</a><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_wallet_demo.py">Proving checks</a></nav></article><article class="catalog-card" id="searchlite" data-areas="ai backend">
+<div class="catalog-card-top"><span>AI &amp; search · Backend systems</span><span class="catalog-form">Library / CLI</span></div>
+<h2>searchlite</h2><p class="catalog-summary">A full-text search engine with explainable ranking and retrieval evaluation.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>BM25F</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Index a selected local Markdown/text directory, save a reusable snapshot and query it with snippets and score explanations without rereading the sources.</dd><dt>Follow the implementation</dt><dd>Follow the docs consumer example through deterministic file traversal, public index serialization and reload. Real-process tests check safe paths, bounds, no-overwrite behavior and snapshot-only searches.</dd><dt>Project scope</dt><dd>Small in-memory search library and demo; fixture quality is not a general search benchmark.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci --ignore-scripts
+npm run build
+mkdir -p .cache
+npm run search:docs -- index docs .cache/local-docs.json
+npm run search:docs -- search .cache/local-docs.json &#x27;&quot;query language&quot;&#x27;</code></pre></div>
+<nav class="catalog-links" aria-label="searchlite links"><a href="https://ult666666.github.io/searchlite/">Open demo</a><a href="/projects/foundations.html#section-5">Read case study</a><a href="https://github.com/ult666666/searchlite">Source &amp; setup</a><a href="https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents">Design &amp; method</a><a href="https://github.com/ult666666/searchlite/blob/main/test/search-docs.test.ts">Proving checks</a></nav></article><article class="catalog-card" id="citecheck" data-areas="ai backend">
+<div class="catalog-card-top"><span>AI &amp; search · Backend systems</span><span class="catalog-form">Library / CLI</span></div>
+<h2>citecheck</h2><p class="catalog-summary">Document question answering with retrieved citations, claim checks and abstention evaluation.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>Claude API</li><li>SQLite FTS5</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Index the sample handbook, ask a supported question and compare with a question the documents cannot answer.</dd><dt>Follow the implementation</dt><dd>Follow real SQLite indexing, retrieval and sentence-citation checks. Markdown fence regressions verify that example headings remain under their enclosing source section.</dd><dt>Project scope</dt><dd>Offline fixture responses are hand-written. Live answers require provider configuration and may incur usage charges.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>uv sync
+uv run citecheck index examples/handbook
+uv run citecheck ask &quot;What is the deadline for submitting an expense?&quot;</code></pre></div>
+<nav class="catalog-links" aria-label="citecheck links"><a href="/projects/foundations.html#section-7">Read case study</a><a href="https://github.com/ult666666/citecheck">Source &amp; setup</a><a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md">Design &amp; method</a><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_index.py">Proving checks</a></nav></article><article class="catalog-card" id="proofcast-backblaze" data-areas="ai product">
+<div class="catalog-card-top"><span>AI &amp; search · Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>ProofCast</h2><p class="catalog-summary">Local media generation with provenance records and optional object storage.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>Streamlit</li><li>SHA-256</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Generate a local asset bundle, verify the saved manifest against its actual media files, then alter a copied file and inspect the explicit failure.</dd><dt>Follow the implementation</dt><dd>Follow the offline verification CLI, byte digests and media-format checks. Reproduce missing-file, tamper and moved-bundle cases without uploading anything.</dd><dt>Project scope</dt><dd>Local workflow demonstration. A digest identifies bytes; it does not prove authorship or the truth of media content.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>.venv/bin/python -m proofcast.cli --title &quot;Synthetic demo&quot; --script &quot;A local verification example.&quot;</code></pre></div>
+<nav class="catalog-links" aria-label="ProofCast links"><a href="https://github.com/ult666666/proofcast-backblaze">Source &amp; setup</a><a href="https://github.com/ult666666/proofcast-backblaze/blob/main/README.md">Design &amp; method</a><a href="https://github.com/ult666666/proofcast-backblaze/blob/main/tests/test_verification.py">Proving checks</a></nav></article><article class="catalog-card" id="luma-keys" data-areas="product">
+<div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Desktop application</span></div>
+<h2>Luma Keys</h2><p class="catalog-summary">Offline piano practice with score views, planned fingering and graded sight reading.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Electron</li><li>React</li><li>three.js</li><li>Web Audio</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Open a practice piece, compare numbered score, sheet and falling-note views, then follow the planned fingering.</dd><dt>Follow the implementation</dt><dd>Review the desktop app setup, Web Audio/MIDI handling, practice grading and on-device recognition boundaries.</dd><dt>Project scope</dt><dd>Desktop application; browser screenshots do not replace an installed macOS practice session. Optional local AI needs separate setup.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+npm test
+npm run build</code></pre></div>
+<nav class="catalog-links" aria-label="Luma Keys links"><a href="https://github.com/ult666666/luma-keys">Source &amp; setup</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md">Design &amp; method</a><a href="https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs">Proving checks</a></nav></article><article class="catalog-card" id="blast-radius-daily" data-areas="product data">
+<div class="catalog-card-top"><span>Product &amp; HCI · Data &amp; analytics</span><span class="catalog-form">Platform game</span></div>
+<h2>Blast Radius Daily</h2><p class="catalog-summary">A one-minute Reddit puzzle about downstream effects of schema changes.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>Devvit</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Choose which downstream objects a schema change affects, then compare the game result with the dependency graph.</dd><dt>Follow the implementation</dt><dd>Follow graph propagation and deterministic puzzle tests before reviewing the Devvit interface.</dd><dt>Project scope</dt><dd>The local browser demo uses fake community data. Reddit context, Redis and platform actions require the documented Devvit environment.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+npm run preview:local
+# Open http://127.0.0.1:4174/src/client/game.html?demo=1&amp;day=2026-07-14</code></pre></div>
+<nav class="catalog-links" aria-label="Blast Radius Daily links"><a href="https://github.com/ult666666/blast-radius-daily">Source &amp; setup</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/src/shared/game.ts">Design &amp; method</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/test/game.test.ts">Proving checks</a></nav></article><article class="catalog-card" id="agentic-trading-research" data-areas="finance ai">
+<div class="catalog-card-top"><span>Finance · AI &amp; search</span><span class="catalog-form">Research demonstration</span></div>
+<h2>Agentic Trading Research</h2><p class="catalog-summary">An offline research architecture with a runnable fail-closed review gate.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>JSON Schema</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Run six synthetic gate scenarios and inspect why missing or contradictory evidence blocks a research result.</dd><dt>Follow the implementation</dt><dd>Follow schema validation, gate reasons and negative tests; compare the architecture with the runnable subset.</dd><dt>Project scope</dt><dd>Research-review-only demonstration with synthetic fixtures; no automated orders, brokerage connection or trading advice.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>python3 -B examples/fail_closed_gate.py --all
+python3 -B -m unittest discover -s examples -p &quot;test_*.py&quot; -v</code></pre></div>
+<nav class="catalog-links" aria-label="Agentic Trading Research links"><a href="/projects/trading-research.html">Read case study</a><a href="https://github.com/ult666666/agentic-trading-research">Source &amp; setup</a><a href="https://github.com/ult666666/agentic-trading-research/blob/main/examples/README.md">Design &amp; method</a><a href="https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py">Proving checks</a></nav></article><article class="catalog-card" id="just-qr" data-areas="product">
+<div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Web application</span></div>
+<h2>JUST-QR</h2><p class="catalog-summary">A minimal browser QR generator with image export.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>HTML</li><li>JavaScript</li><li>Canvas</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Generate and export a QR code, try an invalid or oversized destination, recover with a valid URL and compare clipboard/download images.</dd><dt>Follow the implementation</dt><dd>Read URL validation and recovery in the single-page implementation, then inspect independent QR decoding and quiet-zone pixel checks for both export paths.</dd><dt>Project scope</dt><dd>Browser utility; a QR code encodes input and does not validate whether the destination is trustworthy.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>python3 -m http.server 8000</code></pre></div>
+<nav class="catalog-links" aria-label="JUST-QR links"><a href="https://ult666666.github.io/JUST-QR/">Open demo</a><a href="https://github.com/ult666666/JUST-QR">Source &amp; setup</a><a href="https://github.com/ult666666/JUST-QR/blob/main/index.html">Design &amp; method</a><a href="https://github.com/ult666666/JUST-QR/blob/main/tests/qr.spec.mjs">Proving checks</a></nav></article><article class="catalog-card" id="teen-budgeting-hw3" data-areas="product">
+<div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Coursework</span></div>
+<h2>Teen Budgeting</h2><p class="catalog-summary">A classroom budgeting application using fictional examples.</p>
+<ul class="catalog-stack" aria-label="Technology"><li>JavaScript</li><li>Node.js</li><li>HTML/CSS</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Explore the budgeting flow and compare the displayed spending categories and totals with the source.</dd><dt>Follow the implementation</dt><dd>Read the course-project setup, server routes and frontend interactions; keep its classroom scope in view.</dd><dt>Project scope</dt><dd>Coursework demo with fictional data; no persistent authentication or real financial accounts.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+npm test
+npm run build
+npm run dev</code></pre></div>
+<nav class="catalog-links" aria-label="Teen Budgeting links"><a href="https://teen-budgeting-hw3.vercel.app/">Open demo</a><a href="https://github.com/ult666666/teen-budgeting-hw3">Source &amp; setup</a><a href="https://github.com/ult666666/teen-budgeting-hw3/blob/main/docs/requirements.md">Design &amp; method</a><a href="https://github.com/ult666666/teen-budgeting-hw3/blob/main/tests/story.test.mjs">Proving checks</a></nav></article></div>
+</main>
+<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666">GitHub</a><a href="#top">Back to top</a></p></footer>
+</body></html>
