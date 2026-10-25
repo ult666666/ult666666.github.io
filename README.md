@@ -13,6 +13,12 @@ The homepage also offers a [six-project recent-build spotlight](https://ult66666
 
 The first-screen specialty routes jump to real projects without client-side routing. Four gallery images come directly from pinned commits in their public project repositories; SHA-256 digests, source paths, and dimensions are recorded in [docs/RECENT_VISUALS.json](docs/RECENT_VISUALS.json). Two additional cards use decorative CSS diagrams. No screenshot requires personal or account data.
 
+## Project explorer
+
+[Browse all 19 public projects](https://ult666666.github.io/projects/catalog.html) by scenario, implementation route, technology and scope. Text search and area filters compose; every project and link remains available without JavaScript.
+
+The reviewed source is `docs/project-catalog.json`. After editing it, run `python3 -B scripts/build_catalog.py`; the build and test suite reject stale generated HTML. The catalog adds no external services or runtime dependencies. Only its generated HTML, CSS and JavaScript enter the reviewed public payload.
+
 ## Start the review
 
 The homepage features **Frontier AI Valuation Lab** first. Its [engineering review guide](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html#review-guide) connects a short demo journey to the public source and checks for calculation consistency, exact navigation handoffs, save failures and evidence provenance. The evidence table becomes stacked cards on small screens and remains readable without JavaScript.

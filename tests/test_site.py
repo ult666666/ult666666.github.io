@@ -60,7 +60,7 @@ def parse(path: Path) -> Reader:
 
 class PortfolioTests(unittest.TestCase):
     def test_pages_and_case_count(self):
-        self.assertEqual({p.name for p in (ROOT / "projects").glob("*.html")}, CASE_NAMES)
+        self.assertEqual({p.name for p in (ROOT / "projects").glob("*.html")}, CASE_NAMES | {"catalog.html"})
         for page in PAGES:
             with self.subTest(page=page.name):
                 self.assertTrue(page.stat().st_size > 1000)
@@ -115,7 +115,8 @@ class PortfolioTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_case_pages_have_navigation_and_source(self):
-        for page in (ROOT / "projects").glob("*.html"):
+        for name in CASE_NAMES:
+            page = ROOT / "projects" / name
             with self.subTest(page=page.name):
                 doc = parse(page)
                 for sid in ("main", "section-1", "section-2", "section-3", "section-4"):
