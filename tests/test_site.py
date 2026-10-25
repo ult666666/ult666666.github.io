@@ -52,6 +52,16 @@ class Reader(HTMLParser):
             self.headings.append(tag)
 
 
+class ScriptReader(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.found = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.found.append(dict(attrs))
+
+
 def parse(path: Path) -> Reader:
     x = Reader()
     x.feed(path.read_text(encoding="utf-8"))
@@ -193,10 +203,13 @@ class PortfolioTests(unittest.TestCase):
         for page in [*PAGES, ROOT / "404.html"]:
             with self.subTest(page=page.name):
                 text = page.read_text(encoding="utf-8")
-                scripts = re.findall(r"<script\b[^>]*>", text)
-                allowed = ['<script defer src="/project-catalog.js">'] if page.name == "catalog.html" else []
-                self.assertEqual([tag for tag in scripts if 'type="application/ld+json"' not in tag], allowed,
-                                 "Only the project explorer's search may use JavaScript")
+                # HTMLParser lowercases tag and attribute names, so no spelling of <script> slips past.
+                scripts = ScriptReader()
+                scripts.feed(text)
+                executable = [attrs for attrs in scripts.found
+                              if (attrs.get("type") or "").strip().lower() != "application/ld+json"]
+                allowed = [{"defer": None, "src": "/project-catalog.js"}] if page.name == "catalog.html" else []
+                self.assertEqual(executable, allowed, "Only the project explorer's search may use JavaScript")
                 self.assertIn('class="skip-link" href="#main"', text)
                 self.assertNotIn('class="menu-toggle"', text)
 
