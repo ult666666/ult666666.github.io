@@ -560,9 +560,9 @@
         "Web Audio"
       ],
       "summary": "Offline piano practice with score views, planned fingering and graded sight reading.",
-      "scenario": "Open a practice piece, compare numbered score, sheet and falling-note views, then follow the planned fingering.",
-      "inspect": "Review the desktop app setup, Web Audio/MIDI handling, practice grading and on-device recognition boundaries.",
-      "limits": "Desktop application; browser screenshots do not replace an installed macOS practice session. Optional local AI needs separate setup.",
+      "scenario": "Build a disposable browser session, generate an exercise, play clean and flawed timed runs, then inspect saved progress and repeat the exact seed.",
+      "inspect": "Run five sight-reading stories and inspect screenshots, failure receipts, owned-server cleanup and Web Audio practice grading without optional engines.",
+      "limits": "Browser QA uses synthetic exercises with 3-D hands off on macOS/Linux. Physical input, native packaging and optional engines need separate verification.",
       "links": [
         {
           "label": "Source & setup",
@@ -575,9 +575,13 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs"
+        },
+        {
+          "label": "Isolated browser workflow",
+          "url": "https://github.com/ult666666/luma-keys/blob/main/docs/BROWSER_QA.md"
         }
       ],
-      "command": "npm ci\nnpm test\nnpm run build"
+      "command": "npm ci --ignore-scripts\nnpx playwright install chromium --only-shell\nnpm test\nnpm run qa:browser -- --output-dir .qa-runs/reviewer-exercise"
     },
     {
       "id": "blast-radius-daily",

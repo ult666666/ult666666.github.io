@@ -126,11 +126,12 @@ uv run citecheck ask &quot;What is the deadline for submitting an expense?&quot;
 <div class="catalog-card-top"><span>Product &amp; HCI</span><span class="catalog-form">Desktop application</span></div>
 <h2>Luma Keys</h2><p class="catalog-summary">Offline piano practice with score views, planned fingering and graded sight reading.</p>
 <ul class="catalog-stack" aria-label="Technology"><li>Electron</li><li>React</li><li>three.js</li><li>Web Audio</li></ul>
-<dl><dt>A scenario to explore</dt><dd>Open a practice piece, compare numbered score, sheet and falling-note views, then follow the planned fingering.</dd><dt>Follow the implementation</dt><dd>Review the desktop app setup, Web Audio/MIDI handling, practice grading and on-device recognition boundaries.</dd><dt>Project scope</dt><dd>Desktop application; browser screenshots do not replace an installed macOS practice session. Optional local AI needs separate setup.</dd></dl>
-<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
+<dl><dt>A scenario to explore</dt><dd>Build a disposable browser session, generate an exercise, play clean and flawed timed runs, then inspect saved progress and repeat the exact seed.</dd><dt>Follow the implementation</dt><dd>Run five sight-reading stories and inspect screenshots, failure receipts, owned-server cleanup and Web Audio practice grading without optional engines.</dd><dt>Project scope</dt><dd>Browser QA uses synthetic exercises with 3-D hands off on macOS/Linux. Physical input, native packaging and optional engines need separate verification.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci --ignore-scripts
+npx playwright install chromium --only-shell
 npm test
-npm run build</code></pre></div>
-<nav class="catalog-links" aria-label="Luma Keys links"><a href="https://github.com/ult666666/luma-keys">Source &amp; setup</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md">Design &amp; method</a><a href="https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs">Proving checks</a></nav></article><article class="catalog-card" id="blast-radius-daily" data-areas="product data">
+npm run qa:browser -- --output-dir .qa-runs/reviewer-exercise</code></pre></div>
+<nav class="catalog-links" aria-label="Luma Keys links"><a href="https://github.com/ult666666/luma-keys">Source &amp; setup</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md">Design &amp; method</a><a href="https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs">Proving checks</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/BROWSER_QA.md">Isolated browser workflow</a></nav></article><article class="catalog-card" id="blast-radius-daily" data-areas="product data">
 <div class="catalog-card-top"><span>Product &amp; HCI · Data &amp; analytics</span><span class="catalog-form">Platform game</span></div>
 <h2>Blast Radius Daily</h2><p class="catalog-summary">A one-minute Reddit puzzle about downstream effects of schema changes.</p>
 <ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>Devvit</li></ul>
