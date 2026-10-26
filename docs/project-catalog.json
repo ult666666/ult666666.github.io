@@ -57,8 +57,8 @@
         "JavaScript"
       ],
       "summary": "Typed review workflows with evidence, policy checks and recovery.",
-      "scenario": "Compare saved standard and strict synthetic reviews, inspect both exports before showing differences, and distinguish recorded decisions from current evidence freshness.",
-      "inspect": "Try the Studio inspector and recovery workflow, then use the native two-file comparison command. Follow the semantic inspection, owned byte snapshots and unchanged comparison contracts.",
+      "scenario": "Use the Studio Compare tab to choose two completed synthetic reviews, validate both exports locally and inspect their differences. Recorded decisions and current evidence freshness remain separate; no current run is required.",
+      "inspect": "Follow one shared comparison report through the browser and file-only command. Review semantic inspection, bounded file reads, stale-read invalidation and offline checks that preserve existing run state.",
       "limits": "Synthetic demonstration; optional DataHub integration is read-only. Saved-export checks establish internal consistency, not source truth, authenticated approval or migration authority. Production behavior needs separate verification.",
       "links": [
         {
@@ -84,6 +84,10 @@
         {
           "label": "Compare saved exports",
           "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/REVIEW_COMPARISON.md"
+        },
+        {
+          "label": "Browser comparison checks",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/scripts/saved-comparison-browser.cjs"
         }
       ],
       "command": "node scripts/studio-review.mjs --scenario=safe-add --profile=standard --output=./.lineageguard/compare-standard.json\nnode scripts/studio-review.mjs --scenario=safe-add --profile=strict --output=./.lineageguard/compare-strict.json\nnode scripts/studio-compare.mjs --left=./.lineageguard/compare-standard.json --right=./.lineageguard/compare-strict.json\n# Use new export paths when repeating; existing outputs are never overwritten."
@@ -454,8 +458,8 @@
       ],
       "summary": "A full-text search engine with explainable ranking and retrieval evaluation.",
       "scenario": "Compare retrieval configurations in the browser, inspect query-level regressions and download the full comparison. Then index local notes and check your own labelled questions against explicit relevance thresholds.",
-      "inspect": "Follow shared retrieval settings through browser/native report parity, bounded snapshot-only evaluation and real-process exit codes. Reproduce raw timing samples at 1,000 and 10,000 synthetic documents with the benchmark method and machine context.",
-      "limits": "Small in-memory library. Authored glossary judgments and repeated-vocabulary timing fixtures do not establish general retrieval quality or production latency; local reports may contain private query text and document IDs.",
+      "inspect": "Follow browser/native report parity and snapshot-only relevance checks, then inspect candidate-aware scoring with exact-ranking paired measurements, raw trials and slower controls. The separate finite-vector repair uses a 96-case high-precision reference and atomic sparse-input rejection.",
+      "limits": "Small in-memory library. Authored judgments and synthetic timing fixtures do not establish general retrieval quality or production latency. Vector checks are finite evidence with cancellation, rounding and near-tie limits. Local reports may contain private query text and document IDs.",
       "links": [
         {
           "label": "Compare relevance",
@@ -480,6 +484,14 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/searchlite/blob/main/test/local-evaluation.test.ts"
+        },
+        {
+          "label": "Exact-ranking measurements",
+          "url": "https://github.com/ult666666/searchlite/blob/67589d74bf4d4b79f7adda1a05014d127ae39107/docs/EXECUTION.md"
+        },
+        {
+          "label": "Vector reference checks",
+          "url": "https://github.com/ult666666/searchlite/blob/b85f9cb0830b4d7080f3d44bd3cdf60585291faf/docs/VECTOR_NUMERICS.md"
         }
       ],
       "command": "npm ci --ignore-scripts\nnpm run build\nsearchlite_review_dir=$(mktemp -d)\nsearchlite_review_dir=$(cd \"$searchlite_review_dir\" && pwd -P)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"

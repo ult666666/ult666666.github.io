@@ -51,8 +51,8 @@ CASES = [
                     'binding. Changed input invalidates previous results and local acknowledgements. The '
                     'browser exposes pause, reload, resume, cancellation, source-outage recovery, exact '
                     'exports and comparisons between alternative plans.',
-                    'The Inspector revision verified on 20 October 2026 has 120 Node tests, 31 browser '
-                    'journeys and 19 evaluation assertions. These are separate, overlapping checks, not '
+                    'The saved-comparison revision 5d7df02 verified on 26 October 2026 has 135 Node tests, '
+                    '41 browser journeys across both storage modes and 19 evaluation assertions. These are separate, overlapping checks, not '
                     'independent evidence of catalog truth. The original v2.0.0 release keeps its '
                     'historical verification record; later launcher and Inspector changes are identified '
                     'by their own commits.']),
@@ -76,6 +76,19 @@ CASES = [
                     'ambiguous JSON and oversized inputs, clear stale success after refusal, and do not '
                     'restore imported packages as runnable state. Browser tests disable networking during '
                     'inspection and check that no request or checkpoint write occurs.']),
+                  ('Compare two saved reviews',
+                   ['Open the Compare tab and choose two completed exported reviews. Both files pass the '
+                    'same semantic inspection before any difference appears. The report distinguishes '
+                    'recorded decisions from current evidence freshness and identifies alternative '
+                    'requests explicitly. No current run is needed.',
+                    'The browser and file-only command share one comparison implementation and report '
+                    'schema. Selecting another file or clearing the panel invalidates an unfinished read '
+                    'and removes stale success. The comparison neither uploads files nor imports them '
+                    'into run history; existing run state remains unchanged.',
+                    'Try the synthetic standard and strict reviews from the comparison guide, then '
+                    'download the report. Its zero new tool calls and false authorization flags remain '
+                    'visible. An internally consistent export does not authenticate its source or '
+                    'authorize a migration.']),
                   ('Try a three-minute engineering review',
                    ['Compose and run. Open Studio, choose Revenue field rename, and run the review. '
                     'Inspect a completed node: the graph, outputs and event trace describe actual '
@@ -125,6 +138,12 @@ CASES = [
                                                        'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/test/studio/inspection.test.mjs'),
                                                       ('Offline browser checks',
                                                        'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/scripts/inspection-browser.cjs')],
+                       'Compare two saved reviews': [('Saved comparison walkthrough',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/docs/REVIEW_COMPARISON.md'),
+                                                      ('Shared comparison implementation',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/public/studio/core/review-comparison.js'),
+                                                      ('Offline browser and lifecycle checks',
+                                                       'https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/scripts/saved-comparison-browser.cjs')],
                        'Try a three-minute engineering review': [('Open the working Studio',
                                                                   'https://lineageguard-datahub-agent.vercel.app/'),
                                                                  ('Walkthrough and interview framing',
@@ -136,9 +155,16 @@ CASES = [
                      'The orchestration system': 'section-2',
                      'Failure and recovery evidence': 'section-3',
                      'Verify the exported review': 'review-inspector',
+                     'Compare two saved reviews': 'saved-comparison',
                      'Try a three-minute engineering review': 'try-workflow',
                      'My role, runtime modes and limits': 'section-4'},
-     'section_media': {'Verify the exported review': {'image': '/assets/lineageguard-review-inspector.png',
+     'section_media': {'Compare two saved reviews': {'image': '/assets/lineageguard-saved-comparison.png',
+                                                      'alt': 'Saved standard and strict synthetic reviews compared locally: internally consistent, not authenticated',
+                                                      'width': 1170,
+                                                      'height': 1073,
+                                                      'caption': 'Actual public Compare panel at source 5d7df02, captured on 26 October 2026. Synthetic standard and strict reviews share a request but record different decisions. Internal consistency does not authenticate evidence or approval.',
+                                                      'href': 'https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/docs/REVIEW_COMPARISON.md'},
+                       'Verify the exported review': {'image': '/assets/lineageguard-review-inspector.png',
                                                       'alt': 'Review Inspector showing the recorded '
                                                              'decision, current evidence freshness and the '
                                                              'explicit boundary: internally consistent, '

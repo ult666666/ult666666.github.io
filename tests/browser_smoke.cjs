@@ -105,7 +105,7 @@ async function captureFinancingCase(page, destination) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : name === 'lineageguard' ? 6 : 4);
+      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : name === 'lineageguard' ? 7 : 4);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
