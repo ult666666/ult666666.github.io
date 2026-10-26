@@ -19,6 +19,8 @@ INVENTORY = 'public-files.json'
 MANIFEST = 'release-manifest.json'
 MAX_FILE_BYTES = 8 * 1024 * 1024
 MAX_TOTAL_BYTES = 32 * 1024 * 1024
+BLAST_DEMO = 'projects/blast-radius-demo.html'
+BLAST_LOCK = 'docs/blast-demo-lock.json'
 
 
 def safe_path(path: Path) -> Path:
@@ -73,6 +75,21 @@ def approved_name(name) -> bool:
                 r'(?:assets/[a-zA-Z0-9_-]+\.(?:png|jpg|svg)|projects/[a-zA-Z0-9_-]+\.html)', name) is not None))
 
 
+def validate_blast_demo(raw: bytes, lock: dict) -> None:
+    """Keep the executable vendor artifact bound to its clean upstream build."""
+    if (set(lock) != {'schema', 'repository', 'sourceCommit', 'sourceDirty',
+                     'artifact', 'sha256', 'bytes'}
+            or lock.get('schema') != 'blast-offline-demo/1'
+            or lock.get('repository') != 'https://github.com/ult666666/blast-radius-daily'
+            or lock.get('artifact') != BLAST_DEMO or lock.get('sourceDirty') is not False
+            or not isinstance(lock.get('sourceCommit'), str)
+            or re.fullmatch(r'[a-f0-9]{40}', lock['sourceCommit']) is None
+            or type(lock.get('bytes')) is not int or lock['bytes'] != len(raw)
+            or hashlib.sha256(raw).hexdigest() != lock.get('sha256')
+            or ('<meta name="blast-source-commit" content="' + lock['sourceCommit'] + '" />').encode() not in raw):
+        raise ValueError('Blast demo differs from its reviewed clean source/build lock')
+
+
 def source_snapshot() -> dict[str, bytes]:
     root = safe_path(ROOT)
     document = load_json(read_regular(root / INVENTORY, 32768))
@@ -97,6 +114,9 @@ def source_snapshot() -> dict[str, bytes]:
     if actual != set(names):
         raise ValueError('Public inventory mismatch: unlisted or missing file')
     snapshot = {name: read_regular(root / name) for name in sorted(names)}
+    if BLAST_DEMO not in snapshot:
+        raise ValueError('Missing reviewed Blast demo')
+    validate_blast_demo(snapshot[BLAST_DEMO], load_json(read_regular(root / BLAST_LOCK, 32768)))
     if sum(len(raw) for raw in snapshot.values()) > MAX_TOTAL_BYTES:
         raise ValueError('Public payload exceeds size budget')
     snapshot['.nojekyll'] = b''

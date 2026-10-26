@@ -7,7 +7,7 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. It is plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search is the only JavaScript, and every page works without it.
+A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. The authored portfolio pages use plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search uses JavaScript; every project and link remains available without it. The separately vendored Blast game requires its embedded runtime and makes no external requests.
 
 The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). In short: a printed-page layout with paper, ink and one blue for links, a single system serif, and plain first-person copy.
 
@@ -125,6 +125,12 @@ The Inspector revision's 120 Node tests, 31 browser journeys and 19 evaluation a
 
 The [Inspector showcase verification record](docs/verification/lineageguard-inspector-showcase.json) binds the public source screenshot, authored case files and preserved other projects. Deployment results are verified separately after publication.
 
+## Blast Radius: playable offline build
+
+The project explorer links to a [playable Blast incident](projects/blast-radius-demo.html). It uses the actual Phaser scenes and shared deterministic engine with fictional tab-memory scores/votes. The source repository documents `npm run build:demo` and its complete offline Chromium journey. Reddit/Redis/moderation/comments remain outside this demonstration; desktop and landscape pointer play are the supported layout.
+
+`docs/blast-demo-lock.json` pins the clean upstream source commit, exact HTML SHA-256 and size. The staging build rejects changed bytes, missing locks, dirty/unknown source identities and mismatched source metadata before creating output. The generated executable has separate resource/CSP/license checks; authored portfolio pages retain their strict script policy. To refresh it, build a reviewed green upstream main in a clean checkout, copy only `dist-demo/blast-radius-demo.html`, update the lock from its manifest, and run the full portfolio checks plus actual catalog-to-game journey. Do not hand-edit the generated HTML.
+
 ## License
 
-The source code is available under the [MIT License](LICENSE). The portfolio's written content, images and other media are © 2026 Charles Dai, all rights reserved, and are not covered by the MIT License.
+The portfolio source code is available under the [MIT License](LICENSE). The vendored Blast HTML retains its own BSD-3-Clause project license and source-specific third-party notices, included under its **Source and bundled licenses** control. The portfolio's written content, images and other media are © 2026 Charles Dai, all rights reserved, and are not covered by the MIT License.
