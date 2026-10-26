@@ -26,7 +26,8 @@ class DeploymentInventoryTests(unittest.TestCase):
         self.root.mkdir()
         inventory = json.loads((ROOT / 'public-files.json').read_text())
         for name in inventory['files'] + [
-                'public-files.json', 'scripts/build_site.py', 'scripts/verify_deployment.py']:
+                'public-files.json', 'scripts/build_site.py', 'scripts/verify_deployment.py',
+                'docs/blast-demo-lock.json']:
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, target)

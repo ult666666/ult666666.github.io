@@ -10,7 +10,9 @@ import unittest
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = [ROOT / "index.html", ROOT / "fintech.html", *(ROOT / "projects").glob("*.html")]
+VENDORED_DEMOS = {"blast-radius-demo.html"}  # Exact build/source/CSP tests live in test_blast_demo.py.
+PAGES = [ROOT / "index.html", ROOT / "fintech.html",
+         *(p for p in (ROOT / "projects").glob("*.html") if p.name not in VENDORED_DEMOS)]
 CASE_NAMES = {"lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html", "engineering-lab.html", "foundations.html"}
 CATEGORIES = {"ai", "web", "experimental", "fintech"}
 
@@ -70,7 +72,7 @@ def parse(path: Path) -> Reader:
 
 class PortfolioTests(unittest.TestCase):
     def test_pages_and_case_count(self):
-        self.assertEqual({p.name for p in (ROOT / "projects").glob("*.html")}, CASE_NAMES | {"catalog.html"})
+        self.assertEqual({p.name for p in (ROOT / "projects").glob("*.html")}, CASE_NAMES | {"catalog.html"} | VENDORED_DEMOS)
         for page in PAGES:
             with self.subTest(page=page.name):
                 self.assertTrue(page.stat().st_size > 1000)

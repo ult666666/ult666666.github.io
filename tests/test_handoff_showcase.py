@@ -125,7 +125,7 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 35, 'Payload includes .nojekyll, the 31 reviewed files and three catalog files')
+        self.assertEqual(len(inventory) + 1, 36, 'Payload includes .nojekyll, the reviewed portfolio/catalog and the pinned Blast demo')
         self.assertFalse(any(name.startswith('assets/recent-') for name in inventory),
                          'The retired gallery images stay out of the inventory')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
@@ -136,7 +136,7 @@ class HandoffShowcaseTests(unittest.TestCase):
         self.assertEqual({name for name in inventory if name.startswith('projects/')}, {
             'projects/lineageguard.html', 'projects/motionx.html',
             'projects/trading-research.html', 'projects/frontier-ai-valuation-lab.html',
-            'projects/engineering-lab.html', 'projects/foundations.html', 'projects/catalog.html'})
+            'projects/engineering-lab.html', 'projects/foundations.html', 'projects/catalog.html', 'projects/blast-radius-demo.html'})
 
 
 if __name__ == '__main__':

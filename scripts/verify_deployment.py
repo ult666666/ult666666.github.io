@@ -121,7 +121,8 @@ def capture(expected_commit=None):
         raise ValueError('Generated manifest differs from the exact staged build format')
 
     required_sources = (set(payload) - {'.nojekyll'}) | {
-        'public-files.json', 'scripts/build_site.py', 'scripts/verify_deployment.py'}
+        'public-files.json', 'scripts/build_site.py', 'scripts/verify_deployment.py',
+        'docs/blast-demo-lock.json'}
     if committed is not None and not required_sources.issubset(committed):
         raise ValueError('The reviewed commit does not contain every release and verifier source')
     names = sorted(set(tracked) | required_sources)
@@ -282,6 +283,18 @@ def semantic_checks(bodies):
                      'citecheck')))
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
           and a.text == 'Worked decision PDF' for a in select(case, tag='a')))
+    catalog = Reader(bodies['projects/catalog.html']).root
+    check('Catalog offers the exact pinned Blast playable route', any(
+        a.attrs.get('href') == '/projects/blast-radius-demo.html' and a.text == 'Play offline demo'
+        for a in select(catalog, tag='a')))
+    demo = Reader(bodies['projects/blast-radius-demo.html']).root
+    runtime = select(demo, tag='script')
+    meta = {node.attrs.get('name') or node.attrs.get('http-equiv'): node.attrs.get('content', '')
+            for node in select(demo, tag='meta')}
+    check('Blast embeds one runtime with connection-blocking policy and source identity',
+          len(runtime) == 1 and runtime[0].attrs.get('src', '').startswith('data:text/javascript;base64,')
+          and "connect-src 'none'" in meta.get('Content-Security-Policy', '')
+          and re.fullmatch(r'[a-f0-9]{40}', meta.get('blast-source-commit', '')) is not None)
     return checks
 
 

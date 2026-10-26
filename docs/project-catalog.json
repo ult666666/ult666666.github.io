@@ -593,13 +593,18 @@
       "form": "platform",
       "stack": [
         "TypeScript",
+        "Phaser",
         "Devvit"
       ],
       "summary": "A one-minute Reddit puzzle about downstream effects of schema changes.",
-      "scenario": "Choose which downstream objects a schema change affects, then compare the game result with the dependency graph.",
-      "inspect": "Follow graph propagation and deterministic puzzle tests before reviewing the Devvit interface.",
-      "limits": "The local browser demo uses fake community data. Reddit context, Redis and platform actions require the documented Devvit environment.",
+      "scenario": "Pick a UTC incident day, place two circuit breakers, trace the real cascade, compare the computed result, move one synthetic vote, then delete and replay.",
+      "inspect": "Open the playable offline build or produce its single HTML yourself. Follow the shared engine, exact source/build lock and maintained offline Chromium journey.",
+      "limits": "Desktop/landscape pointer demo; fictional community data lives in tab memory and reload resets it. Comments are unavailable. Live Reddit/Redis behavior, keyboard-only canvas play and portrait layout require separate verification.",
       "links": [
+        {
+          "label": "Play offline demo",
+          "url": "/projects/blast-radius-demo.html"
+        },
         {
           "label": "Source & setup",
           "url": "https://github.com/ult666666/blast-radius-daily"
@@ -610,10 +615,14 @@
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/test/game.test.ts"
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/test/demo.spec.ts"
+        },
+        {
+          "label": "Offline workflow & scope",
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/docs/OFFLINE_DEMO.md"
         }
       ],
-      "command": "npm ci\nnpm run preview:local\n# Open http://127.0.0.1:4174/src/client/game.html?demo=1&day=2026-07-14"
+      "command": "npm ci --ignore-scripts\nnpm run build:demo\n# Open dist-demo/blast-radius-demo.html from disk\nnpx playwright install chromium --only-shell\nnpm run test:demo"
     },
     {
       "id": "agentic-trading-research",

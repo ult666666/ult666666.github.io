@@ -134,12 +134,14 @@ npm run qa:browser -- --output-dir .qa-runs/reviewer-exercise</code></pre></div>
 <nav class="catalog-links" aria-label="Luma Keys links"><a href="https://github.com/ult666666/luma-keys">Source &amp; setup</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md">Design &amp; method</a><a href="https://github.com/ult666666/luma-keys/blob/main/tests/fingering.test.mjs">Proving checks</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/BROWSER_QA.md">Isolated browser workflow</a></nav></article><article class="catalog-card" id="blast-radius-daily" data-areas="product data">
 <div class="catalog-card-top"><span>Product &amp; HCI · Data &amp; analytics</span><span class="catalog-form">Platform game</span></div>
 <h2>Blast Radius Daily</h2><p class="catalog-summary">A one-minute Reddit puzzle about downstream effects of schema changes.</p>
-<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>Devvit</li></ul>
-<dl><dt>A scenario to explore</dt><dd>Choose which downstream objects a schema change affects, then compare the game result with the dependency graph.</dd><dt>Follow the implementation</dt><dd>Follow graph propagation and deterministic puzzle tests before reviewing the Devvit interface.</dd><dt>Project scope</dt><dd>The local browser demo uses fake community data. Reddit context, Redis and platform actions require the documented Devvit environment.</dd></dl>
-<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci
-npm run preview:local
-# Open http://127.0.0.1:4174/src/client/game.html?demo=1&amp;day=2026-07-14</code></pre></div>
-<nav class="catalog-links" aria-label="Blast Radius Daily links"><a href="https://github.com/ult666666/blast-radius-daily">Source &amp; setup</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/src/shared/game.ts">Design &amp; method</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/test/game.test.ts">Proving checks</a></nav></article><article class="catalog-card" id="agentic-trading-research" data-areas="finance ai">
+<ul class="catalog-stack" aria-label="Technology"><li>TypeScript</li><li>Phaser</li><li>Devvit</li></ul>
+<dl><dt>A scenario to explore</dt><dd>Pick a UTC incident day, place two circuit breakers, trace the real cascade, compare the computed result, move one synthetic vote, then delete and replay.</dd><dt>Follow the implementation</dt><dd>Open the playable offline build or produce its single HTML yourself. Follow the shared engine, exact source/build lock and maintained offline Chromium journey.</dd><dt>Project scope</dt><dd>Desktop/landscape pointer demo; fictional community data lives in tab memory and reload resets it. Comments are unavailable. Live Reddit/Redis behavior, keyboard-only canvas play and portrait layout require separate verification.</dd></dl>
+<div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci --ignore-scripts
+npm run build:demo
+# Open dist-demo/blast-radius-demo.html from disk
+npx playwright install chromium --only-shell
+npm run test:demo</code></pre></div>
+<nav class="catalog-links" aria-label="Blast Radius Daily links"><a href="/projects/blast-radius-demo.html">Play offline demo</a><a href="https://github.com/ult666666/blast-radius-daily">Source &amp; setup</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/src/shared/game.ts">Design &amp; method</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/test/demo.spec.ts">Proving checks</a><a href="https://github.com/ult666666/blast-radius-daily/blob/main/docs/OFFLINE_DEMO.md">Offline workflow &amp; scope</a></nav></article><article class="catalog-card" id="agentic-trading-research" data-areas="finance ai">
 <div class="catalog-card-top"><span>Finance · AI &amp; search</span><span class="catalog-form">Research demonstration</span></div>
 <h2>Agentic Trading Research</h2><p class="catalog-summary">An offline research architecture with a runnable fail-closed review gate.</p>
 <ul class="catalog-stack" aria-label="Technology"><li>Python</li><li>JSON Schema</li></ul>

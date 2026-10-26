@@ -30,6 +30,8 @@ class PublicationGuardTests(unittest.TestCase):
             shutil.copytree(ROOT / name, self.root / name)
         for name in ('public-files.json',):
             if (ROOT / name).is_file(): shutil.copyfile(ROOT / name, self.root / name)
+        (self.root / 'docs').mkdir()
+        shutil.copyfile(ROOT / 'docs/blast-demo-lock.json', self.root / 'docs/blast-demo-lock.json')
         self.build.ROOT = self.root
         self.output = self.parent / 'published'
 
@@ -40,6 +42,15 @@ class PublicationGuardTests(unittest.TestCase):
 
     def test_hidden_file_in_assets_is_not_published(self):
         (self.root / 'assets/.env').write_text('SYNTHETIC_PRIVATE_MARKER=not-a-credential\n')
+        self.assert_refused_before_output()
+
+    def test_changed_blast_runtime_is_refused_before_output(self):
+        path = self.root / 'projects/blast-radius-demo.html'
+        path.write_bytes(path.read_bytes() + b'<!-- unreviewed edit -->')
+        self.assert_refused_before_output()
+
+    def test_missing_blast_lock_is_refused_before_output(self):
+        (self.root / 'docs/blast-demo-lock.json').unlink()
         self.assert_refused_before_output()
 
     def test_private_note_in_projects_is_not_published(self):
