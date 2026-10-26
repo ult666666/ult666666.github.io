@@ -482,7 +482,7 @@
           "url": "https://github.com/ult666666/searchlite/blob/main/test/local-evaluation.test.ts"
         }
       ],
-      "command": "npm ci --ignore-scripts\nnpm run build\nsearchlite_review_dir=$(mktemp -d)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"
+      "command": "npm ci --ignore-scripts\nnpm run build\nsearchlite_review_dir=$(mktemp -d)\nsearchlite_review_dir=$(cd \"$searchlite_review_dir\" && pwd -P)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"
     },
     {
       "id": "citecheck",

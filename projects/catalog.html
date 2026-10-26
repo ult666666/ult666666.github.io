@@ -109,6 +109,7 @@ uv run python examples/wallet_demo.py</code></pre></div>
 <div class="catalog-command"><h3>Local review command</h3><pre><code>npm ci --ignore-scripts
 npm run build
 searchlite_review_dir=$(mktemp -d)
+searchlite_review_dir=$(cd &quot;$searchlite_review_dir&quot; &amp;&amp; pwd -P)
 node examples/search-docs.js index examples/fixtures/relevance-notes &quot;$searchlite_review_dir/notes.json&quot;
 node examples/search-docs.js evaluate &quot;$searchlite_review_dir/notes.json&quot; examples/fixtures/relevance-notes/judgments.json</code></pre></div>
 <nav class="catalog-links" aria-label="searchlite links"><a href="https://ult666666.github.io/searchlite/relevance.html">Compare relevance</a><a href="/projects/foundations.html#section-5">Read case study</a><a href="https://github.com/ult666666/searchlite">Source &amp; setup</a><a href="https://github.com/ult666666/searchlite/blob/main/docs/LOCAL_RELEVANCE.md">Local relevance guide</a><a href="https://github.com/ult666666/searchlite/blob/main/docs/BENCHMARK.md">Benchmark method</a><a href="https://github.com/ult666666/searchlite/blob/main/test/local-evaluation.test.ts">Proving checks</a></nav></article><article class="catalog-card" id="citecheck" data-areas="ai backend">
