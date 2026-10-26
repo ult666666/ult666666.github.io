@@ -453,13 +453,13 @@
         "BM25F"
       ],
       "summary": "A full-text search engine with explainable ranking and retrieval evaluation.",
-      "scenario": "Index a selected local Markdown/text directory, save a reusable snapshot and query it with snippets and score explanations without rereading the sources.",
-      "inspect": "Follow the docs consumer example through deterministic file traversal, public index serialization and reload. Real-process tests check safe paths, bounds, no-overwrite behavior and snapshot-only searches.",
-      "limits": "Small in-memory search library and demo; fixture quality is not a general search benchmark.",
+      "scenario": "Compare retrieval configurations in the browser, inspect query-level regressions and download the full comparison. Then index local notes and check your own labelled questions against explicit relevance thresholds.",
+      "inspect": "Follow shared retrieval settings through browser/native report parity, bounded snapshot-only evaluation and real-process exit codes. Reproduce raw timing samples at 1,000 and 10,000 synthetic documents with the benchmark method and machine context.",
+      "limits": "Small in-memory library. Authored glossary judgments and repeated-vocabulary timing fixtures do not establish general retrieval quality or production latency; local reports may contain private query text and document IDs.",
       "links": [
         {
-          "label": "Open demo",
-          "url": "https://ult666666.github.io/searchlite/"
+          "label": "Compare relevance",
+          "url": "https://ult666666.github.io/searchlite/relevance.html"
         },
         {
           "label": "Read case study",
@@ -470,15 +470,19 @@
           "url": "https://github.com/ult666666/searchlite"
         },
         {
-          "label": "Design & method",
-          "url": "https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents"
+          "label": "Local relevance guide",
+          "url": "https://github.com/ult666666/searchlite/blob/main/docs/LOCAL_RELEVANCE.md"
+        },
+        {
+          "label": "Benchmark method",
+          "url": "https://github.com/ult666666/searchlite/blob/main/docs/BENCHMARK.md"
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/searchlite/blob/main/test/search-docs.test.ts"
+          "url": "https://github.com/ult666666/searchlite/blob/main/test/local-evaluation.test.ts"
         }
       ],
-      "command": "npm ci --ignore-scripts\nnpm run build\nmkdir -p .cache\nnpm run search:docs -- index docs .cache/local-docs.json\nnpm run search:docs -- search .cache/local-docs.json '\"query language\"'"
+      "command": "npm ci --ignore-scripts\nnpm run build\nsearchlite_review_dir=$(mktemp -d)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"
     },
     {
       "id": "citecheck",
