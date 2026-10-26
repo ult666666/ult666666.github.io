@@ -57,9 +57,9 @@
         "JavaScript"
       ],
       "summary": "Typed review workflows with evidence, policy checks and recovery.",
-      "scenario": "Compose a review workflow, inspect an evidence-backed decision and follow the trace through recovery.",
-      "inspect": "Start with the Studio inspector and engineering review; follow typed workflow contracts, runtime tests and policy evaluations.",
-      "limits": "Synthetic demo; optional DataHub integration is read-only. The demo does not demonstrate a production deployment.",
+      "scenario": "Compare saved standard and strict synthetic reviews, inspect both exports before showing differences, and distinguish recorded decisions from current evidence freshness.",
+      "inspect": "Try the Studio inspector and recovery workflow, then use the native two-file comparison command. Follow the semantic inspection, owned byte snapshots and unchanged comparison contracts.",
+      "limits": "Synthetic demonstration; optional DataHub integration is read-only. Saved-export checks establish internal consistency, not source truth, authenticated approval or migration authority. Production behavior needs separate verification.",
       "links": [
         {
           "label": "Open demo",
@@ -79,10 +79,14 @@
         },
         {
           "label": "Proving checks",
-          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/inspection.test.mjs"
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/review-comparison.test.mjs"
+        },
+        {
+          "label": "Compare saved exports",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/REVIEW_COMPARISON.md"
         }
       ],
-      "command": "npm run studio:evaluate"
+      "command": "node scripts/studio-review.mjs --scenario=safe-add --profile=standard --output=./.lineageguard/compare-standard.json\nnode scripts/studio-review.mjs --scenario=safe-add --profile=strict --output=./.lineageguard/compare-strict.json\nnode scripts/studio-compare.mjs --left=./.lineageguard/compare-standard.json --right=./.lineageguard/compare-strict.json\n# Use new export paths when repeating; existing outputs are never overwritten."
     },
     {
       "id": "saas-analytics-warehouse",
