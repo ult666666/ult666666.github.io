@@ -125,7 +125,7 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 36, 'Payload includes .nojekyll, the reviewed portfolio/catalog and the pinned Blast demo')
+        self.assertEqual(len(inventory) + 1, 37, 'Payload includes .nojekyll, the reviewed portfolio/catalog, pinned Blast demo and saved-comparison screenshot')
         self.assertFalse(any(name.startswith('assets/recent-') for name in inventory),
                          'The retired gallery images stay out of the inventory')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))

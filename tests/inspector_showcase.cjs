@@ -28,14 +28,27 @@ module.exports = async function inspectorShowcase(browser, base) {
       assert((await link.getAttribute('rel')).includes('noreferrer'));
     }
     checks.push('version-pinned evidence links retain safe external navigation');
+    await page.locator('.case-sidebar a[href="#saved-comparison"]').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(new URL(page.url()).hash,'#saved-comparison');
+    const comparison=page.locator('#saved-comparison .case-detail-media img');
+    await comparison.scrollIntoViewIfNeeded();
+    await page.waitForFunction(el=>el.complete&&el.naturalWidth>0,await comparison.elementHandle());
+    assert.deepEqual(await comparison.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1170,1073]);
+    for(const link of await page.locator('#saved-comparison .case-section-links a').all()){
+      assert((await link.getAttribute('href')).includes('/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/'));
+    }
+    checks.push('keyboard reaches saved comparison and its exact public screenshot/source links');
     for(const width of [320,360,390,768,1440]){
       await page.setViewportSize({width,height:950});
       await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth+1,null,{timeout:5000});
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'case page overflow at '+width);
       assert(await image.evaluate(el=>el.getBoundingClientRect().right<=innerWidth+1),'Inspector image overflow at '+width);
-      checks.push('case and Inspector responsive at '+width);
+      assert(await comparison.evaluate(el=>el.getBoundingClientRect().right<=innerWidth+1),'comparison image overflow at '+width);
+      checks.push('case, Inspector and saved comparison responsive at '+width);
     }
     await page.locator('#review-inspector').screenshot({path:path.join(out,'lineageguard-inspector-case-desktop.png')});
+    await page.locator('#saved-comparison').screenshot({path:path.join(out,'lineageguard-comparison-case-desktop.png')});
     await page.evaluate(()=>document.documentElement.style.zoom='2');
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
     await page.evaluate(()=>document.documentElement.style.zoom='');checks.push('Inspector case remains readable at 200 percent zoom');
@@ -45,6 +58,7 @@ module.exports = async function inspectorShowcase(browser, base) {
     checks.push('keyboard navigation reaches the demonstration instructions');
     await page.setViewportSize({width:390,height:844});
     await page.locator('#review-inspector').screenshot({path:path.join(out,'lineageguard-inspector-case-mobile.png')});
+    await page.locator('#saved-comparison').screenshot({path:path.join(out,'lineageguard-comparison-case-mobile.png')});
     assert.deepEqual(requests,[]);assert.deepEqual(errors,[]);checks.push('no external loaded resources or JavaScript errors');
   } finally {await context.close();}
   const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
@@ -54,6 +68,8 @@ module.exports = async function inspectorShowcase(browser, base) {
     await page.goto(base+'/projects/lineageguard.html');
     assert.equal(await page.locator('#review-inspector').isVisible(),true);
     assert.equal(await page.locator('#try-workflow').isVisible(),true);
+    assert.equal(await page.locator('#saved-comparison').isVisible(),true);
+    assert.equal(await page.locator('.case-sidebar a[href="#saved-comparison"]').isVisible(),true);
     assert.equal(await page.locator('.case-sidebar a[href="#review-inspector"]').isVisible(),true);
     checks.push('Inspector story and instructions remain accessible without JavaScript');
   } finally {await nojs.close();}

@@ -29,7 +29,7 @@ class InspectorShowcaseTests(unittest.TestCase):
 
     def test_inspector_and_demonstration_have_accessible_stable_destinations(self):
         ids = [attrs.get('id') for _, attrs in self.page.elements if attrs.get('id')]
-        for target in ('review-inspector', 'try-workflow', 'section-1', 'section-2', 'section-3', 'section-4'):
+        for target in ('review-inspector', 'saved-comparison', 'try-workflow', 'section-1', 'section-2', 'section-3', 'section-4'):
             self.assertIn(target, ids)
             self.assertIn('#' + target, self.hrefs)
         self.assertEqual(len(ids), len(set(ids)))
@@ -43,23 +43,27 @@ class InspectorShowcaseTests(unittest.TestCase):
             self.assertIn(SOURCE + relative, self.hrefs)
         self.assertNotIn('enterprise-certified', self.text.lower())
 
-    def test_test_counts_are_identified_as_the_inspector_revision_not_the_original_release(self):
-        for phrase in ('20 October 2026', '120 Node tests', '31 browser journeys', '19 evaluation assertions', 'not independent evidence of catalog truth'):
+    def test_test_counts_name_current_revision_separately_from_the_original_release(self):
+        for phrase in ('26 October 2026', '135 Node tests', '41 browser journeys', '19 evaluation assertions', 'not independent evidence of catalog truth'):
             self.assertIn(phrase, self.text)
         self.assertIn('v2.0.0', self.text)
         self.assertNotIn('separates the 84-test Node suite, 24 browser journeys', self.text)
 
     def test_screenshot_is_exact_public_source_with_size_and_publication_inventory(self):
-        name = 'assets/lineageguard-review-inspector.png'
-        self.assertTrue((ROOT / name).is_file(), 'public Inspector screenshot must exist')
-        data = (ROOT / name).read_bytes()
-        self.assertEqual(hashlib.sha256(data).hexdigest(), '53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266')
-        image = next((attrs for tag, attrs in self.page.elements if tag == 'img' and attrs.get('src') == '/' + name), None)
-        self.assertIsNotNone(image, 'case study must display the source screenshot')
-        self.assertEqual((int(image['width']), int(image['height'])), struct.unpack('>II', data[16:24]))
-        self.assertIn('not authenticated', image['alt'].lower())
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertIn(name, inventory)
+        for name, expected in (
+            ('assets/lineageguard-review-inspector.png', '53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266'),
+            ('assets/lineageguard-saved-comparison.png', '6a4e0f2e714940e13984aed384a29d16be3145d5ca5ce6c12660b82f255e7af3'),
+        ):
+            with self.subTest(screenshot=name):
+                self.assertTrue((ROOT / name).is_file(), 'public source screenshot must exist')
+                data = (ROOT / name).read_bytes()
+                self.assertEqual(hashlib.sha256(data).hexdigest(), expected)
+                image = next((attrs for tag, attrs in self.page.elements if tag == 'img' and attrs.get('src') == '/' + name), None)
+                self.assertIsNotNone(image, 'case study must display the source screenshot')
+                self.assertEqual((int(image['width']), int(image['height'])), struct.unpack('>II', data[16:24]))
+                self.assertIn('not authenticated', image['alt'].lower())
+                self.assertIn(name, inventory)
         self.assertIn('styles.css', inventory)
         self.assertIn('/styles.css', [attrs.get('href') for tag, attrs in self.page.elements if tag == 'link'])
         self.assertIn(('body', {'class': 'case-lineageguard'}), self.page.elements)
