@@ -7,7 +7,7 @@
 
 **[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
 
-A small static site: a short introduction, four selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), four case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. The authored portfolio pages use plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search uses JavaScript; every project and link remains available without it. The separately vendored Blast game requires its embedded runtime and makes no external requests.
+A small static site: a short introduction, five selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), five case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. The authored portfolio pages use plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search uses JavaScript; every project and link remains available without it. The separately vendored Blast game requires its embedded runtime and makes no external requests.
 
 The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). In short: a printed-page layout with paper, ink and one blue for links, a single system serif, and plain first-person copy.
 
@@ -35,6 +35,7 @@ The [foundations page](https://ult666666.github.io/projects/foundations.html) ad
 
 | Project | Scope | Evidence |
 | --- | --- | --- |
+| crossbook | Order-matching engine in Rust, checked against a reference engine, with the same event digests on Linux, macOS, Windows and WebAssembly | [Source](https://github.com/ult666666/crossbook) · [Playground](https://ult666666.github.io/crossbook/) · [Case study](https://ult666666.github.io/projects/crossbook.html) |
 | LineageGuard Studio | Typed orchestration, evidence readiness, interruption recovery and evaluations | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
 | MOTIONX | Next.js studio website and separate Python outreach validation | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
 | Agentic Trading Research | Research-only architecture and deterministic gates; separate runnable synthetic research-gate example | [Snapshot](https://github.com/ult666666/agentic-trading-research) · [Offline demo + tests](https://github.com/ult666666/agentic-trading-research/tree/main/examples) |

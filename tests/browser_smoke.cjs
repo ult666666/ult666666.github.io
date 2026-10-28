@@ -66,7 +66,7 @@ async function captureFinancingCase(page, destination) {
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
     assert.match(await page.locator('h1').innerText(), /^I’m Charles Dai\./);
-    assert.equal(await page.locator('article.work').count(), 4);
+    assert.equal(await page.locator('article.work').count(), 5);
     assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     assert.equal(await page.locator('.index-table th[scope="row"]').count(), 18);
     assert.equal(await page.locator('button,[role="button"]').count(), 0, 'The homepage has no scripted controls');
@@ -77,7 +77,7 @@ async function captureFinancingCase(page, destination) {
     }
     for (const selector of ['.work-figure img']) {
       const images = page.locator(selector);
-      assert.equal(await images.count(), 4);
+      assert.equal(await images.count(), 5);
       for (const img of await images.all()) {
         await img.scrollIntoViewIfNeeded();
         await img.evaluate(node => node.decode());
@@ -101,11 +101,11 @@ async function captureFinancingCase(page, destination) {
     await page.waitForTimeout(100);
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-desktop.png')});
-    for (const name of ['lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
+    for (const name of ['crossbook','lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : name === 'lineageguard' ? 7 : 4);
+      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' || name === 'crossbook' ? 5 : name === 'lineageguard' ? 7 : 4);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
@@ -189,7 +189,7 @@ async function captureFinancingCase(page, destination) {
     if (process.env.RENDER_SOCIAL_IMAGE === '1') {
       await og.screenshot({path:path.join(root,'assets/portfolio-og.png')});
     }
-    console.log('BROWSER_PASS: homepage inventory and anchors, decoded images, local links, 4 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard skip link, no-JavaScript entry and no third-party requests');
+    console.log('BROWSER_PASS: homepage inventory and anchors, decoded images, local links, 5 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard skip link, no-JavaScript entry and no third-party requests');
   } catch (error) { console.error(error); process.exitCode=1; }
   finally { if(browser) await browser.close(); await new Promise(resolve=>server.close(resolve)); }
 })();

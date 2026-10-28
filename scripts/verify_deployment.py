@@ -209,7 +209,7 @@ def select(root, tag=None, cls=None, ident=None):
 
 def semantic_checks(bodies):
     pages = {name: Reader(bodies[name]).root for name in ('index.html', 'fintech.html', CASE,
-             'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
+             'projects/crossbook.html', 'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
              'projects/engineering-lab.html', 'projects/foundations.html')}
     home, gateway, case = (pages[name] for name in ('index.html', 'fintech.html', CASE))
     checks = []
@@ -254,8 +254,8 @@ def semantic_checks(bodies):
         'Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot.' in p.text
         for p in select(case, tag='p')))
     projects = select(home, tag='article', cls='work')
-    check('Four selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [
-        [name] for name in ('Frontier AI Valuation Lab', 'LineageGuard Studio', 'Luma Keys', 'MOTIONX')])
+    check('Five selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [
+        [name] for name in ('Frontier AI Valuation Lab', 'crossbook', 'LineageGuard Studio', 'Luma Keys', 'MOTIONX')])
     rows = [th for th in select(home, tag='th') if th.attrs.get('scope') == 'row']
     check('Homepage index lists 18 projects', len(rows) == 18 and len({th.text for th in rows}) == 18)
     check('Two exact homepage reading routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
