@@ -20,7 +20,7 @@ class TradingShowcaseTests(unittest.TestCase):
         for path in ("examples/fail_closed_gate.py", "examples/test_fail_closed_gate.py",
                      "actions/workflows/research-demo.yml"):
             self.assertIn(path, case)
-        self.assertNotIn("/Users/prince/", case)
+        self.assertNotIn("/Users/", case)
 
 
 if __name__ == "__main__":

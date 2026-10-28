@@ -52,7 +52,7 @@ These checks establish page behavior and publication consistency. They do not ve
 
 The original boundary walkthroughs above remain intact. The page now also links to complete, source-backed workflows: quantkit's six-file prior-data-only portfolio example; powerlift's seeded CSV → SRM/horizon gates → CUPED readout; ledgerline's disposable real-HTTP wallet lifecycle; searchlite's local-docs index and snapshot-only query; ContrastKit's actual browser download → CLI audit → fix → passing audit; and citecheck's real SQLite regressions for fenced-code citation boundaries. These additions are demonstrations on fictional inputs, not adoption or financial-performance claims.
 
-The project explorer at `/projects/catalog.html` covers all 19 public projects. Its local commands point to the current workflows and their proving tests; the dated results above remain a record of the original walkthroughs.
+The project explorer at `/projects/catalog.html` covers all 20 public projects. Its local commands point to the current workflows and their proving tests; the dated results above remain a record of the original walkthroughs.
 
 ## Selected-month churn investigation
 

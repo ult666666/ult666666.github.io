@@ -15,7 +15,7 @@ The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). 
 
 ## Project explorer
 
-[Browse all 19 public projects](https://ult666666.github.io/projects/catalog.html) by scenario, implementation route, technology and scope. Text search and area filters compose; every project and link remains available without JavaScript.
+[Browse all 20 public projects](https://ult666666.github.io/projects/catalog.html) by scenario, implementation route, technology and scope. Text search and area filters compose; every project and link remains available without JavaScript.
 
 The reviewed source is `docs/project-catalog.json`. After editing it, run `python3 -B scripts/build_catalog.py`; the build and test suite reject stale generated HTML. The catalog adds no external services or runtime dependencies. Only its generated HTML, CSS and JavaScript enter the reviewed public payload.
 

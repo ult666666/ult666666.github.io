@@ -68,7 +68,7 @@ async function captureFinancingCase(page, destination) {
     assert.match(await page.locator('h1').innerText(), /^I’m Charles Dai\./);
     assert.equal(await page.locator('article.work').count(), 4);
     assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
-    assert.equal(await page.locator('.index-table th[scope="row"]').count(), 17);
+    assert.equal(await page.locator('.index-table th[scope="row"]').count(), 18);
     assert.equal(await page.locator('button,[role="button"]').count(), 0, 'The homepage has no scripted controls');
     for (const [label, hash] of [['Work','#work'],['Index','#index'],['About','#about'],['Contact','#contact']]) {
       await page.locator('#primary-nav').getByRole('link',{name:label,exact:true}).click();

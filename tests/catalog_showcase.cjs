@@ -13,14 +13,14 @@ module.exports = async (browser, base) => {
   });
   await page.goto(base + '/projects/catalog.html');
   await page.locator('#catalog-query').waitFor({state:'visible',timeout:4000});
-  assert.equal(await page.locator('.catalog-card:visible').count(),19);
+  assert.equal(await page.locator('.catalog-card:visible').count(),20);
   const out = path.resolve(__dirname,'..','test-results'); fs.mkdirSync(out,{recursive:true});
   await page.screenshot({path:path.join(out,'catalog-desktop.png')});
   await page.getByLabel('Focus area').selectOption('backend');
   await page.getByLabel('Search projects').fill('  PYTHON   sqlite  ');
   assert.deepEqual(await page.locator('.catalog-card:visible').evaluateAll(nodes=>nodes.map(n=>n.id).sort()),
                    ['citecheck','impact-ledger','ledgerline','relaybox']);
-  assert.equal(await page.locator('#catalog-count').innerText(),'4 of 19 projects');
+  assert.equal(await page.locator('#catalog-count').innerText(),'4 of 20 projects');
   await page.getByLabel('Search projects').fill('CUPED');
   assert.equal(await page.locator('.catalog-card:visible').count(),0);
   assert.equal(await page.locator('#catalog-empty').isVisible(),true);
@@ -29,7 +29,7 @@ module.exports = async (browser, base) => {
   await page.getByRole('button',{name:'Clear filters'}).click();
   assert.equal(await page.getByLabel('Search projects').inputValue(),'');
   assert.equal(await page.getByLabel('Focus area').inputValue(),'all');
-  assert.equal(await page.locator('.catalog-card:visible').count(),19);
+  assert.equal(await page.locator('.catalog-card:visible').count(),20);
   assert.equal(await page.locator('#catalog-empty').isVisible(),false);
   await page.getByLabel('Search projects').focus();
   await page.keyboard.press('Tab');
@@ -43,7 +43,7 @@ module.exports = async (browser, base) => {
   const context = await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:800}});
   const plain = await context.newPage();
   await plain.goto(base + '/projects/catalog.html');
-  assert.equal(await plain.locator('.catalog-card:visible').count(),19);
+  assert.equal(await plain.locator('.catalog-card:visible').count(),20);
   assert.equal(await plain.getByRole('search').isVisible(),false);
   assert.equal(await plain.locator('#relaybox').getByRole('link',{name:'Source & setup'}).getAttribute('href'),
                'https://github.com/ult666666/relaybox');

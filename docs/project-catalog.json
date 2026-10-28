@@ -43,6 +43,43 @@
       "command": "npm test\nnpm start"
     },
     {
+      "id": "crossbook",
+      "name": "crossbook",
+      "areas": [
+        "finance",
+        "backend"
+      ],
+      "form": "library",
+      "stack": [
+        "Rust",
+        "WebAssembly",
+        "proptest"
+      ],
+      "summary": "A deterministic order-matching engine, checked against a second implementation.",
+      "scenario": "Open the playground and run the price-time priority scenario: a buy for 8 lots takes the better price first, then the older of two orders at the next price. Then run one million synthetic orders in your browser and compare the event digest with the native build.",
+      "inspect": "Follow how a deliberately simple reference engine checks the fast one after every random command, and how golden digests are pinned on Linux, macOS, Windows and WebAssembly.",
+      "limits": "One instrument, kept in memory, on synthetic order flow. No network gateway, no persistence beyond command journals, and no connection to any market.",
+      "links": [
+        {
+          "label": "Open playground",
+          "url": "https://ult666666.github.io/crossbook/"
+        },
+        {
+          "label": "Source & setup",
+          "url": "https://github.com/ult666666/crossbook"
+        },
+        {
+          "label": "Design & method",
+          "url": "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md"
+        },
+        {
+          "label": "Proving checks",
+          "url": "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/differential.rs"
+        }
+      ],
+      "command": "cargo run --release -p crossbook-cli -- demo\ncargo run --release -p crossbook-cli -- verify --orders 1000000"
+    },
+    {
       "id": "lineageguard-datahub-agent",
       "name": "LineageGuard Studio",
       "areas": [
