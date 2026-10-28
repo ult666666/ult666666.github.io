@@ -3,6 +3,7 @@
   "files": [
     "404.html",
     "assets/blast-radius.png",
+    "assets/crossbook-playground.png",
     "assets/favicon.svg",
     "assets/frontier-ai-capital-4-0.png",
     "assets/frontier-ai-capital-visual-20261020.png",
@@ -28,6 +29,7 @@
     "project-catalog.js",
     "projects/blast-radius-demo.html",
     "projects/catalog.html",
+    "projects/crossbook.html",
     "projects/engineering-lab.html",
     "projects/foundations.html",
     "projects/frontier-ai-valuation-lab.html",

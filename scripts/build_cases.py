@@ -350,6 +350,51 @@ CASES = [
                  "Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and original financial-review PDF remain the version 3.0 baseline. New company evidence is not silently substituted for the reviewed assumptions.",
                  "The outputs depend on illustrative assumptions and incomplete public disclosures. The simplified financing excludes fees, preference waterfalls, option-pool changes, conversions, secondary sales, investment-driven operating benefits and future rounds. It does not determine actual funding need, availability of financing, a security-specific price target or investment returns. The documented boundaries are part of the decision product."
              ])]),
+    dict(slug="crossbook", number="04", kind="Fintech infrastructure",
+         title="crossbook",
+         hero="An order-matching engine in Rust. It applies price-time priority with the order types real venues use, "
+              "emits an exact event stream, and gives the same answer, event for event, on Linux, macOS, Windows and in the browser.",
+         tags=["Rust", "WebAssembly", "Differential testing", "Mutation testing", "Deterministic replay"],
+         repo="https://github.com/ult666666/crossbook",
+         live="https://ult666666.github.io/crossbook/", live_label="Open the playground",
+         image="/assets/crossbook-playground.png", image_width=1800, image_height=1125,
+         alt="The crossbook playground: an order ticket, the order book with the queue at each price level, and the event log",
+         caption="The browser playground runs the same engine compiled to WebAssembly. Every order in it is synthetic.",
+         sections=[
+             ("The problem", [
+                 "A matching engine fails quietly. A wrong queue order or an off-by-one quantity still produces trades that look plausible, and nothing crashes.",
+                 "I wanted an engine where every rule is written down, every command produces an exact list of events, and a second implementation checks the first after every command."
+             ]),
+             ("The engine", [
+                 "Orders trade by price-time priority: the best price first, then the oldest order at that price. The engine supports limit and market orders, immediate-or-cancel, fill-or-kill, post-only, cancel, modify with explicit queue-priority rules, and four self-trade prevention modes.",
+                 "Each side of the book keeps its price levels in a BTreeMap, so the best price is the first or last key. Each level is a first-in, first-out queue threaded through one slab of 48-byte order nodes with 32-bit links. A cancel is constant-time after the ID lookup, and the slab reuses memory as orders come and go.",
+                 "The engine never reads a clock or a random number generator and never iterates a hash map. That rule is why a replay of the same commands produces the same events on every platform."
+             ]),
+             ("How it is checked", [
+                 "A second, deliberately naive engine implements the same rules with linear scans. Property tests feed random command streams to both engines and require identical events and identical books after every command, plus structural invariants and quantity conservation: 1,024 random streams per local run and 4,096 in CI.",
+                 "A 64-bit fingerprint of a 100,000-command session is pinned in the tests. CI checks it on x86-64 Linux, ARM64 macOS and x86-64 Windows, and a separate check compiles the engine to WebAssembly, replays one million commands under Node.js and requires the same digests.",
+                 "Mutation testing with cargo-mutants changed the code 168 ways. The tests caught 140 of the 148 versions that compiled. Of the 8 survivors, 4 exposed real gaps that now have assertions, 2 pointed at redundant code that I deleted, and 2 only removed a capacity hint."
+             ]),
+             ("Results", [
+                 "On one core of a 2.1 GHz Intel Xeon cloud VM, the engine processes 15 to 16 million commands per second of synthetic order flow. Latency per command is 64 ns at the median, 196 ns at p99 and 477 ns at p99.9.",
+                 "The same session compiled to WebAssembly runs at about 8.3 million commands per second under Node.js, with the same event digest and state hash as the native build. The figures cover the matching core only, with no network, parsing or persistence on the timed path."
+             ]),
+             ("Tradeoffs and boundaries", [
+                 "A BTreeMap costs a logarithmic lookup per price level. A dense price ladder would be constant-time but needs a bounded price band. The fast integer hasher is not resistant to hostile IDs, so a gateway facing untrusted clients would assign IDs itself.",
+                 "crossbook is a learning and benchmarking project, not an exchange. It handles one instrument in memory, has no network gateway and runs only on synthetic data. I built it with AI assistance; the tests, CI checks and benchmark commands in the repository are the evidence for each claim."
+             ])],
+         section_links={
+             "The engine": [("Design notes", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md"),
+                            ("Order semantics", "https://github.com/ult666666/crossbook/blob/main/docs/SEMANTICS.md")],
+             "How it is checked": [("Testing approach", "https://github.com/ult666666/crossbook/blob/main/docs/TESTING.md"),
+                                   ("Reference engine", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/src/reference.rs")],
+             "Results": [("Benchmark method", "https://github.com/ult666666/crossbook/blob/main/docs/BENCHMARKS.md")],
+         },
+         proof_links=[
+             ("Differential tests", "Random command streams through the fast engine and the reference engine, compared after every command.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/differential.rs"),
+             ("Golden digests", "The pinned 100,000-command fingerprint that CI checks on three operating systems.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/flow.rs"),
+             ("CI workflow", "Tests, the WebAssembly digest check and the browser smoke test on every push.", "https://github.com/ult666666/crossbook/blob/main/.github/workflows/ci.yml")
+         ]),
 ]
 
 

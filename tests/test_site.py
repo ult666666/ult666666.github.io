@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VENDORED_DEMOS = {"blast-radius-demo.html"}  # Exact build/source/CSP tests live in test_blast_demo.py.
 PAGES = [ROOT / "index.html", ROOT / "fintech.html",
          *(p for p in (ROOT / "projects").glob("*.html") if p.name not in VENDORED_DEMOS)]
-CASE_NAMES = {"lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html", "engineering-lab.html", "foundations.html"}
+CASE_NAMES = {"crossbook.html", "lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html", "engineering-lab.html", "foundations.html"}
 CATEGORIES = {"ai", "web", "experimental", "fintech"}
 
 
@@ -115,7 +115,7 @@ class PortfolioTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         doc = parse(ROOT / "index.html")
         selected = re.findall(r'<article class="work(?: [^"]*)?" id="([^"]+)"', html)
-        self.assertEqual(selected, ["frontier-ai-valuation-lab", "lineageguard", "luma-keys", "motionx"])
+        self.assertEqual(selected, ["frontier-ai-valuation-lab", "crossbook", "lineageguard", "luma-keys", "motionx"])
         table = html.split('<table class="index-table"', 1)[1].split("</table>", 1)[0]
         rows = re.findall(r'<th scope="row"[^>]*>([^<]+)</th>', table)
         self.assertEqual(len(rows), 18)
@@ -168,7 +168,7 @@ class PortfolioTests(unittest.TestCase):
         inventory = set(json.loads((ROOT / "public-files.json").read_text())["files"])
         work = html.split('<div class="selected">', 1)[1].split("</section>", 1)[0]
         images = re.findall(r'<img src="/([^"]+)" width="(\d+)" height="(\d+)" alt="([^"]+)"', work)
-        self.assertEqual(len(images), 4)
+        self.assertEqual(len(images), 5)
         for asset, width, height, alt in images:
             with self.subTest(asset=asset):
                 self.assertIn(asset, inventory)
