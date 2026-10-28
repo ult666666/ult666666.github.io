@@ -257,7 +257,7 @@ def semantic_checks(bodies):
     check('Four selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [
         [name] for name in ('Frontier AI Valuation Lab', 'LineageGuard Studio', 'Luma Keys', 'MOTIONX')])
     rows = [th for th in select(home, tag='th') if th.attrs.get('scope') == 'row']
-    check('Homepage index lists 17 projects', len(rows) == 17 and len({th.text for th in rows}) == 17)
+    check('Homepage index lists 18 projects', len(rows) == 18 and len({th.text for th in rows}) == 18)
     check('Two exact homepage reading routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
         'https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md',
         'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md'])

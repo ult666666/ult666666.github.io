@@ -118,12 +118,12 @@ class PortfolioTests(unittest.TestCase):
         self.assertEqual(selected, ["frontier-ai-valuation-lab", "lineageguard", "luma-keys", "motionx"])
         table = html.split('<table class="index-table"', 1)[1].split("</table>", 1)[0]
         rows = re.findall(r'<th scope="row"[^>]*>([^<]+)</th>', table)
-        self.assertEqual(len(rows), 17)
+        self.assertEqual(len(rows), 18)
         self.assertEqual(len(rows), len(set(rows)))
         for name in ("Frontier AI Valuation Lab", "LineageGuard Studio", "Luma Keys", "MOTIONX", "quantkit",
                      "ledgerline", "powerlift", "citecheck", "searchlite", "ContrastKit", "TraceBench",
                      "RelayBox", "Impact Ledger", "SaaS Analytics Warehouse", "Agentic Trading Research",
-                     "ProofCast", "Blast Radius Daily"):
+                     "ProofCast", "Blast Radius Daily", "crossbook"):
             self.assertIn(name, rows)
         for row in table.split('<th scope="row"')[1:]:
             with self.subTest(row=row[:60]):
@@ -149,7 +149,7 @@ class PortfolioTests(unittest.TestCase):
 
     def test_no_private_system_leakage_or_unsupported_stats(self):
         corpus = "\n".join(p.read_text(encoding="utf-8") for p in PAGES)
-        for forbidden in ("/Users/prince/", "sk-proj-", "ghp_", "Bearer ",
+        for forbidden in ("/Users/", "sk-proj-", "ghp_", "Bearer ",
                           "ACCOUNT_NUMBER", "guaranteed returns", "100% accuracy"):
             self.assertNotIn(forbidden, corpus)
         self.assertNotIn("live order execution", corpus.lower())

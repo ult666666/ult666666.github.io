@@ -17,3 +17,6 @@ playwright-report/
 /runtime/
 /private/
 /qa-local/
+
+# Local AI planning notes
+docs/superpowers/

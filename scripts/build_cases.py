@@ -149,7 +149,7 @@ CASES = [
                                                                  ('Walkthrough and interview framing',
                                                                   'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/DEMO_WALKTHROUGH.md'),
                                                                  ('Current verification record',
-                                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/docs/VERIFICATION.md')]},
+                                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/VERIFICATION.md')]},
      'lineageguard_showcase': True,
      'section_ids': {'The problem': 'section-1',
                      'The orchestration system': 'section-2',
@@ -215,7 +215,7 @@ CASES = [
          proof_links=[
              ("Runnable gate", "Six fixed synthetic scenarios, no broker or market data", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/fail_closed_gate.py"),
              ("Negative-case tests", "Inspect deterministic HOLD and input validation tests", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py"),
-             ("GitHub Actions", "Read-only offline checks of the public teaching example", "https://github.com/ult666666/agentic-trading-research/actions/workflows/research-demo.yml"),
+             ("GitHub Actions", "Offline checks of the teaching example, the public test suite and every Markdown link", "https://github.com/ult666666/agentic-trading-research/actions/workflows/research-demo.yml"),
          ],
          section_links={
              "Engineering principles": [
