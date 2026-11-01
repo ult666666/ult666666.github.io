@@ -42,6 +42,17 @@ CASES = [
                     'truncated lineage is not complete, and BIGINT to SMALLINT is not treated as safe '
                     'simply because both types are numeric. Deterministic policy—not an LLM confidence '
                     'score—determines the review outcome.']),
+                  ('Measuring the policy',
+                   ['I measured the review policy against 89 labelled schema changes and evidence '
+                    'conditions. I wrote the labelling rules and labels before the first run. Each case '
+                    'runs through the same interpreter, evidence contracts and policy as Studio.',
+                    'The first run matched 78 of 89 decisions and found five that were more permissive '
+                    'than their labels: adding ORDER_ID next to an existing order_id was cleared, because '
+                    'columns were matched with exact case, and a rename that declared a lossy type went to '
+                    'review instead of being blocked. After the fix, 85 of 89 decisions match and none is '
+                    'more permissive. The four stricter results are lossless conversions the policy '
+                    'deliberately does not prove. CI now fails if any decision becomes more permissive '
+                    'than its label.']),
                   ('Failure and recovery evidence',
                    ['The local SQLite coordinator uses revision compare-and-swap, expiring writer leases '
                     'and admission reservations. Tests interrupt a test-owned process after a committed '
@@ -51,8 +62,15 @@ CASES = [
                     'binding. Changed input invalidates previous results and local acknowledgements. The '
                     'browser exposes pause, reload, resume, cancellation, source-outage recovery, exact '
                     'exports and comparisons between alternative plans.',
-                    'The saved-comparison revision 5d7df02 verified on 26 October 2026 has 135 Node tests, '
-                    '41 browser journeys across both storage modes and 19 evaluation assertions. These are separate, overlapping checks, not '
+                    'Seeded property tests check parsers and policy invariants on generated inputs: batch '
+                    'order, letter case and free text never change a decision, and weaker evidence never '
+                    'makes one more permissive. They found a type-parser bypass that let part of a blocked '
+                    'SQL statement escape its comment, and a summary that could add a fake decision line to '
+                    'the review brief. Both are fixed. Catalog text that looks like instructions is treated '
+                    'as data, and tests show it cannot change a review.',
+                    'At commit 4147e06, verified on 1 November 2026, CI runs 172 Node tests (including 16 '
+                    'seeded property tests), 43 browser journey checks across both storage modes, 19 '
+                    'evaluation assertions and the 89-case policy benchmark. These are separate, overlapping checks, not '
                     'independent evidence of catalog truth. The original v2.0.0 release keeps its '
                     'historical verification record; later launcher and Inspector changes are identified '
                     'by their own commits.']),
@@ -114,7 +132,13 @@ CASES = [
                     'No SQL execution, catalog mutation or paid inference is enabled. A local review note '
                     'is not organizational authorization. The optional DataHub capture is read-only and '
                     'conservatively profiled; the release does not claim real-tenant validation.'])],
-     'section_links': {'The orchestration system': [('DAG compiler',
+     'section_links': {'Measuring the policy': [('Evaluation method',
+                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/EVALUATION.md'),
+                                                 ('Labelled cases',
+                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/evals/policy-cases.json'),
+                                                 ('Benchmark report',
+                                                  'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/evals/policy-report.json')],
+                       'The orchestration system': [('DAG compiler',
                                                      'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/recipe.js'),
                                                     ('Execution interpreter',
                                                      'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/runtime.js'),
@@ -153,6 +177,7 @@ CASES = [
      'lineageguard_showcase': True,
      'section_ids': {'The problem': 'section-1',
                      'The orchestration system': 'section-2',
+                     'Measuring the policy': 'policy-benchmark',
                      'Failure and recovery evidence': 'section-3',
                      'Verify the exported review': 'review-inspector',
                      'Compare two saved reviews': 'saved-comparison',
@@ -352,9 +377,9 @@ CASES = [
              ])]),
     dict(slug="crossbook", number="04", kind="Fintech infrastructure",
          title="crossbook",
-         hero="An order-matching engine in Rust. It applies price-time priority with the order types real venues use, "
-              "emits an exact event stream, and gives the same answer, event for event, on Linux, macOS, Windows and in the browser.",
-         tags=["Rust", "WebAssembly", "Differential testing", "Mutation testing", "Deterministic replay"],
+         hero="An order-matching engine in Rust with crash recovery, a market-data feed and a multi-instrument runner. "
+              "It gives the same answer, event for event, on Linux, macOS, Windows, in the browser and on any number of threads.",
+         tags=["Rust", "WebAssembly", "Crash recovery", "Concurrency", "Differential testing", "Mutation testing"],
          repo="https://github.com/ult666666/crossbook",
          live="https://ult666666.github.io/crossbook/", live_label="Open the playground",
          image="/assets/crossbook-playground.png", image_width=1800, image_height=1125,
@@ -375,9 +400,15 @@ CASES = [
                  "A 64-bit fingerprint of a 100,000-command session is pinned in the tests. CI checks it on x86-64 Linux, ARM64 macOS and x86-64 Windows, and a separate check compiles the engine to WebAssembly, replays one million commands under Node.js and requires the same digests.",
                  "Mutation testing with cargo-mutants changed the code 168 ways. The tests caught 140 of the 148 versions that compiled. Of the 8 survivors, 4 exposed real gaps that now have assertions, 2 pointed at redundant code that I deleted, and 2 only removed a capacity hint."
              ]),
+             ("Recovery, market data and many instruments", [
+                 "Version 0.2 builds three layers on the event stream. Crash recovery follows the write-ahead rule: a command is journaled before the engine applies it, and a checksummed snapshot records how many journaled commands its book includes. Recovery loads the newest snapshot and replays the rest of the journal; a half-written final command is detected and ignored. A property test cuts the journal at a random byte and requires exactly the uninterrupted run's book and events.",
+                 "The market-data feed derives trade prints and price-level updates from events alone, without reading the engine. Subscribers use sequence numbers and heartbeats to notice a lost message and resynchronize from a snapshot. After every command, a subscriber's book must equal the engine's.",
+                 "A sequencer, worker shards and an ordered merge spread many instruments across threads. Batches of consecutive commands and a merger that always waits for the oldest batch rule out the deadlock that batching and bounded queues can cause. Random streams must give exactly the single-thread output for any shard count, batch size and queue length."
+             ]),
              ("Results", [
                  "On one core of a 2.1 GHz Intel Xeon cloud VM, the engine processes 15 to 16 million commands per second of synthetic order flow. Latency per command is 64 ns at the median, 196 ns at p99 and 477 ns at p99.9.",
-                 "The same session compiled to WebAssembly runs at about 8.3 million commands per second under Node.js, with the same event digest and state hash as the native build. The figures cover the matching core only, with no network, parsing or persistence on the timed path."
+                 "The same session compiled to WebAssembly runs at about 8.3 million commands per second under Node.js, with the same event digest and state hash as the native build. The figures cover the matching core only, with no network, parsing or persistence on the timed path.",
+                 "With 64 deep books on a 4-core VM, three or four shards ran at 2.6 to 3.4 times the single-thread rate, and one shard ran 13 to 18% slower than one thread, the cost of handing batches between threads. Recovering one million commands from a snapshot at 400,000 took about 0.15 s and reached the full replay's state hash."
              ]),
              ("Tradeoffs and boundaries", [
                  "A BTreeMap costs a logarithmic lookup per price level. A dense price ladder would be constant-time but needs a bounded price band. The fast integer hasher is not resistant to hostile IDs, so a gateway facing untrusted clients would assign IDs itself.",
@@ -386,6 +417,9 @@ CASES = [
          section_links={
              "The engine": [("Design notes", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md"),
                             ("Order semantics", "https://github.com/ult666666/crossbook/blob/main/docs/SEMANTICS.md")],
+             "Recovery, market data and many instruments": [("Recovery design", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#snapshots-and-recovery"),
+                                                             ("Market data design", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#market-data-from-events"),
+                                                             ("Sharding design", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#many-instruments-sequencer-shards-and-merger")],
              "How it is checked": [("Testing approach", "https://github.com/ult666666/crossbook/blob/main/docs/TESTING.md"),
                                    ("Reference engine", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/src/reference.rs")],
              "Results": [("Benchmark method", "https://github.com/ult666666/crossbook/blob/main/docs/BENCHMARKS.md")],
@@ -393,6 +427,8 @@ CASES = [
          proof_links=[
              ("Differential tests", "Random command streams through the fast engine and the reference engine, compared after every command.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/differential.rs"),
              ("Golden digests", "The pinned 100,000-command fingerprint that CI checks on three operating systems.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/flow.rs"),
+             ("Crash simulation", "The journal cut at a random byte; recovery must match the uninterrupted run.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/recovery.rs"),
+             ("Shard independence", "Random multi-instrument streams give the single-thread output on any number of threads.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/exchange.rs"),
              ("CI workflow", "Tests, the WebAssembly digest check and the browser smoke test on every push.", "https://github.com/ult666666/crossbook/blob/main/.github/workflows/ci.yml")
          ]),
 ]
