@@ -44,7 +44,7 @@ class InspectorShowcaseTests(unittest.TestCase):
         self.assertNotIn('enterprise-certified', self.text.lower())
 
     def test_test_counts_name_current_revision_separately_from_the_original_release(self):
-        for phrase in ('26 October 2026', '135 Node tests', '41 browser journeys', '19 evaluation assertions', 'not independent evidence of catalog truth'):
+        for phrase in ('1 November 2026', '172 Node tests', '43 browser journey checks', '19 evaluation assertions', '89-case policy benchmark', 'not independent evidence of catalog truth'):
             self.assertIn(phrase, self.text)
         self.assertIn('v2.0.0', self.text)
         self.assertNotIn('separates the 84-test Node suite, 24 browser journeys', self.text)
