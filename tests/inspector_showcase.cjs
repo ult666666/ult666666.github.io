@@ -23,7 +23,7 @@ module.exports = async function inspectorShowcase(browser, base) {
     assert.equal(await image.evaluate(el=>Number(el.width)<=el.parentElement.clientWidth+1),true);
     checks.push('real public Inspector screenshot loads with correct authored dimensions');
     for(const link of await page.locator('#review-inspector .case-section-links a').all()){
-      assert((await link.getAttribute('href')).includes('/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'));
+      assert((await link.getAttribute('href')).includes('/blob/6379f08559dd856a2ccf11bc3830c8566c6de8f3/'));
       assert.equal(await link.getAttribute('target'),'_blank');
       assert((await link.getAttribute('rel')).includes('noreferrer'));
     }
@@ -36,7 +36,7 @@ module.exports = async function inspectorShowcase(browser, base) {
     await page.waitForFunction(el=>el.complete&&el.naturalWidth>0,await comparison.elementHandle());
     assert.deepEqual(await comparison.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1272,803]);
     for(const link of await page.locator('#saved-comparison .case-section-links a').all()){
-      assert((await link.getAttribute('href')).includes('/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'));
+      assert((await link.getAttribute('href')).includes('/blob/6379f08559dd856a2ccf11bc3830c8566c6de8f3/'));
     }
     checks.push('keyboard reaches saved comparison and its exact public screenshot/source links');
     for(const width of [320,360,390,768,1440]){

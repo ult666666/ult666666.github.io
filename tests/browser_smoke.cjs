@@ -112,7 +112,7 @@ async function captureFinancingCase(page, destination) {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence li').count(),8);
         assert.equal(await page.locator('#review-guide ol li').count(),6,'Try it is a short ordered list');
-        assert.equal(await page.getByRole('link',{name:'Try Ownership Frontier',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
+        assert.equal(await page.getByRole('link',{name:'Try the ownership limit',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
         assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         assert.equal(await page.locator('#section-3 h2').innerText(),'How it is built');
