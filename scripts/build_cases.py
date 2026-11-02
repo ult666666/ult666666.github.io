@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parent.parent
 GITHUB = 'https://github.com/ult666666/'
 CROSSBOOK = GITHUB + 'crossbook/blob/main/'
 LINEAGE = GITHUB + 'lineageguard-datahub-agent/blob/main/'
-# The Inspector and comparison material is pinned to the commits the screenshots come from.
-LINEAGE_INSPECTOR = GITHUB + 'lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/'
-LINEAGE_COMPARE = GITHUB + 'lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/'
+# The Inspector and comparison material is pinned to the commit the screenshots come from.
+LINEAGE_INSPECTOR = GITHUB + 'lineageguard-datahub-agent/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'
+LINEAGE_COMPARE = LINEAGE_INSPECTOR
 FRONTIER = GITHUB + 'frontier-ai-valuation-lab/blob/main/'
 APP = 'https://frontier-ai-valuation-lab.vercel.app/'
 TRADING = GITHUB + 'agentic-trading-research/'
@@ -107,7 +107,7 @@ CASES = [
                 'Inspector uses the same policy functions as the runtime, so it is a replay check, not an '
                 'independent implementation.',
             ], media=dict(
-                image='/assets/lineageguard-review-inspector.png', width=1170, height=987,
+                image='/assets/lineageguard-review-inspector.png', width=1272, height=793,
                 alt='Review Inspector showing the recorded decision, the current evidence freshness and the '
                     'result: internally consistent, not authenticated',
                 caption='Review Inspector on a synthetic review. A pass means the file is internally '
@@ -124,7 +124,7 @@ CASES = [
                 'The browser and the command line share one comparison module. Nothing is uploaded or '
                 'imported into run history, and choosing another file cancels an unfinished read.',
             ], media=dict(
-                image='/assets/lineageguard-saved-comparison.png', width=1170, height=1073,
+                image='/assets/lineageguard-saved-comparison.png', width=1272, height=803,
                 alt='Synthetic standard and strict reviews compared locally: internally consistent, not '
                     'authenticated',
                 caption='The Compare panel with synthetic standard and strict reviews of the same request, '

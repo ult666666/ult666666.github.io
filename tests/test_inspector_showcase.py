@@ -8,7 +8,7 @@ import struct
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = 'https://github.com/ult666666/lineageguard-datahub-agent/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/'
+SOURCE = 'https://github.com/ult666666/lineageguard-datahub-agent/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'
 
 class Page(HTMLParser):
     def __init__(self):
@@ -66,8 +66,8 @@ class InspectorShowcaseTests(unittest.TestCase):
     def test_screenshot_is_exact_public_source_with_size_and_publication_inventory(self):
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
         for name, expected in (
-            ('assets/lineageguard-review-inspector.png', '53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266'),
-            ('assets/lineageguard-saved-comparison.png', '6a4e0f2e714940e13984aed384a29d16be3145d5ca5ce6c12660b82f255e7af3'),
+            ('assets/lineageguard-review-inspector.png', '9052d0781488221a976d6df4e3d189e2e4dd716066bc278d5032c8d15e902e39'),
+            ('assets/lineageguard-saved-comparison.png', '5b40ae5ebcb25fbc0f69dcca03dcf05506530ed1ad13141b1e63bff930d92b61'),
         ):
             with self.subTest(screenshot=name):
                 self.assertTrue((ROOT / name).is_file(), 'public source screenshot must exist')

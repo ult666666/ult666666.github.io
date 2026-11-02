@@ -138,7 +138,12 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 39, 'Payload includes .nojekyll, the reviewed portfolio/catalog, pinned Blast demo and saved-comparison screenshot')
+        self.assertEqual(len(inventory) + 1, 30, 'Payload includes .nojekyll, the reviewed portfolio/catalog, pinned Blast demo and saved-comparison screenshot')
+        pages = ''.join((ROOT / name).read_text() for name in inventory if name.endswith('.html'))
+        for name in inventory:
+            if name.startswith('assets/') and name != 'assets/portfolio-og.svg':
+                # The SVG is the checked-in source of the PNG social card, so no page shows it.
+                self.assertIn('/' + name, pages, name + ' is published but no page shows it')
         self.assertFalse(any(name.startswith('assets/recent-') for name in inventory),
                          'The retired gallery images stay out of the inventory')
         self.assertFalse(any(name.startswith(('examples/', 'scripts/', 'docs/', 'tests/'))
