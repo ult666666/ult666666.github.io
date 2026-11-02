@@ -1,9 +1,9 @@
 {
   "schema": "blast-offline-demo/1",
   "repository": "https://github.com/ult666666/blast-radius-daily",
-  "sourceCommit": "7d5fb0754545f7addaa46d512a3d09d5563bc967",
+  "sourceCommit": "48578575f5ba9e5758801b5dccefed942aabf1f7",
   "sourceDirty": false,
   "artifact": "projects/blast-radius-demo.html",
-  "sha256": "5e2ecc1fe13ef0b337b519769778ca0e4d5d059162300639ad712758dbda6a13",
-  "bytes": 2587509
+  "sha256": "682032d08e70c747441039237d6a7530023f64a4583453f4175ab46c493d1b72",
+  "bytes": 2587613
 }

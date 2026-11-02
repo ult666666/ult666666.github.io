@@ -10,9 +10,9 @@ It works on desktop and landscape layouts, with pointer or keyboard play (Tab, t
 
 | Field | Value |
 | --- | --- |
-| Source commit | `7d5fb0754545f7addaa46d512a3d09d5563bc967` |
-| SHA-256 | `5e2ecc1fe13ef0b337b519769778ca0e4d5d059162300639ad712758dbda6a13` |
-| Size | 2,587,509 bytes |
+| Source commit | `48578575f5ba9e5758801b5dccefed942aabf1f7` |
+| SHA-256 | `682032d08e70c747441039237d6a7530023f64a4583453f4175ab46c493d1b72` |
+| Size | 2,587,613 bytes |
 
 Rebuilding that commit in a clean clone on 2 November 2026 reproduced the vendored file byte for byte. The staging build (`scripts/build_site.py`) refuses changed bytes, a missing lock, an unknown or dirty source and mismatched source metadata before it writes any output. `tests/test_blast_demo.py` checks the embedded runtime, its connection-blocking Content Security Policy and the bundled license notices. The other portfolio pages keep their stricter rule of no scripts except the explorer's search.
 

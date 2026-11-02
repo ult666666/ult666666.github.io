@@ -36,13 +36,13 @@ module.exports = async function verifyBlast(browser, base) {
     };
     // Identity's coordinates are part of the pinned July14 deterministic fixture.
     await click(270,190);
-    await page.getByLabel('Local selected breakers').filter({hasText:'identity'}).waitFor();
+    await page.getByLabel('Local selected breakers').filter({hasText:'member_stitch'}).waitFor();
     await click(941,653);
     await status.filter({hasText:'Tracing'}).waitFor();
     await status.filter({hasText:'Result ready'}).waitFor();
     assert.equal(await page.getByLabel('Local score').innerText(), '1375');
     await click(884,493);
-    await page.getByLabel('Local vote').filter({hasText:'protect-dashboards'}).waitFor();
+    await page.getByLabel('Local vote').filter({hasText:'Protect dashboards'}).waitFor();
     assert.equal(await page.getByLabel('Synthetic vote totals').innerText(), '8, 11, 5');
     await click(884,681);
     await status.filter({hasText:'Confirm deletion'}).waitFor();

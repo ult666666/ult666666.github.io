@@ -129,7 +129,10 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('.fintech-doc-list li').count(),4);
     assert.equal(await page.locator('.fintech-journey-card').count(),4);
     assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#capital-record');
-    assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
+    // Wait for the decode: under load the image can still be in flight when the page settles.
+    const productImage = page.locator('.fintech-product-image img');
+    await page.waitForFunction(image => image.complete && image.naturalWidth > 0, await productImage.elementHandle(), {timeout:10000});
+    assert.equal(await productImage.evaluate(image => image.complete && image.naturalWidth > 0),true);
     await page.screenshot({path:path.join(out,'fintech-gateway-desktop.png'),fullPage:true});
     for (const width of [390,768,1440]) {
       await page.setViewportSize({width,height:900}); await page.goto(base);
