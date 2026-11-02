@@ -19,11 +19,11 @@ module.exports = async function inspectorShowcase(browser, base) {
     const image=page.locator('#review-inspector .case-detail-media img');
     await image.scrollIntoViewIfNeeded();
     await page.waitForFunction(el=>el.complete&&el.naturalWidth>0,await image.elementHandle());
-    assert.deepEqual(await image.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1170,987]);
+    assert.deepEqual(await image.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1272,793]);
     assert.equal(await image.evaluate(el=>Number(el.width)<=el.parentElement.clientWidth+1),true);
     checks.push('real public Inspector screenshot loads with correct authored dimensions');
     for(const link of await page.locator('#review-inspector .case-section-links a').all()){
-      assert((await link.getAttribute('href')).includes('/blob/6ed607b5c9ff6f46f2bb3214b04d040b04c02c52/'));
+      assert((await link.getAttribute('href')).includes('/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'));
       assert.equal(await link.getAttribute('target'),'_blank');
       assert((await link.getAttribute('rel')).includes('noreferrer'));
     }
@@ -34,9 +34,9 @@ module.exports = async function inspectorShowcase(browser, base) {
     const comparison=page.locator('#saved-comparison .case-detail-media img');
     await comparison.scrollIntoViewIfNeeded();
     await page.waitForFunction(el=>el.complete&&el.naturalWidth>0,await comparison.elementHandle());
-    assert.deepEqual(await comparison.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1170,1073]);
+    assert.deepEqual(await comparison.evaluate(el=>[el.naturalWidth,el.naturalHeight]),[1272,803]);
     for(const link of await page.locator('#saved-comparison .case-section-links a').all()){
-      assert((await link.getAttribute('href')).includes('/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/'));
+      assert((await link.getAttribute('href')).includes('/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'));
     }
     checks.push('keyboard reaches saved comparison and its exact public screenshot/source links');
     for(const width of [320,360,390,768,1440]){

@@ -33,7 +33,7 @@ These records describe the portfolio pages at the time of each release. Producti
 
 The case study covers the review workflow and its compiled graph, evidence bound to its source, the bounded runtime, SQLite writer fencing and recovery, the labelled policy benchmark, the dbt manifest adapter, Review Inspector and saved-review comparison. Its hero screenshot is copied unchanged from the public Studio source. The browser-session preview and the durable local runtime are described separately. The original classic demo is still in the repository.
 
-Review Inspector was added on `main` after the `v2.0.0` tag. It keeps recomputed internal consistency apart from source authentication, recorded decisions apart from evidence freshness at inspection time, and browser or local storage apart from any cloud execution. The page's Inspector links are pinned to commit `6ed607b5c9ff6f46f2bb3214b04d040b04c02c52`, and its comparison links to `5d7df021056b9eaa0f913f637cdf0d455f29951d`, the commits the screenshots come from.
+Review Inspector was added on `main` after the `v2.0.0` tag. It keeps recomputed internal consistency apart from source authentication, recorded decisions apart from evidence freshness at inspection time, and browser or local storage apart from any cloud execution. The page's Inspector and comparison links are pinned to commit `ed48eea4370d28c52f3268fadcd3b82a3632a691`, the Studio redesign the screenshots come from.
 
 Suite sizes, as recorded when the page last stated them:
 
