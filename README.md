@@ -2,62 +2,18 @@
 
 [![Portfolio checks](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml/badge.svg)](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml)
 
-**Portfolio:** https://ult666666.github.io/
-**GitHub:** https://github.com/ult666666
+The source of [ult666666.github.io](https://ult666666.github.io/): a short introduction, five selected projects, an index of everything I have published, five case studies, two pages of project walkthroughs and a searchable project explorer.
 
-**[Fintech portfolio](https://ult666666.github.io/fintech.html):** Explore Capital Strategy Studio: a working financing decision that connects business objectives, ownership, scenario analysis and inspectable full stack engineering.
+The pages are plain HTML and CSS in one system serif. There are no web fonts, analytics, cookies or third-party requests. The only script is the explorer's search, and every page works without it.
 
-A small static site: a short introduction, five selected projects with screenshots, an [index of published projects](https://ult666666.github.io/#index), five case studies, two collection pages (the engineering lab and foundations) and a searchable project explorer. The authored portfolio pages use plain HTML and CSS with no web fonts, analytics, cookies or third-party requests. The explorer's search uses JavaScript; every project and link remains available without it. The separately vendored Blast game requires its embedded runtime and makes no external requests.
+Start with the [home page](https://ult666666.github.io/), the [fintech page](https://ult666666.github.io/fintech.html) or the [project explorer](https://ult666666.github.io/projects/catalog.html).
 
-The design, and the reasons behind it, are in [docs/DESIGN.md](docs/DESIGN.md). In short: a printed-page layout with paper, ink and one blue for links, a single system serif, and plain first-person copy.
-
-`assets/motionx-site.jpg` is a 1440 × 900 screenshot of the opening screen of https://madebymotionx.com/, captured on 25 October 2026 and saved as JPEG. SHA-256: `a37cabcb8db5be11f6923b770a2f77592d7f2eb587cfde7296552cb81c59e7fc`. No screenshot requires personal or account data.
-
-## Project explorer
-
-[Browse all 20 public projects](https://ult666666.github.io/projects/catalog.html) by scenario, implementation route, technology and scope. Text search and area filters compose; every project and link remains available without JavaScript.
-
-The reviewed source is `docs/project-catalog.json`. After editing it, run `python3 -B scripts/build_catalog.py`; the build and test suite reject stale generated HTML. The catalog adds no external services or runtime dependencies. Only its generated HTML, CSS and JavaScript enter the reviewed public payload.
-
-## Start the review
-
-The homepage features **Frontier AI Valuation Lab** first. Its [engineering review guide](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html#review-guide) connects a short demo journey to the public source and checks for calculation consistency, exact navigation handoffs, save failures and evidence provenance. The evidence table becomes stacked cards on small screens and remains readable without JavaScript.
-
-The project uses illustrative forecasts and a dated research snapshot. Its shared browser/API engine establishes consistency; the separate Python reference supplies the independent arithmetic check. Linked verification records identify the scope and date of their results.
-
-## Selected projects
-
-The [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) adds three independent, AI-assisted portfolio builds: [RelayBox](https://github.com/ult666666/relaybox) for durable signed webhook ingestion and outbound delivery, [TraceBench](https://github.com/ult666666/tracebench) for offline AI evaluation with statistical regression gates, and [Impact Ledger](https://github.com/ult666666/impact-ledger) for full-stack nonprofit operations reporting with a hash-chained audit log. Their READMEs provide reproducible local quickstarts, synthetic fixtures, test evidence and English/Chinese handoff documentation. The [hosted Impact Ledger preview](https://ult666666.github.io/impact-ledger/) runs on a bundled synthetic snapshot; persistence belongs to its local Python API.
-
-The first workflow releases add [RelayBox 0.2.0 local processing and receipts](https://github.com/ult666666/relaybox/releases/tag/v0.2.0), [TraceBench 0.2.0 standalone HTML reports](https://github.com/ult666666/tracebench/releases/tag/v0.2.0), and [Impact Ledger 1.1.0 prior-period comparison and printing](https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0). Open the [synthetic evaluation report](https://ult666666.github.io/tracebench/) to inspect its two deliberate regressions. These links preserve a dated release scope; timing observations and prices are supplied fixtures, and local receipt publication is a separate transaction from inbox acknowledgment.
-
-The [foundations page](https://ult666666.github.io/projects/foundations.html) adds seven independent, AI-assisted builds that check well-studied methods against references they did not produce: [quantkit](https://github.com/ult666666/quantkit) for option pricing, portfolios, look-ahead-safe backtests and VaR model validation; [powerlift](https://github.com/ult666666/powerlift) for A/B and A/B/n experiment statistics; [ledgerline](https://github.com/ult666666/ledgerline) for an idempotent double-entry ledger API with holds; [saas-analytics-warehouse](https://github.com/ult666666/saas-analytics-warehouse) for tested dbt metrics with incremental loads and subscription history; [searchlite](https://github.com/ult666666/searchlite) for explainable search ranking with exact top-k pruning; [contrastkit](https://github.com/ult666666/contrastkit) for accessible color, including color vision deficiencies at any severity; and [citecheck](https://github.com/ult666666/citecheck) for Claude API question answering whose claims are checked against the retrieved sources. Each walkthrough gives one runnable command and its observed result, and each project has a second walkthrough for its November 2026 upgrade. The hosted [dbt docs](https://ult666666.github.io/saas-analytics-warehouse/), [search demo](https://ult666666.github.io/searchlite/) and [Palette Auditor](https://ult666666.github.io/contrastkit/) use synthetic or bundled data.
-
-| Project | Scope | Evidence |
-| --- | --- | --- |
-| crossbook | Order-matching engine in Rust with opening and closing call auctions, checked against a reference engine, with the same event digests on Linux, macOS, Windows and WebAssembly | [Source](https://github.com/ult666666/crossbook) · [Playground](https://ult666666.github.io/crossbook/) · [Case study](https://ult666666.github.io/projects/crossbook.html) |
-| LineageGuard Studio | Typed orchestration, evidence readiness from fixtures, DataHub or a dbt manifest, interruption recovery and evaluations | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) |
-| MOTIONX | Next.js studio website and separate Python outreach validation | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
-| Agentic Trading Research | Research-only architecture and deterministic gates; separate runnable synthetic research-gate example and backtest-overfitting diagnostics | [Snapshot](https://github.com/ult666666/agentic-trading-research) · [Offline demo + tests](https://github.com/ult666666/agentic-trading-research/tree/main/examples) |
-| ProofCast | Local media generation with asset provenance, Ed25519 manifest signatures and a Merkle transparency log | [Source](https://github.com/ult666666/proofcast-backblaze) |
-| Blast Radius Daily | Deterministic Devvit community puzzle, playable by pointer or keyboard | [Source](https://github.com/ult666666/blast-radius-daily) |
-| Teen Budgeting | Coursework demo; fictional data and no persistent authentication | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
-| JUST-QR | Browser QR generator with its own ISO/IEC 18004 encoder; the page loads no third-party script | [Source](https://github.com/ult666666/JUST-QR) |
-| Luma Keys | AI-assisted offline piano practice desktop app: numbered score, sheet music and falling notes, 3-D hands playing a planned fingering, graded sight reading and on-device PDF recognition | [Source](https://github.com/ult666666/luma-keys) · [Hand motion design](https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md) |
-| Frontier AI Valuation Lab | AI-assisted independent fintech project; capital decisions, economic FCFF valuation, seeded Monte Carlo value ranges, independent numerical references and a shared browser/Node.js API | [Source](https://github.com/ult666666/frontier-ai-valuation-lab) · [Capital Studio](https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision) · [Case study](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html) |
-
-## Inspect the engineering
-
-The About section on the homepage links three documents for readers who prefer reading to clicking through demos: how the financial arithmetic is checked, how LineageGuard refuses schema-change inputs, and how this site decides which files it publishes.
-
-The [publication boundary](docs/PUBLICATION_BOUNDARY.md) records a reproduced directory-copy weakness and its repair. An exact `public-files.json` inventory replaces implicit approval of everything in `assets/` or `projects/`. The staged site carries a deterministic `release-manifest.json` with per-file SHA-256 values and is verified again before upload. Sensitive findings belong in the private route in [SECURITY.md](SECURITY.md), never a public issue with secrets attached.
-
-## Local development
+## Run it
 
 Use Python 3.11+ and Node.js 22+.
 
 ```sh
-python3 -m http.server 4319 --bind 127.0.0.1
+python3 -m http.server 4319 --bind 127.0.0.1   # browse the source at http://127.0.0.1:4319
 python3 -B -m unittest discover -s tests -v
 npm ci --ignore-scripts --no-audit --no-fund
 npx playwright install chromium
@@ -66,72 +22,72 @@ PORTFOLIO_TEST_ROOT=_site npm run test:browser
 python3 -B scripts/build_site.py --verify _site
 ```
 
-The build refuses to overwrite an existing `_site` directory. Start with a fresh checkout or remove only your previously generated `_site` output before rebuilding.
+`npm run build` does not regenerate pages. It checks that the generated pages are current, then stages the public files in `_site`. It refuses to overwrite an existing `_site`, so delete your previous output first.
 
-The optional browser harness accepts `PLAYWRIGHT_MODULE` for an installed Playwright package and `PORTFOLIO_CHROMIUM_EXECUTABLE` for an available Chromium binary. `PORTFOLIO_CHROMIUM_ARGS` accepts a JSON array of explicit launch arguments when the development environment needs them. These settings do not affect the published site.
+The browser tests accept `PLAYWRIGHT_MODULE` for an installed Playwright package, `PORTFOLIO_CHROMIUM_EXECUTABLE` for a Chromium binary and `PORTFOLIO_CHROMIUM_ARGS` for a JSON array of launch arguments. None of these affects the published site.
 
-The [installed synthetic operations handoff](examples/operations_handoff/README.md) is a source-only integration of released RelayBox 0.4.0, TraceBench 0.3.0 and Impact Ledger 1.2.0 wheels. It verifies real signed HTTP delivery, receipts, advisory CSV imports, exact bilingual fixture accounting, recovery and recorded contract exits 0/3/2 in a fresh offline environment. Its normalized [clean report](examples/operations_handoff/evidence/clean.html) and deliberately [mutated regression report](examples/operations_handoff/evidence/synthetic-regression.html) stay outside the Pages inventory. The separate read-only `handoff.yml` workflow downloads only the hash-locked public release assets before running the drill.
+## What is where
 
-## Architecture
+| Page | Source |
+| --- | --- |
+| Home: introduction, selected work, project index, about, contact | `index.html` |
+| Fintech overview of Capital Strategy Studio | `fintech.html`, `fintech.css` |
+| Five case studies | `projects/*.html`, generated by `scripts/build_cases.py` |
+| Foundations: seven projects with walkthroughs | `projects/foundations.html` |
+| Engineering lab: three projects and the example that connects them | `projects/engineering-lab.html` |
+| Project explorer | `projects/catalog.html`, generated from `docs/project-catalog.json` by `scripts/build_catalog.py` |
+| Blast Radius Daily, playable offline | `projects/blast-radius-demo.html`, a pinned build ([notes](docs/BLAST_DEMO.md)) |
+| Shared styles, focus states and print rules | `styles.css` |
 
-- `index.html`: the homepage: introduction, selected work, smaller builds, the project index, about and contact.
-- `projects/engineering-lab.html`: a static review route for three complementary engineering projects, their source, architecture and verification records.
-- `projects/foundations.html`: a static review route for seven reference-checked builds, each with source, design notes, live demos where available and one runnable proving test.
-- `fintech.html` / `fintech.css`: the dedicated fintech gateway, a labeled three-plan capital comparison and direct links to the working decision studio and its evidence.
-- `styles.css`: the shared design system (tokens, type, grid) and every page's layout; visible keyboard focus and reduced-motion support.
-- `docs/DESIGN.md`: the design brief: what changed in October 2026, the tokens and the page structure.
-- `scripts/build_cases.py`: deterministic case-study source and optional escaped reviewer guide; `--check` catches stale generated pages.
-- `public-files.json`: exact reviewed deployment paths; new assets require an explicit inventory update.
-- `scripts/build_site.py`: snapshot-based static staging and byte verification; unlisted assets, unsafe file types and missing reviewed files refuse before output.
-- `release-manifest.json`: generated public SHA-256 inventory, not a signature or security certification.
-- `tests/`: structural/metadata/deployment checks plus real Chromium interaction checks.
-- `.github/workflows/portfolio.yml`: tests on pull requests and pushes; deploys only tested main-branch artifacts.
+After editing a case study or the catalog data, regenerate the pages. The build and the tests reject stale generated HTML.
 
-## Evidence and scope
+```sh
+python3 -B scripts/build_cases.py
+python3 -B scripts/build_catalog.py
+```
 
-The portfolio links to documented work, not fabricated employers, client engagements, contribution history or inflated usage statistics. Live websites, coursework, prototypes and research are labeled separately. The trading research project is not a deployed automated trading service or evidence of investment returns.
+## Selected projects
 
-The fintech page highlights Frontier AI Valuation Lab, an independent, AI-assisted project by Charles Dai. Application **4.0 introduces Capital Strategy Studio**. The portfolio's static three-plan illustration comes from its hypothetical Anthropic worked decision: a $25 billion capital objective and an 88% retained-stake floor. A and B meet both objectives; C preserves more ownership but falls $5 billion short of the capital objective. Raising the retained-stake floor to 90% leaves A eligible. The live application carries the complete editable calculation.
+| Project | What it is | Links |
+| --- | --- | --- |
+| Frontier AI Valuation Lab | A valuation and financing model for frontier AI labs, with seeded Monte Carlo value ranges and independent Python checks | [Source](https://github.com/ult666666/frontier-ai-valuation-lab) · [Capital Studio](https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision) · [Case study](https://ult666666.github.io/projects/frontier-ai-valuation-lab.html) |
+| crossbook | An order-matching engine in Rust with call auctions, checked against a second engine and producing the same events on every platform | [Source](https://github.com/ult666666/crossbook) · [Playground](https://ult666666.github.io/crossbook/) · [Case study](https://ult666666.github.io/projects/crossbook.html) |
+| LineageGuard Studio | Reviews database schema changes against lineage from fixtures, DataHub or a dbt manifest, and recovers interrupted runs | [Source](https://github.com/ult666666/lineageguard-datahub-agent) · [Demo](https://lineageguard-datahub-agent.vercel.app/) · [Case study](https://ult666666.github.io/projects/lineageguard.html) |
+| Luma Keys | An offline piano practice app with sheet music, falling notes and 3-D hands playing a planned fingering | [Source](https://github.com/ult666666/luma-keys) · [Hand motion design](https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md) |
+| MOTIONX | The Next.js site for my motion-design studio, plus a Python outreach drafting tool | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
+| Agentic Trading Research | A research-only trading system snapshot with a runnable review gate and backtest-overfitting diagnostics | [Snapshot](https://github.com/ult666666/agentic-trading-research) · [Examples](https://github.com/ult666666/agentic-trading-research/tree/main/examples) |
+| ProofCast | Local media generation with signed manifests and a Merkle transparency log | [Source](https://github.com/ult666666/proofcast-backblaze) |
+| Blast Radius Daily | A one-minute Reddit puzzle about a schema change spreading, playable by keyboard | [Source](https://github.com/ult666666/blast-radius-daily) · [Play](https://ult666666.github.io/projects/blast-radius-demo.html) |
+| JUST-QR | A browser QR generator with its own ISO/IEC 18004 encoder | [Source](https://github.com/ult666666/JUST-QR) |
+| Teen Budgeting | Coursework with fictional data | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
 
-The review journey follows **Define → Compare → Challenge → Record**. Visitors can compare up to six financing plans across nine explicit scenarios, inspect signed residual allocations and finite-scenario minimax regret, and see when pairwise switching values or the more demanding all-scenario pricing interval change the conclusion. The analyst's choice and reasoning remain separate from the comparison rule. Exact share links, a recomputed JSON decision record, a standalone HTML brief and the worked PDF keep those inputs and judgments together.
+The [foundations page](https://ult666666.github.io/projects/foundations.html) covers quantkit, powerlift, ledgerline, saas-analytics-warehouse, searchlite, contrastkit and citecheck, and the [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) covers RelayBox, TraceBench and Impact Ledger. Each project there has two walkthroughs with a command and its expected result; [FOUNDATIONS.md](docs/FOUNDATIONS.md) and [ENGINEERING_LAB.md](docs/ENGINEERING_LAB.md) record when those commands were last run.
 
-The business case, financial model, numerical reference and engineering architecture are documented separately so their claims are inspectable. The application uses a shared browser/Node.js handler with a bounded request parser, complete result parity and stale-response invalidation. Its independent Python capital reference uses Decimal cash-flow arithmetic and Fraction share ledgers. This is a deterministic research demo: scenario counts are not probabilities, signed residual allocations are not investment returns, and quoted financing offers are hypothetical. Read the [capital method](https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md), inspect the [architecture](https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/ARCHITECTURE.md), or open the [worked decision brief](https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Capital_Decision.html).
+## How publishing works
 
-The existing tools remain available as supporting workspaces. Value Horizon preserves the explicit forecast and shows how many terminal cash-flow years remain when later cash flows and residual value are set to zero.
+`public-files.json` lists every file that may be published. `scripts/build_site.py` copies only those files into `_site` and refuses anything unlisted, linked or oversized. It writes `release-manifest.json` with each file's SHA-256, then reads the staged files back and checks every byte. CI runs the tests on every pull request and deploys `main` to GitHub Pages only after they pass.
 
-Application 3.6 introduced **Ownership Frontier** within the existing [Financing Lens](https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example). It connects an explicit ownership constraint to the maximum primary capital at an independently entered pre-money or post-money quote. Retaining 90% of a starting stake means a 10% holder stays at or above 9% of the company. In the hypothetical $250 billion pre-money example, the capital limit is approximately $27.78 billion; the current $25 billion round leaves $2.78 billion within that limit. Interpreting the same quote as post-money changes the limit to $25 billion.
+An earlier build copied whole directories, so a stray local file could have been published. [PUBLICATION_BOUNDARY.md](docs/PUBLICATION_BOUNDARY.md) describes that weakness and the fix. Report security issues privately as described in [SECURITY.md](SECURITY.md).
 
-The browser/API calculation contract and dedicated financing links and HTML/JSON exports carry the complete case, including the retention minimum. The portfolio explains the financial distinction and links to the working tool; it does not add a second financial calculator. The primary round assumes equal economic rights and retained cash, with no fees, option-pool changes, SAFEs, secondary sales or preferences. The limit is conditional ownership arithmetic, not an estimate of company funding needs or a recommended raise. Operating-case saves in the Research Casebook retain their existing scope. Read the [method](https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md) or download the [worked PDF](https://frontier-ai-valuation-lab.vercel.app/downloads/Frontier_AI_Financing_Lens.pdf).
+`scripts/verify_deployment.py` compares a deployed site with the reviewed commit and checks the key facts on the fintech and case-study pages.
 
-The case study connects financial-model review, a shared browser/Node.js calculation engine, dated sources and independent numerical verification. Its proof links lead to the actual methodology, API contract, verification record and source register. Scenario enterprise values and hypothetical equity bridges are distinct from security-specific price targets or trading results. The 18 October 2026 financial snapshot is unchanged.
+## The operations example
 
-The [Capital Strategy 4.0 local portfolio verification record](docs/verification/capital-4.0-local.json) records 34 structural tests, the real browser workflow, 56 navigation-resilience checks, the reviewed staged-file manifest and preserved concurrent changes. Production deployment verification is recorded separately in the application's release evidence. The historical [Ownership Frontier 3.6 record](docs/verification/ownership-3.6-local.json) and [Financing Lens 3.5 receipt](docs/verification/financing-3.5-local.json) retain their original revision and scope.
+[`examples/operations_handoff/`](examples/operations_handoff/README.md) installs the released RelayBox 0.4.0, TraceBench 0.3.0 and Impact Ledger 1.2.0 wheels in a fresh offline environment and runs one synthetic webhook through all three: signed delivery, import, report totals and a recorded contract that exits 0, 3 or 2. Its reports stay out of the published site. The separate `handoff.yml` workflow downloads the hash-locked wheels and runs it.
 
-Project screenshots were copied from the corresponding public project repositories; their source links appear above. Social previews are generated from the checked-in SVG. No private trading source, runtime, credentials or personal financial data is included.
+## Design
 
-`assets/luma-keys-practice.png` is downscaled to 1440 × 900 and reduced to a 256-color palette from `docs/screenshots/practice-hands.png` in Luma Keys commit `b5d41ea8804b0cd4d3a489436536e7f7f490f2ab`. SHA-256: `75ec4d8632c3e0c64886b3219ca6e7ac6880edeea5eac14afee5754bcd18a326`. It shows the app's development build on a public-domain Mutopia score.
+The site is laid out like a printed page: paper, ink, one blue for links, a single serif and a margin column for section labels. [DESIGN.md](docs/DESIGN.md) has the tokens, the layout and the copy rules. [ASSETS.md](docs/ASSETS.md) records where each screenshot comes from.
 
-## LineageGuard Studio 2.0
+## Limits
 
-The [Studio case study](projects/lineageguard.html) now documents the executable DAG, source-bound evidence, bounded runtime, local SQLite writer fencing, recovery and evaluations. Its screenshot is copied byte-for-byte from the verified public Studio source. Browser-session preview and durable-local behavior are clearly separated. The original classic demo remains available in its repository. No private trading runtime or real catalog data is included.
+- These are portfolio projects built with AI coding assistants. None is in production use, and the hosted demos run on synthetic data.
+- The financial figures on the fintech page and in the Frontier case study are illustrative, not valuations or investment advice. The trading research project is not a deployed trading service or evidence of returns.
+- The publication check stops unlisted files from being deployed. It is not a secret scanner, and anything committed to this public repository is public whether or not it is deployed.
+- The site links to documented work only: no invented employers, clients, contribution history or usage numbers.
 
-
-### Review Inspector: portable, offline consistency checks
-
-The LineageGuard case study now includes the shipped [Review Inspector](projects/lineageguard.html#review-inspector), a three-minute engineering walkthrough, and revision-pinned implementation/test links. It distinguishes recomputed internal consistency from source authentication, recorded decisions from inspection-time evidence freshness, and browser/local persistence from cloud execution.
-
-`assets/lineageguard-review-inspector.png` is copied byte-for-byte from `assets/review-inspector.png` in LineageGuard commit `6ed607b5c9ff6f46f2bb3214b04d040b04c02c52`. SHA-256: `53afbb9e409fc1e94e3fdf024c4ed90ba0bc9a14695a5422893c110c12efc266`. It shows synthetic source data. No private local browser screenshot or runtime is published.
-
-The Inspector revision's 120 Node tests, 31 browser journeys and 19 evaluation assertions describe separate overlapping checks. They do not retroactively change the original v2.0.0 release receipt or establish independent catalog truth. Showcase tests cover pinned links, screenshot integrity, accessible anchors, no-JavaScript content, responsive widths and publication inventory. Other case pages and the fintech gateway remain byte-identical in this update.
-
-The [Inspector showcase verification record](docs/verification/lineageguard-inspector-showcase.json) binds the public source screenshot, authored case files and preserved other projects. Deployment results are verified separately after publication.
-
-## Blast Radius: playable offline build
-
-The project explorer links to a [playable Blast incident](projects/blast-radius-demo.html). It uses the actual Phaser scenes and shared deterministic engine with fictional tab-memory scores/votes. The source repository documents `npm run build:demo` and its complete offline Chromium journeys. Reddit/Redis/moderation/comments remain outside this demonstration. Desktop and landscape layouts are supported, with pointer or keyboard play (Tab, the arrow keys, Space or Enter, and D to deploy) and a hidden accessible mirror of the board for screen readers. That support is checked with Playwright and axe-core in Chromium, not with a physical screen reader or inside Reddit's apps.
-
-`docs/blast-demo-lock.json` pins the clean upstream source commit, exact HTML SHA-256 and size. The current build comes from commit `9eedbd2`; rebuilding that commit in a clean clone on 2 November 2026 reproduced the vendored file byte for byte (SHA-256 `667061938927e177673d6a93f1125a5ff415f3af0f23fb29d9362414d73c02c5`, 2,587,824 bytes). The portfolio's browser suite plays it from the catalog by pointer and again by keyboard alone. The staging build rejects changed bytes, missing locks, dirty/unknown source identities and mismatched source metadata before creating output. The generated executable has separate resource/CSP/license checks; authored portfolio pages retain their strict script policy. To refresh it, build a reviewed green upstream main in a clean checkout, copy only `dist-demo/blast-radius-demo.html`, update the lock from its manifest, and run the full portfolio checks plus actual catalog-to-game journey. Do not hand-edit the generated HTML.
+More background on the two longest case studies is in [CASE_STUDIES.md](docs/CASE_STUDIES.md).
 
 ## License
 
-The portfolio source code is available under the [MIT License](LICENSE). The vendored Blast HTML retains its own BSD-3-Clause project license and source-specific third-party notices, included under its **Source and bundled licenses** control. The portfolio's written content, images and other media are © 2026 Charles Dai, all rights reserved, and are not covered by the MIT License.
+The portfolio source code is available under the [MIT License](LICENSE). The vendored Blast HTML keeps its own BSD-3-Clause license and third-party notices, shown under its **Source and bundled licenses** control. The written content, images and other media are © 2026 Charles Dai, all rights reserved, and are not covered by the MIT License.

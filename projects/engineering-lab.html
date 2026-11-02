@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="Charles Dai's engineering lab: durable webhooks, reproducible AI evaluation and full-stack nonprofit reporting. Run the code and inspect the failure tests.">
+  <meta name="description" content="Charles Dai's engineering lab: a durable webhook inbox, offline AI evaluation with statistical regression gates, and nonprofit reporting with an audit log. Each comes with commands to run and the tests behind them.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Engineering Lab — Charles Dai">
-  <meta property="og:description" content="Three independent systems connecting backend reliability, AI evaluation and useful operational reporting.">
+  <meta property="og:title" content="Engineering lab | Charles Dai">
+  <meta property="og:description" content="Three projects about what happens when things go wrong: duplicate webhooks, a model regression and a report that double-counts.">
   <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
   <link rel="canonical" href="https://ult666666.github.io/projects/engineering-lab.html">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="stylesheet" href="/styles.css">
-  <title>Engineering Lab — Charles Dai</title>
+  <title>Engineering lab | Charles Dai</title>
 </head>
 <body class="engineering-lab">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -26,11 +26,10 @@
   <main id="main">
     <section class="lab-intro container">
       <a class="case-back" href="/#work">← All work</a>
-      <p class="eyebrow">Engineering lab</p>
-      <h1>After the happy path</h1>
-      <p class="lab-lead">Three independent systems about what happens when things go wrong: repeated deliveries, a model regression, and a report that counts the same person twice.</p>
-      <p class="lab-scope">Independent portfolio projects · Synthetic data</p>
-      <p class="lab-handoff-entry"><a href="#operations-handoff">Follow the installed operations handoff</a> <span>One event, three tools, exact recorded evidence.</span></p>
+      <h1>Engineering lab</h1>
+      <p class="lab-lead">Three projects about what happens when things go wrong: a webhook delivered twice, an AI model that regresses, and a report that counts the same person twice.</p>
+      <p class="lab-scope">All data is synthetic, and none of these projects is in production use.</p>
+      <p class="lab-handoff-entry"><a href="#operations-handoff">See the three tools work together</a> on one synthetic event.</p>
       <nav class="lab-index" aria-label="Projects on this page">
         <a href="#section-1"><span>Backend</span><strong>RelayBox</strong></a>
         <a href="#section-2"><span>Applied AI</span><strong>TraceBench</strong></a>
@@ -39,149 +38,144 @@
     </section>
 
     <section class="lab-project container" id="section-1" aria-labelledby="relaybox-title">
-      <div class="lab-number">01 <span>Backend reliability</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="relaybox-title">RelayBox</h2>
           <p>A signed webhook inbox with a durable SQLite job lifecycle. Delivery IDs deduplicate matching payloads, conflicting reuses are rejected, and expiring leases let a new worker recover interrupted work.</p>
           <p>A fencing token prevents an old worker from acknowledging a job after another worker has reclaimed it.</p>
-          <p><strong>Outbound delivery:</strong> version 0.5.0 on main also sends webhooks. Subscribers receive messages signed per the <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md" target="_blank" rel="noopener noreferrer">Standard Webhooks specification</a>, with full-jitter retries that respect <code>Retry-After</code>, a dead-letter queue and replay from the CLI or dashboard. Every retry keeps the same <code>webhook-id</code>, so a receiver can drop repeats, and rotated secrets sign in parallel during a grace period. The <a href="https://github.com/ult666666/relaybox/blob/main/README.md#deliver-to-subscribers" target="_blank" rel="noopener noreferrer">delivery guide</a> runs it against a local receiver.</p>
+          <p>The main branch (version 0.5.0) also sends webhooks, signed per the <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md" target="_blank" rel="noopener noreferrer">Standard Webhooks specification</a>, with full-jitter retries that respect <code>Retry-After</code>, a dead-letter queue and replay. Every retry keeps the same <code>webhook-id</code>, so a receiver can drop repeats. The <a href="https://github.com/ult666666/relaybox/blob/main/README.md#deliver-to-subscribers" target="_blank" rel="noopener noreferrer">delivery guide</a> runs it against a local receiver.</p>
           <div class="tag-set"><span>Python</span><span>SQLite</span><span>HMAC</span><span>HTTP integration tests</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer">Run RelayBox</a>
+            <a class="button button-primary" href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
             <a href="https://github.com/ult666666/relaybox/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Architecture</a>
             <a href="https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification</a>
           </div>
-          <p class="lab-demo-note"><a href="https://github.com/ult666666/relaybox/releases/tag/v0.4.0" target="_blank" rel="noopener noreferrer">Queue visibility 0.4.0</a> separates ready/delayed work and active/expired leases without mutating the inbox. <a href="https://github.com/ult666666/relaybox/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">Recovery 0.3.0</a> adds verified snapshots and new-path restore; retain receipts separately. <a href="https://github.com/ult666666/relaybox/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">Worker 0.2.0</a> introduced bounded processing and canonical receipts. Receipt publication and inbox acknowledgment remain separate transactions.</p>
+          <p class="lab-note">Earlier releases added a bounded worker (<a href="https://github.com/ult666666/relaybox/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">0.2.0</a>), verified backup and restore (<a href="https://github.com/ult666666/relaybox/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">0.3.0</a>) and a read-only view of the queue (<a href="https://github.com/ult666666/relaybox/releases/tag/v0.4.0" target="_blank" rel="noopener noreferrer">0.4.0</a>).</p>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Job lifecycle</span><span>Local SQLite</span></div>
+          <div class="lab-artifact-head"><span>Job lifecycle in SQLite</span></div>
           <ol class="lab-lifecycle">
             <li><span class="lab-state">queued</span><span>Persist the accepted delivery</span></li>
             <li><span class="lab-state">leased</span><span>Claim a bounded worker lease</span></li>
             <li><span class="lab-state">queued (retry)</span><span>Recover with another attempt</span></li>
-            <li><span class="lab-state">succeeded / dead_letter</span><span>Record the outcome explicitly</span></li>
+            <li><span class="lab-state">succeeded / dead_letter</span><span>Record the outcome</span></li>
           </ol>
-          <p class="lab-artifact-note">At-least-once work requires idempotent handlers. A durable inbox cannot make an external side effect happen exactly once.</p>
+          <p class="lab-artifact-note">At-least-once work needs idempotent handlers. A durable inbox cannot make an external side effect happen exactly once.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Reproduce a stale worker <span aria-hidden="true">+</span></summary>
+        <summary>Reproduce a stale worker <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a RelayBox checkout with Python 3.11+, run this focused test. It uses a temporary database and a controlled clock.</p><pre><code>python3 -m unittest tests.test_store.StoreTests.test_stale_worker_is_fenced_after_reclaim -v</code></pre><p class="lab-expect">Expected: one passing test. Worker B reclaims an expired lease; worker A's old token cannot acknowledge it.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>claim</code> and <code>_complete</code> together. The SQLite write transaction selects one owner, while the current token and expiry guard completion.</p><p>A process can still finish an external side effect after losing its lease. The consumer must make that effect idempotent; this database cannot roll it back.</p><div class="lab-code-links"><a href="https://github.com/ult666666/relaybox/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/relaybox/blob/main/relaybox/store.py" target="_blank" rel="noopener noreferrer">Inspect the transaction</a></div></div>
+          <div><h3>Try it</h3><p>From a RelayBox checkout with Python 3.11+, run this focused test. It uses a temporary database and a controlled clock.</p><pre><code>python3 -m unittest tests.test_store.StoreTests.test_stale_worker_is_fenced_after_reclaim -v</code></pre><p class="lab-expect">Expected: one passing test. Worker B reclaims an expired lease; worker A’s old token cannot acknowledge it.</p></div>
+          <div><h3>Read the code</h3><p>Read <code>claim</code> and <code>_complete</code> together. The SQLite write transaction selects one owner, while the current token and expiry guard completion.</p><p>A process can still finish an external side effect after losing its lease. The consumer must make that effect idempotent; this database cannot roll it back.</p><div class="lab-code-links"><a href="https://github.com/ult666666/relaybox/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Store tests</a><a href="https://github.com/ult666666/relaybox/blob/main/relaybox/store.py" target="_blank" rel="noopener noreferrer">store.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Kill a sender mid-request <span aria-hidden="true">+</span></summary>
+        <summary>Kill a sender mid-request <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the specification's signing vector and the crash test. The crash test starts a real dispatcher process against a loopback receiver and kills it with SIGKILL during the request.</p><pre><code>python3 -m unittest tests.test_standard_webhooks.StandardWebhooksTests.test_published_vector tests.test_dispatch.DispatchTests.test_crash_mid_delivery_redelivers_with_the_same_webhook_id -v</code></pre><p class="lab-expect">Expected: two passing tests. The signature equals the specification's published vector. After the kill the delivery stays leased with one attempt; once the lease expires, another dispatcher sends the same body with the same <code>webhook-id</code> and a later timestamp.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>dispatch.py</code> with <code>standard_webhooks.py</code>. Each attempt signs <code>id.timestamp.body</code> with every active secret, and its result decides success, a full-jitter retry raised to any <code>Retry-After</code>, or the dead-letter queue. Redirects are never followed.</p><p>A receiver can still see a message twice, so it should drop a repeated <code>webhook-id</code>. There is no rate limit or circuit breaker, and signing secrets are stored unencrypted.</p><div class="lab-code-links"><a href="https://github.com/ult666666/relaybox/blob/main/tests/test_dispatch.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/relaybox/blob/main/relaybox/dispatch.py" target="_blank" rel="noopener noreferrer">Inspect the dispatcher</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the specification’s signing vector and the crash test. The crash test starts a real dispatcher process against a loopback receiver and kills it with SIGKILL during the request.</p><pre><code>python3 -m unittest tests.test_standard_webhooks.StandardWebhooksTests.test_published_vector tests.test_dispatch.DispatchTests.test_crash_mid_delivery_redelivers_with_the_same_webhook_id -v</code></pre><p class="lab-expect">Expected: two passing tests. The signature equals the specification’s published vector. After the kill the delivery stays leased with one attempt; once the lease expires, another dispatcher sends the same body with the same <code>webhook-id</code> and a later timestamp.</p></div>
+          <div><h3>Read the code</h3><p>Read <code>dispatch.py</code> with <code>standard_webhooks.py</code>. Each attempt signs <code>id.timestamp.body</code> with every active secret, and its result decides success, a full-jitter retry raised to any <code>Retry-After</code>, or the dead-letter queue. Redirects are never followed.</p><p>A receiver can still see a message twice, so it should drop a repeated <code>webhook-id</code>. There is no rate limit or circuit breaker, and signing secrets are stored unencrypted.</p><div class="lab-code-links"><a href="https://github.com/ult666666/relaybox/blob/main/tests/test_dispatch.py" target="_blank" rel="noopener noreferrer">Dispatch tests</a><a href="https://github.com/ult666666/relaybox/blob/main/relaybox/dispatch.py" target="_blank" rel="noopener noreferrer">dispatch.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-2" aria-labelledby="tracebench-title">
-      <div class="lab-number">02 <span>Reproducible AI evaluation</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="tracebench-title">TraceBench</h2>
-          <p>An offline evaluation toolkit for recorded model outputs. Explicit exact, contains and JSON-subset checks turn English and Mandarin fixtures into reproducible results. Baseline comparisons identify which cases regressed.</p>
-          <p>Supplied latency observations and explicit token pricing remain separate from correctness. No provider keys or model calls are needed to reproduce the examples.</p>
-          <p><strong>Statistical gates:</strong> on a nondeterministic system some cases flip between runs even when nothing changed. Version 0.5.0 on main adds an exact McNemar test on the cases that changed status, seeded paired bootstrap intervals for pass rate, latency and cost, and the smallest change the suite can detect. <code>--gate</code> chooses what fails a build: any regression (the default), the McNemar test, non-inferiority within a margin, or a confident regression. On synthetic 100-case suites where 10% of cases flip at random, any-regression failed 99.4% of unchanged suites and McNemar 1.1% (<a href="https://github.com/ult666666/tracebench/blob/main/docs/METHODOLOGY.md#paired-statistics-and-statistical-gates-050" target="_blank" rel="noopener noreferrer">method and simulation</a>).</p>
+          <p>An offline evaluation toolkit for recorded model outputs. Exact-match, contains and JSON-subset checks score English and Mandarin fixtures, and a baseline comparison shows which cases regressed. Latency and token cost come from the recorded data and are reported separately from correctness. Nothing calls a model provider.</p>
+          <p>On a nondeterministic system some cases flip between runs even when nothing changed. Version 0.5.0 on the main branch adds an exact McNemar test on the cases that changed status, paired bootstrap intervals and the smallest change a suite can detect, and <code>--gate</code> chooses what fails a build. In a simulation where 10% of cases flip at random, the default any-regression gate failed 99.4% of unchanged suites. The McNemar gate failed 1.1% (<a href="https://github.com/ult666666/tracebench/blob/main/docs/METHODOLOGY.md#paired-statistics-and-statistical-gates-050" target="_blank" rel="noopener noreferrer">method and simulation</a>).</p>
           <div class="tag-set"><span>Python package</span><span>JSONL</span><span>Decimal arithmetic</span><span>Regression gates</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer">Try the evaluation</a>
-            <a href="https://ult666666.github.io/tracebench/" target="_blank" rel="noopener noreferrer">Inspect the synthetic HTML report</a>
-            <a href="https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Method &amp; architecture</a>
+            <a class="button button-primary" href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+            <a href="https://ult666666.github.io/tracebench/" target="_blank" rel="noopener noreferrer">Sample HTML report</a>
+            <a href="https://github.com/ult666666/tracebench/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Architecture</a>
             <a href="https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification</a>
           </div>
-          <p class="lab-demo-note"><a href="https://github.com/ult666666/tracebench/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">Reusable CI 0.3.0</a> retains JSON, Markdown and HTML evidence before applying the regression gate. The current live report keeps the searchable, printable results introduced in <a href="https://github.com/ult666666/tracebench/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">HTML 0.2.0</a>. Its two regressions are deliberate; every output, timing and price is synthetic.</p>
+          <p class="lab-note">Earlier releases added standalone HTML reports (<a href="https://github.com/ult666666/tracebench/releases/tag/v0.2.0" target="_blank" rel="noopener noreferrer">0.2.0</a>) and a reusable CI workflow that keeps every report before the gate decides (<a href="https://github.com/ult666666/tracebench/releases/tag/v0.3.0" target="_blank" rel="noopener noreferrer">0.3.0</a>). The sample report shows two planted regressions in synthetic data.</p>
         </div>
         <div class="lab-artifact lab-terminal">
-          <div class="lab-artifact-head"><span>Review the change</span><span>Offline and deterministic</span></div>
-          <div class="lab-eval-row"><span>Input</span><strong>Cases + recorded outputs</strong></div>
+          <div class="lab-artifact-head"><span>Evaluation steps</span></div>
+          <div class="lab-eval-row"><span>Input</span><strong>Cases and recorded outputs</strong></div>
           <div class="lab-eval-row"><span>Validate</span><strong>Unique IDs, complete results</strong></div>
-          <div class="lab-eval-row"><span>Evaluate</span><strong>Explicit, inspectable checks</strong></div>
+          <div class="lab-eval-row"><span>Evaluate</span><strong>Exact-match, contains and JSON-subset checks</strong></div>
           <div class="lab-eval-row"><span>Compare</span><strong>Baseline → candidate</strong></div>
-          <p class="lab-artifact-note">A passing contract is evidence about those cases. It does not establish general model quality or safety.</p>
+          <p class="lab-artifact-note">A pass says something about these cases only, not about general model quality or safety.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Find a pass-to-fail regression <span aria-hidden="true">+</span></summary>
+        <summary>Find a pass-to-fail regression <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a TraceBench checkout with Python 3.11+, run the baseline comparison test. It joins cases by ID, independently of output order.</p><pre><code>python3 -m unittest tests.test_evaluate.EvaluationTests.test_baseline_detects_regressions_and_improvements_by_id -v</code></pre><p class="lab-expect">Expected: one passing test. A new failure remains a regression even when another case improves.</p></div>
-          <div><h3>Follow the decision</h3><p>Trace suite fingerprinting and the comparison of per-case pass states. A changed contract requires a fresh baseline, so unlike suites cannot quietly produce a reassuring comparison.</p><p>These checks measure explicit fixture contracts. Recorded timing and token usage are supplied observations; a passing result does not establish broad model quality.</p><div class="lab-code-links"><a href="https://github.com/ult666666/tracebench/blob/main/tests/test_evaluate.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/tracebench/blob/main/tracebench/evaluate.py" target="_blank" rel="noopener noreferrer">Inspect the comparison</a></div></div>
+          <div><h3>Try it</h3><p>From a TraceBench checkout with Python 3.11+, run the baseline comparison test. It joins cases by ID, so output order does not matter.</p><pre><code>python3 -m unittest tests.test_evaluate.EvaluationTests.test_baseline_detects_regressions_and_improvements_by_id -v</code></pre><p class="lab-expect">Expected: one passing test. A new failure remains a regression even when another case improves.</p></div>
+          <div><h3>Read the code</h3><p>Read the suite fingerprint and the per-case comparison in <code>evaluate.py</code>. A changed suite needs a new baseline, so two different suites cannot be compared by accident.</p><p>Timing and token counts are taken from the recorded outputs as supplied, not measured.</p><div class="lab-code-links"><a href="https://github.com/ult666666/tracebench/blob/main/tests/test_evaluate.py" target="_blank" rel="noopener noreferrer">Evaluation tests</a><a href="https://github.com/ult666666/tracebench/blob/main/tracebench/evaluate.py" target="_blank" rel="noopener noreferrer">evaluate.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Tell noise from a regression <span aria-hidden="true">+</span></summary>
+        <summary>Tell noise from a regression <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, record the 100-case synthetic baseline, then gate a noisy and a regressed candidate with the exact McNemar test.</p><pre><code>mkdir -p reports
+          <div><h3>Try it</h3><p>From the same checkout, record the 100-case synthetic baseline, then gate a noisy and a regressed candidate with the exact McNemar test.</p><pre><code>mkdir -p reports
 python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/baseline.jsonl --pricing fixtures/pricing.json --report reports/paired-baseline.json
 python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/noisy.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar
 python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/regressed.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar</code></pre><p class="lab-expect">Expected: exit codes 1, 0 and 3. The baseline passes 80 of 100 cases. The noisy candidate swaps 5 passing and 5 failing cases, so McNemar p = 1 and the gate passes. The regressed candidate breaks 12 and fixes 1: the pass rate falls by 0.11 (95% interval -0.18 to -0.04) and McNemar p = 0.00341797.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>paired.py</code>. The exact McNemar p-value is a binomial tail over the cases that changed status, and the bootstrap resamples case pairs with a fixed seed. Gate decisions use exact integers and fractions; the McNemar gate fails only when p is below alpha and regressions outnumber improvements.</p><p>Cases are assumed independent and the gates judge pass/fail only. This 100-case suite can detect pass-rate changes of about 0.09 at 80% power, so small drops need larger suites.</p><div class="lab-code-links"><a href="https://github.com/ult666666/tracebench/blob/main/tests/test_paired.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/tracebench/blob/main/tracebench/paired.py" target="_blank" rel="noopener noreferrer">Inspect the statistics</a></div></div>
+          <div><h3>Read the code</h3><p>Read <code>paired.py</code>. The exact McNemar p-value is a binomial tail over the cases that changed status, and the bootstrap resamples case pairs with a fixed seed. Gate decisions use integers and fractions; the McNemar gate fails only when p is below alpha and regressions outnumber improvements.</p><p>Cases are assumed independent and the gates judge pass/fail only. This 100-case suite can detect pass-rate changes of about 0.09 at 80% power, so small drops need larger suites.</p><div class="lab-code-links"><a href="https://github.com/ult666666/tracebench/blob/main/tests/test_paired.py" target="_blank" rel="noopener noreferrer">Paired statistics tests</a><a href="https://github.com/ult666666/tracebench/blob/main/tracebench/paired.py" target="_blank" rel="noopener noreferrer">paired.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-3" aria-labelledby="impact-title">
-      <div class="lab-number">03 <span>Full-stack operations analytics</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="impact-title">Impact Ledger</h2>
-          <p>A nonprofit reporting workbench with a typed frontend, a Python API and a SQLite store. Filter synthetic program records, distinguish unique participants from attendance, and compare session spending with budget.</p>
+          <p>A nonprofit reporting workbench with a typed frontend, a Python API and a SQLite store. Filter program records, tell unique participants apart from attendance, and compare session spending with the budget.</p>
           <p>Sessions and attendance have separate grains, so a busy event does not multiply its own expenses. Imports validate before committing, and accessible tables keep the numbers available alongside the charts.</p>
-          <p><strong>Audit history:</strong> on main, every write also appends to a hash-chained audit log in the same SQLite transaction, and triggers reject edits and deletions of the log. <code>verify</code> detects edited, deleted or reordered entries and table edits that bypass the log. Past reports rebuild every total from the verified log, a keyboard-accessible Ledger version control in the local dashboard selects them, and <code>undo-import</code> adds a compensating batch instead of deleting history. The log is tamper-evident, not tamper-proof, and actor labels are self-declared (<a href="https://github.com/ult666666/impact-ledger/blob/main/docs/ARCHITECTURE.md#audit-history-and-as-of-reports" target="_blank" rel="noopener noreferrer">design</a>).</p>
+          <p>Every write also appends to a hash-chained audit log in the same SQLite transaction, and triggers reject edits and deletions of the log. <code>verify</code> detects edited, deleted or reordered entries and table edits that bypass the log. Past reports are rebuilt from the verified log, and <code>undo-import</code> adds a compensating batch instead of deleting history. The log is tamper-evident, not tamper-proof, and actor labels are self-declared (<a href="https://github.com/ult666666/impact-ledger/blob/main/docs/ARCHITECTURE.md#audit-history-and-as-of-reports" target="_blank" rel="noopener noreferrer">design</a>).</p>
           <div class="tag-set"><span>TypeScript</span><span>Python API</span><span>SQLite</span><span>CSV validation</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer">Explore the synthetic demo</a>
-            <a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer">Full-stack source</a>
+            <a class="button button-primary" href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer">Open the demo</a>
+            <a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer">Source</a>
             <a href="https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">Verification</a>
           </div>
-          <p class="lab-demo-note"><a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.2.0" target="_blank" rel="noopener noreferrer">Import preview 1.2.0</a> adds optional advisory CSV validation in the local API; preview reserves no IDs and import revalidates atomically. The hosted bundled synthetic snapshot retains the equal-length comparison and print report from <a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0" target="_blank" rel="noopener noreferrer">Reporting 1.1.0</a>. Set both dates, apply, then compare. Persistent imports need the local API; activity counts do not establish causal impact.</p>
+          <p class="lab-note">Earlier releases added a printable comparison with the previous period (<a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.1.0" target="_blank" rel="noopener noreferrer">1.1.0</a>) and a CSV import preview that changes nothing until you import (<a href="https://github.com/ult666666/impact-ledger/releases/tag/v1.2.0" target="_blank" rel="noopener noreferrer">1.2.0</a>). The hosted demo is a read-only snapshot; imports need the local API.</p>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>The reporting contract</span><span>Synthetic records</span></div>
+          <div class="lab-artifact-head"><span>Reporting definitions</span></div>
           <dl class="lab-definitions">
             <div><dt>People reached</dt><dd>Distinct participant IDs in the filtered attendance.</dd></div>
-            <div><dt>Attendance</dt><dd>One participant's visit to one session.</dd></div>
-            <div><dt>Program spending</dt><dd>Count each session's actual cost once.</dd></div>
+            <div><dt>Attendance</dt><dd>One participant’s visit to one session.</dd></div>
+            <div><dt>Program spending</dt><dd>Count each session’s actual cost once.</dd></div>
             <div><dt>Filter scope</dt><dd>State the selected program and date range.</dd></div>
           </dl>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Check the reporting grain <span aria-hidden="true">+</span></summary>
+        <summary>Check the reporting grain <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From an Impact Ledger checkout with Python 3.11+, run the storage tests. The first reporting case checks attendance, distinct people and spending together.</p><pre><code>python3 -m unittest discover -s tests -p test_store.py -v</code></pre><p class="lab-expect">Expected: the suite passes. Adding attendance does not multiply a session's spending, and repeat visitors are counted distinctly.</p></div>
-          <div><h3>Follow the decision</h3><p>Inspect the session and attendance tables, then follow <code>_rows</code> into <code>summarize</code>. Costs belong to a session; visits belong to a participant and session. Filters must describe the same reporting population.</p><p>Participation and spending show activity. They do not establish outcomes, eligibility coverage or causal impact. Every example record is synthetic.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/store.py" target="_blank" rel="noopener noreferrer">Inspect the aggregation</a></div></div>
+          <div><h3>Try it</h3><p>From an Impact Ledger checkout with Python 3.11+, run the storage tests. The first reporting case checks attendance, distinct people and spending together.</p><pre><code>python3 -m unittest discover -s tests -p test_store.py -v</code></pre><p class="lab-expect">Expected: the suite passes. Adding attendance does not multiply a session’s spending, and repeat visitors are counted distinctly.</p></div>
+          <div><h3>Read the code</h3><p>Look at the session and attendance tables, then follow <code>_rows</code> into <code>summarize</code>. Costs belong to a session; visits belong to a participant and a session. Filters must describe the same reporting population.</p><p>Participation and spending show activity, not outcomes or causal impact.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_store.py" target="_blank" rel="noopener noreferrer">Store tests</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/store.py" target="_blank" rel="noopener noreferrer">store.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Tamper with the history <span aria-hidden="true">+</span></summary>
+        <summary>Tamper with the history <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the audit tests. They tamper with real SQLite files, including after dropping the protective triggers.</p><pre><code>python3 -m unittest discover -s tests -p test_audit.py -v</code></pre><p class="lab-expect">Expected: 15 tests pass. <code>verify</code> catches an edited, deleted or reordered entry and a table edit that bypasses the log, and a fully rewritten chain is caught only against a head digest saved elsewhere.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>append_batch</code> and <code>verify</code> in <code>audit.py</code>. Each entry stores the row before and after the write and the SHA-256 of the previous entry, so changing any entry breaks every later link, and <code>verify</code> also replays each transition against the current tables.</p><p>Anyone who can edit the database file can rewrite the whole chain consistently; only a head digest kept outside the ledger reveals that. On a 25,000-entry synthetic ledger an as-of summary took 315 ms, against 68 ms from the current tables.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_audit.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/audit.py" target="_blank" rel="noopener noreferrer">Inspect the audit log</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the audit tests. They tamper with real SQLite files, including after dropping the protective triggers.</p><pre><code>python3 -m unittest discover -s tests -p test_audit.py -v</code></pre><p class="lab-expect">Expected: 15 tests pass. <code>verify</code> catches an edited, deleted or reordered entry and a table edit that bypasses the log, and a fully rewritten chain is caught only against a head digest saved elsewhere.</p></div>
+          <div><h3>Read the code</h3><p>Read <code>append_batch</code> and <code>verify</code> in <code>audit.py</code>. Each entry stores the row before and after the write and the SHA-256 of the previous entry, so changing any entry breaks every later link, and <code>verify</code> also replays each transition against the current tables.</p><p>Anyone who can edit the database file can rewrite the whole chain consistently; only a head digest kept outside the ledger reveals that. On a 25,000-entry ledger, an as-of summary took 315 ms. The same summary from the current tables took 68 ms.</p><div class="lab-code-links"><a href="https://github.com/ult666666/impact-ledger/blob/main/tests/test_audit.py" target="_blank" rel="noopener noreferrer">Audit tests</a><a href="https://github.com/ult666666/impact-ledger/blob/main/impact_ledger/audit.py" target="_blank" rel="noopener noreferrer">audit.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project lab-operations container" id="operations-handoff" aria-labelledby="handoff-title">
-      <p class="section-index">One installed handoff</p>
       <h2 id="handoff-title">From one webhook to one report</h2>
-      <p class="lab-operations-lead">This AI-assisted educational drill connects the three released tools through real local HTTP services. Fictional English/Mandarin names, including Alex Chen / 陈安, make the synthetic fixtures readable; the ledger imports participant IDs.</p>
+      <p class="lab-operations-lead">This example installs the three released tools and connects them through local HTTP services. The records are synthetic, with fictional English/Mandarin names such as Alex Chen / 陈安; the ledger itself stores only participant IDs.</p>
       <div class="lab-project-grid">
         <div>
           <ol class="lab-handoff-path">
-            <li><strong>Accept a signed event.</strong> RelayBox persists the delivery, deduplicates an identical replay and rejects a changed one.</li>
-            <li><strong>Keep the receipt.</strong> A bounded worker writes canonical receipts; an explicit adapter extracts their sessions and attendance CSV bytes.</li>
-            <li><strong>Preview, then import.</strong> Impact Ledger's advisory preview changes no rows and reserves no IDs. A separate explicit import revalidates and commits atomically.</li>
-            <li><strong>Compare exact totals.</strong> The selected program and inclusive dates fix the population. Costs count each session once; people count distinct IDs.</li>
-            <li><strong>Check the recorded contract.</strong> TraceBench checks nine recorded JSON contracts, with no provider calls.</li>
+            <li>RelayBox accepts a signed event, deduplicates an identical replay and rejects a changed one.</li>
+            <li>Its worker writes a receipt for each event, and a small adapter pulls the sessions and attendance CSV files out of those receipts.</li>
+            <li>Impact Ledger previews the import without changing rows or reserving IDs. A separate import revalidates and commits atomically.</li>
+            <li>The selected program and inclusive dates fix the population. Costs count each session once, and people count distinct IDs.</li>
+            <li>TraceBench checks nine recorded JSON contracts, with no provider calls.</li>
           </ol>
-          <p class="lab-transaction-note">The receipt effect, CSV import and inbox acknowledgment are separate transactions. They do not guarantee exactly-once processing across systems.</p>
+          <p class="lab-transaction-note">The receipt write, the CSV import and the inbox acknowledgment are separate transactions, so the chain as a whole is not exactly-once.</p>
         </div>
         <div class="lab-artifact lab-handoff-comparison">
           <table aria-describedby="handoff-measures">
@@ -195,39 +189,34 @@ python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fix
               <tr><th scope="row">Actual spend (USD)</th><td>130.25</td><td>131.00</td></tr>
             </tbody>
           </table>
-          <p class="lab-artifact-note" id="handoff-measures">Participant-hours sum each person's attended session duration; session-hours count each session once. These values match an independently hand-derived fixture oracle.</p>
+          <p class="lab-artifact-note" id="handoff-measures">Participant-hours add up each person’s attended session time; session-hours count each session once. The values match totals worked out by hand in the example’s oracle file.</p>
         </div>
       </div>
       <div class="lab-handoff-proof">
         <div>
           <h3>Make one cent fail</h3>
-          <p class="lab-contract-note">Clean: <strong>9/9, exit 0</strong>. A deliberate synthetic mutation of recorded actual cents, <code>13025 → 13024</code>, gives <strong>8/9, exit 3</strong>; only <code>import-totals</code> regresses. Invalid input gives <strong>exit 2</strong>. This verifies the recorded contract, without a model-quality claim.</p>
+          <p class="lab-contract-note">The clean run passes <strong>9/9, exit 0</strong>. Changing the recorded actual spend by one cent, <code>13025 → 13024</code>, gives <strong>8/9, exit 3</strong>, and only <code>import-totals</code> regresses. Invalid input gives <strong>exit 2</strong>. This checks the recorded contract, not model quality.</p>
           <div class="lab-code-links">
-            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/README.md" target="_blank" rel="noopener noreferrer">Reproduction README</a>
-            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/release-lock.json" target="_blank" rel="noopener noreferrer">Frozen release lock</a>
-            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/clean.html" target="_blank" rel="noopener noreferrer">Clean HTML · GitHub source</a>
-            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/synthetic-regression.html" target="_blank" rel="noopener noreferrer">Synthetic regression HTML · GitHub source</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/README.md" target="_blank" rel="noopener noreferrer">Example README</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/release-lock.json" target="_blank" rel="noopener noreferrer">Release lock</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/clean.html" target="_blank" rel="noopener noreferrer">Clean report (GitHub source)</a>
+            <a href="https://github.com/ult666666/ult666666.github.io/blob/0dd85f87a7cdcd46030ff81bbb4de456019385ce/examples/operations_handoff/evidence/synthetic-regression.html" target="_blank" rel="noopener noreferrer">Regression report (GitHub source)</a>
           </div>
         </div>
         <div>
-          <h3>Reproduce it with the prepared wheels</h3>
-          <p>From the portfolio repository root with Python 3.11+, follow the README's separate explicit download step first. Set <code>WHEEL_DIR</code> and <code>OUTPUT_DIR</code> to your local paths outside the checkout, with existing trusted parents; the output directory must not exist. This command installs the locked wheels offline in a fresh environment.</p>
+          <h3>Run it yourself</h3>
+          <p>You need Python 3.11+. First download the three locked wheels as the README describes. Then, from the portfolio repository root, set <code>WHEEL_DIR</code> and <code>OUTPUT_DIR</code> to local paths outside the checkout whose parent folders exist and are trusted; the output folder must not exist yet. The command installs the wheels offline in a fresh environment.</p>
           <pre><code>python3 -B scripts/verify_handoff.py --wheel-dir "$WHEEL_DIR" --output "$OUTPUT_DIR"</code></pre>
         </div>
       </div>
     </section>
 
     <section class="lab-review container" id="section-4" aria-labelledby="review-title">
-      <p class="section-index">How to review the work</p>
-      <h2 id="review-title">Start with the failure</h2>
-      <div class="lab-review-grid">
-        <div><span>1. Run</span><h3>Reproduce the example</h3><p>Each README starts with a local quickstart and synthetic fixtures. No paid service is needed.</p></div>
-        <div><span>2. Break</span><h3>Inspect a boundary test</h3><p>Trace a stale lease, a missing evaluation output, or a malformed import through the actual test and implementation.</p></div>
-        <div><span>3. Weigh</span><h3>Read the tradeoffs</h3><p>Architecture notes and verification records explain the supported behavior and the limits of the evidence.</p></div>
-      </div>
-      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect my interests in applied AI, useful interfaces and business operations. English READMEs and Chinese guides support a clear technical handoff. They are educational systems with documented deployment limits.</p><a class="button button-quiet" href="/#work">Back to all projects</a></div>
+      <h2 id="review-title">How these were built</h2>
+      <p>I built these three projects, and the example that connects them, with AI coding assistants. Each repository has an English README and a Chinese guide.</p>
+      <a class="button button-quiet" href="/#work">Back to all projects</a>
     </section>
   </main>
-  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p>Plain HTML and CSS, with no JavaScript, cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><a href="#top">Back to top</a></p></footer>
+  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
 </body>
 </html>

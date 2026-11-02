@@ -229,9 +229,11 @@ def semantic_checks(bodies):
     check('Homepage title', text_is(home, 'Charles Dai', tag='title'))
     check('Fintech title names Capital Strategy', text_is(gateway, 'Fintech: Capital Strategy Studio | Charles Dai', tag='title'))
     check('Case-study title', text_is(case, 'Frontier AI Valuation Lab: case study | Charles Dai', tag='title'))
-    check('Gateway Capital Studio application 4.0.0', text_is(gateway, 'Capital Strategy Studio, application 4.0.0', cls='fintech-version'))
+    check('Gateway introduces Capital Strategy Studio', any(
+        p.text.startswith('Capital Strategy Studio compares hypothetical funding rounds') for p in select(gateway, tag='p', cls='fintech-lead')))
     check('Gateway headline', text_is(gateway, 'Comparing financing plans for a frontier AI lab', tag='h1', ident='fintech-title'))
-    check('Case study identifies Capital Strategy 4.0', any(e.text == 'Capital Strategy 4.0' for e in select(case, tag='span')))
+    check('Case study identifies application 4.0.0', any(
+        p.text.startswith('Application 4.0.0 added the capital method;') for p in select(case, tag='p')))
     cards = select(gateway, tag='a', cls='fintech-journey-card')
     check('Four ordered exact Capital journey anchors', [a.attrs.get('href') for a in cards] == [
         APP + '/capital.html#' + anchor for anchor in ('worked-decision', 'capital-plans', 'capital-challenge', 'capital-record')])
@@ -248,10 +250,10 @@ def semantic_checks(bodies):
           and image[:8] == b'\x89PNG\r\n\x1a\n' and image[12:16] == b'IHDR'
           and struct.unpack('>II', image[16:24]) == (1440, 1271) and digest(image) == IMAGE_SHA256)
     check('Gateway financial snapshot remains 18 October 2026', text_is(gateway,
-          'Application 4.0.0 · Capital method 1.0.0 · Financial engine 3.0.0 · Research snapshot 18 Oct 2026. The reviewed workbook and original financial review remain available.',
+          'Application 4.0.0, capital method 1.0.0, financial engine 3.0.0, research snapshot of 18 October 2026.',
           tag='p', cls='fintech-snapshot'))
     check('Case separates new application from frozen financial snapshot', any(
-        'Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot.' in p.text
+        'the financial engine (3.0.0) and the research snapshot of 18 October 2026 are unchanged.' in p.text
         for p in select(case, tag='p')))
     projects = select(home, tag='article', cls='work')
     check('Five selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [

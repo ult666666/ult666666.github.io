@@ -103,12 +103,22 @@ class FoundationsTests(unittest.TestCase):
 
     def test_scope_and_limits_are_stated(self):
         text = PAGE.read_text(encoding='utf-8')
-        for phrase in ('Synthetic and fictional data', 'not investment advice', 'it is not a benchmark',
-                       'All data is synthetic', 'no claims of production use or adoption',
+        for phrase in ('All data is synthetic or fictional', 'not investment advice', 'it is not a benchmark',
+                       'none of these projects is in production use', 'AI coding assistants',
                        'hand-written synthetic responses', 'not a clinical measure',
                        'these figures are optimistic', 'block-max WAND is not implemented',
                        'incremental runs are not faster'):
             self.assertIn(phrase, text)
+
+    def test_walkthroughs_use_plain_headings(self):
+        text = PAGE.read_text(encoding='utf-8')
+        walkthroughs = text.count('<details class="lab-walkthrough">')
+        self.assertEqual(walkthroughs, 2 * len(REPOS))
+        self.assertEqual(text.count('<h3>Try it</h3>'), walkthroughs)
+        self.assertEqual(text.count('<h3>Read the code</h3>'), walkthroughs)
+        for jargon in ('Run the boundary', 'Follow the decision', 'Review the code', 'proving test',
+                       'Complete workflow:', 'lab-number'):
+            self.assertNotIn(jargon, text)
 
     def test_homepage_sitemap_and_inventory_include_the_page(self):
         self.assertEqual((ROOT / 'index.html').read_text().count('href="/projects/foundations.html"'), 1)

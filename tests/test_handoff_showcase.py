@@ -98,12 +98,14 @@ class HandoffShowcaseTests(unittest.TestCase):
 
     def test_recorded_gate_is_explicitly_synthetic_with_prepared_local_command(self):
         section = self.handoff()
-        for phrase in ('AI-assisted', 'educational', 'English/Mandarin',
-                       'receipt effect', 'CSV import', 'inbox acknowledgment',
-                       'separate transactions', 'advisory', 'no provider calls',
-                       '13025 → 13024', '9/9', '8/9', 'exit 0', 'exit 3', 'exit 2'):
+        for phrase in ('English/Mandarin', 'receipt write', 'CSV import', 'inbox acknowledgment',
+                       'separate transactions', 'not exactly-once', 'previews the import without changing rows',
+                       'no provider calls', '13025 → 13024', '9/9', '8/9', 'exit 0', 'exit 3', 'exit 2'):
             self.assertIn(phrase, section.text)
         self.assertIn('synthetic', section.text.lower())
+        # AI assistance is stated once for the whole page, including this example.
+        self.assertEqual(self.page.text.count('AI coding assistants'), 1)
+        self.assertIn('the example that connects them', self.page.text)
         self.assertIn('recorded contract', section.text)
         commands = section.find('pre')
         self.assertEqual(len(commands), 1)
@@ -113,6 +115,16 @@ class HandoffShowcaseTests(unittest.TestCase):
                              'trusted', 'must not exist', 'download', 'offline'):
             self.assertIn(prerequisite, section.text)
         self.assertNotIn('/Users/', section.text)
+
+    def test_walkthroughs_use_plain_headings(self):
+        details = self.page.find('details', **{'class': 'lab-walkthrough'})
+        for walkthrough in details:
+            self.assertEqual([node.text for node in walkthrough.find('h3')], ['Try it', 'Read the code'])
+        for jargon in ('Run the boundary', 'Follow the decision', 'Review the code', 'proving test'):
+            self.assertNotIn(jargon, self.page.text)
+        # The only remaining "handoff" is the launcher's file name inside the command.
+        prose = self.page.text.replace('verify_handoff.py', '')
+        self.assertNotIn('handoff', prose.lower())
 
     def test_release_routes_stay_on_shipped_versions_and_preserve_live_report(self):
         hrefs = [node.attrs.get('href') for node in self.page.find('a')]

@@ -256,7 +256,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 
 /* Crop each screenshot to the working interface, not the page heading. */
 #frontier-ai-valuation-lab .work-figure img { object-position: left 94%; }
-#lineageguard .work-figure img { object-position: left 46%; }
+#lineageguard .work-figure img { object-position: left top; }
 #luma-keys .work-figure img { object-position: center 70%; }
 #motionx .work-figure img { object-position: 62% center; }
 
@@ -279,7 +279,8 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .index-table td {
   padding: 13px 18px 13px 0;
   border-bottom: 1px solid var(--rule);
-  vertical-align: top;
+  /* Cells use different type sizes; aligning their first baselines keeps each row on one line of type. */
+  vertical-align: baseline;
   text-align: left;
 }
 .index-table th[scope="row"] { width: 22%; font-weight: 700; }
@@ -353,7 +354,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .hero-actions .button-primary { margin-right: 6px; }
 
 /* Small labels above headings on inner pages. */
-.eyebrow, .section-index {
+.eyebrow {
   margin: 0 0 10px;
   color: var(--muted);
   font: 15px/1.5 var(--sans);
@@ -408,6 +409,9 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 }
 .case-detail-media { margin-top: 28px; }
 .case-detail-media > a { display: block; }
+/* As on the home page, crop app screenshots to the working interface rather than the app's own headline. */
+.case-fintech .case-hero-media img { aspect-ratio: 16 / 9; object-fit: cover; object-position: left 94%; }
+.case-lineageguard .case-hero-media img { aspect-ratio: 3 / 2; object-fit: cover; object-position: left top; }
 
 .case-main {
   display: grid;
@@ -436,14 +440,16 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .case-article code { padding: 1px 4px; background: var(--paper-deep); border-radius: 2px; }
 .case-article blockquote { margin: 28px 0; padding-left: 18px; border-left: 3px solid var(--ink); }
 
-.case-callout {
-  margin: 40px 0 28px;
-  padding: 2px 0 2px 18px;
-  border-left: 3px solid var(--ink);
-}
-.case-callout strong { font-weight: 700; }
-.case-callout p { margin: 6px 0 0; color: var(--ink-2); }
+.case-article .case-list { margin: 0 0 18px; }
+.case-article .case-list li { margin-bottom: 10px; }
+.case-article .case-list li::marker { color: var(--muted); }
 .case-article > .button { margin-top: 8px; }
+
+/* The closing list of code and documents on each case study. */
+.case-docs { padding-top: 36px; border-top: 1px solid var(--rule); }
+.case-doc-list { margin: 0; padding-left: 1.3em; }
+.case-article .case-doc-list li { margin-bottom: 8px; color: var(--ink-2); }
+.case-doc-list li::marker { color: var(--muted); }
 
 .case-section-links {
   display: flex;
@@ -453,85 +459,9 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   font: 15.5px/1.6 var(--sans);
 }
 
-/* Reviewer guide and evidence table (Frontier case study). */
-.case-review {
-  margin-bottom: 56px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--rule);
-  scroll-margin-top: 24px;
-}
-.review-steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  margin: 28px 0 40px;
-  padding: 0;
-  list-style: none;
-}
-.review-steps li {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-top: 14px;
-  border-top: 1px solid var(--rule-strong);
-}
-.review-step-index { color: var(--muted); font: 14px/1.4 var(--sans); }
-.review-steps h3 { margin: 8px 0 8px; font-size: 19px; }
-.review-steps p { margin: 0 0 14px; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
-.review-steps a { margin-top: auto; font: 15px/1.5 var(--sans); }
-
-.evidence-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  text-align: left;
-  scroll-margin-top: 24px;
-}
-.evidence-table caption {
-  margin-bottom: 14px;
-  color: var(--ink);
-  font-size: 22px;
-  font-weight: 700;
-  text-align: left;
-}
-.evidence-table th, .evidence-table td {
-  padding: 14px 16px 14px 0;
-  border-bottom: 1px solid var(--rule);
-  vertical-align: top;
-}
-.evidence-table thead th {
-  border-bottom-color: var(--rule-strong);
-  color: var(--muted);
-  font: 600 13.5px/1.4 var(--sans);
-}
-.evidence-table th:first-child { width: 26%; }
-.evidence-table tbody th { font-size: 16.5px; line-height: 1.45; font-weight: 700; }
-.evidence-table td p { margin: 0 0 10px; font-size: 15.5px; line-height: 1.55; color: var(--ink-2); }
-.evidence-links { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; font: 14.5px/1.5 var(--sans); }
-.evidence-links a { overflow-wrap: anywhere; }
-.case-article .review-scope { margin-top: 18px; color: var(--ink-2); font-size: 16px; }
-
 /* LineageGuard case study extras. */
 .case-lineageguard .case-detail-media { max-width: 100%; }
 .case-lineageguard .case-detail-media:focus-within { outline: 2px solid var(--link); outline-offset: 4px; }
-.case-lineageguard #try-workflow { padding-left: 18px; border-left: 3px solid var(--ink); }
-.case-lineageguard #try-workflow p:last-of-type { margin-bottom: 0; }
-
-/* Links to supporting documents at the end of a case study. */
-.case-proof-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 32px;
-  margin: 24px 0 32px;
-}
-.case-proof-link {
-  display: block;
-  padding: 14px 0 16px;
-  border-top: 1px solid var(--rule);
-  text-decoration: none;
-}
-.case-proof-link strong { display: block; margin-bottom: 4px; font: 600 16px/1.4 var(--sans); text-decoration: underline; text-underline-offset: .2em; }
-.case-proof-link span { display: block; color: var(--ink-2); font: 14.5px/1.55 var(--sans); }
 
 /* ---------- Engineering lab and foundations ---------- */
 
@@ -575,8 +505,6 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .lab-index span { color: var(--muted); font: italic 16px/1.4 var(--serif); text-align: right; }
 
 .lab-project { padding-block: 56px 72px; border-top: 1px solid var(--rule); scroll-margin-top: 24px; }
-.lab-number { display: flex; gap: 12px; margin-bottom: 24px; color: var(--muted); font: 15px/1.5 var(--sans); }
-.lab-number > span { color: var(--ink-2); }
 .lab-project-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
@@ -585,8 +513,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 }
 .lab-copy h2, .lab-review h2 { margin: 0 0 12px; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.15; }
 .lab-copy p { color: var(--ink); }
-.lab-copy .lab-tagline { margin: 0 0 16px; color: var(--ink-2); font-size: 21px; line-height: 1.45; font-style: italic; }
-.lab-copy .lab-demo-note { padding-left: 16px; border-left: 3px solid var(--ink); color: var(--ink-2); font-size: 16px; }
+.lab-copy .lab-note { color: var(--ink-2); font-size: 16.5px; line-height: 1.55; }
 .lab-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 24px; font: 15.5px/1.5 var(--sans); }
 
 .lab-artifact {
@@ -597,15 +524,11 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   background: var(--paper-deep);
 }
 .lab-artifact-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--rule-strong);
   color: var(--ink);
   font: 600 14.5px/1.5 var(--sans);
 }
-.lab-artifact-head span:last-child { color: var(--muted); font-weight: 400; text-align: right; }
 .lab-lifecycle { margin: 0; padding: 0; list-style: none; }
 .lab-lifecycle li {
   display: grid;
@@ -637,21 +560,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .lab-contract-note, .lab-terminal { color: var(--ink-2); font: 14.5px/1.55 var(--sans); }
 
 .lab-review { padding-block: 56px 80px; border-top: 1px solid var(--rule); }
-.lab-review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 28px; }
-.lab-review-grid > div { padding-top: 14px; border-top: 1px solid var(--rule-strong); }
-.lab-review-grid span { color: var(--muted); font: 14px/1.5 var(--sans); }
-.lab-review-grid h3 { margin: 6px 0 8px; font-size: 20px; font-weight: 700; }
-.lab-review-grid p { margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.55; }
-.lab-handoff {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 44px;
-  padding: 18px 0 0;
-  border-top: 1px solid var(--rule-strong);
-}
-.lab-handoff p { max-width: 40em; margin: 0; color: var(--ink-2); }
-.lab-handoff .button { flex-shrink: 0; }
+.lab-review p { max-width: 40em; margin: 0 0 20px; color: var(--ink-2); }
 
 .lab-walkthrough { margin-top: 32px; border: 1px solid var(--rule-strong); border-radius: 2px; }
 .lab-walkthrough > summary {
@@ -665,9 +574,8 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   cursor: pointer;
 }
 .lab-walkthrough > summary::-webkit-details-marker { display: none; }
-.lab-walkthrough > summary > span:first-child { color: var(--muted); font-weight: 400; }
-.lab-walkthrough > summary > span:last-child { margin-left: auto; color: var(--muted); font-weight: 400; }
-.lab-walkthrough[open] > summary > span:last-child { transform: rotate(45deg); }
+.lab-walkthrough .lab-toggle { margin-left: auto; color: var(--muted); font-weight: 400; }
+.lab-walkthrough[open] .lab-toggle { transform: rotate(45deg); }
 .lab-walkthrough-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -697,7 +605,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .lab-handoff-path { margin: 0; padding-left: 1.3em; color: var(--ink-2); font-size: 16px; line-height: 1.55; }
 .lab-handoff-path li { margin-bottom: 12px; padding-left: 4px; }
 .lab-handoff-path strong { color: var(--ink); }
-.lab-transaction-note { margin-top: 20px; padding-left: 14px; border-left: 3px solid var(--ink); color: var(--ink-2); font-size: 15.5px; }
+.lab-transaction-note { margin-top: 20px; color: var(--ink-2); font-size: 16px; line-height: 1.55; }
 .lab-handoff-comparison table {
   width: 100%;
   table-layout: fixed;
@@ -740,14 +648,11 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   .case-sidebar .sidebar-heading { width: 100%; }
   .lab-project-grid, .lab-operations .lab-project-grid, .lab-handoff-proof { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .lab-walkthrough-body { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .lab-handoff { display: block; }
-  .lab-handoff .button { margin-top: 18px; }
-  .review-steps { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
 
 @media (max-width: 700px) {
   .work-row { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 36px; }
-  .lab-index, .lab-review-grid, .case-proof-grid { grid-template-columns: minmax(0, 1fr); }
+  .lab-index { grid-template-columns: minmax(0, 1fr); }
 
   /* The index table becomes a list of short entries. */
   .index-table, .index-table tbody, .index-table tr, .index-table th, .index-table td { display: block; width: auto !important; }
@@ -761,18 +666,6 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   .index-table td.made::before { content: "Made with "; }
   .index-table td.links { margin-top: 6px; }
   .index-table td.links a { margin-right: 18px; }
-
-  .evidence-table, .evidence-table tbody, .evidence-table tr, .evidence-table th, .evidence-table td { display: block; width: 100% !important; }
-  .evidence-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .evidence-table tr { padding: 14px 0; border-bottom: 1px solid var(--rule-strong); }
-  .evidence-table th, .evidence-table td { padding: 0 0 12px; border-bottom: 0; }
-  .evidence-table td::before {
-    content: attr(data-label);
-    display: block;
-    margin-bottom: 4px;
-    color: var(--muted);
-    font: 600 13.5px/1.4 var(--sans);
-  }
 }
 
 @media (max-width: 600px) {
@@ -791,8 +684,6 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   .lab-project { padding-block: 40px 52px; }
   .lab-artifact { padding: 18px; }
   .lab-lifecycle li { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
-  .lab-walkthrough > summary { flex-wrap: wrap; gap: 4px 12px; }
-  .lab-walkthrough > summary > span:first-child { flex-basis: 100%; }
 }
 
 @media (prefers-reduced-motion:reduce) {

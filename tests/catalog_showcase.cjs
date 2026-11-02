@@ -45,7 +45,7 @@ module.exports = async (browser, base) => {
   await plain.goto(base + '/projects/catalog.html');
   assert.equal(await plain.locator('.catalog-card:visible').count(),20);
   assert.equal(await plain.getByRole('search').isVisible(),false);
-  assert.equal(await plain.locator('#relaybox').getByRole('link',{name:'Source & setup'}).getAttribute('href'),
+  assert.equal(await plain.locator('#relaybox').getByRole('link',{name:'Source',exact:true}).getAttribute('href'),
                'https://github.com/ult666666/relaybox');
   assert.equal(await plain.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true);
   await context.close();
