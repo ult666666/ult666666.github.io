@@ -17,8 +17,8 @@ ROOT = Path(__file__).resolve().parent.parent
 GITHUB = 'https://github.com/ult666666/'
 CROSSBOOK = GITHUB + 'crossbook/blob/main/'
 LINEAGE = GITHUB + 'lineageguard-datahub-agent/blob/main/'
-# The Inspector and comparison material is pinned to the commit the screenshots come from.
-LINEAGE_INSPECTOR = GITHUB + 'lineageguard-datahub-agent/blob/ed48eea4370d28c52f3268fadcd3b82a3632a691/'
+# The Inspector and comparison links are pinned to a commit with the screenshots' Studio and the current guides.
+LINEAGE_INSPECTOR = GITHUB + 'lineageguard-datahub-agent/blob/6379f08559dd856a2ccf11bc3830c8566c6de8f3/'
 LINEAGE_COMPARE = LINEAGE_INSPECTOR
 FRONTIER = GITHUB + 'frontier-ai-valuation-lab/blob/main/'
 APP = 'https://frontier-ai-valuation-lab.vercel.app/'
@@ -269,7 +269,7 @@ CASES = [
         repo=GITHUB + 'frontier-ai-valuation-lab',
         live=APP + 'capital.html#worked-decision', live_label='Try Capital Strategy Studio',
         secondary_links=[('More on the fintech work', '/fintech.html')],
-        image='/assets/frontier-ai-capital-visual-20261020.png', image_width=1440, image_height=1271,
+        image='/assets/frontier-ai-capital-studio.png', image_width=1440, image_height=1124,
         alt='Capital Strategy Studio showing hypothetical financing plans against the capital objective and '
             'retained ownership floor',
         caption='Capital Strategy Studio with the worked example. All financing terms are hypothetical.',
@@ -293,17 +293,16 @@ CASES = [
                 'The capital goal is an input. It is never inferred from the model’s cash-flow deficits, '
                 'which include modeling conventions such as the treatment of stock compensation and '
                 'cannot say how much cash a company needs.',
-                'Ownership Frontier, an earlier tool in the same app, works out the largest round a quoted '
-                'price allows before holders fall below the floor.',
+                'The ownership limit tool on the Model page works out the largest round a given valuation '
+                'allows before holders fall below the floor.',
             ], media=dict(
-                image='/assets/frontier-ai-ownership-3-6.png', width=975, height=612,
-                alt='Ownership Frontier in the Financing Lens: an assumed $250 billion pre-money quote, a $25 '
-                    'billion primary round and a 90 percent minimum retention, with a $27.78 billion capital '
-                    'limit',
-                caption='Ownership Frontier with an assumed $250bn pre-money price and a 90% floor. The '
+                image='/assets/frontier-ai-ownership-limit.png', width=1023, height=511,
+                alt='The ownership limit tool: an assumed $250 billion pre-money valuation, $25 billion raised '
+                    'and a 90 percent minimum ownership retained, with a $27.78 billion capital limit',
+                caption='The ownership limit with an assumed $250bn pre-money valuation and a 90% floor. The '
                         'round can raise up to about $27.78bn.',
                 href=APP + 'index.html#ownership-example'),
-                links=[('Try Ownership Frontier', APP + 'index.html#ownership-example'),
+                links=[('Try the ownership limit', APP + 'index.html#ownership-example'),
                        ('Financing method', FRONTIER + 'docs/FINANCING_LENS.md')]),
             dict(id='section-2', heading='Scenarios', body=[
                 'Each operating scenario sets all thirteen valuation assumptions, and every scenario is '
@@ -312,7 +311,7 @@ CASES = [
                 'metric is r × (M + R): the modeled value that ends up with existing holders. It can be '
                 'negative, and it is not an investment return.',
                 'The tool reports each plan’s regret against the best eligible plan in each scenario, and '
-                'the switching values where rankings flip. For Plans A and B the lines cross at M = $635bn. '
+                'the break-even equity values where rankings flip. For Plans A and B the lines cross at M = $635bn. '
                 'Below that value B leaves existing holders more; above it, A does.',
             ]),
             dict(id='section-uncertainty', heading='Monte Carlo', body=[
@@ -347,8 +346,8 @@ CASES = [
                 'Preview $30bn with 90%: no plan qualifies. Return the floor to 88% and B qualifies.',
                 'Choose Apply to change only the capital objective and retention floor. Plan terms and '
                 'decision notes stay intact.',
-                'To compare A and B, explicitly apply $25bn and 88% again, then read their allocations and '
-                'the switching value.',
+                'To compare A and B, explicitly apply $25bn and 88% again, then read the value each leaves '
+                'existing shareholders and their break-even equity value.',
                 ['Record a preference, its trade-off, a review trigger and what you still need to know, then '
                  'export the decision or read the ',
                  ('worked brief', APP + 'downloads/Frontier_AI_Capital_Decision.html'), '.'],

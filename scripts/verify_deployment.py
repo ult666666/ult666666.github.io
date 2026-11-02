@@ -35,8 +35,8 @@ MAX_VISITOR_SOURCES = 100  # Same finite inventory bound as the publication guar
 MAX_SOURCE_FILES = 256
 MAX_RESPONSE_BYTES = 8 * 1024 * 1024
 MAX_TOTAL_TRANSFER_BYTES = 64 * 1024 * 1024
-IMAGE = 'assets/frontier-ai-capital-visual-20261020.png'
-IMAGE_SHA256 = 'db7919bc1165558535d70eb82295791e800b14885450516f0ce716ee5c34fc9d'
+IMAGE = 'assets/frontier-ai-capital-studio.png'
+IMAGE_SHA256 = 'cfbec1da1e7305d6ab93f5d5cdda13f10c9352b1c1138ec38d1b32c319dbdd9d'
 APP = 'https://frontier-ai-valuation-lab.vercel.app'
 DEMO = APP + '/capital.html#worked-decision'
 CASE = 'projects/frontier-ai-valuation-lab.html'
@@ -242,13 +242,13 @@ def semantic_checks(bodies):
     check('Case exact Capital CTA', exact_cta(case, {'tag': 'section', 'cls': 'case-hero'}))
     for name, page in (('Homepage', home), ('Gateway', gateway), ('Case study', case)):
         images = [e for e in select(page, tag='img') if e.attrs.get('src') == '/' + IMAGE]
-        check(name + ' uses the 1440 by 1271 Capital screenshot', len(images) == 1
-              and images[0].attrs.get('width') == '1440' and images[0].attrs.get('height') == '1271'
+        check(name + ' uses the 1440 by 1124 Capital screenshot', len(images) == 1
+              and images[0].attrs.get('width') == '1440' and images[0].attrs.get('height') == '1124'
               and bool(images[0].attrs.get('alt')))
     image = bodies[IMAGE]
     check('Reviewed Capital PNG bytes and intrinsic dimensions', len(image) >= 24
           and image[:8] == b'\x89PNG\r\n\x1a\n' and image[12:16] == b'IHDR'
-          and struct.unpack('>II', image[16:24]) == (1440, 1271) and digest(image) == IMAGE_SHA256)
+          and struct.unpack('>II', image[16:24]) == (1440, 1124) and digest(image) == IMAGE_SHA256)
     check('Gateway financial snapshot remains 18 October 2026', text_is(gateway,
           'Application 4.0.0, capital method 1.0.0, financial engine 3.0.0, research snapshot of 18 October 2026.',
           tag='p', cls='fintech-snapshot'))

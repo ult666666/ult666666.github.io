@@ -20,6 +20,8 @@ The application runs one handler in the browser and in Node.js, with a bounded r
 
 Ownership Frontier, added in application 3.6 inside the Financing Lens, connects an ownership constraint to the most primary capital a round can raise at an entered pre-money or post-money quote. Keeping 90% of a starting stake means a 10% holder stays at or above 9% of the company. At the hypothetical $250 billion pre-money quote the limit is about $27.78 billion, so the $25 billion round leaves $2.78 billion of room. Read as post-money, the same quote gives a limit of $25 billion. The round model assumes equal economic rights and retained cash, with no fees, option-pool changes, SAFEs, secondary sales or preferences. The limit is ownership arithmetic, not an estimate of how much a company needs. See the [financing method](https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/FINANCING_LENS.md).
 
+On 2 November 2026 the app was restyled with plain page titles and one light style. The panel first called Ownership Frontier is now titled Ownership limit, and Capital Strategy Studio's four steps are labelled Objectives, Plans, Scenario tests and Decision record. The numbers, downloads and API responses did not change.
+
 Value Horizon keeps the explicit forecast and shows how many terminal cash-flow years remain when later cash flows and residual value are set to zero. The financial snapshot behind all of these is dated 18 October 2026 and is unchanged by application 4.0.
 
 ### Verification records
@@ -33,7 +35,7 @@ These records describe the portfolio pages at the time of each release. Producti
 
 The case study covers the review workflow and its compiled graph, evidence bound to its source, the bounded runtime, SQLite writer fencing and recovery, the labelled policy benchmark, the dbt manifest adapter, Review Inspector and saved-review comparison. Its hero screenshot is copied unchanged from the public Studio source. The browser-session preview and the durable local runtime are described separately. The original classic demo is still in the repository.
 
-Review Inspector was added on `main` after the `v2.0.0` tag. It keeps recomputed internal consistency apart from source authentication, recorded decisions apart from evidence freshness at inspection time, and browser or local storage apart from any cloud execution. The page's Inspector and comparison links are pinned to commit `ed48eea4370d28c52f3268fadcd3b82a3632a691`, the Studio redesign the screenshots come from.
+Review Inspector was added on `main` after the `v2.0.0` tag. It keeps recomputed internal consistency apart from source authentication, recorded decisions apart from evidence freshness at inspection time, and browser or local storage apart from any cloud execution. The page's Inspector and comparison links are pinned to commit `6379f08559dd856a2ccf11bc3830c8566c6de8f3`, which has the redesigned Studio the screenshots show (from `ed48eea`) and the plain-prose guides.
 
 Suite sizes, as recorded when the page last stated them:
 
