@@ -34,9 +34,9 @@ COMMANDS = (
 )
 # Observed results that the walkthroughs state; docs/FOUNDATIONS.md records the same runs.
 RESULTS = (
-    'Expected: 7 passed.', 'Expected: 3 passed.', 'Expected: 2 passed, 24 deselected.',
+    'Expected: 7 passed.', 'Expected: 3 passed.', 'Expected: 2 passed, 32 deselected.',
     'Expected: 7 passed. Concurrent transfers', 'Expected: 8 passed.', 'PASS=192 WARN=0 ERROR=0',
-    '"Relations compared: 24"', 'Expected: 2 passed, 47 skipped.', 'Expected: 17 passed.',
+    '"Relations compared: 24"', 'Expected: 2 passed, 47 skipped.', 'Expected: 19 passed.',
     'ΔE_OK 0.269', '0.076 under deuteranomaly at 0.6', 'the claim says 60 days where the cited text says 30 days',
     'only the claim is negated',
 )

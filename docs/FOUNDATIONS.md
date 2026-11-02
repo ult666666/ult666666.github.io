@@ -72,6 +72,8 @@ Each project merged one upgrade in November 2026. Each section now keeps its ori
 | contrastkit (0eba84a), anomalous trichromacy | `npx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia` (after `npm ci` and `npm run build`) | ΔE_OK 0.076 under deuteranomaly at 0.6 and 0.063 under deuteranopia, against 0.269 for typical vision; WCAG ratio 1.20:1, exit code 1 |
 | citecheck (83cad56), claim-level checker | `uv run citecheck ask --checker lexical "Do I need a doctor's note when I take a sick day?"`, then the same question without `--checker lexical` | Lexical: sentence 1 supported (10 of 10 content words found). Claim-level: unsupported, "only the claim is negated". No API call |
 
+After the independent review fixes merged later on 2 November 2026, two of these commands were run again on the new `main`: powerlift (5e7c5d5) gave 2 passed, 32 deselected, because the review added Dunnett tests to the same file, and searchlite (e3b3c5a) gave 19 passed, with two new pruning tests. The pages show these current results.
+
 The original walkthroughs were run again on the same branches. quantkit gave 7 passed, powerlift 12 passed and searchlite 2 passed, 47 skipped, as recorded on 23 October. contrastkit's `npx contrastkit check 777 fff` still gave 4.47:1, failing AA, with exit code 1. Three results had changed and the page now states them:
 
 - ledgerline's `uv run pytest tests/test_concurrency.py -v` gives 7 passed, not 6.

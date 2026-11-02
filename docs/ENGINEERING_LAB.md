@@ -59,6 +59,8 @@ Each project merged one upgrade in November 2026 (RelayBox outbound delivery, Tr
 | TraceBench (c624c01) | `mkdir -p reports`, then the paired baseline, noisy and regressed `evaluate` commands shown on the page | Exit codes 1, 0 and 3. Noisy: McNemar p = 1, pass-rate interval -0.06 to 0.06. Regressed: change -0.11, interval -0.18 to -0.04, McNemar p = 0.00341797 |
 | Impact Ledger (6d2d056) | `python3 -m unittest discover -s tests -p test_audit.py -v` | 13 tests, OK |
 
+After the independent review fixes merged later on 2 November 2026, the Impact Ledger audit command was run again on the new `main` (1678ac9): 15 tests, OK. The review added tests for undoing an import whose rows changed afterwards. The page shows this current result.
+
 The original walkthroughs still pass on the same branches: RelayBox's stale-worker test, TraceBench's baseline comparison test and Impact Ledger's 14 storage tests. RelayBox's outbound quickstart was also run against its example receiver on port 8788: the first attempt got 503 and the second 204, with the same `webhook-id`.
 
 No release has been tagged for these upgrades yet, so the page links documentation on `main`, and the release links above stay on the shipped versions. The browser suite requires two walkthroughs in each project section and opens all six by keyboard.
