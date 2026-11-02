@@ -14,10 +14,10 @@
         "Node.js",
         "Python"
       ],
-      "summary": "A financing workspace that connects capital objectives, ownership scenarios and a reviewable decision.",
-      "scenario": "Compare hypothetical financing plans, change a retained-ownership objective and inspect where the ranking changes.",
-      "inspect": "Follow the shared calculation engine and Node API, then compare with the independent Python reference and verification guide.",
-      "limits": "Independent research with illustrative assumptions; company names imply no affiliation or endorsement.",
+      "summary": "A financing workspace that connects capital objectives, ownership scenarios and a reviewable decision, with a seeded Monte Carlo range for modeled value.",
+      "scenario": "Compare hypothetical financing plans, change a retained-ownership objective and inspect where the ranking changes. Then open the Monte Carlo panel: ranges on the growth path, terminal margin, discount rate and terminal growth, joined by a Gaussian copula, give P5 to P95 values and a one-way P10 to P90 tornado.",
+      "inspect": "Follow the shared calculation engine and Node API, then compare with the independent Python references. The simulate action reuses the unchanged DCF engine for every draw, and the same request returns byte-identical JSON in the browser and the API.",
+      "limits": "Independent research with illustrative assumptions; company names imply no affiliation or endorsement. Simulated percentiles describe the entered ranges, not a forecast or a probability that a company is worth any amount.",
       "links": [
         {
           "label": "Open demo",
@@ -38,9 +38,21 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/capital-strategy.test.js"
+        },
+        {
+          "label": "Monte Carlo panel",
+          "url": "https://frontier-ai-valuation-lab.vercel.app/index.html#uncertainty"
+        },
+        {
+          "label": "Uncertainty method",
+          "url": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/UNCERTAINTY.md"
+        },
+        {
+          "label": "Uncertainty checks",
+          "url": "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/tests/uncertainty.test.js"
         }
       ],
-      "command": "npm test\nnpm start"
+      "command": "npm test\npython3 -B scripts/check_uncertainty_reference.py --output /tmp/uncertainty-reference.json\nnpm start"
     },
     {
       "id": "crossbook",
@@ -55,10 +67,10 @@
         "WebAssembly",
         "proptest"
       ],
-      "summary": "A deterministic order-matching engine with crash recovery, market data and multi-instrument sharding, checked against a second implementation.",
-      "scenario": "Open the playground and run the price-time priority scenario: a buy for 8 lots takes the better price first, then the older of two orders at the next price. Then run one million synthetic orders in your browser and compare the event digest with the native build.",
-      "inspect": "Follow how a deliberately simple reference engine checks the fast one after every random command, and how golden digests are pinned on Linux, macOS, Windows and WebAssembly.",
-      "limits": "Books kept in memory in one process, on synthetic order flow. No network gateway, journals written without fsync, and no connection to any market.",
+      "summary": "A deterministic order-matching engine with opening and closing call auctions, crash recovery, market data and multi-instrument sharding, checked against a second implementation.",
+      "scenario": "Run the auction demo: an opening call collects orders without trading, prints the indicative uncross after each one, rejects an immediate-or-cancel order and uncrosses 13 lots at 101, market orders first. Then run one million synthetic orders in the playground and compare the event digest with the native build.",
+      "inspect": "Follow the one-pass clearing-price search over cached level totals, then the brute-force uncross that tries every candidate price. They agree on 20,000 seeded books on which each of the five price rules decides at least 126 times, and every uncross passes seven allocation invariants.",
+      "limits": "Books kept in memory in one process, on synthetic order flow. No network gateway, journals written without fsync, and no connection to any market. The clearing price is always one of the orders’ limits, there are no volatility interruptions, and the feed publishes no indicative price.",
       "links": [
         {
           "label": "Open playground",
@@ -79,9 +91,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/differential.rs"
+        },
+        {
+          "label": "Auction rules & sources",
+          "url": "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#call-auctions"
+        },
+        {
+          "label": "Auction checks",
+          "url": "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/auction.rs"
         }
       ],
-      "command": "cargo run --release -p crossbook-cli -- demo\ncargo run --release -p crossbook-cli -- verify --orders 1000000"
+      "command": "cargo run --release -p crossbook-cli -- demo\ncargo run --release -p crossbook-cli -- auction\ncargo run --release -p crossbook-cli -- verify --orders 1000000"
     },
     {
       "id": "lineageguard-datahub-agent",
@@ -97,10 +117,10 @@
         "SQLite",
         "JavaScript"
       ],
-      "summary": "Typed review workflows with evidence, policy checks and recovery.",
-      "scenario": "Use the Studio Compare tab to choose two completed synthetic reviews, validate both exports locally and inspect their differences. Recorded decisions and current evidence freshness remain separate; no current run is required.",
-      "inspect": "Follow one shared comparison report through the browser and file-only command. Review semantic inspection, bounded file reads, stale-read invalidation and offline checks that preserve existing run state.",
-      "limits": "Synthetic demonstration; optional DataHub integration is read-only. Saved-export checks establish internal consistency, not source truth, authenticated approval or migration authority. Production behavior needs separate verification.",
+      "summary": "Typed schema-change review workflows with evidence from fixtures, DataHub or a dbt manifest, policy checks and recovery.",
+      "scenario": "Review a column rename against a real dbt manifest from a synthetic project: renaming fct_mrr.mrr_usd lists five downstream models, two exposures with owners and 12 dbt tests, and stays at needs-evidence because a manifest cannot show usage or column lineage. The Studio runs the same file as its dbt manifest scenario.",
+      "inspect": "Follow the offline manifest adapter: version refusal, agreement between parent_map, child_map and depends_on, cycle checks and owner precedence. A seeded property test compares lineage with an independent walk of depends_on, and 16 of the 105 labelled benchmark cases run on the manifest.",
+      "limits": "Synthetic demonstration; optional DataHub integration is read-only. The dbt adapter reads manifest schema v12 and catalog v1 only, and its lineage is model-level, so manifest evidence can block a change or ask for more but never clear one. Saved-export checks establish internal consistency, not source truth, authenticated approval or migration authority.",
       "links": [
         {
           "label": "Open demo",
@@ -129,9 +149,17 @@
         {
           "label": "Browser comparison checks",
           "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/5d7df021056b9eaa0f913f637cdf0d455f29951d/scripts/saved-comparison-browser.cjs"
+        },
+        {
+          "label": "dbt manifest review",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/README.md#review-against-a-dbt-manifest"
+        },
+        {
+          "label": "dbt property tests",
+          "url": "https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/dbt-properties.test.mjs"
         }
       ],
-      "command": "node scripts/studio-review.mjs --scenario=safe-add --profile=standard --output=./.lineageguard/compare-standard.json\nnode scripts/studio-review.mjs --scenario=safe-add --profile=strict --output=./.lineageguard/compare-strict.json\nnode scripts/studio-compare.mjs --left=./.lineageguard/compare-standard.json --right=./.lineageguard/compare-strict.json\n# Use new export paths when repeating; existing outputs are never overwritten."
+      "command": "npm run studio:review -- --dbt-manifest=public/studio/dbt/saas-analytics-warehouse/manifest.json --dbt-catalog=public/studio/dbt/saas-analytics-warehouse/catalog.json --request=examples/dbt/rename-mrr-usd.json --output=./.lineageguard/dbt-review.json\nnpm run studio:benchmark -- --check\n# Use new export paths when repeating; existing outputs are never overwritten."
     },
     {
       "id": "saas-analytics-warehouse",
@@ -146,10 +174,10 @@
         "SQL",
         "Python"
       ],
-      "summary": "A reproducible analytics pipeline for MRR, retention and unit economics.",
-      "scenario": "Build a fictional subscription warehouse, then trace one historical month from the MRR bridge to customer records, payment-failure losses and channel/reason totals.",
-      "inspect": "Follow the read-only investigation through exact-cent customer-count, total-loss and payment-failure-subset reconciliation. Tests retain historical churn after reactivation and refuse broken joins or inconsistent source data before writing reports.",
-      "limits": "Seeded fictional SaaS data; results describe the fixture, not a real business.",
+      "summary": "A reproducible analytics pipeline for MRR, retention and unit economics, with incremental loads and a type 2 history of subscription state.",
+      "scenario": "Build the fictional warehouse, then load the same rows day by day with late arrivals and confirm that the incremental build equals a full refresh. Look up any customer’s plan and MRR on a past date in the snapshot, or trace one historical month from the MRR bridge to customer records.",
+      "inspect": "Follow the 7-day lookback and delete+insert staging models, the business-time snapshot with its four history tests, and the load simulation that compares 24 relations with a full refresh by row hashes. The churn investigation still reconciles exact cents and customer counts before writing reports.",
+      "limits": "Seeded fictional SaaS data; results describe the fixture, not a real business. Rows more than 7 days late are missed until a full refresh, the marts still rebuild in full, and incremental runs are not faster at this size because the sources are CSV files read in full.",
       "links": [
         {
           "label": "Open demo",
@@ -170,9 +198,21 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/tests/test_churn.py"
+        },
+        {
+          "label": "Incremental design decisions",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md#key-decisions-and-trade-offs"
+        },
+        {
+          "label": "Load simulation tests",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/tests/test_backfill.py"
+        },
+        {
+          "label": "Snapshot history test",
+          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_snapshot_history_matches_month_end_mrr.sql"
         }
       ],
-      "command": "uv sync --locked\nmake data build MONTHS=24 SCALE=0.25\nuv run python -m saasreport.churn --month 2024-12 --output-dir ../tallyloom-churn-2024-12"
+      "command": "uv sync --locked\nmake data build MONTHS=24 SCALE=0.25\nuv run python -m saasreport.churn --month 2024-12 --output-dir ../tallyloom-churn-2024-12\nmake incremental-check MONTHS=6 SCALE=0.25 DAILY_DAYS=14"
     },
     {
       "id": "impact-ledger",
@@ -188,10 +228,10 @@
         "Python",
         "SQLite"
       ],
-      "summary": "Participation and spending reporting with a local API and atomic CSV imports.",
-      "scenario": "Preview an attendance import, resolve validation errors, import it and compare unique participants with attendance and session spending.",
-      "inspect": "Follow preview/import shared validation, exact money arithmetic and calendar-period comparison through API and browser tests.",
-      "limits": "Hosted preview is read-only and synthetic. Writes require running the local application.",
+      "summary": "Participation and spending reporting with a local API, atomic CSV imports and a hash-chained audit log that rebuilds past reports.",
+      "scenario": "Import sessions and attendance, rebuild the summary as of the entry before the attendance import, undo that import with a compensating batch, then verify the log. The undone import stays in the history.",
+      "inspect": "Follow the audit log written in the same SQLite transaction as each change. Triggers block edits and deletions, and verify detects edited, deleted or reordered entries and table edits that bypass the log. As-of reports replay the verified log prefix.",
+      "limits": "Hosted preview is read-only and synthetic; writes require running the local application. The log is tamper-evident, not tamper-proof, and actor labels are self-declared. On a 25,000-entry synthetic ledger an as-of summary took 315 ms against 68 ms from the current tables.",
       "links": [
         {
           "label": "Open demo",
@@ -212,9 +252,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/impact-ledger/blob/main/docs/VERIFICATION.md"
+        },
+        {
+          "label": "Audit history design",
+          "url": "https://github.com/ult666666/impact-ledger/blob/main/docs/ARCHITECTURE.md#audit-history-and-as-of-reports"
+        },
+        {
+          "label": "Tamper tests",
+          "url": "https://github.com/ult666666/impact-ledger/blob/main/tests/test_audit.py"
         }
       ],
-      "command": "python3 -m impact_ledger --db .local/demo.db seed\npython3 -m impact_ledger --db .local/demo.db serve"
+      "command": "python3 -m impact_ledger --db .local/example.db init\npython3 -m impact_ledger --db .local/example.db import sessions examples/sessions.csv\npython3 -m impact_ledger --db .local/example.db import attendance examples/attendance.csv\npython3 -m impact_ledger --db .local/example.db summary --as-of-entry 2\npython3 -m impact_ledger --db .local/example.db undo-import B000003\npython3 -m impact_ledger --db .local/example.db verify"
     },
     {
       "id": "contrastkit",
@@ -228,10 +276,10 @@
         "React",
         "OKLCH"
       ],
-      "summary": "Color contrast auditing across a web app, library and CLI.",
-      "scenario": "Download a failing palette and selected pair as tokens JSON, audit it with the CLI, apply the suggested fix and confirm the next downloaded file passes.",
-      "inspect": "Follow real browser JSON export into the built CLI. Tests preserve the pair and target, gate invalid names and keep actual colors unchanged by color-vision simulation.",
-      "limits": "Color checks support accessibility work; they do not constitute a complete accessibility audit.",
+      "summary": "Color contrast auditing across a web app, library and CLI, with color-vision simulation that includes anomalous trichromacy at any severity.",
+      "scenario": "Check a green and red pair under deuteranomaly at severity 0.6 and under deuteranopia, then move the severity slider in the Palette Auditor. Or download a failing palette as tokens JSON, audit it with the CLI, apply the suggested fix and confirm that the next download passes.",
+      "inspect": "Follow the interpolation between Machado, Oliveira and Fernandes’s published 0.1 steps into audits and the CLI’s --cvd option. 810 simulations agree with colorspacious 1.1.2 within 5e-13, and 990 at the published steps agree with DaltonLens 0.1.5 within one 8-bit step.",
+      "limits": "Color checks support accessibility work; they do not constitute a complete accessibility audit. Simulation approximates an average observer: severity is a model parameter, not a clinical measure, and tritan simulations are the least reliable.",
       "links": [
         {
           "label": "Open demo",
@@ -252,9 +300,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/contrastkit/blob/main/app/test/tokens-export.test.tsx"
+        },
+        {
+          "label": "Severity simulation tests",
+          "url": "https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/cvd-severity.test.ts"
+        },
+        {
+          "label": "Simulation code",
+          "url": "https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/cvd.ts"
         }
       ],
-      "command": "npm ci\nnpm test\nnpm run build"
+      "command": "npm ci\nnpm test\nnpm run build\nnpx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia"
     },
     {
       "id": "motionx-studio",
@@ -308,10 +364,10 @@
         "SQLite",
         "HMAC"
       ],
-      "summary": "A durable signed-webhook inbox with idempotency and fenced worker leases.",
-      "scenario": "Deliver the same signed event twice, process the job and inspect retry, lease and recovery behavior locally.",
-      "inspect": "Follow ingestion uniqueness, transactional lease ownership and worker receipt handling; inspect the local diagnostic dashboard.",
-      "limits": "Local single-host SQLite service. Diagnostic samples are not throughput or service-level claims.",
+      "summary": "A durable signed-webhook inbox with idempotency and fenced worker leases, plus outbound delivery signed per the Standard Webhooks specification.",
+      "scenario": "Subscribe the example receiver, publish a message and deliver it: the first attempt gets 503 with Retry-After, and the retry succeeds with the same webhook-id and a new timestamp. The inbound demo still delivers the same signed event twice and shows retry, lease and recovery behavior.",
+      "inspect": "Follow full-jitter backoff, the dead-letter queue and replay in the dispatcher. Signing matches the specification’s published test vector, and a dispatcher killed mid-request leaves its lease, after which another resends the same message with the same webhook-id.",
+      "limits": "Local single-host SQLite service; outbound targets are loopback-only unless explicitly allowed. No rate limit or circuit breaker, and signing secrets are stored unencrypted. Diagnostic samples are not throughput or service-level claims.",
       "links": [
         {
           "label": "Read case study",
@@ -328,9 +384,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/relaybox/blob/main/docs/VERIFICATION.md"
+        },
+        {
+          "label": "Outbound delivery",
+          "url": "https://github.com/ult666666/relaybox/blob/main/README.md#deliver-to-subscribers"
+        },
+        {
+          "label": "Delivery failure tests",
+          "url": "https://github.com/ult666666/relaybox/blob/main/tests/test_dispatch.py"
         }
       ],
-      "command": "python3 -m relaybox --db .local/demo.sqlite3 demo\npython3 -m relaybox --db .local/demo.sqlite3 serve --demo-secret"
+      "command": "python3 -m relaybox --db .local/demo.sqlite3 demo\npython3 -m relaybox --db .local/demo.sqlite3 serve --demo-secret\n# Outbound: start the receiver in one terminal, then deliver from another\npython3 examples/receive_webhooks.py --demo-secret --fail-first 1\npython3 -m relaybox --db .local/out.sqlite3 subscription add http://127.0.0.1:8788/hook --event-type example.created --demo-secret\npython3 -m relaybox --db .local/out.sqlite3 publish example.created examples/payload.json\npython3 -m relaybox --db .local/out.sqlite3 deliver --max-deliveries 10 --wait 15"
     },
     {
       "id": "tracebench",
@@ -345,10 +409,10 @@
         "JSONL",
         "Decimal"
       ],
-      "summary": "Offline evaluation of recorded AI outputs with exact supplied-cost accounting and regression gates.",
-      "scenario": "Evaluate a bilingual recorded fixture, compare a baseline and inspect a deliberately failing regression or budget rule.",
-      "inspect": "Read strict input contracts and the JSON/Markdown/HTML reports, then trace reusable CI gate behavior.",
-      "limits": "Evaluates supplied recorded outputs; it does not call a model or measure live model quality.",
+      "summary": "Offline evaluation of recorded AI outputs with exact supplied-cost accounting and statistical regression gates.",
+      "scenario": "Compare two candidates with a 100-case synthetic baseline. The noisy one swaps 5 passing and 5 failing cases; the regressed one breaks 12 and fixes 1. The default any-regression gate fails both, while the exact McNemar gate passes the noisy candidate and fails the regressed one.",
+      "inspect": "Follow the exact McNemar test, seeded paired bootstrap intervals and minimum detectable effects into the --gate options. On synthetic 100-case suites where 10% of cases flip at random, any-regression failed 99.4% of unchanged suites and McNemar 1.1%.",
+      "limits": "Evaluates supplied recorded outputs; it does not call a model or measure live model quality. Gates judge pass/fail only and assume independent cases, and a 100-case suite can only detect pass-rate changes of about 0.09.",
       "links": [
         {
           "label": "Open demo",
@@ -369,9 +433,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/tracebench/blob/main/docs/VERIFICATION.md"
+        },
+        {
+          "label": "Statistical gates",
+          "url": "https://github.com/ult666666/tracebench/blob/main/docs/METHODOLOGY.md#paired-statistics-and-statistical-gates-050"
+        },
+        {
+          "label": "Gate tests",
+          "url": "https://github.com/ult666666/tracebench/blob/main/tests/test_paired.py"
         }
       ],
-      "command": "python3 -m tracebench evaluate --cases fixtures/cases.jsonl --outputs fixtures/clean.jsonl --pricing fixtures/pricing.json"
+      "command": "mkdir -p reports\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/baseline.jsonl --pricing fixtures/pricing.json --report reports/paired-baseline.json\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/noisy.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/regressed.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar --format markdown"
     },
     {
       "id": "quantkit",
@@ -386,10 +458,10 @@
         "SciPy",
         "pandas"
       ],
-      "summary": "Options pricing, portfolio optimization and backtesting checked against independent references.",
-      "scenario": "Generate fictional prices, estimate monthly risk-parity allocations using only prior closes and compare against equal weight on the same dates and costs. Inspect six CSV exports.",
-      "inspect": "Follow estimation-window receipts, targets and wealth exports. Future-price perturbation tests keep earlier allocations fixed; the comparison includes shared warmup and entry costs.",
-      "limits": "Educational quantitative software using illustrative inputs; no investment recommendation or live execution.",
+      "summary": "Options pricing, portfolio optimization, backtesting and VaR model validation, checked against independent references.",
+      "scenario": "Simulate fictional prices, forecast one-day 99% VaR and expected shortfall each day from the previous 250, and backtest the forecasts with the Kupiec and Christoffersen tests, the Basel traffic light and the Acerbi–Székely Z2 test.",
+      "inspect": "Follow the four rolling forecasters into the exception tests. A dynamic program gives each test’s exact size: at 250 days a correct model fails the nominal 5% Kupiec test 9.5% of the time, and a simulation measures 10.5%. A perturbation test keeps every forecast blind to the return it is scored against.",
+      "limits": "Educational quantitative software on synthetic data; no investment recommendation or live execution. VaR covers one day and one return series, its likelihood-ratio p-values are asymptotic, and the traffic light is the 1996 table for 250 days of 99% VaR.",
       "links": [
         {
           "label": "Read case study",
@@ -406,9 +478,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py"
+        },
+        {
+          "label": "VaR validation design",
+          "url": "https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md#6-var-model-validation-quantkitvar"
+        },
+        {
+          "label": "Size and power tests",
+          "url": "https://github.com/ult666666/quantkit/blob/main/tests/test_var_size_power.py"
         }
       ],
-      "command": "uv sync\nuv run python examples/walk_forward_risk_parity.py"
+      "command": "uv sync\nuv run quantkit simulate --output prices.csv\nuv run quantkit var-backtest prices.csv --method ewma --level 0.99"
     },
     {
       "id": "powerlift",
@@ -422,10 +502,10 @@
         "SciPy",
         "statsmodels"
       ],
-      "summary": "Experiment statistics with power analysis, CUPED, sequential monitoring and Bayesian tools.",
-      "scenario": "Read a seeded per-user experiment CSV, check the allocation and outcome window, then compare raw and CUPED-adjusted estimates with uncertainty.",
-      "inspect": "Follow the complete experiment readout from CSV validation through SRM and horizon gates to CUPED. Try the blocked scenarios before inspecting the statistical library references.",
-      "limits": "Statistical results depend on study design and data assumptions; a significant result alone is not a business decision.",
+      "summary": "Experiment statistics with power analysis, multi-arm (A/B/n) tests with Dunnett’s correction, CUPED, sequential monitoring and Bayesian tools.",
+      "scenario": "Read a seeded synthetic CSV with one control and three variants: the SRM check runs across all four arms, and Dunnett’s test finds only variant D different while holding the family-wise false-win rate at 5%. Plan the sample size for three arms, or compare raw and CUPED-adjusted estimates in the two-arm readout.",
+      "inspect": "Follow the many-to-one analysis into the max-|t| distribution, where the shared control turns a k-dimensional integral into a two-dimensional one. Results agree with scipy.stats.dunnett, and simulated family-wise error under the global null is 5.1% for Dunnett against 13.5% unadjusted with three variants.",
+      "limits": "Statistical results depend on study design and data assumptions; a significant result alone is not a business decision. Multi-arm comparisons are many-to-one and single-step, and they pool the arms’ variance.",
       "links": [
         {
           "label": "Read case study",
@@ -442,9 +522,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/powerlift/blob/main/tests/test_experiment_readout.py"
+        },
+        {
+          "label": "A/B/n tests",
+          "url": "https://github.com/ult666666/powerlift/blob/main/README.md#abn-tests-several-treatment-arms"
+        },
+        {
+          "label": "Dunnett checks",
+          "url": "https://github.com/ult666666/powerlift/blob/main/tests/test_many_to_one.py"
         }
       ],
-      "command": "uv sync\nuv run python examples/experiment_readout.py --as-of 2026-09-15"
+      "command": "uv sync\nuv run python examples/multi_arm_simulation.py --csv arms.csv\nuv run powerlift analyze --csv arms.csv --group-col arm --value-col revenue_usd --control-label A --treatment-label B --treatment-label C --treatment-label D"
     },
     {
       "id": "ledgerline",
@@ -461,10 +549,10 @@
         "PostgreSQL",
         "SQLite"
       ],
-      "summary": "A double-entry ledger API with immutable balanced entries and idempotent writes.",
-      "scenario": "Run a disposable local HTTP wallet: deposit, transfer, retry with the same key, reject an overdraft, reverse the transfer and reconcile current and historical balances.",
-      "inspect": "Follow the one-command receipt: replay identity, unchanged rejected-write balances, reversal links, historical state and zero trial balance. The example owns and cleans up its temporary database and server.",
-      "limits": "Engineering demonstration; it is not a bank, payment processor or accounting system certification.",
+      "summary": "A double-entry ledger API with immutable balanced entries, idempotent writes and holds (two-phase transfers) that report ledger, held and available balances.",
+      "scenario": "In the API walkthrough, authorize a hold, confirm that the ledger balance is unchanged while the available balance falls, capture part of it, void another and let one expire. The disposable local HTTP wallet still deposits, transfers, retries with the same key, rejects an overdraft, reverses and reconciles.",
+      "inspect": "Follow how holds and postings draw on one available balance through the account version check: 40 concurrent 30-cent holds against 1,000 cents give exactly 33, and ten racing captures and voids of one hold produce one winner. A Hypothesis state machine checks holds, captures, voids and expiry against a model.",
+      "limits": "Engineering demonstration; it is not a bank, payment processor or accounting system certification. A hold allows one capture, expiry is computed when read, and the destination does not see pending credits.",
       "links": [
         {
           "label": "Read case study",
@@ -481,9 +569,21 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_wallet_demo.py"
+        },
+        {
+          "label": "Hold walkthrough",
+          "url": "https://github.com/ult666666/ledgerline/blob/main/docs/API_WALKTHROUGH.md"
+        },
+        {
+          "label": "Holds design",
+          "url": "https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md#10-holds-two-phase-transfers"
+        },
+        {
+          "label": "Hold race tests",
+          "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_holds_concurrency.py"
         }
       ],
-      "command": "uv sync\nuv run python examples/wallet_demo.py"
+      "command": "uv sync\nuv run python examples/wallet_demo.py\nuv run pytest tests/test_holds_concurrency.py -v"
     },
     {
       "id": "searchlite",
@@ -497,10 +597,10 @@
         "TypeScript",
         "BM25F"
       ],
-      "summary": "A full-text search engine with explainable ranking and retrieval evaluation.",
-      "scenario": "Compare two saved local indexes with your own relevance judgments in the browser, inspect query-level regressions and download the native-compatible report. Try the synthetic controls first, then use your own files.",
-      "inspect": "The local-file worker shares validation, ranking and the strict per-query gate with the native command. In the real browser tests, a synthetic positive-average case still fails an individual regression. Follow report-byte parity, bounded inputs, cancellation and offline browser checks; separate execution and vector studies retain their original source revisions.",
-      "limits": "Small in-memory library. Files stay in page memory; Clear drops application references without promising secure erasure. Exported reports contain query text and document IDs. Supplied labels/postings are not authenticated; synthetic judgments and timing fixtures do not establish general retrieval quality or production latency. Vector checks retain cancellation and rounding limits.",
+      "summary": "A full-text search engine with compressed postings, MaxScore top-k pruning, explainable ranking and retrieval evaluation.",
+      "scenario": "Compare two saved local indexes with your own relevance judgments in the browser, inspect query-level regressions and download the native-compatible report. Then run the pruning property tests: on random corpora, queries, filters and limits, the pruned top-k equals scoring every match.",
+      "inspect": "Follow delta and varint blocks of 128 documents with skip entries and per-block score bounds into MaxScore windows. At 10,000 synthetic documents, median top-10 latency fell from 2.06 to 0.30 ms (glossary) and 8.48 to 0.57 ms (Zipf) with byte-identical rankings. The local-file worker shares validation, ranking and the strict per-query gate with the native command.",
+      "limits": "Small in-memory library. Pruning gains are smaller at 1,000 documents, one phrase-heavy query is slower, and block-max WAND is not implemented. Files stay in page memory, and exported reports contain query text and document IDs. Synthetic judgments and timing fixtures do not establish general retrieval quality or production latency.",
       "links": [
         {
           "label": "Compare your local files",
@@ -545,9 +645,17 @@
         {
           "label": "Vector reference checks",
           "url": "https://github.com/ult666666/searchlite/blob/b85f9cb0830b4d7080f3d44bd3cdf60585291faf/docs/VECTOR_NUMERICS.md"
+        },
+        {
+          "label": "Top-k pruning measurements",
+          "url": "https://github.com/ult666666/searchlite/blob/main/docs/EXECUTION.md#measured-results-november-2-2026"
+        },
+        {
+          "label": "Pruning property tests",
+          "url": "https://github.com/ult666666/searchlite/blob/main/test/engine/pruning.test.ts"
         }
       ],
-      "command": "npm ci --ignore-scripts\nnpm run build\nsearchlite_review_dir=$(mktemp -d)\nsearchlite_review_dir=$(cd \"$searchlite_review_dir\" && pwd -P)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"
+      "command": "npm ci --ignore-scripts\nnpm run build\nnpx vitest run test/engine/pruning.test.ts\nsearchlite_review_dir=$(mktemp -d)\nsearchlite_review_dir=$(cd \"$searchlite_review_dir\" && pwd -P)\nnode examples/search-docs.js index examples/fixtures/relevance-notes \"$searchlite_review_dir/notes.json\"\nnode examples/search-docs.js evaluate \"$searchlite_review_dir/notes.json\" examples/fixtures/relevance-notes/judgments.json"
     },
     {
       "id": "citecheck",
@@ -562,10 +670,10 @@
         "Claude API",
         "SQLite FTS5"
       ],
-      "summary": "Document question answering with retrieved citations, claim checks and abstention evaluation.",
-      "scenario": "Index the sample handbook, ask a supported question and compare with a question the documents cannot answer.",
-      "inspect": "Follow real SQLite indexing, retrieval and sentence-citation checks. Markdown fence regressions verify that example headings remain under their enclosing source section.",
-      "limits": "Offline fixture responses are hand-written. Live answers require provider configuration and may incur usage charges.",
+      "summary": "Document question answering with retrieved citations, a claim-level support checker and abstention evaluation.",
+      "scenario": "Index the sample handbook and ask a question whose prepared answer flips a negation: the word-overlap checker rates that sentence supported, while the claim-level checker flags it. Then score both checkers on 77 held-out labelled claims.",
+      "inspect": "Follow claim splitting, clause alignment and the negation, modality, opposite-word and quantity checks. On the held-out cases the claim-level checker caught 44 of 48 unsupported sentences against 20 of 48 for word overlap, with 2 false flags on 29 supported sentences against 1 (exact McNemar p = 1.5e-06).",
+      "limits": "Offline fixture responses are hand-written, and one author wrote both the claim cases and the rules, so the held-out figures are optimistic. The checks are rules, not entailment. Live answers require provider configuration and may incur usage charges.",
       "links": [
         {
           "label": "Read case study",
@@ -577,14 +685,18 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md"
+          "url": "https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md#claim-level-checking"
         },
         {
           "label": "Proving checks",
+          "url": "https://github.com/ult666666/citecheck/blob/main/tests/test_claims.py"
+        },
+        {
+          "label": "Fenced-code index tests",
           "url": "https://github.com/ult666666/citecheck/blob/main/tests/test_index.py"
         }
       ],
-      "command": "uv sync\nuv run citecheck index examples/handbook\nuv run citecheck ask \"What is the deadline for submitting an expense?\""
+      "command": "uv sync\nuv run citecheck index examples/handbook\nuv run citecheck ask \"Do I need a doctor's note when I take a sick day?\"\nuv run citecheck eval-claims"
     },
     {
       "id": "proofcast-backblaze",
@@ -599,10 +711,10 @@
         "Streamlit",
         "SHA-256"
       ],
-      "summary": "Local media generation with provenance records and optional object storage.",
-      "scenario": "Generate a local asset bundle, verify the saved manifest against its actual media files, then alter a copied file and inspect the explicit failure.",
-      "inspect": "Follow the offline verification CLI, byte digests and media-format checks. Reproduce missing-file, tamper and moved-bundle cases without uploading anything.",
-      "limits": "Local workflow demonstration. A digest identifies bytes; it does not prove authorship or the truth of media content.",
+      "summary": "Local media generation with provenance records, Ed25519 manifest signatures and a Merkle transparency log.",
+      "scenario": "Generate a local bundle, then run the tamper demo: it signs and logs the bundle on copies and catches a changed media byte, a changed manifest byte, a different trusted key, a flipped proof bit, an edited tree head and a rewritten log entry.",
+      "inspect": "Follow the RFC 6962 and RFC 9162 Merkle tree, its inclusion and consistency proofs and the signed tree heads. The proofs match 195 of 196 published transparency-dev/merkle probes; the remaining probe passes placeholder roots and is rejected on purpose.",
+      "limits": "Local workflow demonstration. A signature proves which key signed, not who holds the key, and a digest does not prove authorship or the truth of media content. The log is one local file without independent witnesses, the private key is stored unencrypted, and the optional B2 upload has not been run against a real bucket.",
       "links": [
         {
           "label": "Source & setup",
@@ -615,9 +727,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/tests/test_verification.py"
+        },
+        {
+          "label": "Signatures & transparency log",
+          "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/README.md#sign-and-log-a-bundle"
+        },
+        {
+          "label": "Merkle proof tests",
+          "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/tests/test_merkle.py"
         }
       ],
-      "command": ".venv/bin/python -m proofcast.cli --title \"Synthetic demo\" --script \"A local verification example.\""
+      "command": ".venv/bin/python -m proofcast.cli --title \"Synthetic demo\" --script \"A local verification example.\"\n.venv/bin/python examples/tamper_demo.py output/YOUR-RUN-ID-manifest.json"
     },
     {
       "id": "luma-keys",
@@ -669,10 +789,10 @@
         "Phaser",
         "Devvit"
       ],
-      "summary": "A one-minute Reddit puzzle about downstream effects of schema changes.",
-      "scenario": "Pick a UTC incident day, place two circuit breakers, trace the real cascade, compare the computed result, move one synthetic vote, then delete and replay.",
-      "inspect": "Open the playable offline build or produce its single HTML yourself. Follow the shared engine, exact source/build lock and maintained offline Chromium journey.",
-      "limits": "Desktop/landscape pointer demo; fictional community data lives in tab memory and reload resets it. Comments are unavailable. Live Reddit/Redis behavior, keyboard-only canvas play and portrait layout require separate verification.",
+      "summary": "A one-minute Reddit puzzle about downstream effects of schema changes, playable with a pointer or a keyboard.",
+      "scenario": "Pick a UTC incident day, place two circuit breakers with the mouse or with Tab, the arrow keys and Space, trace the real cascade, compare the computed result, move one synthetic vote, then delete and replay.",
+      "inspect": "Open the playable offline build or produce its single HTML yourself. Follow the shared engine, the hidden accessible mirror of the board with its live announcements, the exact source/build lock and the offline Chromium journeys, three of which never touch the mouse.",
+      "limits": "Desktop/landscape demo; fictional community data lives in tab memory and reload resets it. Comments are unavailable. Keyboard and screen-reader support is checked with Playwright and axe-core in Chromium, not with a physical screen reader or inside Reddit’s apps. Live Reddit/Redis behavior and portrait layout require separate verification.",
       "links": [
         {
           "label": "Play offline demo",
@@ -693,6 +813,14 @@
         {
           "label": "Offline workflow & scope",
           "url": "https://github.com/ult666666/blast-radius-daily/blob/main/docs/OFFLINE_DEMO.md"
+        },
+        {
+          "label": "Keyboard journeys",
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/test/keyboard.spec.ts"
+        },
+        {
+          "label": "Accessibility & limits",
+          "url": "https://github.com/ult666666/blast-radius-daily/blob/main/README.md#accessibility-and-device-support"
         }
       ],
       "command": "npm ci --ignore-scripts\nnpm run build:demo\n# Open dist-demo/blast-radius-demo.html from disk\nnpx playwright install chromium --only-shell\nnpm run test:demo"
@@ -709,10 +837,10 @@
         "Python",
         "JSON Schema"
       ],
-      "summary": "An offline research architecture with a runnable fail-closed review gate.",
-      "scenario": "Run six synthetic gate scenarios and inspect why missing or contradictory evidence blocks a research result.",
-      "inspect": "Follow schema validation, gate reasons and negative tests; compare the architecture with the runnable subset.",
-      "limits": "Research-review-only demonstration with synthetic fixtures; no automated orders, brokerage connection or trading advice.",
+      "summary": "An offline research architecture with a runnable fail-closed review gate and backtest-overfitting diagnostics.",
+      "scenario": "Run the overfitting demo: the best of 100 no-skill synthetic strategies has a naive PSR of 0.9989, yet the deflated Sharpe ratio, PBO, White’s Reality Check and Hansen’s SPA all flag it, while a strategy with injected skill passes all four. Then run the six fail-closed gate scenarios.",
+      "inspect": "Follow the standard-library PSR and DSR, CSCV, stationary bootstrap and SPA code. Tests check the published DSR example, compare PBO with a brute-force version, run null simulations and show that each of eight deliberate mutations fails a test.",
+      "limits": "Research-review-only demonstration with synthetic fixtures; no automated orders, brokerage connection or trading advice. The diagnostics use independent Student-t returns without costs, and none of them shows that a strategy is profitable.",
       "links": [
         {
           "label": "Read case study",
@@ -729,9 +857,17 @@
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py"
+        },
+        {
+          "label": "Overfitting diagnostics",
+          "url": "https://github.com/ult666666/agentic-trading-research/blob/main/examples/README.md#backtest-overfitting-diagnostics"
+        },
+        {
+          "label": "Diagnostics code & tests",
+          "url": "https://github.com/ult666666/agentic-trading-research/tree/main/examples/backtest_diagnostics"
         }
       ],
-      "command": "python3 -B examples/fail_closed_gate.py --all\npython3 -B -m unittest discover -s examples -p \"test_*.py\" -v"
+      "command": "python3 -B examples/overfitting_demo.py\npython3 -B examples/fail_closed_gate.py --all\npython3 -B -m unittest discover -s examples -p \"test_*.py\" -v"
     },
     {
       "id": "just-qr",
@@ -745,10 +881,10 @@
         "JavaScript",
         "Canvas"
       ],
-      "summary": "A minimal browser QR generator with image export.",
-      "scenario": "Generate and export a QR code, try an invalid or oversized destination, recover with a valid URL and compare clipboard/download images.",
-      "inspect": "Read URL validation and recovery in the single-page implementation, then inspect independent QR decoding and quiet-zone pixel checks for both export paths.",
-      "limits": "Browser utility; a QR code encodes input and does not validate whether the destination is trustworthy.",
+      "summary": "A minimal browser QR generator with its own ISO/IEC 18004 encoder and image export.",
+      "scenario": "Generate and export a QR code at the default error-correction level H, try an invalid or oversized destination, recover with a valid URL, lower the level to fit a longer one and compare the clipboard and download images.",
+      "inspect": "Follow qr.js through Reed-Solomon coding with block interleaving, format and version information and mask selection by the four penalty rules. Tests match the ISO and zxing vectors, decode random symbols across 30+ versions with jsQR, and compare 120 symbols module for module with qrcodejs.",
+      "limits": "Browser utility; a QR code encodes input and does not validate whether the destination is trustworthy. One segment per code, with no ECI, Kanji, Micro QR or structured append. The page loads no third-party script but still requests two Google Fonts, and it must be served over HTTP.",
       "links": [
         {
           "label": "Open demo",
@@ -760,14 +896,22 @@
         },
         {
           "label": "Design & method",
-          "url": "https://github.com/ult666666/JUST-QR/blob/main/index.html"
+          "url": "https://github.com/ult666666/JUST-QR/blob/main/qr.js"
         },
         {
           "label": "Proving checks",
           "url": "https://github.com/ult666666/JUST-QR/blob/main/tests/qr.spec.mjs"
+        },
+        {
+          "label": "Encoder vectors",
+          "url": "https://github.com/ult666666/JUST-QR/blob/main/tests/encoder.spec.mjs"
+        },
+        {
+          "label": "Differential test",
+          "url": "https://github.com/ult666666/JUST-QR/blob/main/tests/differential.spec.mjs"
         }
       ],
-      "command": "python3 -m http.server 8000"
+      "command": "python3 -m http.server 8000\nnpm ci\nnpx playwright install chromium --only-shell\nnpm test"
     },
     {
       "id": "teen-budgeting-hw3",

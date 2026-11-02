@@ -62,7 +62,8 @@ class HandoffShowcaseTests(unittest.TestCase):
         section = self.handoff()
         intro = self.page.find('section', **{'class': 'lab-intro container'})[0]
         self.assertEqual(len(intro.find('a', href='#operations-handoff')), 1)
-        self.assertEqual(len(self.page.find('details', **{'class': 'lab-walkthrough'})), 3)
+        # Three projects, each with its original and its November 2026 walkthrough.
+        self.assertEqual(len(self.page.find('details', **{'class': 'lab-walkthrough'})), 6)
         for anchor in ('section-1', 'section-2', 'section-3', 'section-4'):
             self.assertEqual(len(self.page.find(id=anchor)), 1)
         links = [node.attrs['href'] for node in section.find('a')]

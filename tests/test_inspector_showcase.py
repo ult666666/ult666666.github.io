@@ -44,10 +44,20 @@ class InspectorShowcaseTests(unittest.TestCase):
         self.assertNotIn('enterprise-certified', self.text.lower())
 
     def test_test_counts_name_current_revision_separately_from_the_original_release(self):
-        for phrase in ('1 November 2026', '172 Node tests', '43 browser journey checks', '19 evaluation assertions', '89-case policy benchmark', 'not independent evidence of catalog truth'):
+        for phrase in ('2 November 2026', 'commit bc14370', '201 Node tests', '45 browser journey checks', '19 evaluation assertions', '105-case policy benchmark', 'not independent evidence of catalog truth'):
             self.assertIn(phrase, self.text)
         self.assertIn('v2.0.0', self.text)
         self.assertNotIn('separates the 84-test Node suite, 24 browser journeys', self.text)
+        self.assertNotIn('172 Node tests', self.text)
+
+    def test_dbt_manifest_section_states_what_a_manifest_cannot_clear(self):
+        ids = [attrs.get('id') for _, attrs in self.page.elements if attrs.get('id')]
+        self.assertIn('dbt-manifest', ids)
+        self.assertIn('#dbt-manifest', self.hrefs)
+        for phrase in ('needs-evidence', 'five downstream models and two exposures', '12 dbt tests',
+                       'never clear one', 'manifest schema v12 and catalog v1', 'synthetic'):
+            self.assertIn(phrase, self.text)
+        self.assertIn('https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/dbt-properties.test.mjs', self.hrefs)
 
     def test_screenshot_is_exact_public_source_with_size_and_publication_inventory(self):
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']

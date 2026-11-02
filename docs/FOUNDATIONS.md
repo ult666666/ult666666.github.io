@@ -57,3 +57,25 @@ The project explorer at `/projects/catalog.html` covers all 20 public projects. 
 ## Selected-month churn investigation
 
 After saas-analytics-warehouse PR1 merged at682595bcc89daa4160a7b697bcbb01f4d2e8ed75 on25 October2026, the page and catalog gained its read-only customer investigation route. The documented24-month synthetic build and module consumer reconcile historical customer count, total lost MRR and the payment-failure subset before writing three CSVs plus Markdown to a new directory. The source consumer passed88 Python tests, existing full lint/type/SQL checks,173/173 fresh dbt nodes, independent review and hosted CI. An isolated installed wheel produced identical outputs. Current active status does not erase historical churn; month-end and fictional-data limits remain explicit. The original dated bridge walkthrough above is preserved.
+
+## 2 November 2026 upgrade walkthroughs
+
+Each project merged one upgrade in November 2026. Each section now keeps its original walkthrough and adds a second one for the new capability. Every command below ran on 2 November 2026 in a fresh copy of that repository's `main` (`git archive origin/main`), with its dependencies installed in the copy:
+
+| Project (main) | Command | Observed result |
+| --- | --- | --- |
+| quantkit (7efb979), VaR model validation | `uv run pytest tests/test_var_size_power.py -v` | 3 passed |
+| powerlift (11300a2), A/B/n tests with Dunnett | `uv run pytest tests/test_many_to_one.py -k "scipy_dunnett or family_wise" -v` | 2 passed, 24 deselected |
+| ledgerline (51ecfc1), holds | `uv run pytest tests/test_holds_concurrency.py -v` | 8 passed |
+| saas-analytics-warehouse (f18a390), incremental loads and snapshot | `make incremental-check MONTHS=6 SCALE=0.25 DAILY_DAYS=14` | `Relations compared: 24`, all equal, `Incremental build equals the full refresh.` The full `make incremental-check` gave the same result in 3 minutes 25 seconds |
+| searchlite (62ef3a9), MaxScore and block-max top-k | `npx vitest run test/engine/pruning.test.ts` | 17 passed |
+| contrastkit (0eba84a), anomalous trichromacy | `npx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia` (after `npm ci` and `npm run build`) | ΔE_OK 0.076 under deuteranomaly at 0.6 and 0.063 under deuteranopia, against 0.269 for typical vision; WCAG ratio 1.20:1, exit code 1 |
+| citecheck (83cad56), claim-level checker | `uv run citecheck ask --checker lexical "Do I need a doctor's note when I take a sick day?"`, then the same question without `--checker lexical` | Lexical: sentence 1 supported (10 of 10 content words found). Claim-level: unsupported, "only the claim is negated". No API call |
+
+The original walkthroughs were run again on the same branches. quantkit gave 7 passed, powerlift 12 passed and searchlite 2 passed, 47 skipped, as recorded on 23 October. contrastkit's `npx contrastkit check 777 fff` still gave 4.47:1, failing AA, with exit code 1. Three results had changed and the page now states them:
+
+- ledgerline's `uv run pytest tests/test_concurrency.py -v` gives 7 passed, not 6.
+- saas-analytics-warehouse's `make data build` reports `PASS=192 WARN=0 ERROR=0` (it was 173), with the snapshot and its four history tests.
+- citecheck's default checker is now claim-level: the expense question's second sentence is unsupported because "the claim says 60 days where the cited text says 30 days". No API call is made.
+
+`tests/test_foundations.py` now also pins these observed results and rejects the three stale ones. The browser suite requires two walkthroughs in every section and opens all fourteen by keyboard. The published held-out, simulation and timing figures on the page come from each repository's README on `main`, and the page links the method behind each one.

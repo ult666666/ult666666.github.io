@@ -15,7 +15,7 @@ CASES = [
      'hero': 'A workbench for reviewing database schema changes. Each check runs as a step in a small '
              'workflow, every verdict keeps the evidence it was based on, and a run that crashes can resume '
              'where it stopped.',
-     'tags': ['Workflow orchestration', 'Offline review verification', 'SQLite recovery', 'Read-only MCP'],
+     'tags': ['Workflow orchestration', 'Offline review verification', 'SQLite recovery', 'dbt manifest evidence', 'Read-only MCP'],
      'repo': 'https://github.com/ult666666/lineageguard-datahub-agent',
      'live': 'https://lineageguard-datahub-agent.vercel.app/',
      'live_label': 'Open Studio',
@@ -40,8 +40,8 @@ CASES = [
                     'checkpoints actual state transitions.',
                     'Compatibility risk and evidence readiness remain separate. Unknown usage is not zero, '
                     'truncated lineage is not complete, and BIGINT to SMALLINT is not treated as safe '
-                    'simply because both types are numeric. Deterministic policy—not an LLM confidence '
-                    'score—determines the review outcome.']),
+                    'simply because both types are numeric. Deterministic policy, not an LLM confidence '
+                    'score, determines the review outcome.']),
                   ('Measuring the policy',
                    ['I measured the review policy against 89 labelled schema changes and evidence '
                     'conditions. I wrote the labelling rules and labels before the first run. Each case '
@@ -52,7 +52,28 @@ CASES = [
                     'review instead of being blocked. After the fix, 85 of 89 decisions match and none is '
                     'more permissive. The four stricter results are lossless conversions the policy '
                     'deliberately does not prove. CI now fails if any decision becomes more permissive '
-                    'than its label.']),
+                    'than its label.',
+                    'The benchmark has since grown to 105 cases, 16 of them on a real dbt manifest. On 2 '
+                    'November 2026, 101 decisions matched their labels, none was more permissive and the same '
+                    'four conversions stayed stricter.']),
+                  ('Review a dbt project',
+                   ['Most data teams keep lineage in dbt, so the Studio can read a dbt manifest.json, and '
+                    'optionally the catalog.json from dbt docs generate, as an offline evidence source. The '
+                    'adapter maps models, seeds, snapshots, sources, exposures and tests into the same evidence '
+                    'the other sources produce, and the same interpreter and policy review the change.',
+                    'Renaming fct_mrr.mrr_usd in a trimmed manifest from saas-analytics-warehouse, a synthetic '
+                    'dbt project by the same author, lists five downstream models and two exposures with their '
+                    'owners, plus the 12 dbt tests that read the model. The decision is needs-evidence, because '
+                    'a manifest records what a project declares, not what the warehouse observes.',
+                    'The gaps stay explicit. Lineage is model-level and lists only consumers declared in the '
+                    'project, and a manifest has no column lineage, no query history and no nullability. '
+                    'Manifest evidence can therefore block a change or ask for more evidence, but never clear '
+                    'one. Only manifest schema v12 and catalog v1 are read, and a manifest whose parent_map, '
+                    'child_map and depends_on disagree, or whose graph has a cycle, is refused.',
+                    'A seeded property test compares the adapter\'s lineage with an independent walk of '
+                    'depends_on and refuses a tampered child_map. All 16 dbt benchmark cases matched their '
+                    'labels on the first run, and mutating the adapter to read unknown usage as zero queries, '
+                    'or a not_null test as a constraint, makes the benchmark check fail.']),
                   ('Failure and recovery evidence',
                    ['The local SQLite coordinator uses revision compare-and-swap, expiring writer leases '
                     'and admission reservations. Tests interrupt a test-owned process after a committed '
@@ -68,9 +89,10 @@ CASES = [
                     'SQL statement escape its comment, and a summary that could add a fake decision line to '
                     'the review brief. Both are fixed. Catalog text that looks like instructions is treated '
                     'as data, and tests show it cannot change a review.',
-                    'At commit 4147e06, verified on 1 November 2026, CI runs 172 Node tests (including 16 '
-                    'seeded property tests), 43 browser journey checks across both storage modes, 19 '
-                    'evaluation assertions and the 89-case policy benchmark. These are separate, overlapping checks, not '
+                    'At commit bc14370, verified on 2 November 2026, CI runs 201 Node tests (including 20 '
+                    'seeded property tests, 4 of them on generated dbt manifests), 45 browser journey checks '
+                    'across both storage modes, 19 evaluation assertions and the 105-case policy benchmark. '
+                    'These are separate, overlapping checks, not '
                     'independent evidence of catalog truth. The original v2.0.0 release keeps its '
                     'historical verification record; later launcher and Inspector changes are identified '
                     'by their own commits.']),
@@ -138,6 +160,16 @@ CASES = [
                                                   'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/evals/policy-cases.json'),
                                                  ('Benchmark report',
                                                   'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/evals/policy-report.json')],
+                       'Review a dbt project': [('dbt manifest review',
+                                                 'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/README.md#review-against-a-dbt-manifest'),
+                                                ('dbt integration profile',
+                                                 'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ARCHITECTURE.md#dbt-manifest-integration-profile'),
+                                                ('Manifest adapter',
+                                                 'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/dbt-manifest.js'),
+                                                ('dbt property tests',
+                                                 'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/test/studio/dbt-properties.test.mjs'),
+                                                ('dbt benchmark cases',
+                                                 'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/EVALUATION.md#dbt-manifest-cases')],
                        'The orchestration system': [('DAG compiler',
                                                      'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/public/studio/core/recipe.js'),
                                                     ('Execution interpreter',
@@ -178,6 +210,7 @@ CASES = [
      'section_ids': {'The problem': 'section-1',
                      'The orchestration system': 'section-2',
                      'Measuring the policy': 'policy-benchmark',
+                     'Review a dbt project': 'dbt-manifest',
                      'Failure and recovery evidence': 'section-3',
                      'Verify the exported review': 'review-inspector',
                      'Compare two saved reviews': 'saved-comparison',
@@ -231,21 +264,34 @@ CASES = [
     dict(slug="trading-research", number="03", kind="Research system",
          title="Agentic Trading Research", hero="A research-only system for short-term stock research. Language models gather evidence and "
               "propose ideas, and plain Python checks decide what passes. It cannot place orders.",
-         tags=["Python", "Deterministic validation", "Provenance", "Agent workflows"],
+         tags=["Python", "Deterministic validation", "Backtest-overfitting diagnostics", "Provenance", "Agent workflows"],
          repo="https://github.com/ult666666/agentic-trading-research",
          live=None, live_label=None, image=None, alt=None,
          secondary_links=[
              ("Run synthetic gate", "https://github.com/ult666666/agentic-trading-research/tree/main/examples"),
+             ("Overfitting diagnostics", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/README.md#backtest-overfitting-diagnostics"),
          ],
          proof_links=[
              ("Runnable gate", "Six fixed synthetic scenarios, no broker or market data", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/fail_closed_gate.py"),
              ("Negative-case tests", "Inspect deterministic HOLD and input validation tests", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/test_fail_closed_gate.py"),
-             ("GitHub Actions", "Offline checks of the teaching example, the public test suite and every Markdown link", "https://github.com/ult666666/agentic-trading-research/actions/workflows/research-demo.yml"),
+             ("Overfitting diagnostics", "PSR, DSR, PBO, Reality Check and SPA on synthetic returns; the demo fails unless every verdict is as expected", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/overfitting_demo.py"),
+             ("GitHub Actions", "Offline checks of the teaching example, the overfitting diagnostics, the public test suite and every Markdown link", "https://github.com/ult666666/agentic-trading-research/actions/workflows/research-demo.yml"),
          ],
          section_links={
+             "Check a backtest for overfitting": [
+                 ("Diagnostics code and tests", "https://github.com/ult666666/agentic-trading-research/tree/main/examples/backtest_diagnostics"),
+                 ("Method, checks and limits", "https://github.com/ult666666/agentic-trading-research/blob/main/examples/README.md#backtest-overfitting-diagnostics")
+             ],
              "Engineering principles": [
                  ("Try the six synthetic scenarios", "https://github.com/ult666666/agentic-trading-research/tree/main/examples")
              ],
+         },
+         section_ids={
+             "The problem": "section-1",
+             "The architecture": "section-2",
+             "Check a backtest for overfitting": "overfitting-diagnostics",
+             "Engineering principles": "section-3",
+             "Status and limitations": "section-4"
          },
          sections=[
              ("The problem", [
@@ -257,18 +303,23 @@ CASES = [
                  "Structured outputs and explicit failure states let the system withhold a result when necessary instead of quietly inventing confidence.",
                  "A separate, runnable public teaching example shows six synthetic outcomes: one reviewable research case and five HOLD cases, with automated negative tests. It cannot query real markets or place orders."
              ]),
+             ("Check a backtest for overfitting", [
+                 "Search enough strategies and the best one looks skilled by chance. A standard-library package in the public examples applies four checks that quantitative reviewers use before trusting a backtest: the probabilistic and deflated Sharpe ratios (PSR and DSR), the probability of backtest overfitting (PBO) by combinatorially symmetric cross-validation, White's Reality Check and Hansen's SPA test.",
+                 "In the demo, the best of 100 no-skill synthetic strategies has a naive PSR of 0.9989. The DSR after 100 trials is 0.6928, PBO is 0.3333, and the Reality Check and SPA p-values are 0.1038 and 0.1437, so all four flag it, while a strategy with injected skill passes all four. Over 400 seeded synthetic universes of 20 no-skill strategies, picking the winner passed the PSR 64.7% of the time; the DSR passed none, PBO at most 0.10 passed 1.5%, the Reality Check 4.5% and SPA 9.5%.",
+                 "The tests reproduce the numerical example in Bailey and López de Prado's DSR paper, compare PBO with a brute-force implementation, run null simulations, and show that each of eight deliberate mutations makes a test fail. The returns are independent Student-t draws without costs, and no diagnostic shows that a strategy is profitable."
+             ]),
              ("Engineering principles", [
                  "I prioritize reproducible tests, machine-readable evidence, conservative release gates, and reviewable control-plane changes.",
                  "This pattern also applies outside finance: AI can help generate options, while clear policy and traceable evidence decide what is actually allowed."
              ]),
              ("Status and limitations", [
-                 "The public repository is a curated research and architecture snapshot, not the complete runnable production system. Its self-contained synthetic demo is independently runnable and deliberately cannot access accounts, market feeds or private runtime.",
+                 "The public repository is a curated research and architecture snapshot, not the complete runnable production system. Its self-contained synthetic demos are independently runnable and deliberately cannot access accounts, market feeds or private runtime.",
                  "It makes no claim of live profitability or autonomous order execution. A human retains responsibility for any real financial action."
              ])]),
     dict(slug="frontier-ai-valuation-lab", number="FEATURED", kind="Fintech",
          title="Frontier AI Valuation Lab", hero="A valuation and financing model for frontier AI labs. Set a capital goal, compare financing plans "
               "across explicit scenarios, and keep a record of the decision and the math behind it.",
-         tags=["Capital Strategy 4.0", "Financing & ownership", "Scenario analysis", "Node.js API", "Python verification"],
+         tags=["Capital Strategy 4.0", "Financing & ownership", "Scenario analysis", "Monte Carlo valuation", "Node.js API", "Python verification"],
          repo="https://github.com/ult666666/frontier-ai-valuation-lab",
          live="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision", live_label="Try Capital Strategy Studio",
          secondary_links=[
@@ -284,6 +335,7 @@ CASES = [
              "Start with the business decision": "section-1",
              "Compare capital and ownership objectives": "section-financing",
              "Challenge the choice across explicit scenarios": "section-2",
+             "Simulate the range of value": "section-uncertainty",
              "Make the engineering inspectable": "section-3",
              "My role and the project boundaries": "section-4"
          },
@@ -300,6 +352,12 @@ CASES = [
                  ("Capital comparison method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/CAPITAL_STRATEGY.md"),
                  ("Independent numerical reference", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/scripts/check_capital_reference.py"),
                  ("Explore Value Horizon", "https://frontier-ai-valuation-lab.vercel.app/horizon.html")
+             ],
+             "Simulate the range of value": [
+                 ("Open the Monte Carlo panel", "https://frontier-ai-valuation-lab.vercel.app/index.html#uncertainty"),
+                 ("Uncertainty method", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/UNCERTAINTY.md"),
+                 ("Independent Python check", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/scripts/check_uncertainty_reference.py"),
+                 ("simulate API contract", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/API.md#simulate-monte-carlo-valuation-under-uncertainty")
              ],
              "Make the engineering inspectable": [
                  ("Architecture and trust boundaries", "https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/ARCHITECTURE.md"),
@@ -364,6 +422,12 @@ CASES = [
                  "A separate diagnostic combines a model-to-quote coverage floor with retained ownership. The resulting pre-money price interval must satisfy every submitted scenario. An empty interval, a nonpositive model-conditioned ceiling, a missing bridge and the no-finite-price case at 100% retention remain distinct. None of these analytical intervals establishes an available financing offer.",
                  "The method is a finite scenario comparison. Case counts are not probabilities, minimax is conditional on the listed cases and declared metric, and three presets cannot prove global robustness. The documentation connects the design to primary-source work on scenario analysis and decisions under uncertainty without importing unsupported probability distributions."
              ]),
+             ("Simulate the range of value", [
+                 "Three cases hide the spread of outcomes between and around them. Uncertainty method 1.0.0 adds a seeded Monte Carlo panel to the Model workspace and a matching simulate action to the API, and every draw reuses the unchanged DCF engine. Up to five drivers take bounded uniform, triangular or truncated normal distributions: the revenue growth path, the terminal operating margin, the discount rate, terminal growth and, with a hypothetical equity bridge, uncompensated dilution. A Gaussian copula with a Cholesky factor joins them.",
+                 "With the default panel ranges around the Anthropic Base case and 10,000 draws, the API returns P5 $197.2B, P50 $364.2B and P95 $694.6B around the deterministic Base value of $367.8B, with 69.5% of draws above a $300B hurdle. The growth path and the discount rate swing value most, about $240B and $236B between their own P10 and P90. These figures describe the illustrative ranges in the request; they are not a forecast or a probability that either company is worth any amount.",
+                 "Validation runs the engine on every corner of the box the driver ranges span, so no draw is clipped or discarded, and a correlation matrix that is not positive semidefinite is rejected with its smallest eigenvalue. The tornado uses exact quantiles of each entered distribution, so rescaling a driver cannot reorder it. Seeded xoshiro128** numbers and fdlibm ports of exp and log make the browser and the API return byte-identical JSON for the same request, and an independent Python script checks the generator, normal functions, copula, percentiles and tornado. A follow-up change gave Value Horizon the same treatment, so its results are now bit-for-bit identical in Chromium and the Node API.",
+                 "Draws are equally weighted, the Gaussian copula has no tail dependence, and the tornado is one-way. The method says nothing about which distributions are right; those remain the analyst's inputs."
+             ]),
              ("Make the engineering inspectable", [
                  "A pure JavaScript capital module composes the preserved financial engines. Browser ES modules and the stateless Node.js API use the same validated snapshot. The browser compares their complete analyses, distinguishing exact agreement from qualified rounding differences. The capital endpoint keeps the existing 16 KiB request limit and does not receive analyst prose. No API key, database or paid market-data service is required to run the demo.",
                  "The browser invalidates verification when financial inputs change and rejects stale responses. Invalid drafts suppress dependent results. Exported records and UTF-8 share links retain the submitted numeric precision and reasoning; imported analysis is recalculated instead of trusted. Import preview, bounded payloads and inert text rendering protect the decision state without pretending that an export is an authenticated financial document.",
@@ -372,14 +436,15 @@ CASES = [
              ]),
              ("My role and the project boundaries", [
                  "I built Frontier AI Valuation Lab as an independent, AI-assisted portfolio project under my own name, Charles Dai. My work connects financial-model review, product and business framing, quantitative method design, full stack implementation and reproducible verification. This case study presents inspectable work rather than a claimed client engagement or investment track record.",
-                 "Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. The formula-based Excel workbook and original financial-review PDF remain the version 3.0 baseline. New company evidence is not silently substituted for the reviewed assumptions.",
+                 "Application 4.0.0 adds capital method 1.0.0 while retaining financial engine 3.0.0 and the frozen 18 October 2026 research snapshot. Uncertainty method 1.0.0 keeps that engine and date. The formula-based Excel workbook and original financial-review PDF remain the version 3.0 baseline. New company evidence is not silently substituted for the reviewed assumptions.",
                  "The outputs depend on illustrative assumptions and incomplete public disclosures. The simplified financing excludes fees, preference waterfalls, option-pool changes, conversions, secondary sales, investment-driven operating benefits and future rounds. It does not determine actual funding need, availability of financing, a security-specific price target or investment returns. The documented boundaries are part of the decision product."
              ])]),
     dict(slug="crossbook", number="04", kind="Fintech infrastructure",
          title="crossbook",
-         hero="An order-matching engine in Rust with crash recovery, a market-data feed and a multi-instrument runner. "
-              "It gives the same answer, event for event, on Linux, macOS, Windows, in the browser and on any number of threads.",
-         tags=["Rust", "WebAssembly", "Crash recovery", "Concurrency", "Differential testing", "Mutation testing"],
+         hero="An order-matching engine in Rust with opening and closing call auctions, crash recovery, a market-data feed "
+              "and a multi-instrument runner. It gives the same answer, event for event, on Linux, macOS, Windows, in the browser "
+              "and on any number of threads.",
+         tags=["Rust", "WebAssembly", "Call auctions", "Crash recovery", "Concurrency", "Differential testing", "Mutation testing"],
          repo="https://github.com/ult666666/crossbook",
          live="https://ult666666.github.io/crossbook/", live_label="Open the playground",
          image="/assets/crossbook-playground.png", image_width=1800, image_height=1125,
@@ -405,6 +470,12 @@ CASES = [
                  "The market-data feed derives trade prints and price-level updates from events alone, without reading the engine. Subscribers use sequence numbers and heartbeats to notice a lost message and resynchronize from a snapshot. After every command, a subscriber's book must equal the engine's.",
                  "A sequencer, worker shards and an ordered merge spread many instruments across threads. Batches of consecutive commands and a merger that always waits for the oldest batch rule out the deadlock that batching and bounded queues can cause. Random streams must give exactly the single-thread output for any shard count, batch size and queue length."
              ]),
+             ("Call auctions", [
+                 "Version 0.3 adds the call auctions that exchanges use to open and close the day. During a call phase, limit and market orders rest without matching, so the book may cross. Immediate-or-cancel, fill-or-kill and post-only orders are rejected, because a call cannot execute immediately. The uncross then picks one clearing price and fills every crossing order at it in price-time priority, market orders first. While the call is open, the indicative uncross reports the price, volume and surplus an uncross would produce.",
+                 "The clearing price follows the rules Xetra and Euronext publish: the most executable volume, then the smallest surplus, then market pressure, then the price closest to the reference price, then the lowest price. A deliberately slow version tries every candidate price. It agrees with the engine on 20,000 seeded books built to tie, on which volume decided 6,895, surplus 4,762, market pressure 2,017, the reference price 346 and the lowest price 126. After every uncross, seven allocation invariants must hold, among them a single price, no fill beyond an order's limit, conserved volume, respected priority and an uncrossed book.",
+                 "The engine finds the price in one pass over the cached totals of its price levels, so the indicative uncross can be refreshed after every command. On the closing call of a synthetic trading day, with 8,452 resting orders, the indicative uncross took 337 ns and the uncross with 1,608 fills 54.1 µs, measured on a shared 2.1 GHz Xeon VM, so treat both as upper bounds. Mutation testing of the auction code caught 310 of 323 compiling mutants (3 by timeout); 5 survivors led to fixes, and the 8 left cannot change behavior.",
+                 "The journal and snapshot formats moved to version 2 and still read version 1 files, and a crash inside a call recovers into the same call with the same market orders and reference price. The market-data feed adds phase and auction messages, and the playground has phase controls and an opening-auction scenario."
+             ]),
              ("Results", [
                  "On one core of a 2.1 GHz Intel Xeon cloud VM, the engine processes 15 to 16 million commands per second of synthetic order flow. Latency per command is 64 ns at the median, 196 ns at p99 and 477 ns at p99.9.",
                  "The same session compiled to WebAssembly runs at about 8.3 million commands per second under Node.js, with the same event digest and state hash as the native build. The figures cover the matching core only, with no network, parsing or persistence on the timed path.",
@@ -412,8 +483,18 @@ CASES = [
              ]),
              ("Tradeoffs and boundaries", [
                  "A BTreeMap costs a logarithmic lookup per price level. A dense price ladder would be constant-time but needs a bounded price band. The fast integer hasher is not resistant to hostile IDs, so a gateway facing untrusted clients would assign IDs itself.",
+                 "The auction model always clears at one of the orders' limits, where Xetra uses the reference price itself when it falls between two candidates. It starts no call on a volatility interruption, and the feed does not publish the indicative price. The rule summaries cite the exchanges' public documents without section numbers.",
                  "crossbook is a learning and benchmarking project, not an exchange. It handles one instrument in memory, has no network gateway and runs only on synthetic data. I built it with AI assistance; the tests, CI checks and benchmark commands in the repository are the evidence for each claim."
              ])],
+         section_ids={
+             "The problem": "section-1",
+             "The engine": "section-2",
+             "How it is checked": "section-3",
+             "Recovery, market data and many instruments": "section-4",
+             "Call auctions": "call-auctions",
+             "Results": "section-5",
+             "Tradeoffs and boundaries": "section-6"
+         },
          section_links={
              "The engine": [("Design notes", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md"),
                             ("Order semantics", "https://github.com/ult666666/crossbook/blob/main/docs/SEMANTICS.md")],
@@ -422,6 +503,10 @@ CASES = [
                                                              ("Sharding design", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#many-instruments-sequencer-shards-and-merger")],
              "How it is checked": [("Testing approach", "https://github.com/ult666666/crossbook/blob/main/docs/TESTING.md"),
                                    ("Reference engine", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/src/reference.rs")],
+             "Call auctions": [("Auction rules and sources", "https://github.com/ult666666/crossbook/blob/main/docs/DESIGN.md#call-auctions"),
+                               ("Auction semantics", "https://github.com/ult666666/crossbook/blob/main/docs/SEMANTICS.md#trading-phases-and-call-auctions"),
+                               ("Auction tests", "https://github.com/ult666666/crossbook/blob/main/docs/TESTING.md#call-auctions"),
+                               ("Auction benchmarks", "https://github.com/ult666666/crossbook/blob/main/docs/BENCHMARKS.md#call-auctions")],
              "Results": [("Benchmark method", "https://github.com/ult666666/crossbook/blob/main/docs/BENCHMARKS.md")],
          },
          proof_links=[
@@ -429,6 +514,7 @@ CASES = [
              ("Golden digests", "The pinned 100,000-command fingerprint that CI checks on three operating systems.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/flow.rs"),
              ("Crash simulation", "The journal cut at a random byte; recovery must match the uninterrupted run.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/recovery.rs"),
              ("Shard independence", "Random multi-instrument streams give the single-thread output on any number of threads.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/exchange.rs"),
+             ("Auction checks", "A brute-force uncross that tries every candidate price, on books built to tie at every rule.", "https://github.com/ult666666/crossbook/blob/main/crates/crossbook/tests/auction.rs"),
              ("CI workflow", "Tests, the WebAssembly digest check and the browser smoke test on every push.", "https://github.com/ult666666/crossbook/blob/main/.github/workflows/ci.yml")
          ]),
 ]

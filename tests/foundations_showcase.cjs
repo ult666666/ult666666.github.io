@@ -8,6 +8,8 @@ const REPOS = ['quantkit', 'powerlift', 'ledgerline', 'saas-analytics-warehouse'
   'citecheck'];
 const LIVE = ['https://ult666666.github.io/saas-analytics-warehouse/', 'https://ult666666.github.io/searchlite/',
   'https://ult666666.github.io/contrastkit/'];
+// Each project keeps its original walkthrough and adds one for its November 2026 upgrade.
+const WALKTHROUGHS_PER_SECTION = 2;
 
 module.exports = async function foundationsShowcase(browser, base) {
   for (const javaScriptEnabled of [true, false]) {
@@ -40,7 +42,11 @@ module.exports = async function foundationsShowcase(browser, base) {
       await page.keyboard.press('Enter');
       assert.equal(new URL(page.url()).hash, '#section-1');
       const walkthroughs = page.locator('details.lab-walkthrough');
-      assert.equal(await walkthroughs.count(), REPOS.length, 'Each project needs a runnable review route');
+      for (let section = 1; section <= REPOS.length; section++) {
+        assert.equal(await page.locator(`#section-${section} > details.lab-walkthrough`).count(), WALKTHROUGHS_PER_SECTION,
+          `${REPOS[section - 1]} keeps its original and its upgrade walkthrough`);
+      }
+      assert.equal(await walkthroughs.count(), REPOS.length * WALKTHROUGHS_PER_SECTION, 'Each project needs runnable review routes');
       for (const walkthrough of await walkthroughs.all()) {
         const summary = walkthrough.locator('summary');
         assert.equal(await walkthrough.getAttribute('open'), null);
@@ -84,5 +90,5 @@ module.exports = async function foundationsShowcase(browser, base) {
     await page.getByRole('link', {name:'Foundations', exact:true}).click();
     assert.equal(new URL(page.url()).pathname, ROUTE);
   } finally { await page.close(); }
-  console.log('FOUNDATIONS_SHOWCASE_PASS: seven native keyboard walkthroughs, source/design/live links, 320/360/768/1440 widths, 200% zoom, focus and no-JavaScript access');
+  console.log('FOUNDATIONS_SHOWCASE_PASS: fourteen native keyboard walkthroughs across seven projects, source/design/live links, 320/360/768/1440 widths, 200% zoom, focus and no-JavaScript access');
 };

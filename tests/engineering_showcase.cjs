@@ -68,7 +68,11 @@ module.exports = async function engineeringShowcase(browser, base) {
       assert(await sourceLinks.nth(1).evaluate(node => node === document.activeElement &&
         getComputedStyle(node).outlineStyle !== 'none'), 'Evidence links retain visible Tab focus');
       const walkthroughs = page.locator('details.lab-walkthrough');
-      assert.equal(await walkthroughs.count(), 3, 'Each project needs a runnable review route');
+      // Each project keeps its original walkthrough and adds one for its November 2026 upgrade.
+      for (const section of ['#section-1', '#section-2', '#section-3']) {
+        assert.equal(await page.locator(`${section} > details.lab-walkthrough`).count(), 2, `${section} has two review routes`);
+      }
+      assert.equal(await walkthroughs.count(), 6, 'Each project needs runnable review routes');
       for (const walkthrough of await walkthroughs.all()) {
         const summary = walkthrough.locator('summary');
         assert.equal(await walkthrough.getAttribute('open'), null);
@@ -127,5 +131,5 @@ module.exports = async function engineeringShowcase(browser, base) {
     await page.getByRole('link', {name:'Engineering lab',exact:true}).click();
     assert.equal(new URL(page.url()).pathname, '/projects/engineering-lab.html');
   } finally { await page.close(); }
-  console.log('ENGINEERING_SHOWCASE_PASS: three native keyboard walkthroughs, fixed-evidence handoff, accessible comparison, 320/360/768/1440 widths, 200% zoom, focus, print and no-JavaScript access');
+  console.log('ENGINEERING_SHOWCASE_PASS: six native keyboard walkthroughs across three projects, fixed-evidence handoff, accessible comparison, 320/360/768/1440 widths, 200% zoom, focus, print and no-JavaScript access');
 };
