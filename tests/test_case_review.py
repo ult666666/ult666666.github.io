@@ -58,33 +58,38 @@ class CaseReviewTests(unittest.TestCase):
 
     def test_objective_guide_separates_current_plan_preview_from_explicit_apply(self):
         case = next(case for case in builder.CASES if case["slug"] == "frontier-ai-valuation-lab")
+        guide = next(section for section in case["sections"] if section["id"] == "review-guide")
         reader = ReviewReader()
-        reader.feed(builder.render_review(case["review"]))
+        reader.feed(builder.render_section(guide))
         text = " ".join("".join(reader.text).split())
-        for claim in ("against your current plans", "worked three-plan example",
-                      "$25bn and 88% leave A and B eligible", "90% leaves A",
-                      "$30bn with 90% leaves none", "returning to 88% leaves B",
-                      "Previewing does not change your draft.",
-                      "choose Apply to change only the capital objective and retention floor",
-                      "Plan terms and decision notes stay intact.",
-                      "explicitly apply $25bn and 88% again"):
+        claims = ("against your current plans", "worked three-plan example",
+                  "a $25bn goal and an 88% floor, Plans A and B are eligible",
+                  "a 90% floor: only A remains", "Preview $30bn with 90%: no plan qualifies.",
+                  "Return the floor to 88% and B qualifies.",
+                  "Previewing does not change your draft.",
+                  "Apply to change only the capital objective and retention floor",
+                  "Plan terms and decision notes stay intact.",
+                  "explicitly apply $25bn and 88% again")
+        for claim in claims:
             with self.subTest(claim=claim):
                 self.assertTrue(claim in text, f"Missing preview/apply guidance: {claim}")
+        # Previewing comes before applying, and re-applying the worked objectives comes last.
+        positions = [text.index(claim) for claim in ("Previewing does not change your draft.",
+                                                     "Apply to change only the capital objective and retention floor",
+                                                     "explicitly apply $25bn and 88% again")]
+        self.assertEqual(positions, sorted(positions))
+        self.assertEqual([tag for tag, _ in reader.elements].count("ol"), 1, "The steps are an ordered list")
 
-    def test_review_text_and_link_labels_cannot_inject_elements_or_attributes(self):
-        # Removing escaping from the new renderer would turn this visible text
+    def test_case_text_and_link_labels_cannot_inject_elements_or_attributes(self):
+        # Removing escaping from the renderer would turn this visible text
         # into an image, a script, or a second link attribute.
         unsafe = '<img src=x onerror="alert(1)">'
         label = 'Read "the model" <script>alert(2)</script>'
-        case = dict(builder.CASES[0], image=None, section_media={})
-        case["review"] = {
-            "intro": unsafe,
-            "steps": [(unsafe, "Inspect the result.", label, "https://example.org/source?a=1&b=2")],
-            "evidence": [
-                (unsafe, "Shared calculation.", [(label, "https://example.org/model")],
-                 unsafe, [(label, "https://example.org/checks")])
-            ],
-        }
+        section = {"id": "section-1", "heading": unsafe, "body": [unsafe, [unsafe, (label, "https://example.org/source?a=1&b=2")]],
+                   "items": [unsafe, [(label, "https://example.org/model"), unsafe]], "ordered": True,
+                   "after": [unsafe], "links": [(label, "https://example.org/checks")]}
+        case = dict(builder.CASES[0], image=None, hero=unsafe, sections=[section],
+                    docs=[[(label, "https://example.org/docs"), unsafe]])
         reader = ReviewReader()
         reader.feed(builder.render(case))
         rendered_text = "".join(reader.text)
@@ -96,7 +101,22 @@ class CaseReviewTests(unittest.TestCase):
         self.assertEqual(scripts, [], "Case studies are plain HTML and CSS")
         links = [attrs["href"] for tag, attrs in reader.elements if tag == "a"]
         self.assertIn("https://example.org/source?a=1&b=2", links)
+        for href in ("https://example.org/model", "https://example.org/checks", "https://example.org/docs"):
+            self.assertIn(href, links)
 
+    def test_case_studies_end_with_a_plain_list_of_code_and_docs(self):
+        for case in builder.CASES:
+            with self.subTest(case=case["slug"]):
+                reader = ReviewReader()
+                reader.feed((ROOT / "projects" / (case["slug"] + ".html")).read_text(encoding="utf-8"))
+                ident = case.get("docs_id", "code-and-docs")
+                self.assertIn(("section", {"id": ident, "class": "case-docs"}), reader.elements)
+                text = "".join(reader.text)
+                for retired in ("Read the source too", "A guide for reviewers", "Implementation and verification map"):
+                    self.assertNotIn(retired, text)
+                self.assertFalse(any("case-proof" in attrs.get("class", "") for _, attrs in reader.elements))
+                limits = [section for section in case["sections"] if section["heading"] == "Limits"]
+                self.assertEqual(len(limits), 1, "One limits section per case study")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

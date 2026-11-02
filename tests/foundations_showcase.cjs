@@ -26,7 +26,7 @@ module.exports = async function foundationsShowcase(browser, base) {
           `${name} links its design notes`);
       }
       for (const url of LIVE) assert.equal(await page.locator(`a[href="${url}"]`).count(), 1, `Live link ${url}`);
-      assert.equal(await page.getByText('Independent portfolio projects · Synthetic and fictional data', {exact:true}).count(), 1);
+      assert.equal(await page.getByText('All data is synthetic or fictional, and none of these projects is in production use.', {exact:true}).count(), 1);
       const entry = page.locator('.lab-index a').first();
       assert.equal(await page.locator('.lab-index a').count(), REPOS.length, 'The index reaches every project');
       // Reach the index through actual keyboard navigation, then follow it.

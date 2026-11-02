@@ -32,7 +32,7 @@ module.exports = async function engineeringShowcase(browser, base) {
         assert(await page.locator(`a[href="https://github.com/ult666666/${repo}"]`).count() >= 1);
         assert(await page.locator(`a[href="https://github.com/ult666666/${repo}/blob/main/docs/VERIFICATION.md"]`).count() >= 1);
       }
-      assert.equal(await page.getByText('Independent portfolio projects · Synthetic data', {exact:true}).count(), 1);
+      assert.equal(await page.getByText('All data is synthetic, and none of these projects is in production use.', {exact:true}).count(), 1);
       const handoff = page.locator('#operations-handoff');
       const entry = page.locator('.lab-intro a[href="#operations-handoff"]');
       assert.equal(await entry.count(), 1, 'The installed handoff must be discoverable near the lab intro');

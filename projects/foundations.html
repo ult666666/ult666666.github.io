@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="Charles Dai's foundations: option pricing, A/B-test statistics, a double-entry ledger, SaaS metrics, search ranking, color contrast and cited question answering, each checked against a reference it did not produce.">
+  <meta name="description" content="Seven projects by Charles Dai that implement well-studied methods and check them against references they did not produce: option pricing, A/B-test statistics, a double-entry ledger, SaaS metrics, search ranking, color contrast and cited question answering.">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Foundations — Charles Dai">
-  <meta property="og:description" content="Seven independent builds that check well-studied methods against textbook values, published tables, reference libraries, accounting invariants and their own cited sources.">
+  <meta property="og:title" content="Foundations | Charles Dai">
+  <meta property="og:description" content="Seven projects that check well-studied methods against textbook values, published tables, reference libraries and accounting invariants.">
   <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
   <link rel="canonical" href="https://ult666666.github.io/projects/foundations.html">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="stylesheet" href="/styles.css">
-  <title>Foundations — Charles Dai</title>
+  <title>Foundations | Charles Dai</title>
 </head>
 <body class="engineering-lab foundations">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -26,10 +26,9 @@
   <main id="main">
     <section class="lab-intro container">
       <a class="case-back" href="/#work">← All work</a>
-      <p class="eyebrow">Foundations</p>
-      <h1>Starting from a known answer</h1>
-      <p class="lab-lead">Seven independent builds implement well-studied methods: option pricing, experiment statistics, double-entry accounting, SaaS metrics, search ranking, color contrast and cited question answering. Each one is checked against a reference it did not produce.</p>
-      <p class="lab-scope">Independent portfolio projects · Synthetic and fictional data</p>
+      <h1>Foundations</h1>
+      <p class="lab-lead">Seven projects that implement well-studied methods: option pricing, experiment statistics, double-entry accounting, SaaS metrics, search ranking, color contrast and cited question answering. Each one is checked against a reference it did not produce.</p>
+      <p class="lab-scope">All data is synthetic or fictional, and none of these projects is in production use.</p>
       <nav class="lab-index" aria-label="Projects on this page">
         <a href="#section-1"><span>Quant finance</span><strong>quantkit</strong></a>
         <a href="#section-2"><span>Experimentation</span><strong>powerlift</strong></a>
@@ -42,109 +41,106 @@
     </section>
 
     <section class="lab-project container" id="section-1" aria-labelledby="quantkit-title">
-      <div class="lab-number">01 <span>Quantitative finance</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="quantkit-title">quantkit</h2>
-          <p>Option pricing with Black–Scholes–Merton formulas, Cox–Ross–Rubinstein trees and Monte Carlo; mean–variance and risk-parity portfolios; a vectorized daily backtester; and Value at Risk (VaR) model validation, in Python.</p>
-          <p>A strategy decides with prices through day t, and those weights earn day t+1's return. A checker changes later prices and fails any strategy whose earlier weights move.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> generate fictional prices, estimate monthly allocations from prior closes and compare on shared dates and costs. Inspect six CSV exports in the <a href="https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md" target="_blank" rel="noopener noreferrer">walk-forward guide</a> and its <a href="https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py" target="_blank" rel="noopener noreferrer">timing regression tests</a>.</p>
-          <p class="lab-demo-note"><strong>VaR model validation:</strong> forecast one-day 99% VaR and expected shortfall (the mean loss beyond VaR) from the previous 250 days by historical simulation, a Gaussian model, EWMA and filtered historical simulation. Backtest the forecasts with Kupiec's and Christoffersen's tests, the Basel traffic light and the Acerbi–Székely Z2 test. The <a href="https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md#6-var-model-validation-quantkitvar" target="_blank" rel="noopener noreferrer">design notes</a> show why the tests' own error rates matter: at 250 days a correct model fails the nominal 5% Kupiec test 10.5% of the time in simulation (9.5% exactly), and on fat-tailed Student-t(4) returns over 1,000 days, Z2 rejects Gaussian VaR in 87.3% of samples against 46.9% for the exception count.</p>
+          <p>A Python library for option pricing (Black–Scholes–Merton, Cox–Ross–Rubinstein trees and Monte Carlo), mean–variance and risk-parity portfolios, a vectorized daily backtester and Value at Risk (VaR) model validation.</p>
+          <p>A strategy decides with prices through day t, and those weights earn day t+1’s return. A checker changes later prices and fails any strategy whose earlier weights move.</p>
+          <p>The VaR module forecasts one-day 99% VaR and expected shortfall with four methods, then backtests the forecasts with Kupiec’s and Christoffersen’s tests, the Basel traffic light and the Acerbi–Székely Z2 test. Those tests make mistakes too: over a year of trading days, a correct model fails Kupiec’s 5% test almost one time in ten. On fat-tailed returns, Z2 rejects a Gaussian model almost twice as often as the exception count does.</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/quantkit/blob/main/docs/WALK_FORWARD.md" target="_blank" rel="noopener noreferrer">walk-forward guide</a> sets monthly allocations from earlier closes only and compares strategies on the same dates and costs, with <a href="https://github.com/ult666666/quantkit/blob/main/tests/test_walk_forward_example.py" target="_blank" rel="noopener noreferrer">timing tests</a> for each step.</p>
           <div class="tag-set"><span>Python</span><span>NumPy</span><span>SciPy</span><span>pandas</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer">Run quantkit</a>
-            <a href="https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design &amp; verification</a>
+            <a class="button button-primary" href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+            <a href="https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
+            <a href="https://github.com/ult666666/quantkit/blob/main/docs/DESIGN.md#6-var-model-validation-quantkitvar" target="_blank" rel="noopener noreferrer">VaR validation</a>
           </div>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Checked against</span><span>Independent references</span></div>
+          <div class="lab-artifact-head"><span>Checked against</span></div>
           <dl class="lab-definitions">
-            <div><dt>Hull's worked example</dt><dd>S = 42, K = 40, r = 10%, σ = 20%, T = 0.5 prices the call at 4.76 and the put at 0.81.</dd></div>
+            <div><dt>Hull’s worked example</dt><dd>S = 42, K = 40, r = 10%, σ = 20%, T = 0.5 prices the call at 4.76 and the put at 0.81.</dd></div>
             <div><dt>Put–call parity</dt><dd>Holds for randomly generated contracts.</dd></div>
             <div><dt>Closed forms</dt><dd>The numerical optimizer matches the analytic minimum-variance, tangency and target-return portfolios.</dd></div>
             <div><dt>Convergence</dt><dd>The European binomial price approaches Black–Scholes as steps increase.</dd></div>
             <div><dt>VaR backtests</dt><dd>Kupiec and Christoffersen statistics match hand calculations, and their exact sizes match brute-force enumeration of exception sequences.</dd></div>
           </dl>
-          <p class="lab-artifact-note">Constant-volatility models on synthetic prices. Educational software, not investment advice.</p>
+          <p class="lab-artifact-note">Constant-volatility models on synthetic prices; this is not investment advice.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Catch a strategy that peeks <span aria-hidden="true">+</span></summary>
+        <summary>Catch a strategy that peeks <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a quantkit checkout with uv installed, run the look-ahead tests.</p><pre><code>uv run pytest tests/test_backtest_engine.py -k lookahead -v</code></pre><p class="lab-expect">Expected: 7 passed. Six built-in strategy configurations pass the checker, and a deliberately peeking strategy is caught.</p></div>
-          <div><h3>Follow the decision</h3><p>Read the timing contract at the top of <code>engine.py</code>. Weights set at the close of day t are held during day t+1; drift, turnover and costs follow from share counts without a loop over days.</p><p>Passing the checker shows a strategy cannot see future prices. It says nothing about whether the strategy would have made money.</p><div class="lab-code-links"><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_backtest_engine.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/quantkit/blob/main/src/quantkit/backtest/engine.py" target="_blank" rel="noopener noreferrer">Inspect the timing contract</a></div></div>
+          <div><h3>Try it</h3><p>From a quantkit checkout with uv installed, run the look-ahead tests.</p><pre><code>uv run pytest tests/test_backtest_engine.py -k lookahead -v</code></pre><p class="lab-expect">Expected: 7 passed. Six built-in strategy setups pass the checker, and a strategy written to peek is caught.</p></div>
+          <div><h3>Read the code</h3><p>The timing contract is at the top of <code>engine.py</code>. Weights set at the close of day t are held during day t+1; drift, turnover and costs follow from share counts without a loop over days.</p><p>Passing the checker shows that a strategy cannot see future prices. It says nothing about whether the strategy would have made money.</p><div class="lab-code-links"><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_backtest_engine.py" target="_blank" rel="noopener noreferrer">Look-ahead tests</a><a href="https://github.com/ult666666/quantkit/blob/main/src/quantkit/backtest/engine.py" target="_blank" rel="noopener noreferrer">engine.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Reject a VaR model with thin tails <span aria-hidden="true">+</span></summary>
+        <summary>Reject a VaR model with thin tails <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the size and power simulations of the VaR backtests.</p><pre><code>uv run pytest tests/test_var_size_power.py -v</code></pre><p class="lab-expect">Expected: 3 passed. Forecasts scored on returns drawn from their own model fail each test at the rate the exact calculation predicts, and Gaussian VaR on Student-t(4) returns is rejected far more often, by Z2 more often than by the exception count.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>null_rejection_rates</code> in <code>backtests.py</code>. A dynamic program over the days tracks the first and last day's state, the number of exceptions and the number of consecutive pairs. Those four numbers fix every test statistic, so each test's true size is computed, not assumed.</p><p>A correct 99% model has no exception in 250 days 8.1% of the time, and that alone fails Kupiec's 5% test. The p-values stay asymptotic; the exact sizes show how far off they are.</p><div class="lab-code-links"><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_var_size_power.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/quantkit/blob/main/src/quantkit/var/backtests.py" target="_blank" rel="noopener noreferrer">Inspect the exact sizes</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the size and power simulations of the VaR backtests.</p><pre><code>uv run pytest tests/test_var_size_power.py -v</code></pre><p class="lab-expect">Expected: 3 passed. Forecasts scored on returns drawn from their own model fail each test at the rate the exact calculation predicts, and Gaussian VaR on Student-t(4) returns is rejected far more often, by Z2 more often than by the exception count.</p></div>
+          <div><h3>Read the code</h3><p>See <code>null_rejection_rates</code> in <code>backtests.py</code>. A dynamic program over the days tracks the first and last day’s state, the number of exceptions and the number of consecutive pairs. Those four numbers fix every test statistic, so each test’s true size is computed, not assumed.</p><p>Even a correct 99% model sometimes goes a whole year without an exception (8.1% of the time), and that alone fails Kupiec’s test. The p-values stay asymptotic; the exact sizes show how far off they are.</p><div class="lab-code-links"><a href="https://github.com/ult666666/quantkit/blob/main/tests/test_var_size_power.py" target="_blank" rel="noopener noreferrer">Size and power tests</a><a href="https://github.com/ult666666/quantkit/blob/main/src/quantkit/var/backtests.py" target="_blank" rel="noopener noreferrer">backtests.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-2" aria-labelledby="powerlift-title">
-      <div class="lab-number">02 <span>Experimentation statistics</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="powerlift-title">powerlift</h2>
           <p>Experiment design and analysis in Python: sample sizes and power, frequentist and Bayesian comparisons, multi-arm (A/B/n) tests, CUPED variance reduction, sample-ratio-mismatch checks and multiple-testing corrections.</p>
-          <p>Group sequential boundaries come from the joint normal distribution of the interim z-statistics, so a team can look early without inflating its false-positive rate.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> read a seeded per-user CSV, check allocation and the declared outcome window, then inspect a CUPED readout with uncertainty. The <a href="https://github.com/ult666666/powerlift/blob/main/docs/EXPERIMENT_READOUT.md" target="_blank" rel="noopener noreferrer">experiment walkthrough</a> includes blocked scenarios and an inconclusive synthetic result.</p>
+          <p>Group sequential boundaries come from the joint normal distribution of the interim z-statistics, so a team can look early without inflating its false-positive rate. Looking early without them is costly: in the README’s simulation, stopping A/A tests at the first significant look out of ten flags 19.5% of them. The target is 5%.</p>
+          <p>For A/B/n tests, Dunnett’s test compares every variant with one control and keeps the chance of any false win at 5%. In simulated experiments with six variants and no real effect, unadjusted tests found a false win 20.4% of the time. Dunnett’s test found one 5.4% of the time.</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/powerlift/blob/main/docs/EXPERIMENT_READOUT.md" target="_blank" rel="noopener noreferrer">experiment walkthrough</a> reads a seeded per-user CSV, checks allocation and the outcome window, and ends with a CUPED readout, including a result that stays inconclusive. The <a href="https://github.com/ult666666/powerlift/blob/main/README.md#abn-tests-several-treatment-arms" target="_blank" rel="noopener noreferrer">A/B/n walkthrough</a> covers multi-arm sample sizes and readouts.</p>
           <div class="tag-set"><span>Python</span><span>SciPy</span><span>NumPy</span><span>Simulation</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer">Run powerlift</a>
+            <a class="button button-primary" href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
             <a href="https://github.com/ult666666/powerlift/blob/main/docs/METHODOLOGY.md" target="_blank" rel="noopener noreferrer">Methodology</a>
-            <a href="https://github.com/ult666666/powerlift/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design</a>
+            <a href="https://github.com/ult666666/powerlift/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
           </div>
-          <p class="lab-demo-note">The README's peeking simulation runs 10,000 A/A experiments (seed 2026): stopping at the first p &lt; 0.05 across ten looks flags 19.5% of them, against a 5% target.</p>
-          <p class="lab-demo-note"><strong>A/B/n tests:</strong> Dunnett's test compares every variant with one control and holds the family-wise false-win rate at 5%, with simultaneous intervals. In 2,000 simulated experiments with no real effect, it found a false win in 5.1% with three variants and 5.4% with six, where unadjusted tests found one in 13.5% and 20.4%. Multi-arm sample sizes and a k-arm CSV readout use the same distribution; see the <a href="https://github.com/ult666666/powerlift/blob/main/README.md#abn-tests-several-treatment-arms" target="_blank" rel="noopener noreferrer">A/B/n walkthrough</a>.</p>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Checked against</span><span>Published values</span></div>
+          <div class="lab-artifact-head"><span>Checked against</span></div>
           <dl class="lab-definitions">
-            <div><dt>Jennison &amp; Turnbull tables</dt><dd>Pocock constants for 5 and 10 looks; O'Brien–Fleming constants for 2, 3, 4, 5 and 10 looks.</dd></div>
-            <div><dt>Lan–DeMets bounds</dt><dd>O'Brien–Fleming-type alpha spending with five looks.</dd></div>
+            <div><dt>Jennison &amp; Turnbull tables</dt><dd>Pocock constants for 5 and 10 looks; O’Brien–Fleming constants for 2, 3, 4, 5 and 10 looks.</dd></div>
+            <div><dt>Lan–DeMets bounds</dt><dd>O’Brien–Fleming-type alpha spending with five looks.</dd></div>
             <div><dt>SciPy and statsmodels</dt><dd>Tests, intervals, power and multiple-testing corrections agree with reference implementations.</dd></div>
             <div><dt>scipy.stats.dunnett</dt><dd>Multi-arm statistics agree to 1e-10 and adjusted p-values within 5e-4 on generated datasets with 1 to 5 treatment arms.</dd></div>
           </dl>
-          <p class="lab-artifact-note">Large-sample normal approximations; sequential, CUPED and Bayesian methods compare two arms. Matching published constants checks the arithmetic, not whether an approximation suits a small experiment.</p>
+          <p class="lab-artifact-note">Large-sample normal approximations; the sequential, CUPED and Bayesian methods compare two arms only. Matching published constants checks the arithmetic, not whether an approximation suits a small experiment.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Reproduce published boundaries <span aria-hidden="true">+</span></summary>
+        <summary>Reproduce published boundaries <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a powerlift checkout with uv installed, run the published-value tests.</p><pre><code>uv run pytest tests/test_sequential.py -k "jennison_turnbull or published_bounds or five_looks" -v</code></pre><p class="lab-expect">Expected: 12 passed. Each constant and boundary matches its published value within the stated tolerance.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>group_sequential_boundaries</code> in <code>sequential.py</code>. It solves for the constant whose crossing probability under no effect equals alpha, using correlation √(t<sub>i</sub>/t<sub>j</sub>) between looks.</p><p>Sequential monitoring controls false positives across planned looks. It does not rescue a test that was underpowered from the start.</p><div class="lab-code-links"><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_sequential.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/powerlift/blob/main/src/powerlift/sequential.py" target="_blank" rel="noopener noreferrer">Inspect the boundary solver</a></div></div>
+          <div><h3>Try it</h3><p>From a powerlift checkout with uv installed, run the published-value tests.</p><pre><code>uv run pytest tests/test_sequential.py -k "jennison_turnbull or published_bounds or five_looks" -v</code></pre><p class="lab-expect">Expected: 12 passed. Each constant and boundary matches its published value within the stated tolerance.</p></div>
+          <div><h3>Read the code</h3><p>See <code>group_sequential_boundaries</code> in <code>sequential.py</code>. It solves for the constant whose crossing probability under no effect equals alpha, using correlation √(t<sub>i</sub>/t<sub>j</sub>) between looks.</p><p>Sequential monitoring controls false positives across planned looks. It does not rescue a test that was underpowered from the start.</p><div class="lab-code-links"><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_sequential.py" target="_blank" rel="noopener noreferrer">Sequential tests</a><a href="https://github.com/ult666666/powerlift/blob/main/src/powerlift/sequential.py" target="_blank" rel="noopener noreferrer">sequential.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Hold the false-win rate across variants <span aria-hidden="true">+</span></summary>
+        <summary>Hold the false-win rate across variants <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the SciPy comparison and the family-wise error simulation.</p><pre><code>uv run pytest tests/test_many_to_one.py -k "scipy_dunnett or family_wise" -v</code></pre><p class="lab-expect">Expected: 2 passed, 32 deselected. Statistics and adjusted p-values agree with <code>scipy.stats.dunnett</code> on generated datasets, and experiments with no real effect produce a false win at the rate each adjustment predicts.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>max_t_cdf</code> in <code>_dunnett.py</code>. Every treatment-versus-control statistic shares the control mean, so their correlations have a product form. Given the control's noise and the pooled variance they are independent, which turns a k-dimensional integral into a two-dimensional one that the trapezoidal rule evaluates deterministically.</p><p>The comparisons are many-to-one and single-step, and they pool the variance of all arms. With very unequal variances, pairwise Welch tests with an adjustment fit better.</p><div class="lab-code-links"><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_many_to_one.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/powerlift/blob/main/src/powerlift/_dunnett.py" target="_blank" rel="noopener noreferrer">Inspect the integral</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the SciPy comparison and the family-wise error simulation.</p><pre><code>uv run pytest tests/test_many_to_one.py -k "scipy_dunnett or family_wise" -v</code></pre><p class="lab-expect">Expected: 2 passed, 32 deselected. Statistics and adjusted p-values agree with <code>scipy.stats.dunnett</code> on generated datasets, and experiments with no real effect produce a false win at the rate each adjustment predicts.</p></div>
+          <div><h3>Read the code</h3><p>See <code>max_t_cdf</code> in <code>_dunnett.py</code>. Every treatment-versus-control statistic shares the control mean, so their correlations have a product form. Given the control’s noise and the pooled variance they are independent, which turns a k-dimensional integral into a two-dimensional one that the trapezoidal rule evaluates deterministically.</p><p>The comparisons are many-to-one and single-step, and they pool the variance of all arms. With very unequal variances, pairwise Welch tests with an adjustment fit better.</p><div class="lab-code-links"><a href="https://github.com/ult666666/powerlift/blob/main/tests/test_many_to_one.py" target="_blank" rel="noopener noreferrer">Many-to-one tests</a><a href="https://github.com/ult666666/powerlift/blob/main/src/powerlift/_dunnett.py" target="_blank" rel="noopener noreferrer">_dunnett.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-3" aria-labelledby="ledgerline-title">
-      <div class="lab-number">03 <span>Fintech backend</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="ledgerline-title">ledgerline</h2>
           <p>A double-entry ledger API built with FastAPI and SQLAlchemy. Journal entries are integer minor units that must balance per currency, posted transactions are immutable, and corrections are reversals.</p>
           <p>Each write is one database transaction that replays the stored response for a repeated Idempotency-Key and compare-and-swaps every account version it touches, so concurrent requests cannot overdraw an account.</p>
-          <p class="lab-demo-note"><strong>Holds (two-phase transfers):</strong> authorize an amount now, then capture all or part of it, void it or let it expire. Accounts report a ledger balance, the amount held and the available balance, and holds and postings both draw on the available balance, so held funds cannot be spent twice under concurrent requests. The <a href="https://github.com/ult666666/ledgerline/blob/main/docs/API_WALKTHROUGH.md" target="_blank" rel="noopener noreferrer">API walkthrough</a> runs each step over HTTP, and the <a href="https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md#10-holds-two-phase-transfers" target="_blank" rel="noopener noreferrer">design notes</a> explain the state machine.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> run an isolated wallet over real local HTTP. Verify retry identity, overdraft rejection, reversal and historical balances, then reconcile and clean up. The <a href="https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md" target="_blank" rel="noopener noreferrer">wallet demo guide</a> explains the receipt and disposable storage.</p>
+          <p>Holds work like card authorizations: reserve an amount now, then capture all or part of it, void it or let it expire. Each account reports its ledger, held and available balances. Holds and postings draw on the same available balance, so held money cannot be spent twice, even under concurrent requests.</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/ledgerline/blob/main/docs/API_WALKTHROUGH.md" target="_blank" rel="noopener noreferrer">API walkthrough</a> runs each hold step over HTTP, and the <a href="https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md#10-holds-two-phase-transfers" target="_blank" rel="noopener noreferrer">design notes</a> explain the state machine. The <a href="https://github.com/ult666666/ledgerline/blob/main/docs/WALLET_DEMO.md" target="_blank" rel="noopener noreferrer">wallet demo</a> runs a disposable wallet over local HTTP: a retried request, a rejected overdraft, a reversal and a reconciliation.</p>
           <div class="tag-set"><span>Python</span><span>FastAPI</span><span>SQLAlchemy 2.0</span><span>PostgreSQL / SQLite</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer">Run ledgerline</a>
+            <a class="button button-primary" href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
             <a href="https://github.com/ult666666/ledgerline/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
           </div>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Invariants</span><span>Enforced by tests</span></div>
+          <div class="lab-artifact-head"><span>Invariants the tests enforce</span></div>
           <dl class="lab-definitions">
             <div><dt>Balanced</dt><dd>Every transaction sums to zero in each currency.</dd></div>
             <div><dt>Immutable</dt><dd>Corrections are reversals, at most one per transaction.</dd></div>
@@ -156,40 +152,40 @@
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Race transfers against one balance <span aria-hidden="true">+</span></summary>
+        <summary>Race transfers against one balance <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a ledgerline checkout with uv installed, run the concurrency tests.</p><pre><code>uv run pytest tests/test_concurrency.py -v</code></pre><p class="lab-expect">Expected: 7 passed. Concurrent transfers never overdraw an account or lose an update, and duplicate requests take effect once.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>_write</code> and <code>_post</code> in <code>service.py</code>: idempotency lookup, validation, a version check on each account in sorted order, then the insert. A conflict rolls back and retries with fresh data a bounded number of times.</p><p>Shared API keys and SQLite's single writer are deliberate limits. The design notes list what a production ledger would add.</p><div class="lab-code-links"><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_concurrency.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/ledgerline/blob/main/src/ledgerline/service.py" target="_blank" rel="noopener noreferrer">Inspect the transaction</a></div></div>
+          <div><h3>Try it</h3><p>From a ledgerline checkout with uv installed, run the concurrency tests.</p><pre><code>uv run pytest tests/test_concurrency.py -v</code></pre><p class="lab-expect">Expected: 7 passed. Concurrent transfers never overdraw an account or lose an update, and duplicate requests take effect once.</p></div>
+          <div><h3>Read the code</h3><p>See <code>_write</code> and <code>_post</code> in <code>service.py</code>: idempotency lookup, validation, a version check on each account in sorted order, then the insert. A conflict rolls back and retries with fresh data a bounded number of times.</p><p>Shared API keys and SQLite’s single writer are known limits, and the design notes list what a production ledger would add.</p><div class="lab-code-links"><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_concurrency.py" target="_blank" rel="noopener noreferrer">Concurrency tests</a><a href="https://github.com/ult666666/ledgerline/blob/main/src/ledgerline/service.py" target="_blank" rel="noopener noreferrer">service.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Race holds against one balance <span aria-hidden="true">+</span></summary>
+        <summary>Race holds against one balance <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the hold concurrency tests.</p><pre><code>uv run pytest tests/test_holds_concurrency.py -v</code></pre><p class="lab-expect">Expected: 8 passed. 40 concurrent 30-cent holds against 1,000 cents give exactly 33 holds (CI repeats the suite on PostgreSQL 17), holds and transfers racing on one account share one available balance, and ten racing captures and voids of one hold produce one winner.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>create_hold</code> and <code>capture_hold</code> in <code>service.py</code>. A hold changes no balance, but it bumps the source account's version, so concurrent holds and postings serialize through the same compare-and-swap. With that version bump removed, PostgreSQL let 38 of the 40 holds through. A capture stops counting its own hold, posts one balanced transaction and releases the rest.</p><p>Each hold allows one capture, and expiry is computed when a hold is read, so nothing fires when a hold lapses.</p><div class="lab-code-links"><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_holds_concurrency.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/ledgerline/blob/main/src/ledgerline/service.py" target="_blank" rel="noopener noreferrer">Inspect the hold writes</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the hold concurrency tests.</p><pre><code>uv run pytest tests/test_holds_concurrency.py -v</code></pre><p class="lab-expect">Expected: 8 passed. Forty concurrent holds race for a balance that fits 33 of them, and 33 succeed. Holds and transfers racing on one account share one available balance, and ten racing captures and voids of one hold produce one winner. CI repeats the suite on PostgreSQL 17.</p></div>
+          <div><h3>Read the code</h3><p>See <code>create_hold</code> and <code>capture_hold</code> in <code>service.py</code>. The test races 30-cent holds against a 1,000-cent balance. A hold changes no balance, but it bumps the source account’s version, so concurrent holds and postings serialize through the same compare-and-swap. With that version bump removed, PostgreSQL let 38 of 40 holds through. A capture stops counting its own hold, posts one balanced transaction and releases the rest.</p><p>Each hold allows one capture, and expiry is computed when a hold is read, so nothing fires when a hold lapses.</p><div class="lab-code-links"><a href="https://github.com/ult666666/ledgerline/blob/main/tests/test_holds_concurrency.py" target="_blank" rel="noopener noreferrer">Hold race tests</a><a href="https://github.com/ult666666/ledgerline/blob/main/src/ledgerline/service.py" target="_blank" rel="noopener noreferrer">service.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-4" aria-labelledby="warehouse-title">
-      <div class="lab-number">04 <span>Analytics engineering</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="warehouse-title">saas-analytics-warehouse</h2>
           <p>Analytics engineering for a fictional SaaS company. A seeded generator writes eight raw tables, a dbt and DuckDB warehouse models MRR movements, cohort retention and unit economics, and a report rebuilds its charts.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> trace a selected month from the MRR bridge to fictional customer records, payment-failure losses and channel/reason totals. The <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/CHURN_INVESTIGATION.md" target="_blank" rel="noopener noreferrer">read-only investigation walkthrough</a> reconciles exact cents and customer counts before writing three CSVs and a Markdown report. Payment-failure churn remains a subset of total loss.</p>
-          <p>Every customer-month's MRR change gets exactly one label (new, expansion, contraction, churn or reactivation), so the monthly bridge has to reconcile to the cent.</p>
-          <p class="lab-demo-note"><strong>Incremental loads and history:</strong> six event and daily staging models load incrementally. Each run reprocesses a 7-day lookback window and replaces rows by unique key, so a row up to a week late is absorbed and a newer invoice version replaces the old one. A dbt snapshot records each customer's plan, seats, price, MRR and status as type 2 history on business dates. A load simulation lands the synthetic rows day by day, with a seeded 3% of eligible rows arriving one to five days late, and compares 24 relations with a full refresh by row hashes. At this size incremental runs are not faster, because the sources are CSV files read in full; the <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md#key-decisions-and-trade-offs" target="_blank" rel="noopener noreferrer">design decisions</a> explain the trade-offs.</p>
+          <p>Every customer-month’s MRR change gets exactly one label (new, expansion, contraction, churn or reactivation), so the monthly bridge has to reconcile to the cent.</p>
+          <p>Six staging models load incrementally. Each run reprocesses the last seven days and replaces rows by key, so a row up to a week late is absorbed and a newer invoice version replaces the old one. A dbt snapshot keeps each customer’s plan, seats, price, MRR and status as type 2 history.</p>
+          <p>A load simulation lands the data day by day, with some rows arriving late, and compares 24 relations with a full refresh by row hash. At this size incremental runs are not faster, because the sources are CSV files read in full; the <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md#key-decisions-and-trade-offs" target="_blank" rel="noopener noreferrer">design notes</a> explain the trade-offs.</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/CHURN_INVESTIGATION.md" target="_blank" rel="noopener noreferrer">churn investigation</a> traces one month from the MRR bridge to the customers behind it, reconciling cents and customer counts before it writes any report.</p>
           <div class="tag-set"><span>dbt</span><span>DuckDB</span><span>SQL</span><span>Python</span></div>
           <div class="lab-links">
             <a class="button button-primary" href="https://ult666666.github.io/saas-analytics-warehouse/" target="_blank" rel="noopener noreferrer">Browse the dbt docs</a>
-            <a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer">Warehouse source</a>
+            <a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer">Source</a>
             <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/METRICS.md" target="_blank" rel="noopener noreferrer">Metric definitions</a>
-            <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design</a>
+            <a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
           </div>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Data tests</span><span>Fail the build</span></div>
+          <div class="lab-artifact-head"><span>Data tests that fail the build</span></div>
           <dl class="lab-definitions">
             <div><dt>Bridge reconciles</dt><dd>Starting MRR plus every movement equals ending MRR, every month.</dd></div>
             <div><dt>One movement each</dt><dd>Each changed customer-month matches exactly one category.</dd></div>
@@ -197,50 +193,44 @@
             <div><dt>No overlaps</dt><dd>A customer is never on two subscriptions at once.</dd></div>
             <div><dt>History agrees</dt><dd>Snapshot versions never overlap, each customer has one current version, and every version in force at a month end matches the MRR rebuilt from the full event log.</dd></div>
           </dl>
-          <p class="lab-artifact-note">All data is synthetic. The numbers demonstrate the method, not market benchmarks.</p>
+          <p class="lab-artifact-note">The numbers show the method on synthetic data, not market benchmarks.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Reconcile the MRR bridge <span aria-hidden="true">+</span></summary>
+        <summary>Reconcile the MRR bridge <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a warehouse checkout with uv and make installed, generate the data and build the warehouse.</p><pre><code>make data build</code></pre><p class="lab-expect">Expected: dbt reports PASS=192 WARN=0 ERROR=0, including <code>assert_mrr_bridge_reconciles</code>.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>fct_mrr_movements.sql</code>. MRR is a month-end snapshot on a gap-free customer-month spine; a customer is new in the first paid month and reactivated after a gap.</p><p>Month-end snapshots hide a cancellation and return within one month. The metric definitions list that and every other edge case.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/models/marts/core/fct_mrr_movements.sql" target="_blank" rel="noopener noreferrer">Inspect the movement logic</a></div></div>
+          <div><h3>Try it</h3><p>From a warehouse checkout with uv and make installed, generate the data and build the warehouse.</p><pre><code>make data build</code></pre><p class="lab-expect">Expected: dbt reports PASS=192 WARN=0 ERROR=0, including <code>assert_mrr_bridge_reconciles</code>.</p></div>
+          <div><h3>Read the code</h3><p>See <code>fct_mrr_movements.sql</code>. MRR is a month-end snapshot on a gap-free customer-month spine; a customer is new in the first paid month and reactivated after a gap.</p><p>Month-end snapshots hide a cancellation and return within one month. The metric definitions list that and every other edge case.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql" target="_blank" rel="noopener noreferrer">Bridge test</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/models/marts/core/fct_mrr_movements.sql" target="_blank" rel="noopener noreferrer">fct_mrr_movements.sql</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Load day by day, then compare <span aria-hidden="true">+</span></summary>
+        <summary>Load day by day, then compare <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the shorter load simulation that CI uses. Plain <code>make incremental-check</code> runs the full 36 months, about three and a half minutes here.</p><pre><code>make incremental-check MONTHS=6 SCALE=0.25 DAILY_DAYS=14</code></pre><p class="lab-expect">Expected: after the last 14 days load one at a time, it reports "Relations compared: 24", every relation equal, and "Incremental build equals the full refresh."</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>incremental_lookback.sql</code>. On an incremental run it keeps source rows at most 7 days older than the newest row already loaded, and the <code>delete+insert</code> strategy then replaces loaded rows with the same unique key, so a late row or a newer invoice version replaces its earlier copy instead of duplicating it.</p><p>A row more than 7 days late is missed until a full refresh, and nothing alerts on it. The marts still rebuild in full, and snapshot history starts at the first snapshot run.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/tests/test_backfill.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/macros/incremental_lookback.sql" target="_blank" rel="noopener noreferrer">Inspect the lookback</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the shorter load simulation that CI uses. Plain <code>make incremental-check</code> runs the full 36 months, about three and a half minutes here.</p><pre><code>make incremental-check MONTHS=6 SCALE=0.25 DAILY_DAYS=14</code></pre><p class="lab-expect">Expected: after the last 14 days load one at a time, it reports "Relations compared: 24", every relation equal, and "Incremental build equals the full refresh."</p></div>
+          <div><h3>Read the code</h3><p>See <code>incremental_lookback.sql</code>. On an incremental run it keeps source rows at most 7 days older than the newest row already loaded, and the <code>delete+insert</code> strategy then replaces loaded rows with the same unique key, so a late row or a newer invoice version replaces its earlier copy instead of duplicating it.</p><p>A row more than 7 days late is missed until a full refresh, and nothing alerts on it. The marts still rebuild in full, and snapshot history starts at the first snapshot run.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/tests/test_backfill.py" target="_blank" rel="noopener noreferrer">Load simulation tests</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/macros/incremental_lookback.sql" target="_blank" rel="noopener noreferrer">incremental_lookback.sql</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-5" aria-labelledby="searchlite-title">
-      <div class="lab-number">05 <span>Search and retrieval</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="searchlite-title">searchlite</h2>
           <p>A zero-dependency TypeScript search engine: Porter stemming, a positional inverted index, BM25F ranking across weighted fields, a query language with phrases, prefixes and fuzzy terms, highlighting, and hybrid retrieval with reciprocal rank fusion.</p>
-          <p><code>explain()</code> rebuilds a result's score clause by clause and field by field, and a test requires it to equal the score the search returned.</p>
-          <p><strong>Prune without changing a result:</strong> postings are stored as delta and variable-byte coded blocks of 128 documents with skip entries and a score bound per block. Queries run document at a time with MaxScore and block-max bounds, and property tests require the same documents, order and scores as scoring every match. At 10,000 synthetic documents, median top-10 latency fell from 2.06 to 0.30 ms on copies of the glossary and from 8.48 to 0.57 ms on Zipf-distributed labels, with byte-identical rankings (<a href="https://github.com/ult666666/searchlite/blob/main/docs/EXECUTION.md#measured-results-november-2-2026" target="_blank" rel="noopener noreferrer">method and machine</a>). Gains are smaller at 1,000 documents, one phrase-heavy control query is slower, and block-max WAND is not implemented.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> index a local documentation folder, save a snapshot and query it with snippets and score explanations. The <a href="https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents" target="_blank" rel="noopener noreferrer">local docs walkthrough</a> uses the built library; searches read the snapshot and do not reread source files.</p>
-          <p><strong>Review a retrieval change:</strong> open the relevance workbench, compare BM25F with stemming disabled, and inspect a query to see its ranked documents, judged grades and missed relevant entries. Download the full inputs and report. It matches the native command’s report: rankings and text exactly, scores to about twelve decimal places, because browsers’ math libraries can differ in the last digit. Aggregate gains can hide an individual query regression.</p>
-          <p>For your own notes, <a href="https://github.com/ult666666/searchlite/blob/main/docs/LOCAL_RELEVANCE.md" target="_blank" rel="noopener noreferrer">label questions and set per-query thresholds</a>. A saved snapshot is enough to rerun the checks; unmet criteria return a distinct process exit code. The separate <a href="https://github.com/ult666666/searchlite/blob/main/docs/BENCHMARK.md" target="_blank" rel="noopener noreferrer">reproducible timing method</a> records raw searches at 1,000 and 10,000 synthetic documents. Repeated glossary vocabulary and one machine's measurements do not establish production latency or general retrieval quality.</p>
-          <p><strong>Use your own files:</strong> the <a href="https://ult666666.github.io/searchlite/local.html" target="_blank" rel="noopener noreferrer">local-file workbench</a> compares two saved indexes against one judgments file in a browser worker. Inspect each query's rankings and download a report that matches the native command’s, with scores agreeing to about twelve decimal places. A synthetic fixture in the real browser tests has a positive average gain yet still fails an individual regression. Files stay in page memory; Clear releases application references. Reports contain supplied query text and document IDs, and the tool does not authenticate postings or labels. The <a href="https://github.com/ult666666/searchlite/blob/8db17107b83bc29d3ff30fec27133c2ca818ceef/docs/LOCAL_FILE_WORKBENCH.md" target="_blank" rel="noopener noreferrer">workflow and limits</a> explain bounded input handling and cancellation; <a href="https://github.com/ult666666/searchlite/blob/8db17107b83bc29d3ff30fec27133c2ca818ceef/test/browser/local-review.test.js" target="_blank" rel="noopener noreferrer">real browser checks</a> exercise report parity, offline use after loading and long-query layouts.</p>
-          <p><strong>Inspect the execution:</strong> <a href="https://github.com/ult666666/searchlite/blob/67589d74bf4d4b79f7adda1a05014d127ae39107/docs/EXECUTION.md" target="_blank" rel="noopener noreferrer">candidate-aware scoring</a> narrows conjunctions and avoids scoring exclusions while preserving exact rankings and explanations. Paired worker-process measurements retain every raw trial, including slower cases and a broad-query control; their engine hashes identify the measured revision.</p>
-          <p><strong>Challenge the vector arithmetic:</strong> aligned extreme vectors once returned NaN or zero and could lose top1 to an orthogonal document. The <a href="https://github.com/ult666666/searchlite/blob/b85f9cb0830b4d7080f3d44bd3cdf60585291faf/docs/VECTOR_NUMERICS.md" target="_blank" rel="noopener noreferrer">numerical boundary checks</a> compare 96 synthetic cases with an independent high-precision reference, test mutation and snapshot round trips, and refuse sparse arrays atomically. Near cancellation and rounding still limit precision; the older timing report is not a measurement of this later numerical revision.</p>
+          <p><code>explain()</code> rebuilds a result’s score clause by clause and field by field, and a test requires it to equal the score the search returned.</p>
+          <p>Postings are stored as compressed blocks of 128 documents, each with a skip entry and a score bound. Queries run document at a time with MaxScore and block-max bounds, and property tests require the same documents, order and scores as scoring every match. On 10,000 synthetic documents, pruning made median top-10 queries 7 to 15 times faster on one machine, with identical rankings (<a href="https://github.com/ult666666/searchlite/blob/main/docs/EXECUTION.md#measured-results-november-2-2026" target="_blank" rel="noopener noreferrer">how it was measured</a>). Gains are smaller at 1,000 documents, one phrase-heavy query is slower, and block-max WAND is not implemented.</p>
+          <p>The <a href="https://ult666666.github.io/searchlite/relevance.html" target="_blank" rel="noopener noreferrer">relevance workbench</a> compares two ranking setups query by query, with judged grades and missed relevant results. Its report matches the command-line one, with scores agreeing to about twelve decimal places. The <a href="https://ult666666.github.io/searchlite/local.html" target="_blank" rel="noopener noreferrer">local-file workbench</a> does the same for your own saved indexes and judgments, in a browser worker, with files kept in the page’s memory (<a href="https://github.com/ult666666/searchlite/blob/8db17107b83bc29d3ff30fec27133c2ca818ceef/docs/LOCAL_FILE_WORKBENCH.md" target="_blank" rel="noopener noreferrer">workflow and limits</a>).</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/searchlite/blob/main/README.md#search-your-local-documents" target="_blank" rel="noopener noreferrer">local docs walkthrough</a> indexes a folder of documents, saves a snapshot and answers queries from it with snippets and score explanations. You can <a href="https://github.com/ult666666/searchlite/blob/main/docs/LOCAL_RELEVANCE.md" target="_blank" rel="noopener noreferrer">label your own questions</a> and fail a check when a query drops below its threshold.</p>
           <div class="tag-set"><span>TypeScript</span><span>BM25F</span><span>Vite</span><span>Vitest</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer">Try the live search</a>
-            <a href="https://ult666666.github.io/searchlite/local.html" target="_blank" rel="noopener noreferrer">Compare your local files</a>
-            <a href="https://ult666666.github.io/searchlite/relevance.html" target="_blank" rel="noopener noreferrer">Compare query relevance</a>
-            <a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer">Library source</a>
-            <a href="https://github.com/ult666666/searchlite/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design</a>
+            <a class="button button-primary" href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer">Try the search demo</a>
+            <a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer">Source</a>
+            <a href="https://github.com/ult666666/searchlite/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
+            <a href="https://github.com/ult666666/searchlite/blob/main/docs/BENCHMARK.md" target="_blank" rel="noopener noreferrer">Timing method</a>
           </div>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Ablation</span><span>nDCG@10</span></div>
+          <div class="lab-artifact-head"><span>Ablation, nDCG@10</span></div>
           <dl class="lab-definitions">
             <div><dt>BM25F with stemming and field boosts</dt><dd>0.927</dd></div>
             <div><dt>Without stemming</dt><dd>0.904</dd></div>
@@ -250,43 +240,42 @@
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Try to inject markup <span aria-hidden="true">+</span></summary>
+        <summary>Try to inject markup <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a searchlite checkout after <code>npm ci</code>, run the two focused tests.</p><pre><code>npx vitest run test/engine/highlight.test.ts test/engine/scoring.test.ts -t "hostile|exactly the score"</code></pre><p class="lab-expect">Expected: 2 passed, 47 skipped. Hostile document text cannot inject HTML, and every explanation adds up to the returned score.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>highlight.ts</code>. Document text is escaped before <code>&lt;mark&gt;</code> tags are inserted, so those tags are the only markup that can reach the page.</p><p>The index lives in memory and analysis is English-only: suited to small collections, not millions of documents.</p><div class="lab-code-links"><a href="https://github.com/ult666666/searchlite/blob/main/test/engine/highlight.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/searchlite/blob/main/src/engine/highlight.ts" target="_blank" rel="noopener noreferrer">Inspect the escaping</a></div></div>
+          <div><h3>Try it</h3><p>From a searchlite checkout after <code>npm ci</code>, run the two focused tests.</p><pre><code>npx vitest run test/engine/highlight.test.ts test/engine/scoring.test.ts -t "hostile|exactly the score"</code></pre><p class="lab-expect">Expected: 2 passed, 47 skipped. Hostile document text cannot inject HTML, and every explanation adds up to the returned score.</p></div>
+          <div><h3>Read the code</h3><p>See <code>highlight.ts</code>. Document text is escaped before <code>&lt;mark&gt;</code> tags are inserted, so those tags are the only markup that can reach the page.</p><p>The index lives in memory and analysis is English-only: suited to small collections, not millions of documents.</p><div class="lab-code-links"><a href="https://github.com/ult666666/searchlite/blob/main/test/engine/highlight.test.ts" target="_blank" rel="noopener noreferrer">Highlight tests</a><a href="https://github.com/ult666666/searchlite/blob/main/src/engine/highlight.ts" target="_blank" rel="noopener noreferrer">highlight.ts</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Skip work without changing a ranking <span aria-hidden="true">+</span></summary>
+        <summary>Skip work without changing a ranking <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same checkout, run the pruning property tests.</p><pre><code>npx vitest run test/engine/pruning.test.ts</code></pre><p class="lab-expect">Expected: 19 passed. On random corpora, queries, filters and result limits, pruned top-k results equal exhaustive scoring, and a version 1 snapshot from searchlite 0.2.0 loads with identical results.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>daat.ts</code>. A top-level OR runs MaxScore in windows that end at a block boundary, so each clause's block bound holds for the whole window. Clauses whose summed bounds cannot beat the current k-th score supply no candidates and are consulted only while a candidate can still win, and a window where no clause can compete is skipped without decoding it. Bounds carry a small safety margin, so a document is dropped only when it cannot enter the top k.</p><p>Pruning skips scoring, not statistics: IDF still counts every match, and phrases are matched in full.</p><div class="lab-code-links"><a href="https://github.com/ult666666/searchlite/blob/main/test/engine/pruning.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/searchlite/blob/main/src/engine/daat.ts" target="_blank" rel="noopener noreferrer">Inspect the pruning</a></div></div>
+          <div><h3>Try it</h3><p>From the same checkout, run the pruning property tests.</p><pre><code>npx vitest run test/engine/pruning.test.ts</code></pre><p class="lab-expect">Expected: 19 passed. On random corpora, queries, filters and result limits, pruned top-k results equal exhaustive scoring, and a version 1 snapshot from searchlite 0.2.0 loads with identical results.</p></div>
+          <div><h3>Read the code</h3><p>See <code>daat.ts</code>. A top-level OR runs MaxScore in windows that end at a block boundary, so each clause’s block bound holds for the whole window. Clauses whose summed bounds cannot beat the current k-th score supply no candidates, and a window where no clause can compete is skipped without decoding it. Bounds carry a small safety margin, so a document is dropped only when it cannot enter the top k.</p><p>Pruning skips scoring, not statistics: IDF still counts every match, and phrases are matched in full.</p><div class="lab-code-links"><a href="https://github.com/ult666666/searchlite/blob/main/test/engine/pruning.test.ts" target="_blank" rel="noopener noreferrer">Pruning tests</a><a href="https://github.com/ult666666/searchlite/blob/main/src/engine/daat.ts" target="_blank" rel="noopener noreferrer">daat.ts</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-6" aria-labelledby="contrastkit-title">
-      <div class="lab-number">06 <span>Accessibility and HCI</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="contrastkit-title">contrastkit</h2>
-          <p>WCAG 2.2 contrast checks, perceptual OKLCH fixes for failing pairs, color-vision-deficiency simulation and palette audits: a zero-dependency TypeScript library, a CLI that can gate design tokens in CI, and a React app.</p>
-          <p class="lab-demo-note"><strong>Milder deficiencies:</strong> besides the three dichromacies (a missing cone type), the simulation covers the more common anomalous trichromacies, protanomaly, deuteranomaly and tritanomaly, at any severity from 0 to 1. It uses all 33 matrices Machado, Oliveira and Fernandes (2009) published, interpolated linearly between their 0.1 steps, and severity 1 gives exactly the dichromacy. Audits and the CLI's repeatable <code>--cvd</code> option take a severity, and the Palette Auditor adds a keyboard-operable severity slider that shared links keep.</p>
+          <p>WCAG 2.2 contrast checks, OKLCH fixes for failing pairs, color-vision-deficiency simulation and palette audits: a zero-dependency TypeScript library, a CLI that can gate design tokens in CI, and a React app.</p>
           <p>A fix keeps the hue and changes only OKLCH lightness, searching both directions for the closest passing color. Ratios are truncated, so a near miss never displays as a pass.</p>
-          <p class="lab-demo-note"><strong>Complete workflow:</strong> download the current palette as tokens JSON, audit it with the CLI, apply the suggested fix and audit the next download. The <a href="https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci" target="_blank" rel="noopener noreferrer">web-to-CLI walkthrough</a> preserves the selected pair and target; simulations do not change exported colors.</p>
+          <p>Besides the three dichromacies (a missing cone type), the simulation covers the more common milder forms, protanomaly, deuteranomaly and tritanomaly, at any severity from 0 to 1. It interpolates between the matrices Machado, Oliveira and Fernandes published in 2009, and severity 1 reproduces the dichromacy. Audits, the CLI’s <code>--cvd</code> option and a keyboard-operable slider in the Palette Auditor all take a severity.</p>
+          <p class="lab-note">The <a href="https://github.com/ult666666/contrastkit/blob/main/README.md#from-the-web-palette-to-ci" target="_blank" rel="noopener noreferrer">web-to-CLI walkthrough</a> downloads a palette as tokens JSON, audits it with the CLI, applies the suggested fix and audits again.</p>
           <div class="tag-set"><span>TypeScript</span><span>React</span><span>OKLCH</span><span>WCAG 2.2</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer">Open Palette Auditor</a>
-            <a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer">Library and CLI source</a>
-            <a href="https://github.com/ult666666/contrastkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design</a>
+            <a class="button button-primary" href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer">Open the Palette Auditor</a>
+            <a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer">Source</a>
+            <a href="https://github.com/ult666666/contrastkit/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
           </div>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Checked against</span><span>Standards and properties</span></div>
+          <div class="lab-artifact-head"><span>Checked against</span></div>
           <dl class="lab-definitions">
             <div><dt>WCAG 2.2 formula</dt><dd>Black on white is 21:1; #777777 on white is 4.47:1 and fails AA for normal text.</dd></div>
             <div><dt>Published matrices</dt><dd>Color-vision simulation follows Machado, Oliveira and Fernandes (2009).</dd></div>
-            <div><dt>Independent simulators</dt><dd>810 severity simulations agree with colorspacious 1.1.2 within 5e-13, and 990 at the published steps agree with DaltonLens 0.1.5 within one 8-bit step.</dd></div>
+            <div><dt>Independent simulators</dt><dd>Severity simulations agree with colorspacious 1.1.2 within 5e-13, and with DaltonLens 0.1.5 within one 8-bit step at the published severities.</dd></div>
             <div><dt>Fix properties</dt><dd>Every suggested fix meets its target and stays inside the sRGB gamut.</dd></div>
             <div><dt>The app itself</dt><dd>Component tests include automated axe accessibility checks.</dd></div>
           </dl>
@@ -294,77 +283,69 @@
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Fail a gray that looks fine <span aria-hidden="true">+</span></summary>
+        <summary>Fail a gray that looks fine <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a contrastkit checkout, run <code>npm ci</code> and <code>npm run build</code>, then check the pair.</p><pre><code>npx contrastkit check 777 fff</code></pre><p class="lab-expect">Expected: 4.47:1, failing AA for normal text, with exit code 1 so a CI job stops on it.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>suggestFix</code> in <code>fix.ts</code>. It binary-searches OKLCH lightness in both directions, maps each candidate into gamut, and ranks passing colors by their distance from the original.</p><p>Contrast is one input to legibility. Font size, weight and context still need human review.</p><div class="lab-code-links"><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/fix.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/fix.ts" target="_blank" rel="noopener noreferrer">Inspect the fix search</a></div></div>
+          <div><h3>Try it</h3><p>From a contrastkit checkout, run <code>npm ci</code> and <code>npm run build</code>, then check the pair.</p><pre><code>npx contrastkit check 777 fff</code></pre><p class="lab-expect">Expected: 4.47:1, failing AA for normal text, with exit code 1 so a CI job stops on it.</p></div>
+          <div><h3>Read the code</h3><p>See <code>suggestFix</code> in <code>fix.ts</code>. It binary-searches OKLCH lightness in both directions, maps each candidate into gamut, and ranks passing colors by their distance from the original.</p><p>Contrast is one input to legibility. Font size, weight and context still need human review.</p><div class="lab-code-links"><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/fix.test.ts" target="_blank" rel="noopener noreferrer">Fix tests</a><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/fix.ts" target="_blank" rel="noopener noreferrer">fix.ts</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Simulate a milder deficiency <span aria-hidden="true">+</span></summary>
+        <summary>Simulate a milder deficiency <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From the same built checkout, simulate a green and red pair under deuteranomaly at severity 0.6 and under deuteranopia.</p><pre><code>npx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia</code></pre><p class="lab-expect">Expected: the pair's color difference falls from ΔE_OK 0.269 for typical vision to 0.076 under deuteranomaly at 0.6 and 0.063 under deuteranopia. The WCAG checks use the actual colors (1.20:1), so the command exits 1.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>cvdMatrix</code> and <code>simulateCvd</code> in <code>cvd.ts</code>. A severity that is a multiple of 0.1 uses the published matrix; one between two steps interpolates them element by element. Colors are linearized, multiplied, clipped to the gamut and re-encoded.</p><p>The "hard to tell apart" threshold used by audits, ΔE_OK 0.08, is a documented heuristic, not a standard.</p><div class="lab-code-links"><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/cvd-severity.test.ts" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/cvd.ts" target="_blank" rel="noopener noreferrer">Inspect the simulation</a></div></div>
+          <div><h3>Try it</h3><p>From the same built checkout, simulate a green and red pair under deuteranomaly at severity 0.6 and under deuteranopia.</p><pre><code>npx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia</code></pre><p class="lab-expect">Expected: the pair’s color difference falls from ΔE_OK 0.269 for typical vision to 0.076 under deuteranomaly at 0.6 and 0.063 under deuteranopia. The WCAG checks use the actual colors (1.20:1), so the command exits 1.</p></div>
+          <div><h3>Read the code</h3><p>See <code>cvdMatrix</code> and <code>simulateCvd</code> in <code>cvd.ts</code>. A severity that is a multiple of 0.1 uses the published matrix; one between two steps interpolates them element by element. Colors are linearized, multiplied, clipped to the gamut and re-encoded.</p><p>The “hard to tell apart” threshold used by audits, ΔE_OK 0.08, is a documented heuristic, not a standard.</p><div class="lab-code-links"><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/test/cvd-severity.test.ts" target="_blank" rel="noopener noreferrer">Severity tests</a><a href="https://github.com/ult666666/contrastkit/blob/main/packages/contrastkit/src/cvd.ts" target="_blank" rel="noopener noreferrer">cvd.ts</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-project container" id="section-7" aria-labelledby="citecheck-title">
-      <div class="lab-number">07 <span>AI engineering</span></div>
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="citecheck-title">citecheck</h2>
           <p>Question answering over a document collection with the Claude API. Passages come from a SQLite FTS5 index ranked with BM25, the model must cite a retrieved passage for every sentence through a strict tool schema, and the app abstains without a model call when nothing relevant is found.</p>
-          <p>A checker rejects citations to passages that were never retrieved, splits each sentence into claims and compares every claim with the cited clause it restates. A flipped negation, "must" where the source says "may", a word swapped for its opposite, or a number or unit that differs makes the claim unsupported.</p>
-          <p class="lab-demo-note"><strong>Measured on held-out cases:</strong> 140 hand-labelled claims were split by a hash of their IDs into 63 for tuning and 77 held out. On the held-out cases the claim-level checker catches 44 of 48 unsupported sentences where the earlier word-overlap checker catches 20, with 2 false flags on 29 supported sentences against 1 (exact McNemar p = 1.5e-06). One author wrote both the cases and the rules, so these figures are optimistic; the <a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md#claim-level-checking" target="_blank" rel="noopener noreferrer">design notes</a> list every remaining miss.</p>
-          <p class="lab-demo-note"><strong>A boundary worth checking:</strong> headings inside fenced code examples keep their enclosing section citation. <a href="https://github.com/ult666666/citecheck/blob/main/tests/test_index.py" target="_blank" rel="noopener noreferrer">Real index and retrieval regressions</a> exercise shorter or invalid closing fences and the genuine section that follows.</p>
+          <p>A checker rejects citations to passages that were never retrieved, splits each sentence into claims and compares every claim with the cited clause it restates. A flipped negation, “must” where the source says “may”, a word swapped for its opposite, or a number or unit that differs makes the claim unsupported.</p>
+          <p>On held-out labelled claims, the claim-level checker caught 44 of 48 unsupported sentences; the earlier word-overlap checker caught 20. It wrongly flagged two supported sentences where the old checker flagged one. One author wrote both the cases and the rules, so these figures are optimistic, and the <a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md#claim-level-checking" target="_blank" rel="noopener noreferrer">design notes</a> list every remaining miss.</p>
+          <p class="lab-note">Tests and the bundled evaluation replay hand-written synthetic responses, so no API key is needed and no real model output is claimed. Live mode uses your own key. <a href="https://github.com/ult666666/citecheck/blob/main/tests/test_index.py" target="_blank" rel="noopener noreferrer">Index tests</a> check that a heading inside a fenced code block does not start a new citation section.</p>
           <div class="tag-set"><span>Python</span><span>Claude API</span><span>SQLite FTS5</span><span>FastAPI</span></div>
           <div class="lab-links">
-            <a class="button button-primary" href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer">Run citecheck</a>
-            <a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design</a>
+            <a class="button button-primary" href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+            <a href="https://github.com/ult666666/citecheck/blob/main/docs/DESIGN.md" target="_blank" rel="noopener noreferrer">Design notes</a>
           </div>
-          <p class="lab-demo-note">Tests and the bundled evaluation replay hand-written synthetic responses, so no API key is needed and no real model output is claimed. Live mode uses your own key.</p>
         </div>
         <div class="lab-artifact">
-          <div class="lab-artifact-head"><span>Checked against</span><span>Its own sources</span></div>
+          <div class="lab-artifact-head"><span>Checked against its own sources</span></div>
           <dl class="lab-definitions">
             <div><dt>Retrieved passages</dt><dd>Every citation must point to a passage that was actually retrieved.</dd></div>
             <div><dt>Cited clause</dt><dd>A claim whose negation, modality, opposite word or quantity disagrees with the clause it restates is unsupported, however many words match.</dd></div>
-            <div><dt>Held-out labels</dt><dd>44 of 48 unsupported claims caught and 2 of 29 supported claims falsely flagged, against 20 of 48 and 1 of 29 for word overlap.</dd></div>
             <div><dt>Abstention</dt><dd>Questions the handbook cannot answer should get no answer.</dd></div>
           </dl>
           <p class="lab-artifact-note">The checks are rules, not entailment: a swapped name or entity still passes, and a faithful paraphrase in different words is still flagged.</p>
         </div>
       </div>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Catch an invented number <span aria-hidden="true">+</span></summary>
+        <summary>Catch an invented number <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>From a citecheck checkout with uv installed, index the fictional handbook and ask a prepared question. No API key is needed.</p><pre><code>uv run citecheck index examples/handbook
+          <div><h3>Try it</h3><p>From a citecheck checkout with uv installed, index the fictional handbook and ask a prepared question. No API key is needed.</p><pre><code>uv run citecheck index examples/handbook
 uv run citecheck ask "What is the deadline for submitting an expense?"</code></pre><p class="lab-expect">Expected: the first sentence is supported (9 of 9 content words found); the second is unsupported because the claim says 60 days where the cited text says 30 days. No API call is made.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>verify.py</code>. Citations outside the retrieved set are rejected first. Each claim is then compared with the cited clause it restates, and a quantity whose value or unit differs from that clause overrides a high word-overlap score.</p><p>The checker catches invented numbers and unsupported wording, not reasoning errors. Its evaluation set is small, fictional and labelled by one author.</p><div class="lab-code-links"><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_verify.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/citecheck/blob/main/src/citecheck/verify.py" target="_blank" rel="noopener noreferrer">Inspect the checker</a></div></div>
+          <div><h3>Read the code</h3><p>See <code>verify.py</code>. Citations outside the retrieved set are rejected first. Each claim is then compared with the cited clause it restates, and a quantity whose value or unit differs from that clause overrides a high word-overlap score.</p><p>The checker catches invented numbers and unsupported wording, not reasoning errors. Its evaluation set is small, fictional and labelled by one author.</p><div class="lab-code-links"><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_verify.py" target="_blank" rel="noopener noreferrer">Verification tests</a><a href="https://github.com/ult666666/citecheck/blob/main/src/citecheck/verify.py" target="_blank" rel="noopener noreferrer">verify.py</a></div></div>
         </div>
       </details>
       <details class="lab-walkthrough">
-        <summary><span>Review the code</span> Catch a flipped negation <span aria-hidden="true">+</span></summary>
+        <summary>Catch a flipped negation <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Run the boundary</h3><p>With the handbook indexed as above, ask a prepared question with the earlier word-overlap checker, then with the default claim-level checker. No API key is needed.</p><pre><code>uv run citecheck ask --checker lexical "Do I need a doctor's note when I take a sick day?"
+          <div><h3>Try it</h3><p>With the handbook indexed as above, ask a prepared question with the earlier word-overlap checker, then with the default claim-level checker. No API key is needed.</p><pre><code>uv run citecheck ask --checker lexical "Do I need a doctor's note when I take a sick day?"
 uv run citecheck ask "Do I need a doctor's note when I take a sick day?"</code></pre><p class="lab-expect">Expected: with <code>--checker lexical</code> the first sentence is supported (10 of 10 content words found). The claim-level checker marks it unsupported: only the claim is negated. No API call is made.</p></div>
-          <div><h3>Follow the decision</h3><p>Read <code>analyze</code> in <code>claims.py</code>. Each claim is aligned with the cited clause that shares the most content words; numbers and negation words do not count toward the match, so changing them cannot move the alignment. Negation, modality, opposite-word and quantity checks then compare the two.</p><p>The rules miss a swapped name or entity and a contradiction phrased outside their list of 37 opposite pairs.</p><div class="lab-code-links"><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_claims.py" target="_blank" rel="noopener noreferrer">Read the proving test</a><a href="https://github.com/ult666666/citecheck/blob/main/src/citecheck/claims.py" target="_blank" rel="noopener noreferrer">Inspect the claim checks</a></div></div>
+          <div><h3>Read the code</h3><p>See <code>analyze</code> in <code>claims.py</code>. Each claim is aligned with the cited clause that shares the most content words; numbers and negation words do not count toward the match, so changing them cannot move the alignment. Negation, modality, opposite-word and quantity checks then compare the two.</p><p>The rules miss a swapped name or entity and a contradiction phrased outside their list of 37 opposite pairs.</p><div class="lab-code-links"><a href="https://github.com/ult666666/citecheck/blob/main/tests/test_claims.py" target="_blank" rel="noopener noreferrer">Claim tests</a><a href="https://github.com/ult666666/citecheck/blob/main/src/citecheck/claims.py" target="_blank" rel="noopener noreferrer">claims.py</a></div></div>
         </div>
       </details>
     </section>
 
     <section class="lab-review container" id="section-8" aria-labelledby="review-title">
-      <p class="section-index">How to review the work</p>
-      <h2 id="review-title">Check the reference, then the code</h2>
-      <div class="lab-review-grid">
-        <div><span>1. Run</span><h3>Reproduce one check</h3><p>Each walkthrough gives one focused command and its expected result. No paid service or account is needed.</p></div>
-        <div><span>2. Compare</span><h3>Find the reference</h3><p>Textbook values, published tables, reference libraries and accounting invariants come from outside the code they check.</p></div>
-        <div><span>3. Weigh</span><h3>Read the limits</h3><p>Each README and design note states what the project does not do and what its evidence does not establish.</p></div>
-      </div>
-      <div class="lab-handoff"><p>These independent, AI-assisted portfolio builds connect finance, statistics, data, interface and applied AI work with the habits I care about: explicit contracts, reproducible checks and stated limits. They are educational projects with synthetic or fictional data and make no claims of production use or adoption.</p><a class="button button-quiet" href="/#work">Back to all projects</a></div>
+      <h2 id="review-title">How these were built</h2>
+      <p>I built these seven projects in 2026 with AI coding assistants. Each walkthrough command comes from the project’s own test suite, and its expected result is the one I got when I last ran it.</p>
+      <a class="button button-quiet" href="/#work">Back to all projects</a>
     </section>
   </main>
-  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p>Plain HTML and CSS, with no JavaScript, cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><a href="#top">Back to top</a></p></footer>
+  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
 </body>
 </html>

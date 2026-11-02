@@ -77,14 +77,14 @@ def render(catalog):
 <div class="catalog-card-top"><span>{escape(labels)}</span><span class="catalog-form">{FORMS[project['form']]}</span></div>
 <h2>{p['name']}</h2><p class="catalog-summary">{p['summary']}</p>
 <ul class="catalog-stack" aria-label="Technology">{tags}</ul>
-<dl><dt>A scenario to explore</dt><dd>{p['scenario']}</dd><dt>Follow the implementation</dt><dd>{p['inspect']}</dd><dt>Project scope</dt><dd>{p['limits']}</dd></dl>
-<div class="catalog-command"><h3>Local review command</h3><pre><code>{p['command']}</code></pre></div>
+<dl><dt>Try</dt><dd>{p['scenario']}</dd><dt>Where to look</dt><dd>{p['inspect']}</dd><dt>Limits</dt><dd>{p['limits']}</dd></dl>
+<div class="catalog-command"><h3>Run it locally</h3><pre><code>{p['command']}</code></pre></div>
 <nav class="catalog-links" aria-label="{p['name']} links">{links}</nav></article>''')
     options = ''.join('<option value="' + key + '">' + escape(label) + '</option>' for key, label in AREAS.items())
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
-<meta name="description" content="Explore Charles Dai's software projects by problem, technology and runnable scenario, with source, demos and scope statements.">
+<meta name="description" content="Charles Dai's software projects, searchable by problem and technology, each with something to try, a command to run, where to look in the code and its limits.">
 <title>Project explorer | Charles Dai</title>
 <link rel="canonical" href="https://ult666666.github.io/projects/catalog.html"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/project-catalog.css"><script defer src="/project-catalog.js"></script></head>
@@ -97,16 +97,15 @@ def render(catalog):
 </div></header>
 <main class="wrap" id="main"><section class="catalog-intro" aria-labelledby="title">
 <a class="case-back" href="/#index">← All work</a>
-<p class="eyebrow">Project explorer</p>
-<h1 id="title">Every project, with a way to try it</h1>
-<p class="catalog-lead">Search by problem or technology. Each entry has a scenario to try, a command to run locally, where to look in the code, and what the project does not do.</p>
-<p class="catalog-note">These include web apps, local tools, research demonstrations and coursework, built with AI assistance. Run a command from a checkout of its repository after following that README; requirements differ, and demo database seed commands need a fresh path.</p></section>
+<h1 id="title">Project explorer</h1>
+<p class="catalog-lead">All {len(cards)} public projects, each with something to try, a command to run, where to look in the code and its limits.</p>
+<p class="catalog-note">They include web apps, local tools, research demos and coursework, all built with AI coding assistants. Run each command from a checkout of that repository, after the setup steps in its README.</p></section>
 <form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Try Python, SQLite, accessibility…" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option>{options}</select></div><button class="button" type="reset">Clear filters</button></form>
 <div class="catalog-results"><p id="catalog-count" role="status" aria-live="polite">{len(cards)} projects</p></div>
 <p id="catalog-empty" hidden>No projects match those filters. Try a broader search, or clear the filters.</p>
 <div class="catalog-grid">{''.join(cards)}</div>
 </main>
-<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666">GitHub</a><a href="#top">Back to top</a></p></footer>
+<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io">Source</a><a href="#top">Back to top</a></p></footer>
 </body></html>
 '''
 

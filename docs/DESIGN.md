@@ -23,8 +23,8 @@ A reviewer said the site "looks like AI". The reasons:
 ## The idea
 
 A personal site that reads like a well-kept notebook. One person introduces themselves
-plainly, shows four projects properly, with figures and captions, and keeps an honest index
-of everything else. Paper-coloured background, dark ink, one blue for links, a book serif and
+plainly, shows a few projects properly, with figures and captions, and keeps an index of
+everything else. Paper-coloured background, dark ink, one blue for links, a book serif and
 a page grid with notes in the margin.
 
 ## Principles
@@ -38,7 +38,7 @@ a page grid with notes in the margin.
    Weight, size and italics carry the hierarchy; colour doesn't.
 4. **Use one accent, for links only.** Blue ink. Nothing glows, lifts or animates on hover
    beyond a colour change.
-5. **Say it honestly, once.** AI assistance and synthetic data are stated once in the index
+5. **Say it once.** AI assistance and synthetic data are stated once in the index
    note, and each project page keeps its own scope section.
 6. **Keep it plain and fast.** No web fonts, no cookies, no third-party requests, and no
    JavaScript except the project explorer's search, which only filters entries already on the
@@ -52,17 +52,17 @@ a page grid with notes in the margin.
 
 | Token | Value | Use | Contrast on `--paper` |
 |---|---|---|---|
-| `--paper` | `#f6f3ec` | Page background | — |
-| `--paper-deep` | `#ece7dc` | Figure mats, code, table group rows | — |
+| `--paper` | `#f6f3ec` | Page background | n/a |
+| `--paper-deep` | `#ece7dc` | Figure mats, code, table group rows | n/a |
 | `--ink` | `#1d1b17` | Text, headings | 15.5:1 |
 | `--ink-2` | `#46423b` | Secondary text | 9.0:1 |
 | `--muted` | `#6b665c` | Captions, metadata | 5.2:1 (4.6:1 on `--paper-deep`) |
 | `--link` | `#2343b5` | Links, focus ring | 7.5:1 |
 | `--link-hover` | `#152c86` | Hovered links | 10.9:1 |
-| `--rule` | `#d6cfc1` | Hairlines (decorative) | — |
-| `--rule-strong` | `#a89f8f` | Table and figure borders (decorative) | — |
+| `--rule` | `#d6cfc1` | Hairlines (decorative) | n/a |
+| `--rule-strong` | `#a89f8f` | Table and figure borders (decorative) | n/a |
 
-The site is deliberately light-only. A dark theme would need every inner-page component
+The site is light-only. A dark theme would need every inner-page component
 re-checked; it can come later as its own change.
 
 ### Type
@@ -92,11 +92,12 @@ re-checked; it can come later as its own change.
 2. **Introduction.** One sentence as the page heading ("I'm Charles Dai. I build software where
    the numbers have to be right."), a paragraph about school and MOTIONX, one line about the
    internships I want, and plain links to email and GitHub.
-3. **Selected work.** Frontier AI Valuation Lab leads with a wide screenshot. LineageGuard Studio,
-   Luma Keys and MOTIONX follow as rows of image and text. Screenshots are cropped to the working
-   interface, never to an app's own headline. No figure captions: nothing refers to them.
-4. **Index.** One table of 17 published projects, grouped into finance, data, AI and backend, and
-   product and design. Coursework and tiny tools stay on GitHub. Links use one vocabulary
+3. **Selected work.** Frontier AI Valuation Lab leads with a wide screenshot. crossbook,
+   LineageGuard Studio, Luma Keys and MOTIONX follow as rows of image and text. Screenshots are
+   cropped to the working interface, never to an app's own headline. No figure captions: nothing
+   refers to them.
+4. **Index.** One table of 18 published projects, grouped into finance, data, AI and backend, and
+   product and design. Cells align on their first baseline, so a row reads as one line of type. Coursework and tiny tools stay on GitHub. Links use one vocabulary
    (Live, Case study or Notes, Code) in one order, in a quieter colour than body links. The
    margin note says once that the projects were built with AI coding assistants and that hosted
    demos run on synthetic data.
@@ -110,16 +111,32 @@ re-checked; it can come later as its own change.
 - No lists of three where one example will do, and no colon-then-list sentence twice in a row.
 - No stock phrases: "where software meets", "the parts nobody sees", "do the talking".
 - Specifics over adjectives: name the reference a result is checked against.
-- Say "synthetic data" once on the home page. Keep the honest limits on the project pages.
+- Say "synthetic data" once on the home page. Keep the limits on the project pages, once each.
+- At most two numbers in a sentence, and one or two memorable numbers per section. Test, mutant and
+  check counts go stale; they belong in each project's own verification record, not on these pages.
+- No slogans or two-beat taglines, no bold lead-ins on paragraphs or list items, and no qualifiers
+  such as "exactly", "deliberately" or "carefully" unless the exactness is the point.
+- Use typographic apostrophes and quotes in prose; keep straight quotes inside code.
 
 ## Inner pages
 
-Case studies, the engineering lab, foundations and the fintech page share the same header,
-footer, palette and type. Their headings lose the coloured full stops and all-caps mono
-eyebrows, their tag pills become a dotted list, and their opening lines are rewritten in the same
-plain voice. Case-study heroes align with the article column. The lab pages lose their two-beat
-taglines and arrow triplets, and their project index becomes a plain contents list. The rest of
-their body copy is unchanged in this pass and still carries some of the old voice.
+Case studies, the engineering lab, foundations, the fintech page, the project explorer and the
+404 page share the same header, footer, palette and type. Every footer has the copyright, "No
+cookies or tracking", the site's source and one more link.
+
+A November 2026 pass rewrote their body copy in the same plain voice as the home page:
+
+- **Case studies** have plain section headings, short sections, one Limits list and a closing
+  "Code and docs" list of links. "Try it" sections are ordered lists. Section ids did not change.
+  Heroes crop app screenshots to the working interface, as the home page does.
+- **Foundations and the engineering lab** open with the page name and one sentence, without a
+  numbered label above each project. Each walkthrough has two halves, "Try it" (the command and its
+  expected result) and "Read the code". The commands and expected results are the ones recorded in
+  [FOUNDATIONS.md](FOUNDATIONS.md) and [ENGINEERING_LAB.md](ENGINEERING_LAB.md).
+- **The fintech page** keeps its worked comparison and four steps, then a plain list of code and
+  docs and one Limits section.
+- **The project explorer** labels each entry's fields "Try", "Where to look", "Limits" and "Run it
+  locally", with at most five links per project.
 
 ## What was removed on purpose
 
@@ -132,3 +149,7 @@ their body copy is unchanged in this pass and still carries some of the old voic
 - The "Fintech feature", "Engineering lab" and "Foundations" banners. Those pages are linked from
   the index rows and the selected work instead.
 - The ambient gradients, glows and hover lifts.
+- On inner pages (November 2026): the evidence-card grid and the "Read the source too" box at the
+  end of each case study, the reviewer guide's step cards and implementation table, the switching
+  value stat card, the numbered labels above lab projects, the "How to review the work" panels and
+  the numbered proof list on the fintech page. A plain list of links replaces each of them.

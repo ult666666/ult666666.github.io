@@ -105,17 +105,18 @@ async function captureFinancingCase(page, destination) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      // November 2026: Monte Carlo, call auctions, dbt manifests and overfitting diagnostics each added one section.
-      const sections = {'frontier-ai-valuation-lab':6, crossbook:7, lineageguard:9, 'trading-research':5, motionx:4};
+      // Every case study ends with one Limits section and a Code and docs list.
+      const sections = {'frontier-ai-valuation-lab':8, crossbook:8, lineageguard:10, 'trading-research':6, motionx:5};
       assert.equal(await page.locator('.case-article section').count(),sections[name],`${name} case study sections`);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
-        assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
+        assert.equal(await page.locator('#engineering-evidence li').count(),8);
+        assert.equal(await page.locator('#review-guide ol li').count(),6,'Try it is a short ordered list');
         assert.equal(await page.getByRole('link',{name:'Try Ownership Frontier',exact:true}).getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
         await page.locator('#review-guide').screenshot({path:path.join(out,'fintech-review-desktop.png')});
         assert.equal(await page.locator('.case-detail-media > a').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/index.html#ownership-example');
-        assert.equal(await page.locator('#section-3 h2').innerText(),'Make the engineering inspectable');
-        assert.equal(await page.locator('#section-4 h2').innerText(),'My role and the project boundaries');
+        assert.equal(await page.locator('#section-3 h2').innerText(),'How it is built');
+        assert.equal(await page.locator('#section-4 h2').innerText(),'Limits');
         await captureFinancingCase(page,path.join(out,'financing-case-desktop.png'));
       }
     }
@@ -125,7 +126,7 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('h1').count(),1);
     assert.equal(await page.locator('h1').innerText(),'Comparing financing plans for a frontier AI lab');
     assert.equal(await page.locator('.fintech-intro .button-primary').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision');
-    assert.equal(await page.locator('.fintech-proof').count(),4);
+    assert.equal(await page.locator('.fintech-doc-list li').count(),4);
     assert.equal(await page.locator('.fintech-journey-card').count(),4);
     assert.equal(await page.locator('#financing-journey').getAttribute('href'),'https://frontier-ai-valuation-lab.vercel.app/capital.html#capital-record');
     assert.equal(await page.locator('.fintech-product-image img').evaluate(image => image.complete && image.naturalWidth > 0),true);
@@ -141,7 +142,7 @@ async function captureFinancingCase(page, destination) {
         await page.goto(base+route);
         const sizes=await page.evaluate(()=>[document.documentElement.scrollWidth,innerWidth]);
         assert(sizes[0] <= sizes[1]+1, `Horizontal overflow on ${route} at ${width}: ${sizes}`);
-        const clipped=await page.locator('.capital-example,.case-capital-example,.case-detail-media,.fintech-journey-card').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
+        const clipped=await page.locator('.capital-example,.case-detail-media,.fintech-journey-card,.fintech-doc-list').evaluateAll(nodes=>nodes.some(node=>node.scrollWidth>node.clientWidth+1));
         assert.equal(clipped,false,`Clipped example on ${route} at ${width}`);
       }
     }
@@ -177,7 +178,7 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await staticPage.locator('#financing-journey').isVisible(),true);
     await staticPage.goto(base+'/projects/frontier-ai-valuation-lab.html');
     assert.equal(await staticPage.locator('#review-guide').isVisible(),true);
-    assert.equal(await staticPage.locator('#engineering-evidence tbody tr').count(),4);
+    assert.equal(await staticPage.locator('#engineering-evidence li').count(),8);
     await staticPage.goto(base);
     assert.equal(await staticPage.locator('#engineering-proof .proof-path').count(),2);
     await staticPage.locator('#engineering-proof').screenshot({path:path.join(out,'engineering-proof-nojs-mobile.png')});

@@ -3,6 +3,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 import hashlib
 import json
+import re
 import struct
 import unittest
 
@@ -43,12 +44,15 @@ class InspectorShowcaseTests(unittest.TestCase):
             self.assertIn(SOURCE + relative, self.hrefs)
         self.assertNotIn('enterprise-certified', self.text.lower())
 
-    def test_test_counts_name_current_revision_separately_from_the_original_release(self):
-        for phrase in ('2 November 2026', 'commit bc14370', '201 Node tests', '45 browser journey checks', '19 evaluation assertions', '105-case policy benchmark', 'not independent evidence of catalog truth'):
+    def test_benchmark_figures_are_current_and_test_counts_stay_in_the_repository(self):
+        # The benchmark result on main (105 cases, 101 matching, none more permissive) is the page's figure.
+        for phrase in ('105 labelled cases', '101 decisions match', 'five decisions more permissive than their labels',
+                       'no decision is more permissive than its label', 'which is not authentication or approval'):
             self.assertIn(phrase, self.text)
-        self.assertIn('v2.0.0', self.text)
+        # Suite sizes go stale; the repository's verification record carries them, not this page.
+        self.assertIsNone(re.search(r'\d+ (Node tests|browser journey|evaluation assertions)', self.text))
         self.assertNotIn('separates the 84-test Node suite, 24 browser journeys', self.text)
-        self.assertNotIn('172 Node tests', self.text)
+        self.assertIn('https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/VERIFICATION.md', self.hrefs)
 
     def test_dbt_manifest_section_states_what_a_manifest_cannot_clear(self):
         ids = [attrs.get('id') for _, attrs in self.page.elements if attrs.get('id')]
