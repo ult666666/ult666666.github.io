@@ -52,7 +52,32 @@ module.exports = async function verifyBlast(browser, base) {
     assert.equal(await page.getByLabel('Local streak').innerText(),'0');
     const out=path.resolve(__dirname,'..','test-results');fs.mkdirSync(out,{recursive:true});
     await page.screenshot({path:path.join(out,'blast-game-deleted.png')});
+    // Keyboard only, in a fresh tab: the same breaker reaches the same engine score without the mouse.
+    const keys = await context.newPage();
+    keys.setDefaultTimeout(20000);
+    keys.on('pageerror', error => errors.push(error.message));
+    await keys.goto(base + '/projects/blast-radius-demo.html');
+    const keyStatus = keys.getByRole('status',{name:'Local game status'});
+    await keyStatus.filter({hasText:'Map ready'}).waitFor();
+    assert.equal(await keys.locator('#game-container').getAttribute('aria-hidden'),'true','The canvas is hidden from assistive technology');
+    const focused = keys.locator('[role=option]:focus');
+    for (let attempt = 0; attempt < 12 && await focused.count() === 0; attempt++) await keys.keyboard.press('Tab');
+    assert.equal(await focused.getAttribute('data-node'),'source','Tab reaches the map at its first asset');
+    await keys.keyboard.press('ArrowRight');
+    await keys.keyboard.press('ArrowUp');
+    assert.equal(await focused.getAttribute('data-node'),'identity','Arrow keys move between assets');
+    await keys.keyboard.press('Space');
+    assert.equal(await keys.locator('[role=option][data-node="identity"]').getAttribute('aria-selected'),'true');
+    await keys.locator('#blast-announcer').filter({hasText:'1 of 2 tokens left'}).waitFor();
+    await keys.keyboard.press('d');
+    // The live region announces the cascade while it is traced, then replaces it with the incident report.
+    await keys.locator('#blast-announcer').filter({hasText:'Cascade complete'}).waitFor();
+    await keyStatus.filter({hasText:'Result ready'}).waitFor();
+    await keys.locator('#blast-announcer').filter({hasText:'1,375 points.'}).waitFor();
+    assert.equal(await keys.getByLabel('Local score').innerText(),'1375','Keyboard play reaches the pointer journey score');
+    assert(await keys.locator('#blast-a11y-title').evaluate(node => node === document.activeElement),'Focus moves to the result heading');
+    await keys.screenshot({path:path.join(out,'blast-game-keyboard-result.png')});
     assert.deepEqual(errors,[]);assert.deepEqual(blocked,[]);
-    console.log('BLAST_SHOWCASE_PASS: catalog route, actual canvas selection/cascade/exact score, synthetic vote and two-step deletion, no external requests or page errors');
+    console.log('BLAST_SHOWCASE_PASS: catalog route, actual canvas selection/cascade/exact score, synthetic vote and two-step deletion, keyboard-only play to the same score, no external requests or page errors');
   } finally {await context.close();}
 };

@@ -48,3 +48,17 @@ python3 -B scripts/build_site.py --verify _site
 The local structural suite passed 49 tests. Browser checks covered the original journeys, the lab's source and verification links, homepage discovery, 360/768/1440 widths, navigation with JavaScript disabled, and screenshots inspected at desktop and mobile sizes. `tests/engineering_showcase.cjs` is integrated into the existing browser command. Staged deployment semantic checks also require the three source and verification routes.
 
 These checks establish page behavior and publication consistency. They do not verify the correctness of all linked project code; each project's own verification record carries that scope. Hosted URLs are checked separately during shipping.
+
+## 2 November 2026 upgrade walkthroughs
+
+Each project merged one upgrade in November 2026 (RelayBox outbound delivery, TraceBench statistical regression gates, Impact Ledger audit history). Each section keeps its original walkthrough and adds a second one. The commands ran on 2 November 2026 with Python 3.13 in a fresh copy of each repository's `main` (`git archive origin/main`):
+
+| Project (main) | Command | Observed result |
+| --- | --- | --- |
+| RelayBox (8b833fd) | `python3 -m unittest tests.test_standard_webhooks.StandardWebhooksTests.test_published_vector tests.test_dispatch.DispatchTests.test_crash_mid_delivery_redelivers_with_the_same_webhook_id -v` | 2 tests, OK |
+| TraceBench (c624c01) | `mkdir -p reports`, then the paired baseline, noisy and regressed `evaluate` commands shown on the page | Exit codes 1, 0 and 3. Noisy: McNemar p = 1, pass-rate interval -0.06 to 0.06. Regressed: change -0.11, interval -0.18 to -0.04, McNemar p = 0.00341797 |
+| Impact Ledger (6d2d056) | `python3 -m unittest discover -s tests -p test_audit.py -v` | 13 tests, OK |
+
+The original walkthroughs still pass on the same branches: RelayBox's stale-worker test, TraceBench's baseline comparison test and Impact Ledger's 14 storage tests. RelayBox's outbound quickstart was also run against its example receiver on port 8788: the first attempt got 503 and the second 204, with the same `webhook-id`.
+
+No release has been tagged for these upgrades yet, so the page links documentation on `main`, and the release links above stay on the shipped versions. The browser suite requires two walkthroughs in each project section and opens all six by keyboard.

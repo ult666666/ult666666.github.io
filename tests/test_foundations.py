@@ -22,6 +22,23 @@ COMMANDS = (
     'npx contrastkit check 777 fff',
     'uv run citecheck index examples/handbook\n'
     'uv run citecheck ask "What is the deadline for submitting an expense?"',
+    # November 2026 upgrade walkthroughs, run on 2 November 2026 against each main branch.
+    'uv run pytest tests/test_var_size_power.py -v',
+    'uv run pytest tests/test_many_to_one.py -k "scipy_dunnett or family_wise" -v',
+    'uv run pytest tests/test_holds_concurrency.py -v',
+    'make incremental-check MONTHS=6 SCALE=0.25 DAILY_DAYS=14',
+    'npx vitest run test/engine/pruning.test.ts',
+    'npx contrastkit check 2f855a c53030 --cvd deuteranomaly:0.6 --cvd deuteranopia',
+    'uv run citecheck ask --checker lexical "Do I need a doctor\'s note when I take a sick day?"\n'
+    'uv run citecheck ask "Do I need a doctor\'s note when I take a sick day?"',
+)
+# Observed results that the walkthroughs state; docs/FOUNDATIONS.md records the same runs.
+RESULTS = (
+    'Expected: 7 passed.', 'Expected: 3 passed.', 'Expected: 2 passed, 24 deselected.',
+    'Expected: 7 passed. Concurrent transfers', 'Expected: 8 passed.', 'PASS=192 WARN=0 ERROR=0',
+    '"Relations compared: 24"', 'Expected: 2 passed, 47 skipped.', 'Expected: 17 passed.',
+    'ΔE_OK 0.269', '0.076 under deuteranomaly at 0.6', 'the claim says 60 days where the cited text says 30 days',
+    'only the claim is negated',
 )
 
 
@@ -76,11 +93,21 @@ class FoundationsTests(unittest.TestCase):
         for command in COMMANDS:
             self.assertIn(command, commands)
 
+    def test_walkthrough_results_match_the_dated_record(self):
+        text = PAGE.read_text(encoding='utf-8')
+        for phrase in RESULTS:
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
+        for stale in ('Expected: 6 passed.', 'PASS=173', 'a negation flip passes the checker'):
+            self.assertNotIn(stale, text)
+
     def test_scope_and_limits_are_stated(self):
         text = PAGE.read_text(encoding='utf-8')
         for phrase in ('Synthetic and fictional data', 'not investment advice', 'it is not a benchmark',
                        'All data is synthetic', 'no claims of production use or adoption',
-                       'hand-written synthetic responses'):
+                       'hand-written synthetic responses', 'not a clinical measure',
+                       'these figures are optimistic', 'block-max WAND is not implemented',
+                       'incremental runs are not faster'):
             self.assertIn(phrase, text)
 
     def test_homepage_sitemap_and_inventory_include_the_page(self):

@@ -105,7 +105,9 @@ async function captureFinancingCase(page, destination) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
-      assert.equal(await page.locator('.case-article section').count(),name === 'frontier-ai-valuation-lab' ? 5 : name === 'crossbook' ? 6 : name === 'lineageguard' ? 8 : 4);
+      // November 2026: Monte Carlo, call auctions, dbt manifests and overfitting diagnostics each added one section.
+      const sections = {'frontier-ai-valuation-lab':6, crossbook:7, lineageguard:9, 'trading-research':5, motionx:4};
+      assert.equal(await page.locator('.case-article section').count(),sections[name],`${name} case study sections`);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence tbody tr').count(),4);
