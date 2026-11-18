@@ -106,8 +106,15 @@ async function captureFinancingCase(page, destination) {
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
       // Every case study ends with one Limits section and a Code and docs list.
-      const sections = {'frontier-ai-valuation-lab':8, crossbook:8, ledgerline:5, lineageguard:10, 'trading-research':6, motionx:5};
+      const sections = {'frontier-ai-valuation-lab':8, crossbook:9, ledgerline:5, lineageguard:10, 'trading-research':6, motionx:5};
       assert.equal(await page.locator('.case-article section').count(),sections[name],`${name} case study sections`);
+      if (name === 'crossbook') {
+        const replay = page.locator('#replay-a-session');
+        assert.match(await replay.innerText(), /3749b835b0ff0cae and state hash ee0bfb94bbfc39a7/);
+        assert.match(await replay.locator('pre').innerText(), /gen --orders 100000 --seed 42/);
+        assert.equal(await replay.getByRole('link', {name:'Run the browser comparison'}).getAttribute('href'),
+          'https://ult666666.github.io/crossbook/#stress-title');
+      }
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
         assert.equal(await page.locator('#engineering-evidence li').count(),8);
