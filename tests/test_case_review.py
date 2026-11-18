@@ -104,6 +104,20 @@ class CaseReviewTests(unittest.TestCase):
         for href in ("https://example.org/model", "https://example.org/checks", "https://example.org/docs"):
             self.assertIn(href, links)
 
+    def test_case_table_and_command_treat_content_as_text(self):
+        payload = '<em data-fixture="text">one & two</em>'
+        section = {"id": "example", "heading": "Check", "command": payload,
+                   "table": {"caption": payload, "columns": ["Action", payload],
+                             "rows": [[payload, payload]]}}
+        reader = ReviewReader()
+        reader.feed(builder.render_section(section))
+        self.assertEqual("".join(reader.text).count(payload), 5)
+        self.assertNotIn("em", [tag for tag, _ in reader.elements])
+        self.assertIn(("th", {"scope": "row"}), reader.elements)
+        self.assertEqual(reader.elements.count(("th", {"scope": "col"})), 2)
+        self.assertIn(("caption", {}), reader.elements)
+        self.assertIn(("code", {}), reader.elements)
+
     def test_case_studies_end_with_a_plain_list_of_code_and_docs(self):
         for case in builder.CASES:
             with self.subTest(case=case["slug"]):
