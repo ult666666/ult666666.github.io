@@ -68,12 +68,23 @@ module.exports = async function verifyBlast(browser, base) {
     assert.equal(await focused.getAttribute('data-node'),'identity','Arrow keys move between assets');
     await keys.keyboard.press('Space');
     assert.equal(await keys.locator('[role=option][data-node="identity"]').getAttribute('aria-selected'),'true');
-    await keys.locator('#blast-announcer').filter({hasText:'1 of 2 tokens left'}).waitFor();
+    const announcements = keys.getByRole('status',{name:'Game announcements'});
+    await announcements.filter({hasText:'1 of 2 tokens left'}).waitFor();
+    // The report replaces the cascade summary. Capture changes before deploying so a late read sees both.
+    const history = await announcements.evaluateHandle(region => {
+      const messages = [];
+      new MutationObserver(() => {
+        if (region.textContent) messages.push(region.textContent);
+      }).observe(region,{childList:true,subtree:true,characterData:true});
+      return messages;
+    });
     await keys.keyboard.press('d');
-    // The live region announces the cascade while it is traced, then replaces it with the incident report.
-    await keys.locator('#blast-announcer').filter({hasText:'Cascade complete'}).waitFor();
     await keyStatus.filter({hasText:'Result ready'}).waitFor();
-    await keys.locator('#blast-announcer').filter({hasText:'1,375 points.'}).waitFor();
+    await announcements.filter({hasText:'1,375 points.'}).waitFor();
+    const messages = await history.jsonValue();
+    const cascade = messages.findIndex(text => text.startsWith('Cascade complete.'));
+    const report = messages.findIndex(text => text.includes('1,375 points.'));
+    assert(cascade >= 0 && report > cascade, `Expected the cascade summary before the score. Live region contained ${JSON.stringify(messages)}`);
     assert.equal(await keys.getByLabel('Local score').innerText(),'1375','Keyboard play reaches the pointer journey score');
     assert(await keys.locator('#blast-a11y-title').evaluate(node => node === document.activeElement),'Focus moves to the result heading');
     await keys.screenshot({path:path.join(out,'blast-game-keyboard-result.png')});
