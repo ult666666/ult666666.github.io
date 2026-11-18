@@ -26,6 +26,11 @@ python3 -B scripts/build_site.py --verify _site
 
 The browser tests accept `PLAYWRIGHT_MODULE` for an installed Playwright package, `PORTFOLIO_CHROMIUM_EXECUTABLE` for a Chromium binary and `PORTFOLIO_CHROMIUM_ARGS` for a JSON array of launch arguments. None of these affects the published site.
 
+To check the portfolio’s links to specific sections in project documentation, run
+`python3 -B scripts/check_github_headings.py` with the GitHub CLI installed and signed in.
+The check reads each linked Markdown file at its specified revision and verifies that GitHub
+still renders the linked heading. It prints the portfolio page and URL of each missing heading.
+
 ## What is where
 
 | Page | Source |
