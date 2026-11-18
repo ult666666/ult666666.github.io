@@ -3,11 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-function contrastOnWhite(color) {
-  const channels = color.match(/[\d.]+/g).slice(0, 3).map(value => Number(value) / 255);
-  const linear = channels.map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
-  return 1.05 / (0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2] + 0.05);
-}
+const {contrastRatio} = require('./accessibility_assertions.cjs');
 
 async function captureHandoff(page, handoff, destination) {
   // A document clip keeps the actual sticky header at the top of the page,
@@ -107,7 +103,7 @@ module.exports = async function engineeringShowcase(browser, base) {
       }
       const printColors = await handoff.locator('caption,th,td,p,li,a,code').evaluateAll(nodes =>
         nodes.map(node => getComputedStyle(node).color));
-      for (const color of printColors) assert(contrastOnWhite(color) >= 4.5, `Print text must remain readable on white paper: ${color}`);
+      for (const color of printColors) assert(contrastRatio(color, 'rgb(255, 255, 255)') >= 4.5, `Print text must remain readable on white paper: ${color}`);
       await page.emulateMedia({media:'screen'});
       const out = path.resolve(__dirname, '..', 'test-results');
       fs.mkdirSync(out, {recursive:true});

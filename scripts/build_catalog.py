@@ -70,8 +70,11 @@ def render(catalog):
         p = {key: escape(project[key], quote=True) for key in ('id', 'name', 'summary', 'scenario', 'inspect', 'limits', 'command')}
         areas = ' '.join(project['areas'])
         tags = ''.join('<li>' + escape(item) + '</li>' for item in project['stack'])
-        links = ''.join('<a href="' + escape(link['url'], quote=True) + '">' + escape(link['label']) + '</a>'
-                        for link in project['links'])
+        links = []
+        for link in project['links']:
+            url = escape(link['url'], quote=True)
+            label = escape(link['label'], quote=True)
+            links.append(f'<a href="{url}" aria-label="{label} ({p["name"]})">{label}</a>')
         labels = ' · '.join(AREAS[area] for area in project['areas'])
         cards.append(f'''<article class="catalog-card" id="{p['id']}" data-areas="{areas}">
 <div class="catalog-card-top"><span>{escape(labels)}</span><span class="catalog-form">{FORMS[project['form']]}</span></div>
@@ -79,7 +82,7 @@ def render(catalog):
 <ul class="catalog-stack" aria-label="Technology">{tags}</ul>
 <dl><dt>Try</dt><dd>{p['scenario']}</dd><dt>Where to look</dt><dd>{p['inspect']}</dd><dt>Limits</dt><dd>{p['limits']}</dd></dl>
 <div class="catalog-command"><h3>Run it locally</h3><pre><code>{p['command']}</code></pre></div>
-<nav class="catalog-links" aria-label="{p['name']} links">{links}</nav></article>''')
+<nav class="catalog-links" aria-label="{p['name']} links">{''.join(links)}</nav></article>''')
     options = ''.join('<option value="' + key + '">' + escape(label) + '</option>' for key, label in AREAS.items())
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

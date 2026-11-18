@@ -2,6 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const {assertProjectLinkNames, contrastRatio} = require('./accessibility_assertions.cjs');
 
 module.exports = async (browser, base) => {
   const page = await browser.newPage({viewport:{width:1440,height:1000}, reducedMotion:'reduce'});
@@ -14,6 +15,16 @@ module.exports = async (browser, base) => {
   await page.goto(base + '/projects/catalog.html');
   await page.locator('#catalog-query').waitFor({state:'visible',timeout:4000});
   assert.equal(await page.locator('.catalog-card:visible').count(),20);
+  for (const field of await page.locator('.catalog-controls input, .catalog-controls select').all()) {
+    const colors = await field.evaluate(el => ({
+      border: getComputedStyle(el).borderTopColor,
+      inside: getComputedStyle(el).backgroundColor,
+      outside: getComputedStyle(document.body).backgroundColor
+    }));
+    for (const surface of [colors.inside, colors.outside]) {
+      assert(contrastRatio(colors.border, surface) >= 3, `Search field border ${colors.border} on ${surface}`);
+    }
+  }
   const out = path.resolve(__dirname,'..','test-results'); fs.mkdirSync(out,{recursive:true});
   await page.screenshot({path:path.join(out,'catalog-desktop.png')});
   await page.getByLabel('Focus area').selectOption('backend');
@@ -59,7 +70,8 @@ module.exports = async (browser, base) => {
   await plain.goto(base + '/projects/catalog.html?area=finance&q=ledger');
   assert.equal(await plain.locator('.catalog-card:visible').count(),20);
   assert.equal(await plain.getByRole('search').isVisible(),false);
-  assert.equal(await plain.locator('#relaybox').getByRole('link',{name:'Source',exact:true}).getAttribute('href'),
+  await assertProjectLinkNames(plain.locator('.catalog-card'), 'h2', '.catalog-links a');
+  assert.equal(await plain.getByRole('link',{name:'Source (RelayBox)',exact:true}).getAttribute('href'),
                'https://github.com/ult666666/relaybox');
   assert.equal(await plain.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true);
   await context.close();
