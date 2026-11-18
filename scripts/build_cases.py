@@ -390,8 +390,8 @@ CASES = [
     dict(
         slug='crossbook', kind='Fintech infrastructure', title='crossbook',
         hero='An order-matching engine in Rust with opening and closing call auctions, crash recovery and a '
-             'market-data feed. The same commands produce the same events on Linux, macOS, Windows, in the '
-             'browser and on any number of threads.',
+             'market-data feed. Replay a trading session in the browser, then compare its events and '
+             'final order book with the native Rust build.',
         stack=['Rust', 'WebAssembly'],
         repo=GITHUB + 'crossbook',
         live='https://ult666666.github.io/crossbook/', live_label='Open the playground',
@@ -429,6 +429,20 @@ CASES = [
                 'mutants that survive.',
             ], links=[('Testing approach', CROSSBOOK + 'docs/TESTING.md'),
                       ('Reference engine', CROSSBOOK + 'crates/crossbook/src/reference.rs')]),
+            dict(id='replay-a-session', heading='Replay 100,000 commands', body=[
+                'In the playground’s Stress test, select 100,000 commands, Continuous and seed 42, then '
+                'choose Run stress test. The event digest covers the sequence of acceptances, trades and '
+                'other events. The state hash covers the orders still resting in the book.',
+                'To run the same session locally from a crossbook checkout with Rust 1.88 or later, '
+                'generate the journal once and replay it.',
+            ], command='cargo run --release --locked -p crossbook-cli -- gen --orders 100000 --seed 42 --out target/seed-42.xbk\n'
+                       'cargo run --release --locked -p crossbook-cli -- replay target/seed-42.xbk',
+               after=[
+                   'Both builds produce event digest 3749b835b0ff0cae and state hash ee0bfb94bbfc39a7. '
+                   'The native replay reports 12,846 trades and 9,124 resting orders. Choosing With auctions '
+                   'changes the command stream and brings up its own reference values.',
+               ], links=[('Run the browser comparison', 'https://ult666666.github.io/crossbook/#stress-title'),
+                          ('Playground reference values', GITHUB + 'crossbook/blob/c76fd27fb2cb02fcee377d39d4731cc2e75e2fd8/web/index.html')]),
             dict(id='section-4', heading='Recovery, market data and sharding', body=[
                 'Crash recovery follows the write-ahead rule: a command is journaled before the engine '
                 'applies it, and a checksummed snapshot records how much of the journal it covers. Recovery '
