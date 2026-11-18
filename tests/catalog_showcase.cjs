@@ -21,6 +21,13 @@ module.exports = async (browser, base) => {
   assert.deepEqual(await page.locator('.catalog-card:visible').evaluateAll(nodes=>nodes.map(n=>n.id).sort()),
                    ['citecheck','impact-ledger','ledgerline','relaybox']);
   assert.equal(await page.locator('#catalog-count').innerText(),'4 of 20 projects');
+  const filteredUrl = new URL(page.url());
+  assert.equal(filteredUrl.searchParams.get('area'), 'backend');
+  assert.equal(filteredUrl.searchParams.get('q'), 'PYTHON   sqlite');
+  await page.reload();
+  assert.equal(await page.getByLabel('Focus area').inputValue(), 'backend');
+  assert.equal(await page.getByLabel('Search projects').inputValue(), 'PYTHON   sqlite');
+  assert.equal(await page.locator('#catalog-count').innerText(), '4 of 20 projects');
   await page.getByLabel('Search projects').fill('CUPED');
   assert.equal(await page.locator('.catalog-card:visible').count(),0);
   assert.equal(await page.locator('#catalog-empty').isVisible(),true);
@@ -29,6 +36,7 @@ module.exports = async (browser, base) => {
   await page.getByRole('button',{name:'Clear filters'}).click();
   assert.equal(await page.getByLabel('Search projects').inputValue(),'');
   assert.equal(await page.getByLabel('Focus area').inputValue(),'all');
+  assert.equal(new URL(page.url()).search, '');
   assert.equal(await page.locator('.catalog-card:visible').count(),20);
   assert.equal(await page.locator('#catalog-empty').isVisible(),false);
   await page.getByLabel('Search projects').focus();
@@ -38,11 +46,17 @@ module.exports = async (browser, base) => {
   await page.getByLabel('Search projects').fill('relaybox');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true, JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('*')].filter(n=>n.getBoundingClientRect().right>innerWidth).map(n=>({tag:n.tagName,class:n.className,right:n.getBoundingClientRect().right})))));
   await page.screenshot({path:path.join(out,'catalog-mobile.png'),fullPage:true});
+  await page.goto(base + '/projects/catalog.html?area=unknown&q=C%2B%2B&from=profile#top');
+  assert.equal(await page.getByLabel('Focus area').inputValue(), 'all');
+  assert.equal(await page.getByLabel('Search projects').inputValue(), 'C++');
+  await page.getByRole('button', {name:'Clear filters'}).click();
+  assert.equal(new URL(page.url()).search, '?from=profile');
+  assert.equal(new URL(page.url()).hash, '#top');
   assert.deepEqual(errors,[]); assert.deepEqual(external,[]);
   await page.close();
   const context = await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:800}});
   const plain = await context.newPage();
-  await plain.goto(base + '/projects/catalog.html');
+  await plain.goto(base + '/projects/catalog.html?area=finance&q=ledger');
   assert.equal(await plain.locator('.catalog-card:visible').count(),20);
   assert.equal(await plain.getByRole('search').isVisible(),false);
   assert.equal(await plain.locator('#relaybox').getByRole('link',{name:'Source',exact:true}).getAttribute('href'),
