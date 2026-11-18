@@ -18,6 +18,38 @@ const server = http.createServer((req, res) => {
     res.end(bytes);
   });
 });
+const publicFiles = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'public-files.json'), 'utf8')).files);
+
+async function assertSharePreview(page, kind) {
+  const origin = 'https://ult666666.github.io';
+  const pagePath = new URL(page.url()).pathname;
+  const property = key => page.locator(`head meta[property="og:${key}"]`).getAttribute('content');
+  const title = await page.locator('h1').innerText();
+  const hero = page.locator('.case-hero-media img');
+  const hasScreenshot = await hero.count() > 0;
+  const imagePath = hasScreenshot ? await hero.getAttribute('src') : '/assets/portfolio-og.png';
+  const imageAlt = hasScreenshot ? await hero.getAttribute('alt') :
+    'Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.';
+  assert(publicFiles.has(pagePath.slice(1)) && publicFiles.has(imagePath.slice(1)), pagePath);
+  assert.equal(await property('type'), kind);
+  assert.equal(await property('title'), kind === 'article' ? `${title}, a case study by Charles Dai` : `${title} | Charles Dai`);
+  assert.equal(await property('description'), await page.locator('head meta[name="description"]').getAttribute('content'));
+  assert.equal(await property('url'), origin + pagePath);
+  assert.equal(await page.locator('head link[rel="canonical"]').getAttribute('href'), origin + pagePath);
+  assert.equal(await property('image'), origin + imagePath);
+  assert.equal(await property('image:alt'), imageAlt);
+  assert.equal(await page.locator('head meta[name="twitter:card"]').getAttribute('content'), 'summary_large_image');
+  // Decode the exact advertised path on the staged origin, including the card
+  // used by text-led pages where no visible img would otherwise fetch it.
+  const size = await page.evaluate(async src => {
+    const image = new Image();
+    image.src = src;
+    await image.decode();
+    return [image.naturalWidth, image.naturalHeight];
+  }, imagePath);
+  assert.deepEqual([Number(await property('image:width')), Number(await property('image:height'))], size, imagePath);
+}
+
 async function captureFinancingCase(page, destination) {
   const image = page.locator('.case-detail-media img');
   await image.scrollIntoViewIfNeeded();
@@ -104,10 +136,13 @@ async function captureFinancingCase(page, destination) {
     await page.waitForTimeout(100);
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-desktop.png')});
+    await page.goto(base + '/projects/catalog.html?area=backend&q=SQLite');
+    await assertSharePreview(page, 'website');
     for (const name of ['crossbook','ledgerline','lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
+      await assertSharePreview(page, 'article');
       // Every case study ends with one Limits section and a Code and docs list.
       const sections = {'frontier-ai-valuation-lab':8, crossbook:9, ledgerline:5, lineageguard:10, 'trading-research':6, motionx:5};
       assert.equal(await page.locator('.case-article section').count(),sections[name],`${name} case study sections`);
