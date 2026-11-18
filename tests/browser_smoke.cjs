@@ -1,6 +1,7 @@
 /* Real Chromium checks for navigation, content inventory, accessibility basics and responsive layout. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const {assertProjectLinkNames} = require('./accessibility_assertions.cjs');
 const path = require('node:path');
 const http = require('node:http');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -69,6 +70,8 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('article.work').count(), 5);
     assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     assert.equal(await page.locator('.index-table th[scope="row"]').count(), 18);
+    await assertProjectLinkNames(page.locator('article.work'), 'h3', '.work-links a');
+    await assertProjectLinkNames(page.locator('.index-table tr:has(td.links)'), 'th[scope="row"]', 'td.links a');
     assert.equal(await page.locator('button,[role="button"]').count(), 0, 'The homepage has no scripted controls');
     for (const [label, hash] of [['Work','#work'],['Index','#index'],['About','#about'],['Contact','#contact']]) {
       await page.locator('#primary-nav').getByRole('link',{name:label,exact:true}).click();

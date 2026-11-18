@@ -24,7 +24,7 @@ module.exports = async function verifyBlast(browser, base) {
     page.setDefaultTimeout(20000);
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base + '/projects/catalog.html#blast-radius-daily');
-    await page.locator('#blast-radius-daily').getByRole('link',{name:'Play offline demo',exact:true}).click();
+    await page.locator('#blast-radius-daily').getByRole('link',{name:'Play offline demo (Blast Radius Daily)',exact:true}).click();
     assert.equal(new URL(page.url()).pathname, '/projects/blast-radius-demo.html');
     const status = page.getByRole('status',{name:'Local game status'});
     await status.filter({hasText:'Map ready'}).waitFor();

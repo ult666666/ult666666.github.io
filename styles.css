@@ -318,7 +318,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 
 .prose p { max-width: 36em; margin: 0 0 18px; }
 .prose p:last-child { margin-bottom: 0; }
-.contact-line { font-size: 22px; line-height: 1.45; }
+.contact-line { font-size: 22px; line-height: 1.45; overflow-wrap: anywhere; }
 
 /* ---------- Buttons (inner pages) ---------- */
 

@@ -1,7 +1,7 @@
 /* Real-browser regression checks: navigation is plain links that work with or without JavaScript. */
 const assert = require('node:assert/strict');
 const routes = ['/', '/fintech.html', '/projects/engineering-lab.html', '/projects/foundations.html', '/projects/lineageguard.html',
-  '/projects/motionx.html', '/projects/trading-research.html',
+  '/projects/motionx.html', '/projects/trading-research.html', '/projects/ledgerline.html',
   '/projects/frontier-ai-valuation-lab.html', '/projects/catalog.html'];
 
 module.exports = async function navigationResilience(browser, base) {
@@ -50,6 +50,14 @@ module.exports = async function navigationResilience(browser, base) {
       pass:await page.locator('#primary-nav a').first().evaluate(node => node === document.activeElement)});
     await page.keyboard.press('Enter');
     results.push({name:'Enter on Work follows the link', pass:new URL(page.url()).hash === '#work'});
+    await page.setViewportSize({width:320, height:800});
+    await page.addStyleTag({content:`
+      * { letter-spacing: .12em !important; word-spacing: .16em !important; line-height: 1.5 !important; }
+      p { margin-bottom: 2em !important; }
+    `});
+    const contact = page.locator('.contact-line');
+    results.push({name:'contact email fits its column at 320px with expanded text spacing',
+      pass:await contact.evaluate(el => el.scrollWidth <= el.clientWidth + 1)});
   } finally {await context.close();}
   const failed = results.filter(item => !item.pass);
   console.log('NAVIGATION_RESILIENCE ' + JSON.stringify({checks:results.length, failed}));
