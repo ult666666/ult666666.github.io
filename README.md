@@ -6,7 +6,7 @@ The source of [ult666666.github.io](https://ult666666.github.io/): a short intro
 
 The pages are plain HTML and CSS in one system serif. There are no web fonts, analytics, cookies or third-party requests. The only script is the explorer's search, and every page works without it.
 
-Start with the [home page](https://ult666666.github.io/), the [fintech page](https://ult666666.github.io/fintech.html) or the [project explorer](https://ult666666.github.io/projects/catalog.html).
+Start with the [home page](https://ult666666.github.io/), the [fintech page](https://ult666666.github.io/fintech.html) or the [project explorer](https://ult666666.github.io/projects/catalog.html). Explorer filters are saved in the page URL, so you can share a selection such as [backend projects using SQLite](https://ult666666.github.io/projects/catalog.html?area=backend&q=SQLite).
 
 ## Run it
 
