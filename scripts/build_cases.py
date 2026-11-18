@@ -629,6 +629,16 @@ def render_docs(case: dict) -> str:
 
 def render(case: dict) -> str:
     title, intro = e(case['title']), e(case['hero'])
+    canonical = f'https://ult666666.github.io/projects/{e(case["slug"], quote=True)}.html'
+    if case.get('image'):
+        preview, preview_alt = case['image'], case['alt']
+        width, height = case.get('image_width'), case.get('image_height')
+    else:
+        preview = '/assets/portfolio-og.png'
+        preview_alt = 'Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.'
+        width, height = 1200, 630
+    preview_size = (f'<meta property="og:image:width" content="{e(str(width))}">'
+                    f'<meta property="og:image:height" content="{e(str(height))}">') if width and height else ''
     stack = ''.join(f'<span>{e(item)}</span>' for item in case['stack'])
     actions = link('Source on GitHub', case['repo']).replace('<a ', '<a class="button button-quiet" ', 1)
     if case['live']:
@@ -652,7 +662,12 @@ def render(case: dict) -> str:
   <meta name="description" content="{intro}">
   <meta property="og:type" content="article"><meta property="og:title" content="{title}, a case study by Charles Dai">
   <meta property="og:description" content="{intro}">
-  <link rel="canonical" href="https://ult666666.github.io/projects/{case["slug"]}.html">
+  <meta property="og:url" content="{canonical}">
+  <meta property="og:image" content="https://ult666666.github.io{e(preview, quote=True)}">
+  {preview_size}
+  <meta property="og:image:alt" content="{e(preview_alt, quote=True)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{canonical}">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css">
   <title>{title}: case study | Charles Dai</title>
 </head>

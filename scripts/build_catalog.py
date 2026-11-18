@@ -65,6 +65,10 @@ def validate(catalog):
 
 def render(catalog):
     validate(catalog)
+    title = 'Project explorer | Charles Dai'
+    canonical = 'https://ult666666.github.io/projects/catalog.html'
+    description = ("Charles Dai's software projects, searchable by problem and technology, each with something "
+                   'to try, a command to run, where to look in the code and its limits.')
     cards = []
     for project in catalog['projects']:
         p = {key: escape(project[key], quote=True) for key in ('id', 'name', 'summary', 'scenario', 'inspect', 'limits', 'command')}
@@ -87,9 +91,15 @@ def render(catalog):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
-<meta name="description" content="Charles Dai's software projects, searchable by problem and technology, each with something to try, a command to run, where to look in the code and its limits.">
-<title>Project explorer | Charles Dai</title>
-<link rel="canonical" href="https://ult666666.github.io/projects/catalog.html"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="description" content="{escape(description)}">
+<title>{title}</title>
+<meta property="og:type" content="website"><meta property="og:title" content="{title}">
+<meta property="og:description" content="{escape(description)}"><meta property="og:url" content="{canonical}">
+<meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{canonical}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/project-catalog.css"><script defer src="/project-catalog.js"></script></head>
 <body class="catalog-page"><a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header" id="top"><div class="wrap header-inner">
