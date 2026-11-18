@@ -35,8 +35,8 @@ COMMANDS = (
 # Observed results that the walkthroughs state; docs/FOUNDATIONS.md records the same runs.
 RESULTS = (
     'Expected: 7 passed.', 'Expected: 3 passed.', 'Expected: 2 passed, 32 deselected.',
-    'Expected: 7 passed. Concurrent transfers', 'Expected: 8 passed.', 'PASS=192 WARN=0 ERROR=0',
-    '"Relations compared: 24"', 'Expected: 2 passed, 47 skipped.', 'Expected: 19 passed.',
+    'Expected: 7 passed. Concurrent transfers', '8 passed, 4 skipped on SQLite', 'PASS=198 WARN=0 ERROR=0',
+    '"Relations compared: 25"', 'Expected: 2 passed, 49 skipped.', 'Expected: 19 passed.',
     'ΔE_OK 0.269', '0.076 under deuteranomaly at 0.6', 'the claim says 60 days where the cited text says 30 days',
     'only the claim is negated',
 )
@@ -85,6 +85,8 @@ class FoundationsTests(unittest.TestCase):
                 self.assertTrue(any(h == base or h.startswith(base + '/') for h in hrefs))
                 self.assertTrue(any(h.startswith(base + '/blob/main/') and '/test' in h for h in hrefs),
                                 'A walkthrough must link the proving test')
+        self.assertIn('https://github.com/ult666666/powerlift/blob/main/docs/SIMULATIONS.md'
+                      '#peeking-and-sequential-monitoring', hrefs)
         for url in LIVE:
             self.assertIn(url, hrefs)
 
@@ -94,6 +96,10 @@ class FoundationsTests(unittest.TestCase):
             self.assertIn(command, commands)
 
     def test_walkthrough_results_match_the_dated_record(self):
+        self.assertIn('https://github.com/ult666666/ult666666.github.io/blob/main/docs/FOUNDATIONS.md'
+                      '#17-november-2026-walkthrough-verification', parse().hrefs)
+        record = (ROOT / 'docs' / 'FOUNDATIONS.md').read_text(encoding='utf-8')
+        self.assertIn('## 17 November 2026 walkthrough verification', record)
         text = PAGE.read_text(encoding='utf-8')
         for phrase in RESULTS:
             with self.subTest(phrase=phrase):
