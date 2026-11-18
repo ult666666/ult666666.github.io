@@ -199,7 +199,7 @@
       <details class="lab-walkthrough">
         <summary>Reconcile the MRR bridge <span class="lab-toggle" aria-hidden="true">+</span></summary>
         <div class="lab-walkthrough-body">
-          <div><h3>Try it</h3><p>From a warehouse checkout with uv and make installed, generate the data and build the warehouse.</p><pre><code>make data build</code></pre><p class="lab-expect">Expected: dbt reports PASS=198 WARN=0 ERROR=0, including <code>assert_mrr_bridge_reconciles</code>.</p></div>
+          <div><h3>Try it</h3><p>From a warehouse checkout with uv and make installed, generate the data and build the warehouse.</p><pre><code>make data build</code></pre><p class="lab-expect">The build should pass <code>assert_mrr_bridge_reconciles</code> and finish without errors. The verified revision reported PASS=198 WARN=0 ERROR=0.</p></div>
           <div><h3>Read the code</h3><p>See <code>fct_mrr_movements.sql</code>. MRR is a month-end snapshot on a gap-free customer-month spine; a customer is new in the first paid month and reactivated after a gap.</p><p>Month-end snapshots hide a cancellation and return within one month. The metric definitions list that and every other edge case.</p><div class="lab-code-links"><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/tests/assert_mrr_bridge_reconciles.sql" target="_blank" rel="noopener noreferrer">Bridge test</a><a href="https://github.com/ult666666/saas-analytics-warehouse/blob/main/dbt/models/marts/core/fct_mrr_movements.sql" target="_blank" rel="noopener noreferrer">fct_mrr_movements.sql</a></div></div>
         </div>
       </details>
