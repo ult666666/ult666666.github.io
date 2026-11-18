@@ -140,9 +140,13 @@
       ],
       "summary": "A dbt and DuckDB warehouse for a fictional SaaS company: MRR, retention and unit economics, with incremental loads and type 2 subscription history.",
       "scenario": "Build the warehouse, then load the same rows day by day with late arrivals and check that the incremental build equals a full refresh. Or trace one month of churn from the MRR bridge to the customers behind it.",
-      "inspect": "Start with the 7-day lookback macro and the delete+insert staging models, then the snapshot and its four history tests. The load simulation compares 24 relations with a full refresh by row hash.",
+      "inspect": "Start with the seven-day lookback for late records and the snapshot of subscription changes. The backfill compares rows in the incremental warehouse with a full rebuild, including the monthly revenue bridge.",
       "limits": "Seeded fictional data. Rows more than 7 days late are missed until a full refresh, the marts still rebuild in full, and incremental runs are not faster at this size.",
       "links": [
+        {
+          "label": "Metrics report",
+          "url": "https://ult666666.github.io/saas-analytics-warehouse/report/"
+        },
         {
           "label": "dbt docs",
           "url": "https://ult666666.github.io/saas-analytics-warehouse/"
@@ -154,10 +158,6 @@
         {
           "label": "Source",
           "url": "https://github.com/ult666666/saas-analytics-warehouse"
-        },
-        {
-          "label": "Design",
-          "url": "https://github.com/ult666666/saas-analytics-warehouse/blob/main/docs/DESIGN.md"
         },
         {
           "label": "Tests",
