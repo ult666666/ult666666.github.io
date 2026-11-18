@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VENDORED_DEMOS = {"blast-radius-demo.html"}  # Exact build/source/CSP tests live in test_blast_demo.py.
 PAGES = [ROOT / "index.html", ROOT / "fintech.html",
          *(p for p in (ROOT / "projects").glob("*.html") if p.name not in VENDORED_DEMOS)]
-CASE_NAMES = {"crossbook.html", "lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html", "engineering-lab.html", "foundations.html"}
+CASE_NAMES = {"ledgerline.html", "crossbook.html", "lineageguard.html", "motionx.html", "trading-research.html", "frontier-ai-valuation-lab.html", "engineering-lab.html", "foundations.html"}
 CATEGORIES = {"ai", "web", "experimental", "fintech"}
 
 

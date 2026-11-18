@@ -1,6 +1,6 @@
 # Case studies
 
-How the five case studies are built, and the background behind the two most detailed ones.
+How the six case studies are built and the sources behind their worked examples.
 
 ## How they are built
 
@@ -9,6 +9,17 @@ How the five case studies are built, and the background behind the two most deta
 Section ids stay the same when the text changes, because other pages and repositories link to them, for example `#call-auctions`, `#dbt-manifest`, `#review-inspector`, `#review-guide` and `#engineering-evidence`.
 
 The pages follow the copy rules in [DESIGN.md](DESIGN.md): plain headings, one or two numbers per section, limits stated once, and AI assistance mentioned once near the end. Test counts and other figures that go stale belong in each project's own verification record, not on these pages.
+
+## Ledgerline
+
+The [wallet walkthrough](../projects/ledgerline.html) uses Alice’s six balance reads from
+`uv run python examples/wallet_demo.py --holds`. The receipt reports integer USD cents,
+which the page displays as dollars. Its reconciliation found three accounts, two transactions,
+four entries, two holds and a zero USD trial balance.
+
+The concurrent-retry example comes from a separate two-connection PostgreSQL test.
+The demo, test and write-path links point to Ledgerline commit `4558a6a`, whose tree matches the measured run.
+Regenerate the HTML with `python3 -B scripts/build_cases.py` after editing the case data.
 
 ## Frontier AI Valuation Lab and the fintech page
 

@@ -138,7 +138,7 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 30, 'Payload includes .nojekyll, the reviewed portfolio/catalog, pinned Blast demo and saved-comparison screenshot')
+        self.assertEqual(len(inventory) + 1, 31, 'Payload includes .nojekyll, the project catalog, case studies and reviewed media')
         pages = ''.join((ROOT / name).read_text() for name in inventory if name.endswith('.html'))
         for name in inventory:
             if name.startswith('assets/') and name != 'assets/portfolio-og.svg':
@@ -152,7 +152,7 @@ class HandoffShowcaseTests(unittest.TestCase):
         self.assertEqual(sum('work' in node.attrs.get('class', '').split()
                              for node in articles), 5)
         self.assertEqual({name for name in inventory if name.startswith('projects/')}, {
-            'projects/crossbook.html', 'projects/lineageguard.html', 'projects/motionx.html',
+            'projects/crossbook.html', 'projects/ledgerline.html', 'projects/lineageguard.html', 'projects/motionx.html',
             'projects/trading-research.html', 'projects/frontier-ai-valuation-lab.html',
             'projects/engineering-lab.html', 'projects/foundations.html', 'projects/catalog.html', 'projects/blast-radius-demo.html'})
 

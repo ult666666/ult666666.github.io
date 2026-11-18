@@ -209,7 +209,7 @@ def select(root, tag=None, cls=None, ident=None):
 
 def semantic_checks(bodies):
     pages = {name: Reader(bodies[name]).root for name in ('index.html', 'fintech.html', CASE,
-             'projects/crossbook.html', 'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
+             'projects/crossbook.html', 'projects/ledgerline.html', 'projects/lineageguard.html', 'projects/motionx.html', 'projects/trading-research.html',
              'projects/engineering-lab.html', 'projects/foundations.html')}
     home, gateway, case = (pages[name] for name in ('index.html', 'fintech.html', CASE))
     checks = []
@@ -286,6 +286,14 @@ def semantic_checks(bodies):
     check('Case offers the exact worked decision PDF', any(a.attrs.get('href') == APP + '/downloads/Frontier_AI_Capital_Decision.pdf'
           and a.text == 'Worked decision PDF' for a in select(case, tag='a')))
     catalog = Reader(bodies['projects/catalog.html']).root
+    ledger_route = '/projects/ledgerline.html'
+    check('Home index and project explorer link to the Ledgerline case', all(
+        any(a.attrs.get('href') == ledger_route for a in select(page, tag='a'))
+        for page in (home, catalog)))
+    ledger = pages['projects/ledgerline.html']
+    check('Ledgerline publishes the wallet balance table and runnable hold demo',
+          bool(select(ledger, tag='table', cls='case-table')) and
+          any('uv run python examples/wallet_demo.py --holds' in node.text for node in select(ledger, tag='code')))
     check('Catalog offers the exact pinned Blast playable route', any(
         a.attrs.get('href') == '/projects/blast-radius-demo.html' and a.text == 'Play offline demo'
         for a in select(catalog, tag='a')))

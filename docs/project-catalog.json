@@ -454,10 +454,14 @@
         "SQLite"
       ],
       "summary": "A double-entry ledger API with balanced, immutable entries, idempotent writes and holds that report ledger, held and available balances.",
-      "scenario": "Follow the API walkthrough. Place a hold and watch the available balance fall while the ledger balance stays put, capture part of it, void another and let one expire.",
-      "inspect": "Start with the account version check that holds and postings share. In the race test, 33 of 40 concurrent holds succeed, the most the balance allows.",
+      "scenario": "Follow Alice’s $100 wallet through a $40 reservation, a $32 capture, an identical retry and a voided second hold.",
+      "inspect": "Compare the posted, held and available balances after each request. The PostgreSQL retry test pauses one connection while another drains the wallet.",
       "limits": "An engineering demo, not a bank, payment processor or certified accounting system. A hold allows one capture, and expiry is computed when a hold is read.",
       "links": [
+        {
+          "label": "Case study",
+          "url": "/projects/ledgerline.html"
+        },
         {
           "label": "Notes",
           "url": "/projects/foundations.html#section-3"
@@ -475,7 +479,7 @@
           "url": "https://github.com/ult666666/ledgerline/blob/main/tests/test_holds_concurrency.py"
         }
       ],
-      "command": "uv sync\nuv run python examples/wallet_demo.py\nuv run pytest tests/test_holds_concurrency.py -v"
+      "command": "uv sync\nuv run python examples/wallet_demo.py --holds\nuv run pytest tests/test_holds_concurrency.py -v"
     },
     {
       "id": "searchlite",

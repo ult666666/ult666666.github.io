@@ -24,6 +24,7 @@ FRONTIER = GITHUB + 'frontier-ai-valuation-lab/blob/main/'
 APP = 'https://frontier-ai-valuation-lab.vercel.app/'
 TRADING = GITHUB + 'agentic-trading-research/'
 MOTIONX = GITHUB + 'motionx-studio/'
+LEDGERLINE = GITHUB + 'ledgerline/blob/4558a6a447dc3a331244f630c88c26e7353a0aba/'
 
 CASES = [
     dict(
@@ -490,6 +491,68 @@ CASES = [
             [('Benchmarks', CROSSBOOK + 'docs/BENCHMARKS.md'), ' and the commands that produce them'],
             [('CI workflow', CROSSBOOK + '.github/workflows/ci.yml')],
         ]),
+    dict(
+        slug='ledgerline', kind='Fintech backend', title='Ledgerline',
+        hero='A wallet can show $100 even while $40 is reserved for a ride. Follow a $32 fare '
+             'through a double-entry ledger and see what happens when the client sends it twice.',
+        stack=['Python', 'FastAPI', 'SQLite', 'PostgreSQL'],
+        repo=GITHUB + 'ledgerline', live='#wallet-balances', live_label='See the wallet balances',
+        sections=[
+            dict(id='section-1', heading_id='wallet-balances', heading='From reservation to payment', body=[
+                'Alice deposits $100 into her wallet and authorizes a ride for up to $40. The posted '
+                'balance records money that has moved. A hold reserves part of that balance, leaving '
+                '$60 available for other payments.',
+                'The final fare is $32. Capturing it pays Bob and releases the unused $8. Alice’s '
+                'client then retries the capture with the same request body and idempotency key.',
+            ], table={
+                'caption': 'Alice’s wallet after each request (USD)',
+                'columns': ['Action', 'Posted', 'Held', 'Available'],
+                'rows': [
+                    ['Deposit $100', '$100.00', '$0.00', '$100.00'],
+                    ['Reserve $40', '$100.00', '$40.00', '$60.00'],
+                    ['Capture $32', '$68.00', '$0.00', '$68.00'],
+                    ['Retry capture', '$68.00', '$0.00', '$68.00'],
+                    ['Reserve $15', '$68.00', '$15.00', '$53.00'],
+                    ['Void the hold', '$68.00', '$0.00', '$68.00'],
+                ],
+            }, after=[
+                'The retry returns the original capture transaction ID and the same response body. '
+                'Voiding a second ride authorization makes its $15 available again. Only the deposit '
+                'and the fare reached the journal. Their four entries sum to zero across the three accounts.',
+            ]),
+            dict(id='section-2', heading_id='concurrent-retry', heading='When a retry arrives mid-transfer', body=[
+                'A separate PostgreSQL test starts with $100 and two HTTP requests. The first request '
+                'to check the key pauses when it finds no record. A second connection uses the same '
+                'key to move the entire $100. The paused request resumes against an empty wallet.',
+                'Checking the funds at that point used to return “insufficient funds” for a transfer '
+                'that had already succeeded. Ledgerline now claims the key before checking the balance '
+                'and saves the response in the same database transaction as the journal entries.',
+                'The test asks for both outcomes. Repeating the $100 request returns the original '
+                'transfer with the replay header. Changing the amount to $5 with that key returns '
+                'HTTP 409. In both runs Bob receives $100 and his statement has one entry.',
+            ]),
+            dict(id='section-3', heading_id='run-locally', heading='Run the wallet demo', body=[
+                'From a checkout of Ledgerline with uv installed, run these commands. The demo '
+                'starts a temporary SQLite service and makes real HTTP requests over loopback.',
+            ], command='uv sync --locked\nuv run python examples/wallet_demo.py --holds', after=[
+                'The JSON receipt reports each balance in integer cents. Look for all three replay '
+                'checks to be true and a zero USD trial balance. The demo stops its server and '
+                'removes its database before printing the receipt.',
+            ], links=[('Wallet demo source', LEDGERLINE + 'examples/wallet_demo.py#L314')]),
+            dict(id='section-4', heading_id='limits', heading='Limits', body=[
+                'These are fictional accounts in a local service. Ledgerline has no connection to a '
+                'bank or card network. Each hold permits one capture and releases any unused amount. '
+                'Expiry is evaluated when the ledger reads a hold.',
+                'SQLite serializes writers. The overlapping requests described above run against '
+                'PostgreSQL, whose default isolation permits a later statement to see a newly committed write.',
+            ], after=['I built Ledgerline with AI coding assistants.']),
+        ],
+        docs=[
+            [('Idempotent write implementation', LEDGERLINE + 'src/ledgerline/service.py#L520'),
+             ' — where the service claims a key, posts the journal entries and stores the response.'],
+            [('Two-connection PostgreSQL test', LEDGERLINE + 'tests/test_idempotency.py#L120'),
+             ' — the paused lookup, matching retry and conflicting amount.'],
+        ]),
 ]
 
 
@@ -513,6 +576,16 @@ def render_figure(figure: dict) -> str:
             + '<figcaption>' + e(figure['caption']) + '</figcaption></figure>')
 
 
+def render_table(table: dict) -> str:
+    columns = ''.join(f'<th scope="col">{e(label)}</th>' for label in table['columns'])
+    rows = []
+    for label, *values in table['rows']:
+        cells = ''.join(f'<td>{e(value)}</td>' for value in values)
+        rows.append(f'<tr><th scope="row">{e(label)}</th>{cells}</tr>')
+    return (f'<table class="case-table"><caption>{e(table["caption"])}</caption>'
+            f'<thead><tr>{columns}</tr></thead><tbody>{"".join(rows)}</tbody></table>')
+
+
 def render_section(section: dict) -> str:
     heading_id = f' id="{e(section["heading_id"], quote=True)}"' if section.get('heading_id') else ''
     parts = [f'<section id="{e(section["id"], quote=True)}"><h2{heading_id}>{e(section["heading"])}</h2>']
@@ -521,6 +594,10 @@ def render_section(section: dict) -> str:
         tag = 'ol' if section.get('ordered') else 'ul'
         parts.append(f'<{tag} class="case-list">' + ''.join(f'<li>{rich(item)}</li>' for item in section['items'])
                      + f'</{tag}>')
+    if section.get('table'):
+        parts.append(render_table(section['table']))
+    if section.get('command'):
+        parts.append(f'<pre class="case-command"><code>{e(section["command"])}</code></pre>')
     parts += [f'<p>{rich(text)}</p>' for text in section.get('after', [])]
     if section.get('media'):
         parts.append(render_figure(section['media']))

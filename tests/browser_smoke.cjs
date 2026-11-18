@@ -101,12 +101,12 @@ async function captureFinancingCase(page, destination) {
     await page.waitForTimeout(100);
     await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
     await page.locator('#frontier-ai-valuation-lab').screenshot({path:path.join(out,'fintech-desktop.png')});
-    for (const name of ['crossbook','lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
+    for (const name of ['crossbook','ledgerline','lineageguard','motionx','trading-research','frontier-ai-valuation-lab']) {
       const response = await page.goto(base + '/projects/' + name + '.html');
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
       // Every case study ends with one Limits section and a Code and docs list.
-      const sections = {'frontier-ai-valuation-lab':8, crossbook:8, lineageguard:10, 'trading-research':6, motionx:5};
+      const sections = {'frontier-ai-valuation-lab':8, crossbook:8, ledgerline:5, lineageguard:10, 'trading-research':6, motionx:5};
       assert.equal(await page.locator('.case-article section').count(),sections[name],`${name} case study sections`);
       if (name === 'frontier-ai-valuation-lab') {
         assert.equal(await page.locator('#review-guide').count(),1);
@@ -120,6 +120,36 @@ async function captureFinancingCase(page, destination) {
         await captureFinancingCase(page,path.join(out,'financing-case-desktop.png'));
       }
     }
+    await page.goto(base);
+    await page.getByRole('row').filter({has:page.getByRole('rowheader', {name:'ledgerline',exact:true})})
+      .getByRole('link', {name:'Case study'}).click();
+    assert.equal(new URL(page.url()).pathname, '/projects/ledgerline.html');
+    await page.getByRole('link', {name:'See the wallet balances'}).click();
+    const wallet = page.getByRole('table', {name:'Alice’s wallet after each request (USD)'});
+    assert.deepEqual(await wallet.getByRole('columnheader').allTextContents(),
+                     ['Action','Posted','Held','Available']);
+    const rows = await wallet.locator('tbody tr').evaluateAll(nodes =>
+      nodes.map(row => [...row.cells].map(cell => cell.textContent)));
+    assert.deepEqual(rows, [
+      ['Deposit $100','$100.00','$0.00','$100.00'], ['Reserve $40','$100.00','$40.00','$60.00'],
+      ['Capture $32','$68.00','$0.00','$68.00'], ['Retry capture','$68.00','$0.00','$68.00'],
+      ['Reserve $15','$68.00','$15.00','$53.00'], ['Void the hold','$68.00','$0.00','$68.00'],
+    ]);
+    for (const width of [320,390,768]) {
+      await page.setViewportSize({width,height:850});
+      await page.reload();  // Lay out a fresh document at this viewport, as a mobile visit would.
+      const layout = await wallet.evaluate(table => ({
+        right: table.getBoundingClientRect().right,
+        clipped: [...table.querySelectorAll('th,td')]
+          .filter(cell => cell.scrollWidth > cell.clientWidth + 1).map(cell => cell.textContent)
+      }));
+      assert(layout.right <= width && layout.clipped.length === 0,
+             `Wallet balances at ${width}px: ${JSON.stringify(layout)}`);
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+             `Ledgerline fits the screen at ${width}px`);
+      if (width === 320) await wallet.screenshot({path:path.join(out,'ledgerline-balances-mobile.png')});
+    }
+    await page.setViewportSize({width:1440,height:1000});
     await page.goto(base + '/projects/frontier-ai-valuation-lab.html');
     await page.getByRole('link',{name:'More on the fintech work',exact:true}).click();
     assert.equal(new URL(page.url()).pathname, '/fintech.html');
@@ -195,7 +225,7 @@ async function captureFinancingCase(page, destination) {
     if (process.env.RENDER_SOCIAL_IMAGE === '1') {
       await og.screenshot({path:path.join(root,'assets/portfolio-og.png')});
     }
-    console.log('BROWSER_PASS: homepage inventory and anchors, decoded images, local links, 5 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard skip link, no-JavaScript entry and no third-party requests');
+    console.log('BROWSER_PASS: homepage inventory and anchors, decoded images, local links, 6 case pages, fintech gateway, exact live-demo destination, 4 fintech responsive widths, 200% zoom, keyboard skip link, no-JavaScript entry and no third-party requests');
   } catch (error) { console.error(error); process.exitCode=1; }
   finally { if(browser) await browser.close(); await new Promise(resolve=>server.close(resolve)); }
 })();
