@@ -206,7 +206,7 @@
           "url": "https://github.com/ult666666/impact-ledger/blob/main/tests/test_audit.py"
         }
       ],
-      "command": "python3 -m impact_ledger --db .local/example.db init\npython3 -m impact_ledger --db .local/example.db import sessions examples/sessions.csv\npython3 -m impact_ledger --db .local/example.db import attendance examples/attendance.csv\npython3 -m impact_ledger --db .local/example.db summary --as-of-entry 2\npython3 -m impact_ledger --db .local/example.db undo-import B000003\npython3 -m impact_ledger --db .local/example.db verify"
+      "command": "mkdir -p .local\nimpact_db=\"$(mktemp -d .local/import-demo.XXXXXX)/example.db\"\npython3 -m impact_ledger --db \"$impact_db\" init\npython3 -m impact_ledger --db \"$impact_db\" import sessions examples/sessions.csv\npython3 -m impact_ledger --db \"$impact_db\" import attendance examples/attendance.csv\npython3 -m impact_ledger --db \"$impact_db\" summary --as-of-entry 2\npython3 -m impact_ledger --db \"$impact_db\" undo-import B000003\npython3 -m impact_ledger --db \"$impact_db\" verify"
     },
     {
       "id": "contrastkit",
@@ -301,7 +301,7 @@
         "HMAC"
       ],
       "summary": "A durable webhook inbox that deduplicates deliveries and fences stale workers, plus outbound delivery signed per the Standard Webhooks specification.",
-      "scenario": "Deliver a message to the example receiver. The first attempt gets 503 with Retry-After, and the retry succeeds with the same webhook-id. The inbound demo sends one signed event twice and shows retries, leases and recovery.",
+      "scenario": "Send one signed event twice. The inbox returns 202, then 200, and the worker writes one receipt. The outbound example retries a 503 with the same webhook ID and requeues a dead letter for another attempt.",
       "inspect": "Start with the dispatcher: full-jitter backoff, the dead-letter queue and replay. Signing matches the specification’s published test vector, and a sender killed mid-request leaves its lease for another to resend.",
       "limits": "A single-host SQLite service. Outbound targets are loopback-only unless you allow others, there is no rate limit or circuit breaker, and signing secrets are stored unencrypted.",
       "links": [
@@ -322,7 +322,7 @@
           "url": "https://github.com/ult666666/relaybox/blob/main/tests/test_dispatch.py"
         }
       ],
-      "command": "python3 -m relaybox --db .local/demo.sqlite3 demo\npython3 -m relaybox --db .local/demo.sqlite3 serve --demo-secret\n# Outbound: start the receiver in one terminal, then deliver from another\npython3 examples/receive_webhooks.py --demo-secret --fail-first 1\npython3 -m relaybox --db .local/out.sqlite3 subscription add http://127.0.0.1:8788/hook --event-type example.created --demo-secret\npython3 -m relaybox --db .local/out.sqlite3 publish example.created examples/payload.json\npython3 -m relaybox --db .local/out.sqlite3 deliver --max-deliveries 10 --wait 15"
+      "command": "python3 -m venv .venv\n.venv/bin/python -m pip install .\n.venv/bin/python examples/verify_worker.py\n.venv/bin/python examples/verify_outbound.py"
     },
     {
       "id": "tracebench",
@@ -338,7 +338,7 @@
         "Decimal"
       ],
       "summary": "Offline evaluation of recorded AI outputs, with cost accounting and statistical regression gates.",
-      "scenario": "Compare two candidates against a 100-case synthetic baseline. The default gate fails both, while the McNemar gate passes the noisy candidate and fails the regressed one.",
+      "scenario": "Compare two candidates with a 100-case synthetic baseline. The default gate exits 3 for both. The McNemar gate passes the noisy candidate (exit 0) and rejects the regressed candidate (exit 3).",
       "inspect": "Start with the exact McNemar test and the paired bootstrap behind the --gate options. In a simulation where 10% of cases flip at random, the default gate failed 99.4% of unchanged suites.",
       "limits": "It scores recorded outputs and never calls a model. Gates judge pass or fail only and assume independent cases.",
       "links": [
@@ -363,7 +363,7 @@
           "url": "https://github.com/ult666666/tracebench/blob/main/tests/test_paired.py"
         }
       ],
-      "command": "mkdir -p reports\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/baseline.jsonl --pricing fixtures/pricing.json --report reports/paired-baseline.json\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/noisy.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar\npython3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fixtures/paired/regressed.jsonl --pricing fixtures/pricing.json --baseline reports/paired-baseline.json --gate mcnemar --format markdown"
+      "command": "mkdir -p reports\ntrace_dir=$(mktemp -d reports/paired.XXXXXX)\ntrace_eval() {\n  python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --pricing fixtures/pricing.json \"$@\"\n}\n# The baseline report is written even though 20 cases fail (exit 1).\ntrace_eval --outputs fixtures/paired/baseline.jsonl --report \"$trace_dir/baseline.json\" || test \"$?\" -eq 1\nfor candidate in noisy regressed; do\n  for gate in any-regression mcnemar; do\n    trace_exit=0\n    trace_eval --outputs \"fixtures/paired/$candidate.jsonl\" \\\n      --baseline \"$trace_dir/baseline.json\" --gate \"$gate\" \\\n      --format markdown --report \"$trace_dir/$candidate-$gate.md\" || trace_exit=$?\n    printf '%s / %s exited %s\\n' \"$candidate\" \"$gate\" \"$trace_exit\"\n  done\ndone\nprintf 'Reports saved in %s\\n' \"$trace_dir\""
     },
     {
       "id": "quantkit",
@@ -572,7 +572,7 @@
         "SHA-256"
       ],
       "summary": "Local media generation with provenance records, Ed25519 manifest signatures and a Merkle transparency log.",
-      "scenario": "Generate a local bundle, then run the tamper demo. It signs and logs the bundle on copies and catches a changed media byte, a changed manifest, a different key, a flipped proof bit and a rewritten log entry.",
+      "scenario": "Generate a narrated WAV and a cover image, then sign and log copies. The demo verifies inclusion and consistency proofs and detects all seven changes to the files, signatures, proofs and log.",
       "inspect": "Start with the RFC 6962 and RFC 9162 Merkle tree and its inclusion and consistency proofs. They match 195 of 196 published transparency-dev/merkle vectors; the last one uses placeholder roots and is rejected on purpose.",
       "limits": "A signature proves which key signed, not who holds it. The log is one local file without witnesses, the private key is stored unencrypted, and the optional B2 upload has not run against a real bucket.",
       "links": [
@@ -589,7 +589,7 @@
           "url": "https://github.com/ult666666/proofcast-backblaze/blob/main/tests/test_merkle.py"
         }
       ],
-      "command": ".venv/bin/python -m proofcast.cli --title \"Synthetic demo\" --script \"A local verification example.\"\n.venv/bin/python examples/tamper_demo.py output/YOUR-RUN-ID-manifest.json"
+      "command": "# Requires Python 3.11+ and macOS say or Linux espeak-ng.\npython3 -m venv .venv\n.venv/bin/python -m pip install -r requirements.txt\nmkdir -p output\nproofcast_dir=$(mktemp -d output/demo.XXXXXX)\nPROOFCAST_OUTPUT_DIR=\"$proofcast_dir\" .venv/bin/python -m proofcast.cli --title \"Synthetic demo\" --script \"A local verification example.\"\n.venv/bin/python examples/tamper_demo.py \"$proofcast_dir\"/*-manifest.json"
     },
     {
       "id": "luma-keys",
@@ -626,7 +626,7 @@
           "url": "https://github.com/ult666666/luma-keys/blob/main/docs/BROWSER_QA.md"
         }
       ],
-      "command": "npm ci --ignore-scripts\nnpx playwright install chromium --only-shell\nnpm test\nnpm run qa:browser -- --output-dir .qa-runs/reviewer-exercise"
+      "command": "# Browser QA requires Node 24+ on macOS or Linux.\nnpm ci --ignore-scripts\nnpx playwright install chromium --only-shell\nnpm test\nnpm run qa:browser"
     },
     {
       "id": "blast-radius-daily",
@@ -720,7 +720,7 @@
       "summary": "A small browser QR generator with its own ISO/IEC 18004 encoder and image export.",
       "scenario": "Make a QR code at the default level H, try a link that is too long, then lower the level until it fits and compare the clipboard and download images.",
       "inspect": "Start with qr.js: Reed-Solomon coding with block interleaving, format and version information, and mask choice by the four penalty rules. Tests match the ISO and zxing vectors and decode random symbols with jsQR.",
-      "limits": "A QR code encodes what you type and does not check whether the link is safe. One segment per code, with no ECI, Kanji, Micro QR or structured append. The page requests two Google Fonts and must be served over HTTP.",
+      "limits": "A QR code encodes what you type and does not check whether the link is safe. One segment per code, with no ECI, Kanji, Micro QR or structured append. The local demo serves its assets from the same origin.",
       "links": [
         {
           "label": "Demo",
@@ -739,7 +739,7 @@
           "url": "https://github.com/ult666666/JUST-QR/blob/main/tests/encoder.spec.mjs"
         }
       ],
-      "command": "python3 -m http.server 8000\nnpm ci\nnpx playwright install chromium --only-shell\nnpm test"
+      "command": "npm ci\nnpx playwright install chromium --only-shell\nnpm test\n# Open http://localhost:8000/ while the server runs.\npython3 -m http.server 8000 --bind 127.0.0.1"
     },
     {
       "id": "teen-budgeting-hw3",
