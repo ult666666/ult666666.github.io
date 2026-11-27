@@ -6,7 +6,7 @@ The source of [ult666666.github.io](https://ult666666.github.io/): a short intro
 
 This edition builds on my existing portfolio and its [design brief](docs/DESIGN.md). The [site specification](SPEC.md) and [prompt log](PROMPTS.md) document the November 27 revision.
 
-The pages are plain HTML and CSS in one system serif. There are no web fonts, analytics, cookies or third-party requests. The explorer uses JavaScript for search. All portfolio entries and walkthroughs are readable without it. The bundled Blast Radius game has its own offline runtime.
+The pages use plain HTML and CSS, system fonts and screenshots from the projects. There are no web fonts, analytics, cookies or third-party requests. The explorer uses JavaScript for search. All portfolio entries and walkthroughs are readable without it. The bundled Blast Radius game has its own offline runtime.
 
 Start with the [home page](https://ult666666.github.io/), the [fintech page](https://ult666666.github.io/fintech.html) or the [project explorer](https://ult666666.github.io/projects/catalog.html). Explorer filters are saved in the page URL, so you can share a selection such as [backend projects using SQLite](https://ult666666.github.io/projects/catalog.html?area=backend&q=SQLite).
 
@@ -85,7 +85,7 @@ An earlier build copied whole directories, so a stray local file could have been
 
 ## Design
 
-The site is laid out like a printed page: paper, ink, one blue for links, a single serif and a margin column for section labels. [DESIGN.md](docs/DESIGN.md) has the tokens, the layout and the copy rules. [ASSETS.md](docs/ASSETS.md) records where each screenshot comes from.
+The homepage pairs a nameplate with the Snowfall OS village. Five selected projects follow in a screenshot gallery. The longer case studies use a narrow reading column and margin notes. [DESIGN.md](docs/DESIGN.md) has the tokens, the layout and the copy rules. [ASSETS.md](docs/ASSETS.md) records where each screenshot comes from.
 
 ## Limits
 

@@ -14,7 +14,7 @@
         "Node.js",
         "Python"
       ],
-      "summary": "Which financing plans raise enough money while leaving the current owners the share they want to keep? Change the cash and ownership targets to see which plans qualify, then compare their outcomes under different valuation assumptions.",
+      "summary": "A financing model for frontier AI labs. Set the cash a lab needs and how much equity its current owners want to keep. The model shows which plans qualify, then lets you compare them at different valuations.",
       "scenario": "Open the worked decision and raise the ownership floor from 88% to 90%: only Plan A still qualifies. Then open the Monte Carlo panel and look at the median and the spread of value around the Anthropic Base case.",
       "inspect": "The financial math is plain JavaScript shared by the browser and a Node.js API, which return byte-identical JSON for the same Monte Carlo request. Separate Python scripts recompute the capital and uncertainty arithmetic.",
       "limits": "Illustrative assumptions and incomplete public data, with no affiliation to the companies named. Simulated percentiles describe the ranges entered, not a forecast.",
@@ -55,7 +55,7 @@
         "WebAssembly",
         "proptest"
       ],
-      "summary": "When several traders want the same price, the order in which they arrived matters. This Rust engine matches orders by price and time, runs opening auctions, and checks the resulting trades against a second implementation.",
+      "summary": "I wrote a Rust order book that matches trades by price and time. To check the opening auction, I built a second engine that tries every possible clearing price and compared the results.",
       "scenario": "Run the auction demo. An opening call collects orders without trading, prints the indicative uncross after each one and rejects an immediate-or-cancel order. The uncross then fills 13 lots at 101, market orders first.",
       "inspect": "Start with the one-pass clearing-price search, then the brute-force uncross that tries every price. The two agree on 20,000 random books, including ties at each rule.",
       "limits": "Books live in memory in one process, journals are written without fsync, and there is no network gateway or market connection. The clearing price is always one of the orders’ limits, and there are no volatility interruptions.",
@@ -97,7 +97,7 @@
         "SQLite",
         "JavaScript"
       ],
-      "summary": "Before a team renames a database column, it can see which reports depend on it and who owns them. LineageGuard traces those dependencies and records the evidence behind each review decision.",
+      "summary": "Give LineageGuard a proposed column rename and it lists the reports that might break, along with their owners. Each review keeps the evidence that went into the decision.",
       "scenario": "Review a column rename against a dbt manifest from a synthetic project. Renaming fct_mrr.mrr_usd lists five downstream models and two exposures with their owners. The decision stays at needs-evidence, because a manifest cannot show usage.",
       "inspect": "Start with the manifest adapter, which refuses unknown versions, cycles and graphs whose edge lists disagree. A seeded property test compares its lineage with an independent walk of depends_on.",
       "limits": "Synthetic data, and the optional DataHub capture is read-only. Lineage from a manifest is model-level, so it can block a change or ask for more evidence but never clear one. A passing export check means internal consistency, not approval.",
@@ -138,7 +138,7 @@
         "SQL",
         "Python"
       ],
-      "summary": "A churn total can hide very different stories. This warehouse lets you trace a month of lost subscription revenue back to individual customers at a fictional software company, even when records arrive late.",
+      "summary": "I modeled subscriptions for a fictional software company in dbt and DuckDB. Pick a month in the revenue report and you can follow each lost dollar back to the customer who churned.",
       "scenario": "Build the warehouse, then load the same rows day by day with late arrivals and check that the incremental build equals a full refresh. Or trace one month of churn from the MRR bridge to the customers behind it.",
       "inspect": "Start with the seven-day lookback for late records and the snapshot of subscription changes. The backfill compares rows in the incremental warehouse with a full rebuild, including the monthly revenue bridge.",
       "limits": "Seeded fictional data. Rows more than 7 days late are missed until a full refresh, the marts still rebuild in full, and incremental runs are not faster at this size.",
@@ -180,7 +180,7 @@
         "Python",
         "SQLite"
       ],
-      "summary": "A nonprofit may need to explain how its attendance or spending totals changed after a correction. This demo uses a fictional organization to show how each import affected a report and rebuild the numbers as they stood on a given day.",
+      "summary": "A reporting tool for a fictional nonprofit. Correct an attendance import and you can still recover the figures as they appeared in last month’s report.",
       "scenario": "Import sessions and attendance, rebuild the summary as it was before the attendance import, undo that import with a compensating batch, then verify the log. The undone import stays in the history.",
       "inspect": "Start with the audit log, written in the same SQLite transaction as each change. Triggers block edits and deletions, and verify detects edited, deleted or reordered entries.",
       "limits": "The hosted preview is read-only and synthetic. The log is tamper-evident, not tamper-proof, and actor labels are self-declared.",
@@ -220,7 +220,7 @@
         "React",
         "OKLCH"
       ],
-      "summary": "A label can become hard to read when two colors look too similar. ContrastKit measures the contrast, finds a passing color that preserves the hue, and previews the pair under different forms of color vision.",
+      "summary": "Drop in a foreground and background color to see how legible they are together. If the pair falls short, ContrastKit suggests a nearby color that keeps the original hue.",
       "scenario": "Check a green and red pair under deuteranomaly at severity 0.6 and under deuteranopia, then move the severity slider in the Palette Auditor.",
       "inspect": "Start with the interpolation between the published 0.1-step matrices of Machado, Oliveira and Fernandes. The results agree with colorspacious and DaltonLens.",
       "limits": "Contrast checks support accessibility work but are not a full audit. Severity is a model parameter, not a clinical measure, and tritan simulations are the least reliable.",
@@ -260,7 +260,7 @@
         "TypeScript",
         "Python"
       ],
-      "summary": "I built a site where prospective clients can see the motion work my studio makes. I also wrote a Python tool that checks outreach drafts before a person reviews and sends them.",
+      "summary": "I built my motion-design studio’s website around its concept films. A separate Python tool drafts and checks outreach emails for review.",
       "scenario": "Browse the site at phone and desktop widths, with reduced motion on and off, then read how the outreach validator decides PASS or FAIL.",
       "inspect": "Start with the Playwright tests for the site and the outreach tests, which run on fictional companies.",
       "limits": "The films on the site are concept work, not client commissions. The outreach tool drafts email and never sends it.",
@@ -300,7 +300,7 @@
         "SQLite",
         "HMAC"
       ],
-      "summary": "Webhook senders retry when a response goes missing. RelayBox records signed deliveries in SQLite so repeated deliveries produce one receipt and interrupted work can resume.",
+      "summary": "A webhook inbox for services that retry deliveries. It records a signed event once at intake, even if the sender delivers it twice, and keeps unfinished work in SQLite.",
       "scenario": "Send one signed event twice. The inbox returns 202, then 200, and the worker writes one receipt. The outbound example retries a 503 with the same webhook ID and requeues a dead letter for another attempt.",
       "inspect": "Start with the dispatcher: full-jitter backoff, the dead-letter queue and replay. Signing matches the specification’s published test vector, and a sender killed mid-request leaves its lease for another to resend.",
       "limits": "A single-host SQLite service. Outbound targets are loopback-only unless you allow others, there is no rate limit or circuit breaker, and signing secrets are stored unencrypted.",
@@ -337,7 +337,7 @@
         "JSONL",
         "Decimal"
       ],
-      "summary": "A few changed answers can make an AI model look worse by chance. TraceBench compares recorded runs offline, measures their cost, and uses a statistical test to flag evidence of a regression.",
+      "summary": "TraceBench compares two sets of recorded model answers to see whether a new version makes more mistakes on the same questions. It runs offline and tallies the cost of each run.",
       "scenario": "Compare two candidates with a 100-case synthetic baseline. The default gate exits 3 for both. The McNemar gate passes the noisy candidate (exit 0) and rejects the regressed candidate (exit 3).",
       "inspect": "Start with the exact McNemar test and the paired bootstrap behind the --gate options. In a simulation where 10% of cases flip at random, the default gate failed 99.4% of unchanged suites.",
       "limits": "It scores recorded outputs and never calls a model. Gates judge pass or fail only and assume independent cases.",
@@ -378,7 +378,7 @@
         "SciPy",
         "pandas"
       ],
-      "summary": "This collection of Python models prices options, optimizes portfolios and checks forecasts of risk. Its backtests count how often simulated losses exceed a model’s prediction, and textbook examples give a reference for the arithmetic.",
+      "summary": "A Python lab for option prices, portfolio weights and risk forecasts. I check the calculations against textbook examples and test the forecasts by counting how often losses exceed them.",
       "scenario": "Simulate fictional prices, forecast one-day 99% VaR each day, and backtest the forecasts with Kupiec’s and Christoffersen’s tests, the Basel traffic light and the Acerbi–Székely Z2 test.",
       "inspect": "Start with the four rolling forecasters, then the dynamic program that gives each backtest its exact size. A perturbation test keeps every forecast blind to the return it is scored against.",
       "limits": "Educational software on synthetic data, not investment advice. VaR covers one day and one return series, and the likelihood-ratio p-values are asymptotic.",
@@ -414,9 +414,9 @@
         "SciPy",
         "statsmodels"
       ],
-      "summary": "How many people does a test need, and which changes beat the control? Powerlift plans and analyzes experiments, with CUPED to reduce noise and Dunnett’s correction for comparing several variants at once.",
+      "summary": "I built Powerlift to plan and read A/B tests. It estimates how many participants a test needs and adjusts for the extra chance of a false win when several variants share one control.",
       "scenario": "Read a seeded CSV with one control and three variants. The sample-ratio check runs across all four arms, and Dunnett’s test finds only variant D different while keeping the family-wise false-win rate at 5%.",
-      "inspect": "Start with the many-to-one analysis, where the shared control turns a k-dimensional integral into a two-dimensional one. Results agree with scipy.stats.dunnett.",
+      "inspect": "Start with the many-to-one analysis, where the shared control turns a k-dimensional integral into a two-dimensional one. Results agree with scipy.stats.dunnett. The library also supports CUPED adjustment using a pre-experiment measurement.",
       "limits": "Results depend on study design and data assumptions, and a significant result alone is not a business decision. Multi-arm comparisons are many-to-one and pool the arms’ variance.",
       "links": [
         {
@@ -453,7 +453,7 @@
         "PostgreSQL",
         "SQLite"
       ],
-      "summary": "Reserving money and spending it are two different events. This double-entry ledger tracks both, so an app can show what is available to spend and retry a payment request without posting it twice.",
+      "summary": "In the demo wallet, reserving $40 of a $100 balance leaves $60 to spend. This ledger keeps holds separate from posted transactions and recognizes a retried payment.",
       "scenario": "Follow Alice’s $100 wallet through a $40 reservation, a $32 capture, an identical retry and a voided second hold.",
       "inspect": "Compare the posted, held and available balances after each request. The PostgreSQL retry test pauses one connection while another drains the wallet.",
       "limits": "An engineering demo, not a bank, payment processor or certified accounting system. A hold allows one capture, and expiry is computed when a hold is read.",
@@ -493,7 +493,7 @@
         "TypeScript",
         "BM25F"
       ],
-      "summary": "A faster search is only useful if it still finds the right documents. This TypeScript engine skips work that cannot change the top results and lets you compare two indexes against your own relevance judgments.",
+      "summary": "A small TypeScript search engine with a workbench for comparing rankings. Load two indexes and your relevance judgments to see exactly which queries improved and which got worse.",
       "scenario": "Compare two saved indexes against your own relevance judgments in the browser and look for queries that got worse. Then run the pruning property tests, which compare pruned results with scoring every match.",
       "inspect": "Start with the blocks of 128 documents, their score bounds and the MaxScore windows built on them. On 10,000 synthetic documents, pruning made median queries 7 to 15 times faster.",
       "limits": "A small in-memory library with English-only analysis. Block-max WAND is not implemented, and one phrase-heavy query is slower with pruning.",
@@ -534,7 +534,7 @@
         "Claude API",
         "SQLite FTS5"
       ],
-      "summary": "A citation can contain all the right words and still contradict an answer. Citecheck retrieves passages from your documents, pairs them with claims, and flags differences such as a reversed rule or a changed quantity.",
+      "summary": "Citecheck answers questions from a set of documents and checks each sentence against its cited passage. It flags mistakes such as an answer that quotes the right policy and reverses what it says.",
       "scenario": "Index the sample handbook and ask a question whose prepared answer flips a negation. The word-overlap checker calls the sentence supported; the claim-level checker flags it.",
       "inspect": "Start with claim splitting, clause alignment and the negation, modality, opposite-word and quantity checks. On held-out cases the claim-level checker caught 44 of 48 unsupported sentences. Word overlap caught 20.",
       "limits": "The offline responses are hand-written, and one author wrote both the cases and the rules, so the figures are optimistic. Live answers need your own API key.",
@@ -571,7 +571,7 @@
         "Streamlit",
         "SHA-256"
       ],
-      "summary": "ProofCast creates audio and images locally and records how each file was made. You can check the files against that record or sign it so another person can verify the signing key and whether the files have changed.",
+      "summary": "ProofCast makes narrated audio and cover art locally and saves a record of each file. You can sign that record and pass it along with the files so someone else can check for changes.",
       "scenario": "Generate a narrated WAV and a cover image, then sign and log copies. The demo verifies inclusion and consistency proofs and detects all seven changes to the files, signatures, proofs and log.",
       "inspect": "Start with the RFC 6962 and RFC 9162 Merkle tree and its inclusion and consistency proofs. They match 195 of 196 published transparency-dev/merkle vectors; the last one uses placeholder roots and is rejected on purpose.",
       "limits": "A signature proves which key signed, not who holds it. The log is one local file without witnesses, the private key is stored unencrypted, and the optional B2 upload has not run against a real bucket.",
@@ -604,7 +604,7 @@
         "three.js",
         "Web Audio"
       ],
-      "summary": "When a pianist gets stuck on a passage, the next finger position can be as important as the next note. Luma Keys plans fingering across the piece, shows it on two moving hands, and lets you slow down and repeat difficult bars.",
+      "summary": "Open a score and two hands show you where to put your fingers on the piano. Luma Keys plans the fingering across the whole piece and lets you loop the bars that need more practice.",
       "scenario": "Generate a sight-reading exercise, play a clean run and a flawed one, then check the saved progress and repeat the same seed.",
       "inspect": "Run the five sight-reading browser stories and look at their screenshots and the practice grading, which needs none of the optional engines.",
       "limits": "The browser tests use synthetic exercises with the 3-D hands turned off. A physical MIDI keyboard, the packaged app and the optional engines need separate checks.",
@@ -641,7 +641,7 @@
         "WebKit",
         "JavaScript"
       ],
-      "summary": "I turned the Mac desktop into a winter village you can use to find your files. A cottage opens the Finder folder it represents, and loose files arrive as letters at the post office.",
+      "summary": "I built a little winter village for the Mac desktop. Each cottage opens a Finder folder, and the loose files on the desktop wait at the post office.",
       "scenario": "Explore the fictional folders in the sample town. Open the post office to see its mail, then hold an open patch of ground to build a snowman.",
       "inspect": "One placement plan matches the painted cottages to clickable doors. When someone opens a letter on a Mac, the app checks that the file is still the one the post office recorded.",
       "limits": "The public town uses sample folders. Opening real files requires the Mac app and permission to read the Desktop.",
@@ -674,7 +674,7 @@
         "Phaser",
         "Devvit"
       ],
-      "summary": "A broken data table can take its neighbors down with it. In this one-minute Reddit puzzle you place two circuit breakers, then watch which parts of a fictional system survive the cascade.",
+      "summary": "A one-minute puzzle I built for Reddit. You get two circuit breakers to stop a bad database change from spreading. Move one breaker and you can replay the same incident.",
       "scenario": "Pick an incident day and place two circuit breakers with the mouse, or with Tab, the arrow keys and Space. Watch the cascade, compare your result, move one synthetic vote, then delete your local data and replay.",
       "inspect": "Open the offline build, or build it yourself. Start with the shared engine and the hidden accessible copy of the board that keyboard and screen-reader players use.",
       "limits": "A desktop and landscape demo whose community data lives in the tab and resets on reload. Keyboard and screen-reader support is checked with Playwright and axe-core in Chromium, not with a real screen reader or inside Reddit’s apps.",
@@ -714,7 +714,7 @@
         "Python",
         "JSON Schema"
       ],
-      "summary": "The best of a hundred simulated trading strategies can look convincing by chance. This research demo runs statistical checks on that result and records what evidence is needed before a reviewer can approve an idea.",
+      "summary": "I gave 100 simulated trading strategies no built-in edge, then picked the one with the best backtest. This research demo shows how that choice can inflate the result and how four statistical checks catch it.",
       "scenario": "Run the overfitting demo. The best of 100 no-skill strategies has a naive PSR of 0.9989, yet all four diagnostics flag it, and a strategy with injected skill passes them all. Then run the six gate scenarios.",
       "inspect": "Start with the standard-library PSR, DSR, CSCV, stationary bootstrap and SPA code. The tests reproduce the DSR paper’s worked example and compare PBO with a brute-force version.",
       "limits": "Synthetic data only, with no orders, brokerage connection or trading advice. Passing these diagnostics does not show that a strategy is profitable.",
@@ -750,7 +750,7 @@
         "JavaScript",
         "Canvas"
       ],
-      "summary": "Paste a link, choose an error-correction level, and copy or download the resulting QR image. The encoder runs in your browser, so you can make the code without an account.",
+      "summary": "Paste a link and JUST-QR draws the code in your browser. You can copy it straight into a document or download it as an image.",
       "scenario": "Make a QR code at the default level H, try a link that is too long, then lower the level until it fits and compare the clipboard and download images.",
       "inspect": "Start with qr.js: Reed-Solomon coding with block interleaving, format and version information, and mask choice by the four penalty rules. Tests match the ISO and zxing vectors and decode random symbols with jsQR.",
       "limits": "A QR code encodes what you type and does not check whether the link is safe. One segment per code, with no ECI, Kanji, Micro QR or structured append. The local demo serves its assets from the same origin.",
@@ -786,7 +786,7 @@
         "Node.js",
         "HTML/CSS"
       ],
-      "summary": "For my AI for Business Leaders course, I built a budgeting app where a student could group fictional expenses by category and see the total change after correcting a purchase."
+      "summary": "For my AI for Business Leaders course, I built a small app for tracking fictional expenses. A student can correct a purchase and see the category totals update."
     }
   ]
 }

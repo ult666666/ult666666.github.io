@@ -8,6 +8,7 @@ The social preview `assets/portfolio-og.png` is rendered from the checked-in `as
 
 | File | Source | SHA-256 |
 | --- | --- | --- |
+| `assets/snowfall-village.jpg` | [Snowfall OS sample desktop](https://github.com/ult666666/snowfall-os/blob/33ea67a90a7155c55e90b18987147a012b7236cd/docs/desktop-preview.jpg), the 1280 × 720 public screenshot showing fictional folders. | `540b59d1ea1205fb476b5ce1c9a893e1ca9978bee7ee76301baf9c359d5cf373` |
 | `assets/motionx-site.jpg` | A 1440 × 900 screenshot of the opening screen of https://madebymotionx.com/, captured on 25 October 2026 and saved as JPEG. | `a37cabcb8db5be11f6923b770a2f77592d7f2eb587cfde7296552cb81c59e7fc` |
 | `assets/luma-keys-practice.png` | `docs/screenshots/practice-hands.png` from Luma Keys commit `b5d41ea8804b0cd4d3a489436536e7f7f490f2ab`, downscaled to 1440 × 900 and reduced to a 256-color palette. It shows the app's development build on a public-domain Mutopia score. | `75ec4d8632c3e0c64886b3219ca6e7ac6880edeea5eac14afee5754bcd18a326` |
 | `assets/crossbook-playground.png` | `docs/playground.png` from crossbook commit `9169d8ec1b1656186607191e247a000f80086ddc` (the plainer playground labels), copied unchanged: the browser playground at 1800 × 1125 with a synthetic book. | `c091862f109ea02d93cbd7fbce3caf548637dc429abcaf2b31aa919a716adabc` |

@@ -29,9 +29,8 @@ LEDGERLINE = GITHUB + 'ledgerline/blob/4558a6a447dc3a331244f630c88c26e7353a0aba/
 CASES = [
     dict(
         slug='lineageguard', kind='Developer tools', title='LineageGuard Studio',
-        hero='A workbench for reviewing a database schema change against the lineage it affects. Each check '
-             'runs as a step in a small workflow, every verdict keeps the evidence behind it, and a run that '
-             'crashes resumes where it stopped.',
+        hero='Before I rename a database column, I want to know which reports still read it. LineageGuard '
+             'follows those connections and saves the evidence behind its decision.',
         stack=['Node.js', 'SQLite', 'dbt'],
         repo=GITHUB + 'lineageguard-datahub-agent',
         live='https://lineageguard-datahub-agent.vercel.app/', live_label='Open Studio',
@@ -154,7 +153,7 @@ CASES = [
                 'not an approval.',
                 'The optional DataHub capture is read-only and has not been validated against a live '
                 'DataHub instance.',
-            ], after=['I set the scope and the safety rules, and built Studio with AI coding assistants.']),
+            ]),
         ],
         docs=[
             [('Source and quick start', GITHUB + 'lineageguard-datahub-agent')],
@@ -199,7 +198,7 @@ CASES = [
                 'The films on the site are self-initiated concept work, not client commissions.',
                 'The outreach tool drafts email; it does not send any on its own.',
                 'The public repository is a curated snapshot of a private one.',
-            ], after=['I built both parts with AI coding assistants.']),
+            ]),
         ],
         docs=[
             [('Site source', MOTIONX[:-1]), ' and its ', ('README', MOTIONX + 'blob/main/README.md')],
@@ -208,8 +207,8 @@ CASES = [
         ]),
     dict(
         slug='trading-research', kind='Research system', title='Agentic Trading Research',
-        hero='A research-only system for short-term stock research. Language models gather evidence and '
-             'propose ideas, and plain Python checks decide what passes. It cannot place orders.',
+        hero='I built this to review short-term stock ideas. A language model proposes an idea and gathers '
+             'its sources. Python checks the evidence before a person reviews the result.',
         stack=['Python'],
         repo=TRADING[:-1], live=None, live_label=None, image=None,
         secondary_links=[('Run the synthetic gate', TRADING + 'tree/main/examples'),
@@ -251,8 +250,7 @@ CASES = [
                 'There is no automated order execution, and nothing here is investment advice or evidence '
                 'of profit.',
                 'The diagnostics demo uses independent Student-t returns without trading costs.',
-            ], after=['I built the system with AI coding assistants, and its research pipeline calls '
-                      'language models.']),
+            ]),
         ],
         docs=[
             [('Synthetic review gate', TRADING + 'blob/main/examples/fail_closed_gate.py'),
@@ -277,9 +275,6 @@ CASES = [
         body_class='case-fintech', docs_id='engineering-evidence',
         sections=[
             dict(id='section-1', heading='The decision', body=[
-                'A valuation is useful when it helps someone decide. Capital Strategy Studio asks which '
-                'financing plans meet a capital goal and an ownership floor, how they compare across named '
-                'scenarios, and what would change the choice.',
                 'The worked example tests three hypothetical rounds against two goals: raise at least $25bn, '
                 'and let existing holders keep at least 88% of their stake. Plans A and B meet both; at a '
                 '90% floor only A does.',
@@ -366,7 +361,6 @@ CASES = [
             ], after=[
                 'Application 4.0.0 added the capital method; the financial engine (3.0.0) and the research '
                 'snapshot of 18 October 2026 are unchanged.',
-                'This is an independent project, and I built it with AI coding assistants.',
             ]),
         ],
         docs=[
@@ -489,7 +483,7 @@ CASES = [
                 'The fast integer hasher is not resistant to hostile order IDs, so a gateway facing '
                 'untrusted clients would assign IDs itself.',
                 'The exchange rules are summarized from public documents and cited without section numbers.',
-            ], after=['I built crossbook with AI coding assistants.']),
+            ]),
         ],
         docs=[
             [('Reference engine', CROSSBOOK + 'crates/crossbook/src/reference.rs'), ' and the ',
@@ -559,7 +553,7 @@ CASES = [
                 'Expiry is evaluated when the ledger reads a hold.',
                 'SQLite serializes writers. The overlapping requests described above run against '
                 'PostgreSQL, whose default isolation permits a later statement to see a newly committed write.',
-            ], after=['I built Ledgerline with AI coding assistants.']),
+            ]),
         ],
         docs=[
             [('Idempotent write implementation', LEDGERLINE + 'src/ledgerline/service.py#L520'),
@@ -635,7 +629,7 @@ def render(case: dict) -> str:
         width, height = case.get('image_width'), case.get('image_height')
     else:
         preview = '/assets/portfolio-og.png'
-        preview_alt = 'Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.'
+        preview_alt = 'Charles Dai’s portfolio featuring crossbook, LineageGuard Studio and Luma Keys.'
         width, height = 1200, 630
     preview_size = (f'<meta property="og:image:width" content="{e(str(width))}">'
                     f'<meta property="og:image:height" content="{e(str(height))}">') if width and height else ''
@@ -696,7 +690,7 @@ def render(case: dict) -> str:
   </article>
 </div>
 </main>
-<footer class="site-footer container"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
+<footer class="site-footer container"><p>© 2026 Charles Dai</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
 </body>
 </html>
 '''

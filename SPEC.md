@@ -20,7 +20,7 @@ Give a classmate a way to try something Charles built and give an engineering re
 - List all 21 public projects in the homepage index with an outcome, the tools used and a relevant next step. Include the Snowfall OS sample village and the JUST-QR generator. Describe Teen Budgeting as coursework using fictional expenses.
 - Make the explorer searchable by words and focus area. Keep project names, outcomes, tools and primary links easy to scan. Put longer technical walkthroughs behind a keyboard-operable disclosure. Project entries and links should work with JavaScript turned off.
 - Use About to show how Charles checks the results of his work. Use his published studio email for contact.
-- Retain the existing serif typography, warm paper background, blue links and original project screenshots. The navigation, tables and project links must be usable on a narrow phone.
+- Open with Charles’s name and pair it with the real Snowfall OS village. Use a large serif for the name, restrained sans-serif labels, generous margins and a gallery of project screenshots. On phones, the gallery becomes a single column. Keep the technical attribution and prompt history in the repository.
 
 ## Delivery
 

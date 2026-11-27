@@ -9,9 +9,12 @@
   <meta name="author" content="Charles Dai">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Charles Dai">
-  <meta property="og:description" content="I build software where the numbers have to be right. Selected work, an index of every project, and the code behind them.">
+  <meta property="og:description" content="Projects by Charles Dai at Carnegie Mellon, including a Mac piano app, a financing model and a winter desktop.">
   <meta property="og:url" content="https://ult666666.github.io/">
   <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Charles Dai’s portfolio featuring crossbook, LineageGuard Studio and Luma Keys.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://ult666666.github.io/">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -23,7 +26,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      <a class="site-name" href="/">Charles Dai</a>
+      <a class="site-name" href="/" aria-label="Charles Dai’s portfolio">Portfolio</a>
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <a href="#work">Work</a>
         <a href="#index">Index</a>
@@ -34,16 +37,21 @@
   </header>
 
   <main id="main">
-    <section class="intro wrap page-grid" aria-labelledby="intro-title">
+    <section class="intro wrap" aria-labelledby="intro-title">
       <div class="intro-body">
-        <h1 id="intro-title">I’m Charles Dai. I build software where the numbers have to be right.</h1>
-        <p class="lede">I study human-computer interaction and business administration at Carnegie Mellon. I also run <a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer">MOTIONX</a>, a small motion-design studio.</p>
-        <p>I’m looking for internships in software and AI engineering, especially near finance or data.</p>
-        <p class="intro-links"><a href="mailto:hello@madebymotionx.com">hello@madebymotionx.com</a><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><span>Pittsburgh, PA</span></p>
+        <h1 id="intro-title">Charles Dai</h1>
+        <p class="lede">I study human-computer interaction and business administration at Carnegie Mellon. Outside class, I run <a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer">MOTIONX</a>, a motion-design studio.</p>
+        <p class="intro-links"><a href="mailto:hello@madebymotionx.com">Email me</a><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><span>Pittsburgh, PA</span></p>
       </div>
+      <a class="intro-feature" href="https://ult666666.github.io/snowfall-os/" target="_blank" rel="noopener noreferrer">
+        <figure>
+          <img src="/assets/snowfall-village.jpg" width="1280" height="720" alt="A snowy village with folder names on cottage signs, including Sketchbook, Music Room and Maps" fetchpriority="high">
+          <figcaption><strong>Snowfall OS</strong><span>Double-click a cottage to open its folder on the Mac.</span></figcaption>
+        </figure>
+      </a>
     </section>
 
-    <section class="section wrap page-grid" id="work" aria-labelledby="work-title">
+    <section class="section wrap" id="work" aria-labelledby="work-title">
       <div class="section-label">
         <h2 id="work-title">Selected work</h2>
         <nav class="work-shortcuts" aria-label="Featured projects">
@@ -59,7 +67,7 @@
           <a class="work-figure" href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer"><img src="/assets/frontier-ai-capital-studio.png" width="1440" height="1124" alt="Capital Strategy Studio comparing hypothetical financing plans against capital and retained ownership objectives" decoding="async"></a>
           <div class="work-text">
             <h3>Frontier AI Valuation Lab</h3>
-            <p>Suppose an AI lab wants to raise $25 billion. How much of the company can its current owners keep? I built a JavaScript model that lets you change both constraints. In the worked example, raising the ownership floor from 88% to 90% leaves just one financing plan. Separate Python calculations check the figures.</p>
+            <p>In my financing model, an AI lab needs to raise $25 billion. Two plans work if its owners keep 88% of the company. At 90%, only one does. The model runs in JavaScript, and I wrote the calculations a second time in Python to check the numbers.</p>
             <p class="work-links"><a href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer" aria-label="Compare financing plans (Frontier AI Valuation Lab)">Compare financing plans</a><a href="/projects/frontier-ai-valuation-lab.html" aria-label="Case study (Frontier AI Valuation Lab)">Case study</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer" aria-label="Code (Frontier AI Valuation Lab)">Code</a></p>
           </div>
         </article>
@@ -68,7 +76,7 @@
           <a class="work-figure" href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer"><img src="/assets/crossbook-playground.png" width="1800" height="1125" alt="The crossbook playground: an order ticket, the order book with the queue at each price level, and the event log" loading="lazy"></a>
           <div class="work-text">
             <h3>crossbook</h3>
-            <p>When two buyers offer the same price, who gets the trade? I built a Rust engine that matches orders by price and arrival time, then checked it against a second, simpler engine. In the WebAssembly playground you can replay 100,000 commands and compare the results with the native build.</p>
+            <p>I wrote a stock exchange matching engine in Rust. Orders at the same price line up by arrival time. The browser version lets you replay 100,000 commands and compare its trades with the ones the native engine made.</p>
             <p class="work-links"><a href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer" aria-label="Replay the order book (crossbook)">Replay the order book</a><a href="/projects/crossbook.html" aria-label="Case study (crossbook)">Case study</a><a href="https://github.com/ult666666/crossbook" target="_blank" rel="noopener noreferrer" aria-label="Code (crossbook)">Code</a></p>
           </div>
         </article>
@@ -77,7 +85,7 @@
           <a class="work-figure" href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer"><img src="/assets/lineageguard-studio-review.png" width="1440" height="1404" alt="LineageGuard Studio’s Review tab after a rename review, with the change request on the left and the workflow graph, decision and run trace on the right" loading="lazy" decoding="async"></a>
           <div class="work-text">
             <h3>LineageGuard Studio</h3>
-            <p>Renaming one database column can break a report several teams away. I built a Node.js tool for reviewing database schema changes. It follows the dependencies in a dbt manifest to identify the affected reports. The local version saves its findings in SQLite so an interrupted review can resume.</p>
+            <p>Renaming a column can break a dashboard that reads from it. I built LineageGuard to trace database schema changes through a dbt manifest and identify the reports that rely on that column. The local Node.js app saves each review in SQLite so it can resume after an interruption.</p>
             <p class="work-links"><a href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Review a schema change (LineageGuard Studio)">Review a schema change</a><a href="/projects/lineageguard.html" aria-label="Case study (LineageGuard Studio)">Case study</a><a href="https://github.com/ult666666/lineageguard-datahub-agent" target="_blank" rel="noopener noreferrer" aria-label="Code (LineageGuard Studio)">Code</a></p>
           </div>
         </article>
@@ -86,7 +94,7 @@
           <a class="work-figure" href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer"><img src="/assets/luma-keys-practice.png" width="1440" height="900" alt="Luma Keys practising the Moonlight Sonata, with a numbered score above a keyboard where two 3-D hands show the suggested fingering" loading="lazy" decoding="async"></a>
           <div class="work-text">
             <h3>Luma Keys</h3>
-            <p>A score tells you which notes to play. Choosing the next finger is a different problem. I built an offline Mac app that plans fingering across a piece and uses three.js to show both hands on the keys. You can follow a passage, then play it back on a MIDI keyboard.</p>
+            <p>Open a score in Luma Keys and two hands show the fingering, one passage at a time. I used three.js for the hands and planned the fingering across the whole piece. The Mac app also listens while you play the passage back on a MIDI piano.</p>
             <p class="work-links"><a href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer" aria-label="Code (Luma Keys)">Code</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md" target="_blank" rel="noopener noreferrer" aria-label="How the hands move (Luma Keys)">How the hands move</a></p>
           </div>
         </article>
@@ -95,7 +103,7 @@
           <a class="work-figure" href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/motionx-site.jpg" width="1440" height="900" alt="The MOTIONX website's opening screen: a glossy 3-D X character standing in a dim cinema beside the headline From first frame to final click" loading="lazy" decoding="async"></a>
           <div class="work-text">
             <h3>MOTIONX</h3>
-            <p>I founded MOTIONX, a motion-design studio, and built its website so visitors can see the work and get in touch. I used Next.js and TypeScript for the pages and CSS for the animation. A separate Python tool checks outreach drafts before I decide whether to send them.</p>
+            <p>MOTIONX is the motion-design studio I founded. I built our site in Next.js and animated it with CSS to give people a feel for the films and websites we make. A separate Python tool helps me review outreach drafts.</p>
             <p class="work-links"><a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit the studio (MOTIONX)">Visit the studio</a><a href="/projects/motionx.html" aria-label="Case study (MOTIONX)">Case study</a><a href="https://github.com/ult666666/motionx-studio" target="_blank" rel="noopener noreferrer" aria-label="Code (MOTIONX)">Code</a></p>
           </div>
         </article>
@@ -105,7 +113,7 @@
     <section class="section wrap page-grid" id="index" aria-labelledby="index-title">
       <div class="section-label">
         <h2 id="index-title">Index</h2>
-        <p class="margin-note"><a href="/projects/catalog.html">Search all 21 projects</a> by technology or focus area. I built these in 2026 with AI coding assistants, and used synthetic data for the finance and data demos.</p>
+        <p class="margin-note"><a href="/projects/catalog.html">Search all 21 projects</a> by technology or focus area. The finance and data demos use synthetic data.</p>
       </div>
       <div class="index">
         <table class="index-table" role="table">
@@ -159,9 +167,8 @@
         <h2 id="about-title">About</h2>
       </div>
       <div class="prose">
-        <p>I like a project with an answer I can check. When I wrote quantkit, I used an options example from John Hull’s textbook to check that my code priced the call at 4.76 and the put at 0.81. In powerlift I tested a tempting shortcut. Even when the two groups were identical, checking ten times and stopping at the first significant result produced a false win in 19.5% of simulations. The intended rate was 5%.</p>
-        <p>I write mostly Python, TypeScript and SQL. The tools I like best do one job well and say plainly what they don’t do.</p>
-        <p id="engineering-proof">If you’d rather read than click around, start with <a class="proof-path" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">how the valuation math is checked</a>, or with <a class="proof-path" href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md" target="_blank" rel="noopener noreferrer">what LineageGuard refuses to approve</a>.</p>
+        <p>I write mostly Python, TypeScript and SQL. When I wrote quantkit, I tested my option pricing code against a worked example in John Hull’s finance textbook. My code had to reproduce both numbers on the page, 4.76 for the call and 0.81 for the put.</p>
+        <p id="engineering-proof">For two examples of how I work, I wrote up <a class="proof-path" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">how I checked the valuation math</a> and <a class="proof-path" href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md" target="_blank" rel="noopener noreferrer">what LineageGuard refuses to approve</a>.</p>
       </div>
     </section>
 
@@ -170,14 +177,13 @@
         <h2 id="contact-title">Contact</h2>
       </div>
       <div class="prose">
-        <p class="contact-line">Email is the best way to reach me: <a href="mailto:hello@madebymotionx.com">hello@madebymotionx.com</a>. I’m <a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">ult666666</a> on GitHub.</p>
+        <p class="contact-line">I’m looking for a software or AI engineering internship, especially in finance or data. Reach me at <a href="mailto:hello@madebymotionx.com">hello@madebymotionx.com</a>. I’m <a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">ult666666</a> on GitHub.</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer wrap">
     <p>© 2026 Charles Dai</p>
-    <p>No cookies or tracking.</p>
     <p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p>
   </footer>
 </body>

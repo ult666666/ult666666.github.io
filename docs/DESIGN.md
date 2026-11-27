@@ -34,12 +34,11 @@ a page grid with notes in the margin.
    "inspectable".
 2. **Show fewer things, properly.** One lead project and four more get a real screenshot and a
    short paragraph each. Everything is listed once in the index.
-3. **Let type do the work.** One serif family for everything, with monospace only for code.
+3. **Let type do the work.** Serif for headings and reading, system sans-serif for homepage navigation and labels, monospace for code.
    Weight, size and italics carry the hierarchy; colour doesn't.
 4. **Use one accent, for links only.** Blue ink. Nothing glows, lifts or animates on hover
    beyond a colour change.
-5. **Say it once.** AI assistance and synthetic data are stated once in the index
-   note, and each project page keeps its own scope section.
+5. **Keep process notes together.** The source repository records AI assistance. Each technical case explains the limits of its data and examples.
 6. **Keep it plain and fast.** No web fonts, no cookies, no third-party requests, and no
    JavaScript except the project explorer's search, which only filters entries already on the
    page. Every image has its intrinsic size set, so nothing jumps while loading.
@@ -69,8 +68,7 @@ re-checked; it can come later as its own change.
 
 - `--serif`: Charter, Bitstream Charter, Sitka Text, Cambria, Georgia, serif. Charter ships
   with macOS and iOS; Windows falls back to Sitka Text or Cambria. Nothing is downloaded.
-- `--sans`: kept as a name for small UI text, but it points at `--serif`. A serif body with a
-  system-sans UI is the default "tasteful" pairing; one family reads as a choice.
+- `--sans`: system sans-serif for the homepage’s small labels. The long-form case studies retain their serif navigation.
 - `--mono`: the system monospace font, for code and commands only.
 - Body: 18 px (17 px under 600 px) at line height 1.6. Reading measure about 66 characters.
 - Scale: opening sentence 44 px, lede 23 px, section labels 27 px, lead project 25 px, other
@@ -89,21 +87,16 @@ re-checked; it can come later as its own change.
 
 1. **Header.** The name, linking home, and four links: Work, Index, About, Contact. On phones the
    links wrap under the name; there is no menu button and no script.
-2. **Introduction.** One sentence as the page heading ("I'm Charles Dai. I build software where
-   the numbers have to be right."), a paragraph about school and MOTIONX, one line about the
-   internships I want, and plain links to email and GitHub.
-3. **Selected work.** Frontier AI Valuation Lab leads with a wide screenshot. crossbook,
-   LineageGuard Studio, Luma Keys and MOTIONX follow as rows of image and text. Links in the margin jump straight to each story. Screenshots are
-   cropped to the working interface, never to an app's own headline. No figure captions: nothing
-   refers to them.
-4. **Index.** The table contains all 21 projects, grouped by subject. Each row gives an outcome,
-   the tools used and a way to explore it. Public demos and case studies come before code links.
-   The coursework row links to a short overview. The margin links to the searchable explorer
-   and identifies AI assistance and the use of synthetic data in finance and data demos.
+2. **Introduction.** Charles’s name and a short introduction sit beside the Snowfall OS
+   sample village. Its caption describes what opening a cottage does.
+3. **Selected work.** The financing model leads the gallery. Four more projects follow in
+   two columns, with screenshots of the actual tools. The gallery stacks on a phone.
+4. **Index.** The table contains 21 projects, grouped by subject. Each row gives an outcome,
+   the tools used and a way to explore it. The coursework row links to a short overview.
 5. **About.** What I test against, with two concrete examples (Hull's worked option price,
    repeated testing in powerlift), and two links to the evidence behind the projects.
 6. **Contact.** One sentence with the email address and GitHub.
-7. **Footer.** Copyright, "no cookies or tracking", the site's source and a link back to the top.
+7. **Footer.** Copyright, the site source and a link back to the top.
 
 ## Copy rules
 
@@ -120,8 +113,7 @@ re-checked; it can come later as its own change.
 ## Inner pages
 
 Case studies, the engineering lab, foundations, the fintech page, the project explorer and the
-404 page share the same header, footer, palette and type. Every footer has the copyright, "No
-cookies or tracking", the site's source and one more link.
+404 page share the same header, footer, palette and type. Footers link to the site source.
 
 A November 2026 pass rewrote their body copy in the same plain voice as the home page:
 

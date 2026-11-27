@@ -29,7 +29,7 @@ async function assertSharePreview(page, kind) {
   const hasScreenshot = await hero.count() > 0;
   const imagePath = hasScreenshot ? await hero.getAttribute('src') : '/assets/portfolio-og.png';
   const imageAlt = hasScreenshot ? await hero.getAttribute('alt') :
-    'Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.';
+    'Charles Dai’s portfolio featuring crossbook, LineageGuard Studio and Luma Keys.';
   assert(publicFiles.has(pagePath.slice(1)) && publicFiles.has(imagePath.slice(1)), pagePath);
   assert.equal(await property('type'), kind);
   assert.equal(await property('title'), kind === 'article' ? `${title}, a case study by Charles Dai` : `${title} | Charles Dai`);
@@ -98,7 +98,12 @@ async function captureFinancingCase(page, destination) {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, {waitUntil:'networkidle'});
     assert.equal(await page.locator('h1').count(), 1);
-    assert.match(await page.locator('h1').innerText(), /^I’m Charles Dai\./);
+    assert.equal(await page.locator('h1').innerText(), 'Charles Dai');
+    const featured = page.locator('.intro-feature');
+    assert.equal(await featured.getAttribute('href'), 'https://ult666666.github.io/snowfall-os/');
+    const heroImage = featured.locator('img');
+    await heroImage.evaluate(img => img.decode());
+    assert.equal(await heroImage.evaluate(img => img.naturalWidth === 1280 && img.naturalHeight === 720), true);
     assert.equal(await page.locator('article.work').count(), 5);
     assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     assert.equal(await page.locator('.index-table th[scope="row"]').count(), 21);
