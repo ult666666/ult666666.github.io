@@ -219,6 +219,13 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 
 /* ---------- Home: selected work ---------- */
 
+.work-shortcuts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font: 16px/1.55 var(--sans);
+}
 .selected { display: grid; gap: 48px; }
 .work { min-width: 0; }
 .work-figure { display: block; }
@@ -669,6 +676,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
   .page-grid > *, .page-grid > .section-label { grid-column: 1; grid-row: auto; }
   .section-label { margin-bottom: 26px; }
   .section-label .margin-note { max-width: 36em; }
+  .work-shortcuts { flex-direction: row; flex-wrap: wrap; gap: 4px 18px; }
   .index-table th[scope="row"] { width: 26%; }
   .index-table td.made { width: 21%; }
   .case-sidebar { display: flex; flex-wrap: wrap; gap: 0 18px; margin-bottom: 32px; }

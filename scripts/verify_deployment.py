@@ -237,7 +237,7 @@ def semantic_checks(bodies):
     cards = select(gateway, tag='a', cls='fintech-journey-card')
     check('Four ordered exact Capital journey anchors', [a.attrs.get('href') for a in cards] == [
         APP + '/capital.html#' + anchor for anchor in ('worked-decision', 'capital-plans', 'capital-challenge', 'capital-record')])
-    check('Homepage exact Capital CTA', exact_cta(home, {'tag': 'article', 'ident': 'frontier-ai-valuation-lab'}, 'Live'))
+    check('Homepage exact Capital CTA', exact_cta(home, {'tag': 'article', 'ident': 'frontier-ai-valuation-lab'}, 'Compare financing plans'))
     check('Gateway exact Capital CTA', exact_cta(gateway, {'tag': 'section', 'cls': 'fintech-hero'}))
     check('Case exact Capital CTA', exact_cta(case, {'tag': 'section', 'cls': 'case-hero'}))
     for name, page in (('Homepage', home), ('Gateway', gateway), ('Case study', case)):
@@ -259,7 +259,7 @@ def semantic_checks(bodies):
     check('Five selected homepage projects', [[h.text for h in select(project, tag='h3')] for project in projects] == [
         [name] for name in ('Frontier AI Valuation Lab', 'crossbook', 'LineageGuard Studio', 'Luma Keys', 'MOTIONX')])
     rows = [th for th in select(home, tag='th') if th.attrs.get('scope') == 'row']
-    check('Homepage index lists 18 projects', len(rows) == 18 and len({th.text for th in rows}) == 18)
+    check('Homepage index lists 21 distinct projects', len(rows) == len({th.text for th in rows}) == 21)
     check('Two exact homepage reading routes remain', [e.attrs.get('href') for e in select(home, tag='a', cls='proof-path')] == [
         'https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md',
         'https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md'])

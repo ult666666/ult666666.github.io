@@ -118,16 +118,23 @@ class PortfolioTests(unittest.TestCase):
         self.assertEqual(selected, ["frontier-ai-valuation-lab", "crossbook", "lineageguard", "luma-keys", "motionx"])
         table = html.split('<table class="index-table"', 1)[1].split("</table>", 1)[0]
         rows = re.findall(r'<th scope="row"[^>]*>([^<]+)</th>', table)
-        self.assertEqual(len(rows), 18)
+        self.assertEqual(len(rows), 21)
         self.assertEqual(len(rows), len(set(rows)))
         for name in ("Frontier AI Valuation Lab", "LineageGuard Studio", "Luma Keys", "MOTIONX", "quantkit",
                      "ledgerline", "powerlift", "citecheck", "searchlite", "ContrastKit", "TraceBench",
                      "RelayBox", "Impact Ledger", "SaaS Analytics Warehouse", "Agentic Trading Research",
-                     "ProofCast", "Blast Radius Daily", "crossbook"):
+                     "ProofCast", "Blast Radius Daily", "crossbook", "Snowfall OS", "JUST-QR", "Teen Budgeting"):
             self.assertIn(name, rows)
         for row in table.split('<th scope="row"')[1:]:
             with self.subTest(row=row[:60]):
-                self.assertIn('href="https://github.com/ult666666/', row.split("</tr>", 1)[0])
+                content = row.split("</tr>", 1)[0]
+                if ">Teen Budgeting</th>" in content:
+                    self.assertEqual(re.findall(r'href="([^"]+)"', content),
+                                     ["/projects/catalog.html#teen-budgeting-hw3"])
+                else:
+                    self.assertIn('href="https://github.com/ult666666/', content)
+        shortcuts = html.split('<nav class="work-shortcuts"', 1)[1].split("</nav>", 1)[0]
+        self.assertEqual(re.findall(r'href="#([^"]+)"', shortcuts), selected)
         self.assertEqual(doc.controls, [], "The homepage needs no buttons or scripted controls")
         self.assertIn("primary-nav", doc.ids)
 

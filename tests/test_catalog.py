@@ -66,6 +66,17 @@ class CatalogTests(unittest.TestCase):
             self.assertIn(expected, rendered)
         self.assertNotIn('class="catalog-card" hidden', rendered)
 
+    def test_public_coursework_overview_contains_no_coursework_links_or_commands(self):
+        data = json.loads((ROOT / 'docs/project-catalog.json').read_text())
+        teen = next(project for project in data['projects'] if project['id'] == 'teen-budgeting-hw3')
+        page = self.catalog.render({'version': 1, 'projects': [teen]})
+        card = page.split('<article ', 1)[1].split('</article>', 1)[0]
+        self.assertIn('Coursework', card)
+        self.assertIn('fictional expenses', card)
+        self.assertIn('JavaScript', card)
+        self.assertNotIn('<a ', card)
+        self.assertNotIn('<pre>', card)
+
     def test_review_command_is_rendered_as_selectable_escaped_text(self):
         self.fixture['projects'][0]['command'] = 'python3 demo.py --value "<fixture>"'
         self.assertIn('python3 demo.py --value &quot;&lt;fixture&gt;&quot;', self.catalog.render(self.fixture))

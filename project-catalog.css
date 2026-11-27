@@ -84,7 +84,16 @@
   border-radius: 2px;
 }
 .catalog-command code { color: var(--ink); font-size: 13.5px; line-height: 1.6; }
-.catalog-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: auto; font: 16px/1.6 var(--sans); }
+.catalog-links { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 16px/1.6 var(--sans); }
+.catalog-walkthrough { margin-top: 12px; }
+.catalog-walkthrough summary {
+  width: fit-content;
+  padding-block: 9px;
+  cursor: pointer;
+  color: var(--ink);
+  font: 600 16px/1.6 var(--serif);
+}
+.catalog-walkthrough[open] summary { margin-bottom: 8px; }
 
 /* ---------- Responsive and print ---------- */
 
@@ -105,4 +114,6 @@
   .catalog-controls { display: none; }
   .catalog-grid { display: block; }
   .catalog-card { break-inside: avoid; }
+  .catalog-walkthrough::details-content { display: block; content-visibility: visible; }
+  .catalog-walkthrough summary { display: none; }
 }

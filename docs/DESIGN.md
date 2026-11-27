@@ -32,7 +32,7 @@ a page grid with notes in the margin.
 1. **Say it plainly.** Headings describe; they don't sell. First person, short sentences,
    specific nouns. No em-dash flourishes, no "considered", "crafted", "seamless", "robust" or
    "inspectable".
-2. **Show fewer things, properly.** One lead project and three more get a real screenshot and a
+2. **Show fewer things, properly.** One lead project and four more get a real screenshot and a
    short paragraph each. Everything is listed once in the index.
 3. **Let type do the work.** One serif family for everything, with monospace only for code.
    Weight, size and italics carry the hierarchy; colour doesn't.
@@ -93,16 +93,15 @@ re-checked; it can come later as its own change.
    the numbers have to be right."), a paragraph about school and MOTIONX, one line about the
    internships I want, and plain links to email and GitHub.
 3. **Selected work.** Frontier AI Valuation Lab leads with a wide screenshot. crossbook,
-   LineageGuard Studio, Luma Keys and MOTIONX follow as rows of image and text. Screenshots are
+   LineageGuard Studio, Luma Keys and MOTIONX follow as rows of image and text. Links in the margin jump straight to each story. Screenshots are
    cropped to the working interface, never to an app's own headline. No figure captions: nothing
    refers to them.
-4. **Index.** One table of 18 published projects, grouped into finance, data, AI and backend, and
-   product and design. Cells align on their first baseline, so a row reads as one line of type. Coursework and tiny tools stay on GitHub. Links use one vocabulary
-   (Live, Case study or Notes, Code) in one order, in a quieter colour than body links. The
-   margin note says once that the projects were built with AI coding assistants and that hosted
-   demos run on synthetic data.
+4. **Index.** The table contains all 21 projects, grouped by subject. Each row gives an outcome,
+   the tools used and a way to explore it. Public demos and case studies come before code links.
+   The coursework row links to a short overview. The margin links to the searchable explorer
+   and identifies AI assistance and the use of synthetic data in finance and data demos.
 5. **About.** What I test against, with two concrete examples (Hull's worked option price,
-   Jennison and Turnbull's tables), and two links for reading instead of clicking.
+   repeated testing in powerlift), and two links to the evidence behind the projects.
 6. **Contact.** One sentence with the email address and GitHub.
 7. **Footer.** Copyright, "no cookies or tracking", the site's source and a link back to the top.
 
@@ -135,8 +134,7 @@ A November 2026 pass rewrote their body copy in the same plain voice as the home
   [FOUNDATIONS.md](FOUNDATIONS.md) and [ENGINEERING_LAB.md](ENGINEERING_LAB.md).
 - **The fintech page** keeps its worked comparison and four steps, then a plain list of code and
   docs and one Limits section.
-- **The project explorer** labels each entry's fields "Try", "Where to look", "Limits" and "Run it
-  locally", with at most five links per project.
+- **The project explorer** keeps the project outcome, technology and links visible. Each technical entry has a native disclosure for its walkthrough, limits and local commands. The coursework entry is a short overview.
 
 ## What was removed on purpose
 
