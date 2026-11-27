@@ -1,10 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Charles Dai: software for finance, data and AI">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Charles Dai — selected work</title>
+  <desc id="desc">Software for finance, data and music. Projects include crossbook, LineageGuard Studio and Luma Keys.</desc>
   <rect width="1200" height="630" fill="#f6f3ec"/>
-  <text x="96" y="118" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="26" fill="#6b665c">ult666666.github.io</text>
-  <text x="90" y="292" font-family="Charter, 'Bitstream Charter', Georgia, serif" font-size="112" fill="#1d1b17">Charles Dai</text>
-  <text x="96" y="372" font-family="Charter, 'Bitstream Charter', Georgia, serif" font-size="38" fill="#46423b">I build software where the numbers have to be right:</text>
-  <text x="96" y="422" font-family="Charter, 'Bitstream Charter', Georgia, serif" font-size="38" fill="#46423b">finance, data, and tools that check AI systems.</text>
-  <path d="M96 500H1104" stroke="#a89f8f" stroke-width="2"/>
-  <text x="96" y="548" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="26" fill="#1d1b17">Carnegie Mellon University</text>
-  <text x="1104" y="548" text-anchor="end" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="26" fill="#2343b5">Selected work and an index of every project</text>
+  <g font-family="Charter, Georgia, serif" fill="#1d1b17">
+    <text x="72" y="114" font-size="36">Selected work</text>
+    <text x="1128" y="114" font-family="system-ui, sans-serif" font-size="23" text-anchor="end">ult666666.github.io</text>
+    <path d="M72 146H1128" stroke="#a89f8f"/>
+    <text x="65" y="327" font-size="146" letter-spacing="-5">Charles Dai</text>
+    <text x="77" y="403" font-size="40">Software for finance, data and music.</text>
+    <path d="M72 495H1128" stroke="#a89f8f"/>
+    <text x="75" y="555" font-size="28">crossbook</text>
+    <text x="368" y="555" font-size="28">LineageGuard Studio</text>
+    <text x="1125" y="555" font-size="28" text-anchor="end">Luma Keys</text>
+  </g>
 </svg>

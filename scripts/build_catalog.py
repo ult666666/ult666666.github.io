@@ -14,7 +14,8 @@ FORMS = {'web': 'Web application', 'desktop': 'Desktop application', 'library': 
          'service': 'Local API service', 'research': 'Research demonstration', 'coursework': 'Coursework', 'platform': 'Platform game'}
 HOSTS = {'github.com', 'ult666666.github.io', 'frontier-ai-valuation-lab.vercel.app',
          'lineageguard-datahub-agent.vercel.app', 'madebymotionx.com', 'teen-budgeting-hw3.vercel.app'}
-FIELDS = {'id', 'name', 'areas', 'form', 'stack', 'summary', 'scenario', 'inspect', 'limits', 'command', 'links'}
+OVERVIEW_FIELDS = {'id', 'name', 'areas', 'form', 'stack', 'summary'}
+WALKTHROUGH_FIELDS = {'scenario', 'inspect', 'limits', 'command', 'links'}
 
 
 def valid_url(value):
@@ -37,9 +38,12 @@ def validate(catalog):
         raise ValueError('Invalid catalog document')
     ids = set()
     for project in catalog['projects']:
-        if not isinstance(project, dict) or set(project) != FIELDS:
+        if not isinstance(project, dict):
             raise ValueError('Invalid project fields')
-        for key in ('id', 'name', 'summary', 'scenario', 'inspect', 'limits', 'command'):
+        overview_only = project.get('form') == 'coursework' and set(project) == OVERVIEW_FIELDS
+        if not overview_only and set(project) != OVERVIEW_FIELDS | WALKTHROUGH_FIELDS:
+            raise ValueError('Invalid project fields')
+        for key in ('id', 'name', 'summary'):
             if not isinstance(project[key], str) or not project[key].strip():
                 raise ValueError('Missing project review information: ' + key)
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', project['id']) or project['id'] in ids:
@@ -54,6 +58,11 @@ def validate(catalog):
         if (not isinstance(project['stack'], list) or not project['stack']
                 or any(not isinstance(item, str) or not item.strip() for item in project['stack'])):
             raise ValueError('Invalid project stack')
+        if overview_only:
+            continue
+        for key in ('scenario', 'inspect', 'limits', 'command'):
+            if not isinstance(project[key], str) or not project[key].strip():
+                raise ValueError('Missing project review information: ' + key)
         if not isinstance(project['links'], list) or not project['links']:
             raise ValueError('Project requires an inspection link')
         for link in project['links']:
@@ -63,30 +72,38 @@ def validate(catalog):
                 raise ValueError('Invalid project link')
 
 
+def render_walkthrough(project):
+    if 'command' not in project:
+        return ''
+    p = {key: escape(project[key], quote=True) for key in ('name', 'scenario', 'inspect', 'limits', 'command')}
+    links = []
+    for link in project['links']:
+        url = escape(link['url'], quote=True)
+        label = escape(link['label'], quote=True)
+        links.append(f'<a href="{url}" aria-label="{label} ({p["name"]})">{label}</a>')
+    return f'''<nav class="catalog-links" aria-label="{p['name']} links">{''.join(links)}</nav>
+<details class="catalog-walkthrough"><summary>Walkthrough<span class="sr-only"> for {p['name']}</span></summary>
+<dl><dt>Example</dt><dd>{p['scenario']}</dd><dt>In the code</dt><dd>{p['inspect']}</dd><dt>Limits</dt><dd>{p['limits']}</dd></dl>
+<div class="catalog-command"><h3>Run from the project folder</h3><pre><code>{p['command']}</code></pre></div></details>'''
+
+
 def render(catalog):
     validate(catalog)
     title = 'Project explorer | Charles Dai'
     canonical = 'https://ult666666.github.io/projects/catalog.html'
-    description = ("Charles Dai's software projects, searchable by problem and technology, each with something "
-                   'to try, a command to run, where to look in the code and its limits.')
+    description = 'Software by Charles Dai, with source code, demos and notes on how each project works.'
     cards = []
     for project in catalog['projects']:
-        p = {key: escape(project[key], quote=True) for key in ('id', 'name', 'summary', 'scenario', 'inspect', 'limits', 'command')}
+        p = {key: escape(project[key], quote=True) for key in ('id', 'name', 'summary')}
         areas = ' '.join(project['areas'])
         tags = ''.join('<li>' + escape(item) + '</li>' for item in project['stack'])
-        links = []
-        for link in project['links']:
-            url = escape(link['url'], quote=True)
-            label = escape(link['label'], quote=True)
-            links.append(f'<a href="{url}" aria-label="{label} ({p["name"]})">{label}</a>')
         labels = ' · '.join(AREAS[area] for area in project['areas'])
         cards.append(f'''<article class="catalog-card" id="{p['id']}" data-areas="{areas}">
-<div class="catalog-card-top"><span>{escape(labels)}</span><span class="catalog-form">{FORMS[project['form']]}</span></div>
-<h2>{p['name']}</h2><p class="catalog-summary">{p['summary']}</p>
+<header class="catalog-entry-heading"><h2>{p['name']}</h2>
+<p class="catalog-kind"><span>{FORMS[project['form']]}</span> <span>{escape(labels)}</span></p></header>
+<div class="catalog-entry-body"><p class="catalog-summary">{p['summary']}</p>
 <ul class="catalog-stack" aria-label="Technology">{tags}</ul>
-<dl><dt>Try</dt><dd>{p['scenario']}</dd><dt>Where to look</dt><dd>{p['inspect']}</dd><dt>Limits</dt><dd>{p['limits']}</dd></dl>
-<div class="catalog-command"><h3>Run it locally</h3><pre><code>{p['command']}</code></pre></div>
-<nav class="catalog-links" aria-label="{p['name']} links">{''.join(links)}</nav></article>''')
+{render_walkthrough(project)}</div></article>''')
     options = ''.join('<option value="' + key + '">' + escape(label) + '</option>' for key, label in AREAS.items())
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -97,7 +114,7 @@ def render(catalog):
 <meta property="og:description" content="{escape(description)}"><meta property="og:url" content="{canonical}">
 <meta property="og:image" content="https://ult666666.github.io/assets/portfolio-og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Charles Dai’s portfolio card introducing his work in finance, data, and tools that check AI systems.">
+<meta property="og:image:alt" content="Charles Dai’s portfolio featuring crossbook, LineageGuard Studio and Luma Keys.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="{canonical}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/project-catalog.css"><script defer src="/project-catalog.js"></script></head>
@@ -109,16 +126,13 @@ def render(catalog):
   </nav>
 </div></header>
 <main class="wrap" id="main"><section class="catalog-intro" aria-labelledby="title">
-<a class="case-back" href="/#index">← All work</a>
-<h1 id="title">Project explorer</h1>
-<p class="catalog-lead">All {len(cards)} public projects, each with something to try, a command to run, where to look in the code and its limits.</p>
-<p class="catalog-note">They include web apps, local tools, research demos and coursework, all built with AI coding assistants. Run each command from a checkout of that repository, after the setup steps in its README.</p></section>
-<form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Try Python, SQLite, accessibility…" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option>{options}</select></div><button class="button" type="reset">Clear filters</button></form>
+<h1 id="title">Project explorer</h1></section>
+<form class="catalog-controls" role="search" hidden><div><label for="catalog-query">Search projects</label><input id="catalog-query" type="search" placeholder="Name, topic or tool" autocomplete="off"></div><div><label for="catalog-area">Focus area</label><select id="catalog-area"><option value="all">All areas</option>{options}</select></div><button class="button" type="reset">Clear filters</button></form>
 <div class="catalog-results"><p id="catalog-count" role="status" aria-live="polite">{len(cards)} projects</p></div>
-<p id="catalog-empty" hidden>No projects match those filters. Try a broader search, or clear the filters.</p>
+<p id="catalog-empty" hidden>No matching projects. Try another term or clear the filters.</p>
 <div class="catalog-grid">{''.join(cards)}</div>
 </main>
-<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io">Source</a><a href="#top">Back to top</a></p></footer>
+<footer class="site-footer wrap"><p>© 2026 Charles Dai</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io">Source</a><a href="#top">Back to top</a></p></footer>
 </body></html>
 '''
 

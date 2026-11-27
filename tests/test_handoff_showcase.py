@@ -103,9 +103,8 @@ class HandoffShowcaseTests(unittest.TestCase):
                        'no provider calls', '13025 → 13024', '9/9', '8/9', 'exit 0', 'exit 3', 'exit 2'):
             self.assertIn(phrase, section.text)
         self.assertIn('synthetic', section.text.lower())
-        # AI assistance is stated once for the whole page, including this example.
-        self.assertEqual(self.page.text.count('AI coding assistants'), 1)
-        self.assertIn('the example that connects them', self.page.text)
+        self.assertIn('English and Chinese guides', self.page.text)
+        self.assertIn('same released packages you can install locally', self.page.text)
         self.assertIn('recorded contract', section.text)
         commands = section.find('pre')
         self.assertEqual(len(commands), 1)
@@ -138,7 +137,7 @@ class HandoffShowcaseTests(unittest.TestCase):
     def test_handoff_uses_existing_public_inventory(self):
         self.handoff()
         inventory = json.loads((ROOT / 'public-files.json').read_text())['files']
-        self.assertEqual(len(inventory) + 1, 31, 'Payload includes .nojekyll, the project catalog, case studies and reviewed media')
+        self.assertEqual(len(inventory) + 1, 32, 'Payload includes .nojekyll, the project catalog, case studies and reviewed media')
         pages = ''.join((ROOT / name).read_text() for name in inventory if name.endswith('.html'))
         for name in inventory:
             if name.startswith('assets/') and name != 'assets/portfolio-og.svg':

@@ -110,7 +110,7 @@ class FoundationsTests(unittest.TestCase):
     def test_scope_and_limits_are_stated(self):
         text = PAGE.read_text(encoding='utf-8')
         for phrase in ('All data is synthetic or fictional', 'not investment advice', 'it is not a benchmark',
-                       'none of these projects is in production use', 'AI coding assistants',
+                       'none of these projects is in production use', 'fourteen walkthroughs from fresh checkouts',
                        'hand-written synthetic responses', 'not a clinical measure',
                        'these figures are optimistic', 'block-max WAND is not implemented',
                        'incremental runs are not faster'):

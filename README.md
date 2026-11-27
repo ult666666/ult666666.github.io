@@ -2,9 +2,11 @@
 
 [![Portfolio checks](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml/badge.svg)](https://github.com/ult666666/ult666666.github.io/actions/workflows/portfolio.yml)
 
-The source of [ult666666.github.io](https://ult666666.github.io/): a short introduction, five selected projects, an index of everything I have published, six case studies, two pages of project walkthroughs and a searchable project explorer.
+The source of [ult666666.github.io](https://ult666666.github.io/): a short introduction, five selected projects, a 21-project index, six case studies, two pages of project walkthroughs and a searchable project explorer.
 
-The pages are plain HTML and CSS in one system serif. There are no web fonts, analytics, cookies or third-party requests. The only script is the explorer's search, and every page works without it.
+This edition builds on my existing portfolio and its [design brief](docs/DESIGN.md). The [site specification](SPEC.md) and [prompt log](PROMPTS.md) document the November 27 revision.
+
+The pages use plain HTML and CSS, system fonts and screenshots from the projects. There are no web fonts, analytics, cookies or third-party requests. The explorer uses JavaScript for search. All portfolio entries and walkthroughs are readable without it. The bundled Blast Radius game has its own offline runtime.
 
 Start with the [home page](https://ult666666.github.io/), the [fintech page](https://ult666666.github.io/fintech.html) or the [project explorer](https://ult666666.github.io/projects/catalog.html). Explorer filters are saved in the page URL, so you can share a selection such as [backend projects using SQLite](https://ult666666.github.io/projects/catalog.html?area=backend&q=SQLite).
 
@@ -61,10 +63,11 @@ python3 -B scripts/build_catalog.py
 | Luma Keys | An offline piano practice app with sheet music, falling notes and 3-D hands playing a planned fingering | [Source](https://github.com/ult666666/luma-keys) · [Hand motion design](https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md) |
 | MOTIONX | The Next.js site for my motion-design studio, plus a Python outreach drafting tool | [Source](https://github.com/ult666666/motionx-studio) · [Site](https://madebymotionx.com/) |
 | Agentic Trading Research | A research-only trading system snapshot with a runnable review gate and backtest-overfitting diagnostics | [Snapshot](https://github.com/ult666666/agentic-trading-research) · [Examples](https://github.com/ult666666/agentic-trading-research/tree/main/examples) |
-| ProofCast | Local media generation with signed manifests and a Merkle transparency log | [Source](https://github.com/ult666666/proofcast-backblaze) |
+| ProofCast | Local media generation with verifiable files, optional manifest signing and a Merkle transparency log | [Source](https://github.com/ult666666/proofcast-backblaze) |
 | Blast Radius Daily | A one-minute Reddit puzzle about a schema change spreading, playable by keyboard | [Source](https://github.com/ult666666/blast-radius-daily) · [Play](https://ult666666.github.io/projects/blast-radius-demo.html) |
 | JUST-QR | A browser QR generator with its own ISO/IEC 18004 encoder | [Source](https://github.com/ult666666/JUST-QR) |
-| Teen Budgeting | Coursework with fictional data | [Source](https://github.com/ult666666/teen-budgeting-hw3) |
+| Snowfall OS | A winter village for macOS where cottages open Finder folders and the post office collects loose files | [Sample village](https://ult666666.github.io/snowfall-os/) · [Source](https://github.com/ult666666/snowfall-os) |
+| Teen Budgeting | A class project for tracking fictional expenses and seeing how a correction changes the total | [Project overview](https://ult666666.github.io/projects/catalog.html#teen-budgeting-hw3) |
 
 The [foundations page](https://ult666666.github.io/projects/foundations.html) covers quantkit, powerlift, ledgerline, saas-analytics-warehouse, searchlite, contrastkit and citecheck, and the [engineering lab](https://ult666666.github.io/projects/engineering-lab.html) covers RelayBox, TraceBench and Impact Ledger. Each project there has two walkthroughs with a command and its expected result; [FOUNDATIONS.md](docs/FOUNDATIONS.md) and [ENGINEERING_LAB.md](docs/ENGINEERING_LAB.md) record when those commands were last run.
 
@@ -82,11 +85,11 @@ An earlier build copied whole directories, so a stray local file could have been
 
 ## Design
 
-The site is laid out like a printed page: paper, ink, one blue for links, a single serif and a margin column for section labels. [DESIGN.md](docs/DESIGN.md) has the tokens, the layout and the copy rules. [ASSETS.md](docs/ASSETS.md) records where each screenshot comes from.
+The homepage pairs a nameplate with the Snowfall OS village. Five selected projects follow in a screenshot gallery. The longer case studies use a narrow reading column and margin notes. [DESIGN.md](docs/DESIGN.md) has the tokens, the layout and the copy rules. [ASSETS.md](docs/ASSETS.md) records where each screenshot comes from.
 
 ## Limits
 
-- These are portfolio projects built with AI coding assistants. None is in production use, and the hosted demos run on synthetic data.
+- These are portfolio projects built with AI coding assistants. The finance and data demos use synthetic scenarios. MOTIONX is the public website for my studio.
 - The financial figures on the fintech page and in the Frontier case study are illustrative, not valuations or investment advice. The trading research project is not a deployed trading service or evidence of returns.
 - The publication check stops unlisted files from being deployed. It is not a secret scanner, and anything committed to this public repository is public whether or not it is deployed.
 - The site links to documented work only: no invented employers, clients, contribution history or usage numbers.

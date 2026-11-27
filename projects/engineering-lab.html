@@ -41,7 +41,7 @@
       <div class="lab-project-grid">
         <div class="lab-copy">
           <h2 id="relaybox-title">RelayBox</h2>
-          <p>A signed webhook inbox with a durable SQLite job lifecycle. Delivery IDs deduplicate matching payloads, conflicting reuses are rejected, and expiring leases let a new worker recover interrupted work.</p>
+          <p>If the same signed webhook arrives twice, RelayBox puts one job in its SQLite queue. It rejects a different message with the same ID. If a worker stops, another can pick up the job when its lease expires.</p>
           <p>A fencing token prevents an old worker from acknowledging a job after another worker has reclaimed it.</p>
           <p>The main branch (version 0.5.0) also sends webhooks, signed per the <a href="https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md" target="_blank" rel="noopener noreferrer">Standard Webhooks specification</a>, with full-jitter retries that respect <code>Retry-After</code>, a dead-letter queue and replay. Every retry keeps the same <code>webhook-id</code>, so a receiver can drop repeats. The <a href="https://github.com/ult666666/relaybox/blob/main/README.md#deliver" target="_blank" rel="noopener noreferrer">delivery guide</a> runs it against a local receiver.</p>
           <div class="tag-set"><span>Python</span><span>SQLite</span><span>HMAC</span><span>HTTP integration tests</span></div>
@@ -212,11 +212,11 @@ python3 -m tracebench evaluate --cases fixtures/paired/cases.jsonl --outputs fix
     </section>
 
     <section class="lab-review container" id="section-4" aria-labelledby="review-title">
-      <h2 id="review-title">How these were built</h2>
-      <p>I built these three projects, and the example that connects them, with AI coding assistants. Each repository has an English README and a Chinese guide.</p>
+      <h2 id="review-title">Running the examples</h2>
+      <p>The repositories have English and Chinese guides. The combined example uses the same released packages you can install locally.</p>
       <a class="button button-quiet" href="/#work">Back to all projects</a>
     </section>
   </main>
-  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p>No cookies or tracking.</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
+  <footer class="site-footer container"><p>© 2026 Charles Dai</p><p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p></footer>
 </body>
 </html>
