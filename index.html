@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="Charles Dai is a human-computer interaction student at Carnegie Mellon University who builds software for finance, data and AI. Selected work, an index of every project, and the code behind them.">
+  <meta name="theme-color" content="#fbfbfa">
+  <meta name="description" content="Charles Dai is a human-computer interaction student at Carnegie Mellon University. He builds software for finance and data and runs the motion-design studio MOTIONX.">
   <meta name="author" content="Charles Dai">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Charles Dai">
@@ -26,7 +26,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      <a class="site-name" href="/" aria-label="Charles Dai’s portfolio">Portfolio</a>
+      <a class="site-name" href="/">Charles Dai</a>
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <a href="#work">Work</a>
         <a href="#index">Index</a>
@@ -40,151 +40,138 @@
     <section class="intro wrap" aria-labelledby="intro-title">
       <div class="intro-body">
         <h1 id="intro-title">Charles Dai</h1>
-        <p class="lede">I study human-computer interaction and business administration at Carnegie Mellon. Outside class, I run <a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer">MOTIONX</a>, a motion-design studio.</p>
-        <p class="intro-links"><a href="mailto:hello@madebymotionx.com">Email me</a><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><span>Pittsburgh, PA</span></p>
+        <p class="lede">I study HCI and business at Carnegie Mellon. I build software for finance and data, and I run <a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer">MOTIONX</a>, a motion-design studio.</p>
+        <p class="intro-links"><a href="mailto:hello@madebymotionx.com">Email</a><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><span>Pittsburgh, PA</span></p>
       </div>
       <a class="intro-feature" href="https://ult666666.github.io/snowfall-os/" target="_blank" rel="noopener noreferrer">
         <figure>
           <img src="/assets/snowfall-village.jpg" width="1280" height="720" alt="A snowy village with folder names on cottage signs, including Sketchbook, Music Room and Maps" fetchpriority="high">
-          <figcaption><strong>Snowfall OS</strong><span>Double-click a cottage to open its folder on the Mac.</span></figcaption>
+          <figcaption><strong>Snowfall OS</strong><span>A snowy village for the Mac desktop. Each cottage opens a folder.</span></figcaption>
         </figure>
       </a>
     </section>
 
     <section class="section wrap" id="work" aria-labelledby="work-title">
-      <div class="section-label">
-        <h2 id="work-title">Selected work</h2>
-        <nav class="work-shortcuts" aria-label="Featured projects">
-          <a href="#frontier-ai-valuation-lab">Finance model</a>
-          <a href="#crossbook">Order matching</a>
-          <a href="#lineageguard">Data review</a>
-          <a href="#luma-keys">Piano practice</a>
-          <a href="#motionx">Studio website</a>
-        </nav>
-      </div>
+      <h2 id="work-title">Selected work</h2>
       <div class="selected">
         <article class="work work-lead" id="frontier-ai-valuation-lab">
           <a class="work-figure" href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer"><img src="/assets/frontier-ai-capital-studio.png" width="1440" height="1124" alt="Capital Strategy Studio comparing hypothetical financing plans against capital and retained ownership objectives" decoding="async"></a>
           <div class="work-text">
-            <h3>Frontier AI Valuation Lab</h3>
-            <p>In my financing model, an AI lab needs to raise $25 billion. Two plans work if its owners keep 88% of the company. At 90%, only one does. The model runs in JavaScript, and I wrote the calculations a second time in Python to check the numbers.</p>
+            <div class="work-head"><h3>Frontier AI Valuation Lab</h3><p class="work-meta">JavaScript · Python</p></div>
+            <p>A funding model for AI labs. Set how much a lab needs to raise and how much its owners want to keep, and it shows which plans still work. A separate Python script re-checks the math.</p>
             <p class="work-links"><a href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer" aria-label="Compare financing plans (Frontier AI Valuation Lab)">Compare financing plans</a><a href="/projects/frontier-ai-valuation-lab.html" aria-label="Case study (Frontier AI Valuation Lab)">Case study</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer" aria-label="Code (Frontier AI Valuation Lab)">Code</a></p>
           </div>
         </article>
 
-        <article class="work work-row" id="crossbook">
-          <a class="work-figure" href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer"><img src="/assets/crossbook-playground.png" width="1800" height="1125" alt="The crossbook playground: an order ticket, the order book with the queue at each price level, and the event log" loading="lazy"></a>
+        <article class="work" id="crossbook">
+          <a class="work-figure" href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer"><img src="/assets/crossbook-playground.png" width="1800" height="1125" alt="The crossbook playground: an order ticket, the order book with the queue at each price level, and the event log" loading="lazy" decoding="async"></a>
           <div class="work-text">
-            <h3>crossbook</h3>
-            <p>I wrote a stock exchange matching engine in Rust. Orders at the same price line up by arrival time. The browser version lets you replay 100,000 commands and compare its trades with the ones the native engine made.</p>
+            <div class="work-head"><h3>crossbook</h3><p class="work-meta">Rust · WebAssembly</p></div>
+            <p>The order-matching engine at the core of a stock exchange, written in Rust. Replay 100,000 orders in your browser and check every trade against the native build.</p>
             <p class="work-links"><a href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer" aria-label="Replay the order book (crossbook)">Replay the order book</a><a href="/projects/crossbook.html" aria-label="Case study (crossbook)">Case study</a><a href="https://github.com/ult666666/crossbook" target="_blank" rel="noopener noreferrer" aria-label="Code (crossbook)">Code</a></p>
           </div>
         </article>
 
-        <article class="work work-row" id="lineageguard">
+        <article class="work" id="lineageguard">
           <a class="work-figure" href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer"><img src="/assets/lineageguard-studio-review.png" width="1440" height="1404" alt="LineageGuard Studio’s Review tab after a rename review, with the change request on the left and the workflow graph, decision and run trace on the right" loading="lazy" decoding="async"></a>
           <div class="work-text">
-            <h3>LineageGuard Studio</h3>
-            <p>Renaming a column can break a dashboard that reads from it. I built LineageGuard to trace database schema changes through a dbt manifest and identify the reports that rely on that column. The local Node.js app saves each review in SQLite so it can resume after an interruption.</p>
+            <div class="work-head"><h3>LineageGuard Studio</h3><p class="work-meta">Node.js · SQLite</p></div>
+            <p>Renaming one column can break a dashboard several steps downstream. LineageGuard traces database schema changes through a dbt project and lists the reports that would break.</p>
             <p class="work-links"><a href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Review a schema change (LineageGuard Studio)">Review a schema change</a><a href="/projects/lineageguard.html" aria-label="Case study (LineageGuard Studio)">Case study</a><a href="https://github.com/ult666666/lineageguard-datahub-agent" target="_blank" rel="noopener noreferrer" aria-label="Code (LineageGuard Studio)">Code</a></p>
           </div>
         </article>
 
-        <article class="work work-row" id="luma-keys">
+        <article class="work" id="luma-keys">
           <a class="work-figure" href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer"><img src="/assets/luma-keys-practice.png" width="1440" height="900" alt="Luma Keys practising the Moonlight Sonata, with a numbered score above a keyboard where two 3-D hands show the suggested fingering" loading="lazy" decoding="async"></a>
           <div class="work-text">
-            <h3>Luma Keys</h3>
-            <p>Open a score in Luma Keys and two hands show the fingering, one passage at a time. I used three.js for the hands and planned the fingering across the whole piece. The Mac app also listens while you play the passage back on a MIDI piano.</p>
+            <div class="work-head"><h3>Luma Keys</h3><p class="work-meta">Electron · three.js</p></div>
+            <p>A piano practice app for the Mac. Open a score and two 3D hands show the fingering, then the app listens while you play it back on a MIDI keyboard.</p>
             <p class="work-links"><a href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer" aria-label="Code (Luma Keys)">Code</a><a href="https://github.com/ult666666/luma-keys/blob/main/docs/HAND_MOTION_DESIGN.md" target="_blank" rel="noopener noreferrer" aria-label="How the hands move (Luma Keys)">How the hands move</a></p>
           </div>
         </article>
 
-        <article class="work work-row" id="motionx">
+        <article class="work" id="motionx">
           <a class="work-figure" href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/motionx-site.jpg" width="1440" height="900" alt="The MOTIONX website's opening screen: a glossy 3-D X character standing in a dim cinema beside the headline From first frame to final click" loading="lazy" decoding="async"></a>
           <div class="work-text">
-            <h3>MOTIONX</h3>
-            <p>MOTIONX is the motion-design studio I founded. I built our site in Next.js and animated it with CSS to give people a feel for the films and websites we make. A separate Python tool helps me review outreach drafts.</p>
+            <div class="work-head"><h3>MOTIONX</h3><p class="work-meta">Next.js · TypeScript</p></div>
+            <p>The motion-design studio I founded. We make product films and websites, and I built the studio’s own site.</p>
             <p class="work-links"><a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit the studio (MOTIONX)">Visit the studio</a><a href="/projects/motionx.html" aria-label="Case study (MOTIONX)">Case study</a><a href="https://github.com/ult666666/motionx-studio" target="_blank" rel="noopener noreferrer" aria-label="Code (MOTIONX)">Code</a></p>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="section wrap page-grid" id="index" aria-labelledby="index-title">
-      <div class="section-label">
+    <section class="section wrap" id="index" aria-labelledby="index-title">
+      <div class="section-head">
         <h2 id="index-title">Index</h2>
-        <p class="margin-note"><a href="/projects/catalog.html">Search all 21 projects</a> by technology or focus area. The finance and data demos use synthetic data.</p>
+        <p class="section-note">Everything I’ve published, with a <a href="/projects/catalog.html">searchable version</a>. The finance and data demos use synthetic data.</p>
       </div>
       <div class="index">
         <table class="index-table" role="table">
           <caption class="sr-only">Published projects, grouped by area</caption>
           <thead role="rowgroup">
-            <tr role="row"><th scope="col" role="columnheader">Project</th><th scope="col" role="columnheader">What you can do</th><th scope="col" role="columnheader">Made with</th><th scope="col" role="columnheader">Links</th></tr>
+            <tr role="row"><th scope="col" role="columnheader">Project</th><th scope="col" role="columnheader">What it is</th><th scope="col" role="columnheader">Built with</th><th scope="col" role="columnheader">Links</th></tr>
           </thead>
           <tbody role="rowgroup">
             <tr class="index-group" role="row"><th scope="rowgroup" colspan="4" role="rowheader">Finance</th></tr>
-            <tr role="row"><th scope="row" role="rowheader">Frontier AI Valuation Lab</th><td role="cell">Compare how much capital each plan raises and how much of an AI lab its owners would keep.</td><td class="made" role="cell">JavaScript, Node.js, Python</td><td class="links" role="cell"><a href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer" aria-label="Live (Frontier AI Valuation Lab)">Live</a><a href="/projects/frontier-ai-valuation-lab.html" aria-label="Case study (Frontier AI Valuation Lab)">Case study</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer" aria-label="Code (Frontier AI Valuation Lab)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">crossbook</th><td role="cell">Replay the same orders in a browser and a native build, then compare every trade and the final order book.</td><td class="made" role="cell">Rust, WebAssembly</td><td class="links" role="cell"><a href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer" aria-label="Live (crossbook)">Live</a><a href="/projects/crossbook.html" aria-label="Case study (crossbook)">Case study</a><a href="https://github.com/ult666666/crossbook" target="_blank" rel="noopener noreferrer" aria-label="Code (crossbook)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">quantkit</th><td role="cell">Price options and check the results against textbook examples. Backtest a strategy using only prices available on each date.</td><td class="made" role="cell">Python, NumPy, SciPy</td><td class="links" role="cell"><a href="/projects/foundations.html#section-1" aria-label="Notes (quantkit)">Notes</a><a href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer" aria-label="Code (quantkit)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">ledgerline</th><td role="cell">Reserve funds, capture a payment and retry the request. The ledger shows which funds are still available after each step.</td><td class="made" role="cell">FastAPI, PostgreSQL</td><td class="links" role="cell"><a href="/projects/ledgerline.html" aria-label="Case study (ledgerline)">Case study</a><a href="/projects/foundations.html#section-3" aria-label="Notes (ledgerline)">Notes</a><a href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer" aria-label="Code (ledgerline)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">Agentic Trading Research</th><td role="cell">Test whether an AI-generated trading idea survives checks for cherry-picked backtests before a person reviews it. No automated order execution.</td><td class="made" role="cell">Python</td><td class="links" role="cell"><a href="https://github.com/ult666666/agentic-trading-research/tree/main/examples" target="_blank" rel="noopener noreferrer" aria-label="Example (Agentic Trading Research)">Example</a><a href="/projects/trading-research.html" aria-label="Case study (Agentic Trading Research)">Case study</a><a href="https://github.com/ult666666/agentic-trading-research" target="_blank" rel="noopener noreferrer" aria-label="Code (Agentic Trading Research)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Frontier AI Valuation Lab</th><td role="cell">Funding and valuation model for AI labs</td><td class="made" role="cell">JavaScript, Node.js, Python</td><td class="links" role="cell"><a href="https://frontier-ai-valuation-lab.vercel.app/capital.html#worked-decision" target="_blank" rel="noopener noreferrer" aria-label="Live (Frontier AI Valuation Lab)">Live</a><a href="/projects/frontier-ai-valuation-lab.html" aria-label="Case study (Frontier AI Valuation Lab)">Case study</a><a href="https://github.com/ult666666/frontier-ai-valuation-lab" target="_blank" rel="noopener noreferrer" aria-label="Code (Frontier AI Valuation Lab)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">crossbook</th><td role="cell">Order-matching engine you can replay in a browser</td><td class="made" role="cell">Rust, WebAssembly</td><td class="links" role="cell"><a href="https://ult666666.github.io/crossbook/" target="_blank" rel="noopener noreferrer" aria-label="Live (crossbook)">Live</a><a href="/projects/crossbook.html" aria-label="Case study (crossbook)">Case study</a><a href="https://github.com/ult666666/crossbook" target="_blank" rel="noopener noreferrer" aria-label="Code (crossbook)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">quantkit</th><td role="cell">Option pricing and a backtester that can’t peek ahead</td><td class="made" role="cell">Python, NumPy, SciPy</td><td class="links" role="cell"><a href="/projects/foundations.html#section-1" aria-label="Notes (quantkit)">Notes</a><a href="https://github.com/ult666666/quantkit" target="_blank" rel="noopener noreferrer" aria-label="Code (quantkit)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">ledgerline</th><td role="cell">Payments ledger where a retry can’t charge twice</td><td class="made" role="cell">FastAPI, PostgreSQL</td><td class="links" role="cell"><a href="/projects/ledgerline.html" aria-label="Case study (ledgerline)">Case study</a><a href="/projects/foundations.html#section-3" aria-label="Notes (ledgerline)">Notes</a><a href="https://github.com/ult666666/ledgerline" target="_blank" rel="noopener noreferrer" aria-label="Code (ledgerline)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Agentic Trading Research</th><td role="cell">Tests AI trade ideas for overfitting. It can’t place orders</td><td class="made" role="cell">Python</td><td class="links" role="cell"><a href="https://github.com/ult666666/agentic-trading-research/tree/main/examples" target="_blank" rel="noopener noreferrer" aria-label="Example (Agentic Trading Research)">Example</a><a href="/projects/trading-research.html" aria-label="Case study (Agentic Trading Research)">Case study</a><a href="https://github.com/ult666666/agentic-trading-research" target="_blank" rel="noopener noreferrer" aria-label="Code (Agentic Trading Research)">Code</a></td></tr>
           </tbody>
           <tbody role="rowgroup">
             <tr class="index-group" role="row"><th scope="rowgroup" colspan="4" role="rowheader">Data</th></tr>
-            <tr role="row"><th scope="row" role="rowheader">SaaS Analytics Warehouse</th><td role="cell">Trace a month of lost subscription revenue back to the customers who left a fictional SaaS company.</td><td class="made" role="cell">dbt, DuckDB, SQL</td><td class="links" role="cell"><a href="https://ult666666.github.io/saas-analytics-warehouse/report/" target="_blank" rel="noopener noreferrer" aria-label="Report (SaaS Analytics Warehouse)">Report</a><a href="/projects/foundations.html#section-4" aria-label="Notes (SaaS Analytics Warehouse)">Notes</a><a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer" aria-label="Code (SaaS Analytics Warehouse)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">powerlift</th><td role="cell">Compare several versions of an experiment with a shared control while accounting for the extra chances of a false win.</td><td class="made" role="cell">Python, SciPy</td><td class="links" role="cell"><a href="/projects/foundations.html#section-2" aria-label="Notes (powerlift)">Notes</a><a href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer" aria-label="Code (powerlift)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">Impact Ledger</th><td role="cell">See how many people a fictional nonprofit served and reconstruct its attendance report as it stood before a correction.</td><td class="made" role="cell">TypeScript, Python, SQLite</td><td class="links" role="cell"><a href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer" aria-label="Live (Impact Ledger)">Live</a><a href="/projects/engineering-lab.html#section-3" aria-label="Notes (Impact Ledger)">Notes</a><a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer" aria-label="Code (Impact Ledger)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">SaaS Analytics Warehouse</th><td role="cell">Revenue and churn reporting for a sample SaaS company</td><td class="made" role="cell">dbt, DuckDB, SQL</td><td class="links" role="cell"><a href="https://ult666666.github.io/saas-analytics-warehouse/report/" target="_blank" rel="noopener noreferrer" aria-label="Report (SaaS Analytics Warehouse)">Report</a><a href="/projects/foundations.html#section-4" aria-label="Notes (SaaS Analytics Warehouse)">Notes</a><a href="https://github.com/ult666666/saas-analytics-warehouse" target="_blank" rel="noopener noreferrer" aria-label="Code (SaaS Analytics Warehouse)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">powerlift</th><td role="cell">A/B test stats checked against SciPy and statsmodels</td><td class="made" role="cell">Python, SciPy</td><td class="links" role="cell"><a href="/projects/foundations.html#section-2" aria-label="Notes (powerlift)">Notes</a><a href="https://github.com/ult666666/powerlift" target="_blank" rel="noopener noreferrer" aria-label="Code (powerlift)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Impact Ledger</th><td role="cell">Attendance and spending reports for a nonprofit</td><td class="made" role="cell">TypeScript, Python, SQLite</td><td class="links" role="cell"><a href="https://ult666666.github.io/impact-ledger/" target="_blank" rel="noopener noreferrer" aria-label="Live (Impact Ledger)">Live</a><a href="/projects/engineering-lab.html#section-3" aria-label="Notes (Impact Ledger)">Notes</a><a href="https://github.com/ult666666/impact-ledger" target="_blank" rel="noopener noreferrer" aria-label="Code (Impact Ledger)">Code</a></td></tr>
           </tbody>
           <tbody role="rowgroup">
             <tr class="index-group" role="row"><th scope="rowgroup" colspan="4" role="rowheader">AI and backend</th></tr>
-            <tr role="row"><th scope="row" role="rowheader">LineageGuard Studio</th><td role="cell">Trace a proposed column rename to the models and reports that depend on it, then see what evidence is still missing.</td><td class="made" role="cell">Node.js, SQLite</td><td class="links" role="cell"><a href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Live (LineageGuard Studio)">Live</a><a href="/projects/lineageguard.html" aria-label="Case study (LineageGuard Studio)">Case study</a><a href="https://github.com/ult666666/lineageguard-datahub-agent" target="_blank" rel="noopener noreferrer" aria-label="Code (LineageGuard Studio)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">citecheck</th><td role="cell">Ask a question about a document and check the citations sentence by sentence, including when an answer reverses what the source says.</td><td class="made" role="cell">Python, Claude API, SQLite</td><td class="links" role="cell"><a href="/projects/foundations.html#section-7" aria-label="Notes (citecheck)">Notes</a><a href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer" aria-label="Code (citecheck)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">TraceBench</th><td role="cell">Compare saved AI responses against a baseline and see which changes in quality are large enough to investigate.</td><td class="made" role="cell">Python</td><td class="links" role="cell"><a href="https://ult666666.github.io/tracebench/" target="_blank" rel="noopener noreferrer" aria-label="Live (TraceBench)">Live</a><a href="/projects/engineering-lab.html#section-2" aria-label="Notes (TraceBench)">Notes</a><a href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer" aria-label="Code (TraceBench)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">RelayBox</th><td role="cell">Receive the same signed webhook twice and see one job enter the queue. A worker can recover interrupted work after a restart.</td><td class="made" role="cell">Python, SQLite</td><td class="links" role="cell"><a href="/projects/engineering-lab.html#section-1" aria-label="Notes (RelayBox)">Notes</a><a href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer" aria-label="Code (RelayBox)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">searchlite</th><td role="cell">See why a document ranked first and compare two search indexes to find the queries that got worse.</td><td class="made" role="cell">TypeScript</td><td class="links" role="cell"><a href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer" aria-label="Live (searchlite)">Live</a><a href="/projects/foundations.html#section-5" aria-label="Notes (searchlite)">Notes</a><a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer" aria-label="Code (searchlite)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">ProofCast</th><td role="cell">Generate narration and cover art locally, then verify a signed record to see whether either file has changed.</td><td class="made" role="cell">Python, Streamlit</td><td class="links" role="cell"><a href="https://github.com/ult666666/proofcast-backblaze" target="_blank" rel="noopener noreferrer" aria-label="Code (ProofCast)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">LineageGuard Studio</th><td role="cell">Finds the reports a schema change would break</td><td class="made" role="cell">Node.js, SQLite</td><td class="links" role="cell"><a href="https://lineageguard-datahub-agent.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Live (LineageGuard Studio)">Live</a><a href="/projects/lineageguard.html" aria-label="Case study (LineageGuard Studio)">Case study</a><a href="https://github.com/ult666666/lineageguard-datahub-agent" target="_blank" rel="noopener noreferrer" aria-label="Code (LineageGuard Studio)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">citecheck</th><td role="cell">Checks that an AI answer’s citations actually support it</td><td class="made" role="cell">Python, Claude API, SQLite</td><td class="links" role="cell"><a href="/projects/foundations.html#section-7" aria-label="Notes (citecheck)">Notes</a><a href="https://github.com/ult666666/citecheck" target="_blank" rel="noopener noreferrer" aria-label="Code (citecheck)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">TraceBench</th><td role="cell">Spots quality regressions in recorded AI outputs</td><td class="made" role="cell">Python</td><td class="links" role="cell"><a href="https://ult666666.github.io/tracebench/" target="_blank" rel="noopener noreferrer" aria-label="Live (TraceBench)">Live</a><a href="/projects/engineering-lab.html#section-2" aria-label="Notes (TraceBench)">Notes</a><a href="https://github.com/ult666666/tracebench" target="_blank" rel="noopener noreferrer" aria-label="Code (TraceBench)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">RelayBox</th><td role="cell">Webhook inbox that drops duplicate deliveries</td><td class="made" role="cell">Python, SQLite</td><td class="links" role="cell"><a href="/projects/engineering-lab.html#section-1" aria-label="Notes (RelayBox)">Notes</a><a href="https://github.com/ult666666/relaybox" target="_blank" rel="noopener noreferrer" aria-label="Code (RelayBox)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">searchlite</th><td role="cell">Search engine that explains its rankings</td><td class="made" role="cell">TypeScript</td><td class="links" role="cell"><a href="https://ult666666.github.io/searchlite/" target="_blank" rel="noopener noreferrer" aria-label="Live (searchlite)">Live</a><a href="/projects/foundations.html#section-5" aria-label="Notes (searchlite)">Notes</a><a href="https://github.com/ult666666/searchlite" target="_blank" rel="noopener noreferrer" aria-label="Code (searchlite)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">ProofCast</th><td role="cell">Local narration and cover art with signed file records</td><td class="made" role="cell">Python, Streamlit</td><td class="links" role="cell"><a href="https://github.com/ult666666/proofcast-backblaze" target="_blank" rel="noopener noreferrer" aria-label="Code (ProofCast)">Code</a></td></tr>
           </tbody>
           <tbody role="rowgroup">
             <tr class="index-group" role="row"><th scope="rowgroup" colspan="4" role="rowheader">Product and design</th></tr>
-            <tr role="row"><th scope="row" role="rowheader">Luma Keys</th><td role="cell">Watch the suggested fingering for a piano passage, play it back and review a graded sight-reading exercise.</td><td class="made" role="cell">Electron, React, three.js</td><td class="links" role="cell"><a href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer" aria-label="Code (Luma Keys)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">MOTIONX</th><td role="cell">Explore the product films and web design services offered by my independent motion-design studio.</td><td class="made" role="cell">Next.js, TypeScript, Python</td><td class="links" role="cell"><a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer" aria-label="Live (MOTIONX)">Live</a><a href="/projects/motionx.html" aria-label="Case study (MOTIONX)">Case study</a><a href="https://github.com/ult666666/motionx-studio" target="_blank" rel="noopener noreferrer" aria-label="Code (MOTIONX)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">ContrastKit</th><td role="cell">Check whether text is legible against its background and find a passing color that keeps the original hue.</td><td class="made" role="cell">TypeScript, React</td><td class="links" role="cell"><a href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer" aria-label="Live (ContrastKit)">Live</a><a href="/projects/foundations.html#section-6" aria-label="Notes (ContrastKit)">Notes</a><a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer" aria-label="Code (ContrastKit)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">Blast Radius Daily</th><td role="cell">Place two circuit breakers in a one-minute puzzle and see how much of a data pipeline survives a cascading failure.</td><td class="made" role="cell">TypeScript, Devvit</td><td class="links" role="cell"><a href="/projects/blast-radius-demo.html" aria-label="Play (Blast Radius Daily)">Play</a><a href="https://github.com/ult666666/blast-radius-daily" target="_blank" rel="noopener noreferrer" aria-label="Code (Blast Radius Daily)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">Snowfall OS</th><td role="cell">Open real Finder folders from the cottages of a snowy Mac desktop. Explore the sample village in your browser.</td><td class="made" role="cell">Swift, AppKit, JavaScript</td><td class="links" role="cell"><a href="https://ult666666.github.io/snowfall-os/" target="_blank" rel="noopener noreferrer" aria-label="Visit village (Snowfall OS)">Visit village</a><a href="https://github.com/ult666666/snowfall-os" target="_blank" rel="noopener noreferrer" aria-label="Code (Snowfall OS)">Code</a></td></tr>
-            <tr role="row"><th scope="row" role="rowheader">JUST-QR</th><td role="cell">Turn a link into a QR code in the browser and copy or download the image for sharing.</td><td class="made" role="cell">JavaScript, Canvas</td><td class="links" role="cell"><a href="https://ult666666.github.io/JUST-QR/" target="_blank" rel="noopener noreferrer" aria-label="Generate QR (JUST-QR)">Generate QR</a><a href="https://github.com/ult666666/JUST-QR" target="_blank" rel="noopener noreferrer" aria-label="Code (JUST-QR)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Luma Keys</th><td role="cell">Piano practice app with 3D hands that show fingering</td><td class="made" role="cell">Electron, React, three.js</td><td class="links" role="cell"><a href="https://github.com/ult666666/luma-keys" target="_blank" rel="noopener noreferrer" aria-label="Code (Luma Keys)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">MOTIONX</th><td role="cell">Website for my motion-design studio</td><td class="made" role="cell">Next.js, TypeScript</td><td class="links" role="cell"><a href="https://madebymotionx.com/" target="_blank" rel="noopener noreferrer" aria-label="Live (MOTIONX)">Live</a><a href="/projects/motionx.html" aria-label="Case study (MOTIONX)">Case study</a><a href="https://github.com/ult666666/motionx-studio" target="_blank" rel="noopener noreferrer" aria-label="Code (MOTIONX)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">ContrastKit</th><td role="cell">Fixes low-contrast colors without changing the hue</td><td class="made" role="cell">TypeScript, React</td><td class="links" role="cell"><a href="https://ult666666.github.io/contrastkit/" target="_blank" rel="noopener noreferrer" aria-label="Live (ContrastKit)">Live</a><a href="/projects/foundations.html#section-6" aria-label="Notes (ContrastKit)">Notes</a><a href="https://github.com/ult666666/contrastkit" target="_blank" rel="noopener noreferrer" aria-label="Code (ContrastKit)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Blast Radius Daily</th><td role="cell">One-minute puzzle about containing a failure</td><td class="made" role="cell">TypeScript, Devvit</td><td class="links" role="cell"><a href="/projects/blast-radius-demo.html" aria-label="Play (Blast Radius Daily)">Play</a><a href="https://github.com/ult666666/blast-radius-daily" target="_blank" rel="noopener noreferrer" aria-label="Code (Blast Radius Daily)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Snowfall OS</th><td role="cell">A snowy village for the Mac desktop</td><td class="made" role="cell">Swift, AppKit</td><td class="links" role="cell"><a href="https://ult666666.github.io/snowfall-os/" target="_blank" rel="noopener noreferrer" aria-label="Visit village (Snowfall OS)">Visit village</a><a href="https://github.com/ult666666/snowfall-os" target="_blank" rel="noopener noreferrer" aria-label="Code (Snowfall OS)">Code</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">JUST-QR</th><td role="cell">QR code generator with its own encoder</td><td class="made" role="cell">JavaScript, Canvas</td><td class="links" role="cell"><a href="https://ult666666.github.io/JUST-QR/" target="_blank" rel="noopener noreferrer" aria-label="Generate QR (JUST-QR)">Generate QR</a><a href="https://github.com/ult666666/JUST-QR" target="_blank" rel="noopener noreferrer" aria-label="Code (JUST-QR)">Code</a></td></tr>
           </tbody>
           <tbody role="rowgroup">
             <tr class="index-group" role="row"><th scope="rowgroup" colspan="4" role="rowheader">Coursework</th></tr>
-            <tr role="row"><th scope="row" role="rowheader">Teen Budgeting</th><td role="cell">Practice tracking a fictional budget. Adding, editing or deleting an expense updates the total.</td><td class="made" role="cell">JavaScript, Node.js</td><td class="links" role="cell"><a href="/projects/catalog.html#teen-budgeting-hw3" aria-label="Project overview (Teen Budgeting)">Project overview</a></td></tr>
+            <tr role="row"><th scope="row" role="rowheader">Teen Budgeting</th><td role="cell">A class project: a simple budget tracker</td><td class="made" role="cell">JavaScript, Node.js</td><td class="links" role="cell"><a href="/projects/catalog.html#teen-budgeting-hw3" aria-label="Project overview (Teen Budgeting)">Project overview</a></td></tr>
           </tbody>
         </table>
-        <p class="index-note">For a walkthrough with commands and expected results, see <a href="/projects/foundations.html">Foundations</a> or the <a href="/projects/engineering-lab.html">Engineering lab</a>.</p>
+        <p class="index-note">Want to run something? <a href="/projects/foundations.html">Foundations</a> and the <a href="/projects/engineering-lab.html">Engineering lab</a> have step-by-step walkthroughs.</p>
       </div>
     </section>
 
-    <section class="section wrap page-grid" id="about" aria-labelledby="about-title">
-      <div class="section-label">
-        <h2 id="about-title">About</h2>
-      </div>
+    <section class="section split wrap" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
       <div class="prose">
-        <p>I write mostly Python, TypeScript and SQL. When I wrote quantkit, I tested my option pricing code against a worked example in John Hull’s finance textbook. My code had to reproduce both numbers on the page, 4.76 for the call and 0.81 for the put.</p>
-        <p id="engineering-proof">For two examples of how I work, I wrote up <a class="proof-path" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">how I checked the valuation math</a> and <a class="proof-path" href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md" target="_blank" rel="noopener noreferrer">what LineageGuard refuses to approve</a>.</p>
+        <p>I mostly write Python, TypeScript and SQL. A lot of what I build handles money or data, so I don’t trust a result until something independent agrees with it, like a textbook example or a second implementation.</p>
+        <p id="engineering-proof">If you want the details, read <a class="proof-path" href="https://github.com/ult666666/frontier-ai-valuation-lab/blob/main/docs/VERIFICATION.md" target="_blank" rel="noopener noreferrer">how I checked the valuation math</a> or <a class="proof-path" href="https://github.com/ult666666/lineageguard-datahub-agent/blob/main/docs/ENGINEERING_REVIEW.md" target="_blank" rel="noopener noreferrer">what LineageGuard refuses to approve</a>.</p>
       </div>
     </section>
 
-    <section class="section wrap page-grid" id="contact" aria-labelledby="contact-title">
-      <div class="section-label">
+    <section class="section contact wrap" id="contact" aria-labelledby="contact-title">
+      <div class="contact-card">
         <h2 id="contact-title">Contact</h2>
-      </div>
-      <div class="prose">
-        <p class="contact-line">I’m looking for a software or AI engineering internship, especially in finance or data. Reach me at <a href="mailto:hello@madebymotionx.com">hello@madebymotionx.com</a>. I’m <a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">ult666666</a> on GitHub.</p>
+        <p class="contact-line">I’m looking for a software or AI engineering internship, especially in finance or data. Email me at <a href="mailto:hello@madebymotionx.com">hello@<wbr>madebymotionx.com</a>.</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer wrap">
     <p>© 2026 Charles Dai</p>
-    <p class="footer-links"><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Source</a><a href="#top">Back to top</a></p>
+    <p class="footer-links"><a href="https://github.com/ult666666" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://github.com/ult666666/ult666666.github.io" target="_blank" rel="noopener noreferrer">Site source</a><a href="#top">Back to top</a></p>
   </footer>
 </body>
 </html>

@@ -1,8 +1,8 @@
 # Portfolio revision log
 
-November 27, 2026 · Charles Dai and OpenAI Codex
+November 27, 2026 · Charles Dai, OpenAI Codex and Anthropic Claude
 
-The starting point was Charles’s existing GitHub Pages site. These are the requests behind this revision, with one note on what changed for each.
+The starting point was Charles’s existing GitHub Pages site. These are the requests behind this revision, with one note on what changed for each. The first five went to Codex; the last went to Claude.
 
 ## Initial request
 
@@ -33,3 +33,9 @@ This excerpt was the closing direction. The five featured stories lead with conc
 > remove all unnceessary ai elements: the phrasing(be humanizing please), and the graphical texture be like a actual portfolio website rather than a 5min ai slop
 
 The opening now pairs Charles’s name with a screenshot of the Snowfall OS village. The featured gallery uses images from the projects themselves. Codex rewrote the descriptions and removed repeated tool credits from the public pages. The project history and attribution are here in the repository.
+
+## Shorter copy and a new look
+
+> for my github portfolio and personal website cna you make it better? more conciseless ai and more visually appealing?
+
+Claude cut the homepage copy to one or two sentences per featured project and one line per index entry, and rewrote the About and Contact sections. The cream paper, book serif and italic labels gave way to a near-white page and the system sans-serif. Featured screenshots now sit on coloured mats, the contact sentence sits on a dark card, and the inner pages share the new type and colours. [docs/DESIGN.md](docs/DESIGN.md) records the reasoning and the tokens.

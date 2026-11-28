@@ -13,7 +13,7 @@ class TradingShowcaseTests(unittest.TestCase):
         self.assertIn(DEMO, home)
         self.assertIn(DEMO, case)
         self.assertIn("no broker or market data", case.lower())
-        self.assertIn("No automated order execution", home)
+        self.assertIn("It can’t place orders", home)
 
     def test_case_links_to_traceable_evidence(self):
         case = (ROOT / "projects/trading-research.html").read_text(encoding="utf-8")

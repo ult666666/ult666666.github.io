@@ -20,7 +20,7 @@ class ReleaseTests(unittest.TestCase):
         self.assertNotIn('TYPECRIPT', text)
         self.assertNotIn('"alumniOf":null', text)
         self.assertIn('human-computer interaction student at Carnegie Mellon University', text)
-        self.assertIn('No automated order execution', text)
+        self.assertIn('It can’t place orders', text)
 
     def test_crawler_and_not_found_pages(self):
         for name in ('robots.txt', 'sitemap.xml', '404.html'):

@@ -107,13 +107,6 @@ async function captureFinancingCase(page, destination) {
     assert.equal(await page.locator('article.work').count(), 5);
     assert.equal(await page.locator('article.work').first().getAttribute('id'), 'frontier-ai-valuation-lab');
     assert.equal(await page.locator('.index-table th[scope="row"]').count(), 21);
-    const shortcuts = page.getByRole('navigation', {name:'Featured projects'}).getByRole('link');
-    for (const link of await shortcuts.all()) {
-      const target = await link.getAttribute('href');
-      await link.click();
-      assert.equal(new URL(page.url()).hash, target, 'Featured shortcut opens its project');
-      assert.equal(await page.locator('article.work' + target).count(), 1);
-    }
     await assertProjectLinkNames(page.locator('article.work'), 'h3', '.work-links a');
     await assertProjectLinkNames(page.locator('.index-table tr:has(td.links)'), 'th[scope="row"]', 'td.links a');
     assert.equal(await page.locator('button,[role="button"]').count(), 0, 'The homepage has no scripted controls');

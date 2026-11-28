@@ -3,7 +3,7 @@
   Uses the shared tokens in styles.css; only the layouts specific to this page live here.
 */
 
-.fintech-page { --paper-light: #fbf9f4; }
+.fintech-page { --paper-light: #ffffff; }
 
 /* ---------- Introduction beside the worked comparison ---------- */
 
@@ -17,20 +17,22 @@
 .fintech-intro { min-width: 0; padding-top: 8px; }
 .fintech-hero h1 {
   margin: 0;
-  font-size: clamp(36px, 4vw, 50px);
-  line-height: 1.1;
-  letter-spacing: -.01em;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -.035em;
 }
-.fintech-lead { max-width: 32em; margin: 22px 0 0; color: var(--ink-2); font-size: 20px; line-height: 1.5; }
+.fintech-lead { max-width: 32em; margin: 22px 0 0; color: var(--ink-2); font-size: 19px; line-height: 1.5; }
 .fintech-byline { max-width: 32em; margin: 22px 0 0; color: var(--muted); font: 14.5px/1.55 var(--sans); }
 
 .capital-example {
   min-width: 0;
   margin: 0;
-  padding: 22px 24px 20px;
+  padding: 24px 26px 22px;
   background: var(--paper-light);
-  border: 1px solid var(--rule-strong);
-  border-radius: 2px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgb(18 18 20 / .04), 0 24px 48px -32px rgb(18 18 20 / .35);
 }
 .capital-example-top { margin: 0; color: var(--muted); font: 14px/1.5 var(--sans); }
 .capital-example h2 { margin: 12px 0 18px; font-size: 27px; line-height: 1.2; }
@@ -41,7 +43,8 @@
   display: block;
   margin-top: 2px;
   color: var(--ink);
-  font: 400 40px/1.1 var(--serif);
+  font: 600 40px/1.1 var(--display);
+  letter-spacing: -.03em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 .capital-objectives strong span { margin-left: 4px; color: var(--muted); font: 15px/1 var(--sans); }
@@ -58,7 +61,7 @@
   height: 24px;
   margin-right: 8px;
   border: 1px solid var(--rule-strong);
-  border-radius: 2px;
+  border-radius: 6px;
   color: var(--ink);
   font-size: 13px;
   font-weight: 700;
@@ -67,7 +70,7 @@
 .capital-example-table tbody th span { color: var(--ink-2); vertical-align: middle; }
 .capital-fit, .capital-miss { white-space: nowrap; }
 .capital-fit { color: var(--ink); }
-.capital-miss { color: #8a3b12; font-style: italic; }
+.capital-miss { color: #8a3b12; font-weight: 600; }
 .capital-example-insight {
   margin: 0;
   padding: 12px 0;
@@ -100,8 +103,8 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: left 94%;
-  border: 1px solid var(--rule-strong);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 1px rgb(18 18 20 / .08), 0 24px 50px -26px rgb(18 18 20 / .4);
 }
 .fintech-product-image figcaption {
   display: flex;

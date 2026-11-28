@@ -3,14 +3,15 @@
   once project-catalog.js has wired them up, so the page is complete without JavaScript.
 */
 
-.catalog-page { --paper-light: #fbf9f4; }
+.catalog-page { --paper-light: #ffffff; }
 
 .catalog-intro { padding-block: 56px 28px; }
 .catalog-intro h1 {
   margin: 0;
   font-size: clamp(40px, 5.8vw, 72px);
   line-height: 1.08;
-  letter-spacing: -.03em;
+  font-weight: 650;
+  letter-spacing: -.04em;
 }
 
 /* ---------- Search ---------- */
@@ -23,24 +24,24 @@
   padding-block: 22px;
   border-block-start: 1px solid var(--rule-strong);
 }
-.catalog-controls label { display: block; margin-bottom: 6px; color: var(--ink); font: 600 15px/1.4 var(--sans); }
+.catalog-controls label { display: block; margin-bottom: 6px; color: var(--ink); font: 600 14.5px/1.4 var(--sans); }
 .catalog-controls input, .catalog-controls select {
   width: 100%;
   max-width: 100%;
   min-height: 44px;
   padding: 8px 12px;
   border: 1px solid var(--muted);
-  border-radius: 2px;
+  border-radius: 10px;
   background: var(--paper-light);
   color: var(--ink);
-  font: 17px/1.4 var(--serif);
+  font: 16px/1.4 var(--font);
 }
 .catalog-controls input::placeholder { color: var(--muted); opacity: 1; }
 .catalog-controls input:focus-visible, .catalog-controls select:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .catalog-controls .button { cursor: pointer; }
 
 .catalog-results { margin: 8px 0 10px; }
-.catalog-results p { margin: 0; color: var(--muted); font: italic 16px/1.5 var(--serif); }
+.catalog-results p { margin: 0; color: var(--muted); font: 15px/1.5 var(--font); }
 #catalog-empty { margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--rule); color: var(--ink-2); }
 
 /* ---------- Entries ---------- */
@@ -57,7 +58,7 @@
   scroll-margin-top: 24px;
 }
 .catalog-card:first-child { border-color: var(--rule-strong); }
-.catalog-card h2 { margin: 0 0 8px; font-size: clamp(24px, 2.5vw, 31px); line-height: 1.13; font-weight: 400; overflow-wrap: anywhere; }
+.catalog-card h2 { margin: 0 0 8px; font-size: clamp(22px, 2.3vw, 28px); line-height: 1.15; font-weight: 600; letter-spacing: -.025em; overflow-wrap: anywhere; }
 .catalog-kind {
   margin: 0;
   color: var(--muted);
@@ -66,11 +67,11 @@
 .catalog-kind span { display: block; }
 .catalog-entry-body { min-width: 0; }
 .catalog-summary { margin: 0 0 8px; color: var(--ink); max-width: 62ch; }
-.catalog-stack { margin: 0 0 12px; padding: 0; color: var(--muted); font: italic 15.5px/1.5 var(--serif); list-style: none; }
+.catalog-stack { margin: 0 0 12px; padding: 0; color: var(--muted); font: 14.5px/1.5 var(--font); list-style: none; }
 .catalog-stack li { display: inline; }
 .catalog-stack li + li::before { content: " · "; }
 .catalog-card dl { margin: 0 0 18px; }
-.catalog-card dt { margin: 14px 0 2px; color: var(--ink); font: 700 16px/1.4 var(--serif); }
+.catalog-card dt { margin: 14px 0 2px; color: var(--ink); font: 600 15.5px/1.4 var(--font); }
 .catalog-card dt:first-child { margin-top: 0; }
 .catalog-card dd { margin: 0; color: var(--ink-2); font-size: 16.5px; line-height: 1.55; overflow-wrap: anywhere; }
 .catalog-command h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
@@ -81,17 +82,17 @@
   white-space: pre-wrap;
   background: var(--paper-deep);
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .catalog-command code { color: var(--ink); font-size: 13.5px; line-height: 1.6; }
-.catalog-links { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 16px/1.6 var(--sans); }
+.catalog-links { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 500 15px/1.6 var(--sans); }
 .catalog-walkthrough { margin-top: 4px; }
 .catalog-walkthrough summary {
   width: fit-content;
   padding-block: 9px;
   cursor: pointer;
   color: var(--ink);
-  font: 16px/1.6 var(--serif);
+  font: 500 15.5px/1.6 var(--font);
 }
 .catalog-walkthrough[open] summary { margin-bottom: 8px; }
 

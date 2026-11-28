@@ -107,7 +107,7 @@ def render(catalog):
     options = ''.join('<option value="' + key + '">' + escape(label) + '</option>' for key, label in AREAS.items())
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f3ec">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#fbfbfa">
 <meta name="description" content="{escape(description)}">
 <title>{title}</title>
 <meta property="og:type" content="website"><meta property="og:title" content="{title}">

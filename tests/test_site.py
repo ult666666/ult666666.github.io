@@ -133,8 +133,6 @@ class PortfolioTests(unittest.TestCase):
                                      ["/projects/catalog.html#teen-budgeting-hw3"])
                 else:
                     self.assertIn('href="https://github.com/ult666666/', content)
-        shortcuts = html.split('<nav class="work-shortcuts"', 1)[1].split("</nav>", 1)[0]
-        self.assertEqual(re.findall(r'href="#([^"]+)"', shortcuts), selected)
         self.assertEqual(doc.controls, [], "The homepage needs no buttons or scripted controls")
         self.assertIn("primary-nav", doc.ids)
 
