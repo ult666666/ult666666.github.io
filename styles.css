@@ -65,6 +65,8 @@ body {
   color: var(--ink);
   font: 17px/1.6 var(--font);
   font-kerning: normal;
+  /* A word wider than its column breaks instead of pushing the page sideways on small screens. */
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -513,7 +515,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .case-hero h1 {
   max-width: 18em;
   margin: 0 0 18px;
-  font-size: clamp(38px, 4.8vw, 58px);
+  font-size: clamp(32px, 4.8vw, 58px);
   font-weight: 650;
   line-height: 1.04;
   letter-spacing: -.035em;
@@ -628,7 +630,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 .lab-intro h1 {
   max-width: 16em;
   margin: 0;
-  font-size: clamp(38px, 4.8vw, 58px);
+  font-size: clamp(32px, 4.8vw, 58px);
   font-weight: 650;
   line-height: 1.04;
   letter-spacing: -.035em;
@@ -791,7 +793,7 @@ code, pre, kbd { font-family: var(--mono); font-size: .86em; }
 /* ---------- Not found ---------- */
 
 .not-found { padding-block: 96px 120px; }
-.not-found h1 { margin: 0 0 16px; font-size: clamp(38px, 4.8vw, 58px); font-weight: 650; line-height: 1.04; letter-spacing: -.035em; }
+.not-found h1 { margin: 0 0 16px; font-size: clamp(32px, 4.8vw, 58px); font-weight: 650; line-height: 1.04; letter-spacing: -.035em; }
 .not-found p { max-width: 32em; color: var(--ink-2); }
 
 /* ---------- Responsive ---------- */
